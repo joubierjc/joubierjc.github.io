@@ -1,0 +1,14 @@
+{
+  "name": "joubierjc.github.io",
+  "version": "1.0.0",
+  "repository": "https://github.com/joubierjc/joubierjc.github.io.git",
+  "author": "joubierjc <joubier.j.c@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.1"
+  }
+}
