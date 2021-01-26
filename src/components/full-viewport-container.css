@@ -1,0 +1,6 @@
+.full-viewport-container {
+    padding: 0;
+    background: cyan;
+    height: 100vh;
+    max-width: 100vw;
+}

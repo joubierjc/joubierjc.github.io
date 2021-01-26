@@ -1,7 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { ChakraProvider } from "@chakra-ui/react";
+
+import { App } from './app.jsx';
 
 render(
-    <div>WORK IN PROGRESS (kind of obvious, isn't it ?)</div>,
-    document.querySelector('#app')
+    <React.StrictMode>
+    <ChakraProvider>
+        <App />
+    </ChakraProvider>
+    </React.StrictMode>,
+    document.querySelector('#root')
 );
