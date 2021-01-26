@@ -1,0 +1,39 @@
+.bg-image {
+    position: relative;
+    background-image: url("../../../assets/abstract-city.jpg");
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.intro-presentation::before {    
+    content: "";
+    background: linear-gradient(45deg, black, transparent);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.5;
+    border-radius: 8px;
+}
+
+.intro-desc {
+    border: dashed white 3px;
+    border-radius: 12px;
+}
+
+.intro-desc::before {
+    content: "";
+    background: white;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.5;
+    border-radius: 10px;
+}

@@ -7,7 +7,7 @@ import { App } from './app.jsx';
 render(
     <React.StrictMode>
     <ChakraProvider>
-        <App />
+        <App/>
     </ChakraProvider>
     </React.StrictMode>,
     document.querySelector('#root')
