@@ -1,17 +1,23 @@
 .bg-image {
     position: relative;
-    background-image: url("../../../assets/abstract-city.jpg");
+    background-image: url("../../../assets/images/abstract-city.jpg");
     filter: blur(8px);
     -webkit-filter: blur(8px);
+    min-height: 50em;
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    box-shadow: inset 10px -10px 25px rgba(0,0,0,0.6);
+}
+
+.intro-presentation {
+    border-radius: 8px;
 }
 
 .intro-presentation::before {    
     content: "";
-    background: linear-gradient(45deg, black, transparent);
+    background: linear-gradient(45deg, black, white);
     position: absolute;
     top: 0px;
     right: 0px;
@@ -21,19 +27,44 @@
     border-radius: 8px;
 }
 
-.intro-desc {
-    border: dashed white 3px;
-    border-radius: 12px;
+.random-facts {
+    border-radius: 8px;
+    background: white;
 }
 
-.intro-desc::before {
-    content: "";
-    background: white;
+.random-facts .box-header {
     position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.5;
-    border-radius: 10px;
+    width: 100%;
+    top: -1.25em;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background: rgb(255,255,255);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    z-index: 0;
+    letter-spacing: 0.025em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+.random-facts .fact {
+    font-style: italic;
+    opacity: 1;
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity:0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity:1;
+        transform: translateY(0);
+    }
 }

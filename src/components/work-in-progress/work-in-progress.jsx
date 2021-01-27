@@ -4,12 +4,12 @@ import { ArrowDownIcon } from '@chakra-ui/icons';
 
 import { FullViewportContainer } from '../full-viewport-container/full-viewport-container.jsx'
 
-import pepeSaber from '../../../assets/pepe-saber.gif';
+import pepeSaber from '../../../assets/images/pepe-saber.gif';
 
 export function WorkInProgress() {
 
     return <FullViewportContainer>
-        <Center bg="black" minH="100%">
+        <Center bg="black" height="100%" minH="50em">
             <Box>
                 <Heading as="h1" color="white">WORK IN PROGRESS</Heading>
                 <Center minH="100%">
