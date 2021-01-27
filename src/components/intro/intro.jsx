@@ -61,7 +61,7 @@ function RandomFacts() {
 
     return <Box mt="10" className="random-facts" boxShadow="base" width="100%" maxW="5xl" position="relative">
         <div className="box-header">RANDOM FACTS</div>
-        <Center p="5" position="relative" minH="100px" fontSize="md">
+        <Center p="5" position="relative" minH="100px" overflow="hidden" fontSize="md">
             <div key={data.key} className="fact">
                 {data.value}
             </div>
