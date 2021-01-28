@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { Box, Button, Center, Container, Heading, Image, Text, IconButton } from '@chakra-ui/react';
+import { Box, Button, Center, Container, Heading, Image, Text, IconButton, Link } from '@chakra-ui/react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
+import jump from 'jump.js';
 
 import { FullViewportContainer } from '../full-viewport-container/full-viewport-container.jsx'
 
 import './intro.css';
-import photo from '../../../assets/images/photo.png';
-import facts from '../../../assets/jsons/facts.json';
+import photo from '../../assets/images/photo.png';
+import facts from '../../assets/js/facts.js';
 
 function shuffle(array) {
     let arr = array;
@@ -60,7 +61,7 @@ function RandomFacts() {
     }, []);
 
     return <Box mt="10" className="random-facts" boxShadow="base" width="100%" maxW="5xl" position="relative">
-        <div className="box-header">RANDOM FACTS</div>
+        <div className="box-header">Random facts</div>
         <Center p="5" position="relative" minH="100px" overflow="hidden" fontSize="md">
             <div key={data.key} className="fact">
                 {data.value}
@@ -70,7 +71,10 @@ function RandomFacts() {
 }
 
 export function Intro() {
-    return <FullViewportContainer>
+
+    const goToRealisations = React.useCallback(() => jump('#realisations'));
+
+    return <FullViewportContainer id="intro">
         <div className="bg-image"></div>
         <Container className="intro-presentation" boxShadow="dark-lg" position="relative" top="-50%" transform="translateY(-50%)" maxW="6xl" centerContent>
             
@@ -89,7 +93,14 @@ export function Intro() {
 
             <RandomFacts/>
 
-            <IconButton m="10" borderRadius="full" size="6xl" fontSize="6xl" icon={<ArrowDownIcon/>} />
+            <IconButton
+                m="10"
+                borderRadius="full"
+                size="6xl"
+                fontSize="6xl"
+                icon={<ArrowDownIcon/>}
+                onClick={goToRealisations}
+            />
 
         </Container>
     </FullViewportContainer>
