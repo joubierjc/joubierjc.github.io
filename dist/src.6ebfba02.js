@@ -89329,7 +89329,1111 @@ function Intro() {
     onClick: goToRealisations
   })));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/js/facts.js":"src/assets/js/facts.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/js/facts.js":"src/assets/js/facts.js"}],"node_modules/vanilla-swipe/lib/types/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Axis = exports.Direction = exports.TraceDirectionKey = void 0;
+var TraceDirectionKey;
+exports.TraceDirectionKey = TraceDirectionKey;
+
+(function (TraceDirectionKey) {
+  TraceDirectionKey["NEGATIVE"] = "NEGATIVE";
+  TraceDirectionKey["POSITIVE"] = "POSITIVE";
+  TraceDirectionKey["NONE"] = "NONE";
+})(TraceDirectionKey || (exports.TraceDirectionKey = TraceDirectionKey = {}));
+
+var Direction;
+exports.Direction = Direction;
+
+(function (Direction) {
+  Direction["TOP"] = "TOP";
+  Direction["LEFT"] = "LEFT";
+  Direction["RIGHT"] = "RIGHT";
+  Direction["BOTTOM"] = "BOTTOM";
+  Direction["NONE"] = "NONE";
+})(Direction || (exports.Direction = Direction = {}));
+
+var Axis;
+exports.Axis = Axis;
+
+(function (Axis) {
+  Axis["X"] = "x";
+  Axis["Y"] = "y";
+})(Axis || (exports.Axis = Axis = {}));
+},{}],"node_modules/vanilla-swipe/lib/utils/calculateDirection.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateDirection = calculateDirection;
+
+var _types = require("../types");
+
+function calculateDirection(trace) {
+  var direction;
+  var negative = _types.TraceDirectionKey.NEGATIVE;
+  var positive = _types.TraceDirectionKey.POSITIVE;
+  var current = trace[trace.length - 1];
+  var previous = trace[trace.length - 2] || 0;
+
+  if (trace.every(function (i) {
+    return i === 0;
+  })) {
+    return _types.TraceDirectionKey.NONE;
+  }
+
+  direction = current > previous ? positive : negative;
+
+  if (current === 0) {
+    direction = previous < 0 ? positive : negative;
+  }
+
+  return direction;
+}
+},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateDirectionDelta.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateDirectionDelta = calculateDirectionDelta;
+
+var _types = require("../types");
+
+var _ = require(".");
+
+function calculateDirectionDelta(traceDirections) {
+  var delta = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var length = traceDirections.length;
+  var i = length - 1;
+  var direction = _types.TraceDirectionKey.NONE;
+
+  for (; i >= 0; i--) {
+    var current = traceDirections[i];
+    var currentKey = (0, _.getDirectionKey)(current);
+    var currentValue = (0, _.getDirectionValue)(current[currentKey]);
+    var prev = traceDirections[i - 1] || {};
+    var prevKey = (0, _.getDirectionKey)(prev);
+    var prevValue = (0, _.getDirectionValue)(prev[prevKey]);
+    var difference = (0, _.getDifference)(currentValue, prevValue);
+
+    if (difference >= delta) {
+      direction = currentKey;
+      break;
+    } else {
+      direction = prevKey;
+    }
+  }
+
+  return direction;
+}
+},{"../types":"node_modules/vanilla-swipe/lib/types/index.js",".":"node_modules/vanilla-swipe/lib/utils/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateDuration.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateDuration = calculateDuration;
+
+function calculateDuration() {
+  var prevTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var nextTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return prevTime ? nextTime - prevTime : 0;
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/calculateMovingPosition.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateMovingPosition = calculateMovingPosition;
+
+function calculateMovingPosition(e) {
+  if ('changedTouches' in e) {
+    var touches = e.changedTouches && e.changedTouches[0];
+    return {
+      x: touches && touches.clientX,
+      y: touches && touches.clientY
+    };
+  }
+
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/calculatePosition.js":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculatePosition = calculatePosition;
+
+var Utils = _interopRequireWildcard(require("."));
+
+var _types = require("../types");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function calculatePosition(state, options) {
+  var start = state.start,
+      x = state.x,
+      y = state.y,
+      traceX = state.traceX,
+      traceY = state.traceY;
+  var rotatePosition = options.rotatePosition,
+      directionDelta = options.directionDelta;
+  var deltaX = rotatePosition.x - x;
+  var deltaY = y - rotatePosition.y;
+  var absX = Math.abs(deltaX);
+  var absY = Math.abs(deltaY);
+  Utils.updateTrace(traceX, deltaX);
+  Utils.updateTrace(traceY, deltaY);
+  var directionX = Utils.resolveDirection(traceX, _types.Axis.X, directionDelta);
+  var directionY = Utils.resolveDirection(traceY, _types.Axis.Y, directionDelta);
+  var duration = Utils.calculateDuration(start, Date.now());
+  var velocity = Utils.calculateVelocity(absX, absY, duration);
+  return {
+    absX: absX,
+    absY: absY,
+    deltaX: deltaX,
+    deltaY: deltaY,
+    directionX: directionX,
+    directionY: directionY,
+    duration: duration,
+    positionX: rotatePosition.x,
+    positionY: rotatePosition.y,
+    velocity: velocity
+  };
+}
+},{".":"node_modules/vanilla-swipe/lib/utils/index.js","../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateTraceDirections.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateTraceDirections = calculateTraceDirections;
+
+var _types = require("../types");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function calculateTraceDirections() {
+  var trace = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var ticks = [];
+  var positive = _types.TraceDirectionKey.POSITIVE;
+  var negative = _types.TraceDirectionKey.NEGATIVE;
+  var i = 0;
+  var tick = [];
+  var direction = _types.TraceDirectionKey.NONE;
+
+  for (; i < trace.length; i++) {
+    var current = trace[i];
+    var prev = trace[i - 1];
+
+    if (tick.length) {
+      var currentDirection = current > prev ? positive : negative;
+
+      if (direction === _types.TraceDirectionKey.NONE) {
+        direction = currentDirection;
+      }
+
+      if (currentDirection === direction) {
+        tick.push(current);
+      } else {
+        ticks.push(_defineProperty({}, direction, tick.slice()));
+        tick = [];
+        tick.push(current);
+        direction = currentDirection;
+      }
+    } else {
+      if (current !== 0) {
+        direction = current > 0 ? positive : negative;
+      }
+
+      tick.push(current);
+    }
+  }
+
+  if (tick.length) {
+    ticks.push(_defineProperty({}, direction, tick));
+  }
+
+  return ticks;
+}
+},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateVelocity.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateVelocity = calculateVelocity;
+
+function calculateVelocity(x, y, time) {
+  var magnitude = Math.sqrt(x * x + y * y);
+  return magnitude / (time || 1);
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/checkIsMoreThanSingleTouches.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkIsMoreThanSingleTouches = void 0;
+
+var checkIsMoreThanSingleTouches = function checkIsMoreThanSingleTouches(e) {
+  return Boolean(e.touches && e.touches.length > 1);
+};
+
+exports.checkIsMoreThanSingleTouches = checkIsMoreThanSingleTouches;
+},{}],"node_modules/vanilla-swipe/lib/utils/createOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createOptions = createOptions;
+
+function createOptions() {
+  var proxy = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  Object.defineProperty(proxy, 'passive', {
+    get: function get() {
+      this.isPassiveSupported = true;
+      return true;
+    },
+    enumerable: true
+  });
+  return proxy;
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/checkIsPassiveSupported.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkIsPassiveSupported = checkIsPassiveSupported;
+exports.noop = void 0;
+
+var _createOptions = require("./createOptions");
+
+function checkIsPassiveSupported() {
+  var isPassiveSupported = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var proxy = {
+    isPassiveSupported: isPassiveSupported
+  };
+
+  try {
+    var options = (0, _createOptions.createOptions)(proxy);
+    window.addEventListener('checkIsPassiveSupported', noop, options);
+    window.removeEventListener('checkIsPassiveSupported', noop, options);
+  } catch (err) {}
+
+  return proxy.isPassiveSupported;
+}
+
+var noop = function noop() {};
+
+exports.noop = noop;
+},{"./createOptions":"node_modules/vanilla-swipe/lib/utils/createOptions.js"}],"node_modules/vanilla-swipe/lib/utils/common.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resolveAxisDirection = exports.getDifference = exports.getDirectionValue = exports.getDirectionKey = void 0;
+
+var _types = require("../types");
+
+var getDirectionKey = function getDirectionKey() {
+  var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var key = Object.keys(object).toString();
+
+  switch (key) {
+    case _types.TraceDirectionKey.POSITIVE:
+      return _types.TraceDirectionKey.POSITIVE;
+
+    case _types.TraceDirectionKey.NEGATIVE:
+      return _types.TraceDirectionKey.NEGATIVE;
+
+    default:
+      return _types.TraceDirectionKey.NONE;
+  }
+};
+
+exports.getDirectionKey = getDirectionKey;
+
+var getDirectionValue = function getDirectionValue() {
+  var values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  return values[values.length - 1] || 0;
+};
+
+exports.getDirectionValue = getDirectionValue;
+
+var getDifference = function getDifference() {
+  var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return Math.abs(x - y);
+};
+
+exports.getDifference = getDifference;
+
+var resolveAxisDirection = function resolveAxisDirection(axis, key) {
+  var negative = _types.Direction.LEFT;
+  var positive = _types.Direction.RIGHT;
+  var direction = _types.Direction.NONE;
+
+  if (axis === _types.Axis.Y) {
+    negative = _types.Direction.BOTTOM;
+    positive = _types.Direction.TOP;
+  }
+
+  if (key === _types.TraceDirectionKey.NEGATIVE) {
+    direction = negative;
+  }
+
+  if (key === _types.TraceDirectionKey.POSITIVE) {
+    direction = positive;
+  }
+
+  return direction;
+};
+
+exports.resolveAxisDirection = resolveAxisDirection;
+},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/getInitialState.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getInitialState = void 0;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var getInitialState = function getInitialState() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _objectSpread({
+    x: 0,
+    y: 0,
+    start: 0,
+    isSwiping: false,
+    traceX: [],
+    traceY: []
+  }, options);
+};
+
+exports.getInitialState = getInitialState;
+},{}],"node_modules/vanilla-swipe/lib/utils/getInitialProps.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getInitialProps = void 0;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var getInitialProps = function getInitialProps() {
+  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return _objectSpread({
+    element: null,
+    delta: 10,
+    directionDelta: 0,
+    rotationAngle: 0,
+    mouseTrackingEnabled: false,
+    touchTrackingEnabled: true,
+    preventDefaultTouchmoveEvent: false,
+    preventTrackingOnMouseleave: false
+  }, props);
+};
+
+exports.getInitialProps = getInitialProps;
+},{}],"node_modules/vanilla-swipe/lib/utils/getOptions.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getOptions = getOptions;
+
+function getOptions() {
+  var isPassiveSupported = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+  if (isPassiveSupported) {
+    return {
+      passive: false
+    };
+  }
+
+  return {};
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/resolveDirection.js":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resolveDirection = resolveDirection;
+
+var Utils = _interopRequireWildcard(require("."));
+
+var _types = require("../types");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function resolveDirection(trace) {
+  var axis = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _types.Axis.X;
+  var directionDelta = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+  if (directionDelta) {
+    var directions = Utils.calculateTraceDirections(trace);
+
+    var _direction = Utils.calculateDirectionDelta(directions, directionDelta);
+
+    return Utils.resolveAxisDirection(axis, _direction);
+  }
+
+  var direction = Utils.calculateDirection(trace);
+  return Utils.resolveAxisDirection(axis, direction);
+}
+},{".":"node_modules/vanilla-swipe/lib/utils/index.js","../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/rotateByAngle.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.rotateByAngle = rotateByAngle;
+
+function rotateByAngle(position) {
+  var angle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+  if (angle === 0) {
+    return position;
+  }
+
+  var x = position.x,
+      y = position.y;
+  var angleInRadians = Math.PI / 180 * angle;
+  var rotatedX = x * Math.cos(angleInRadians) + y * Math.sin(angleInRadians);
+  var rotatedY = y * Math.cos(angleInRadians) - x * Math.sin(angleInRadians);
+  return {
+    x: rotatedX,
+    y: rotatedY
+  };
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/updateTrace.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateTrace = updateTrace;
+
+function updateTrace(trace, value) {
+  var last = trace[trace.length - 1];
+
+  if (last !== value) {
+    trace.push(value);
+  }
+
+  return trace;
+}
+},{}],"node_modules/vanilla-swipe/lib/utils/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _calculateDirection = require("./calculateDirection");
+
+Object.keys(_calculateDirection).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateDirection[key];
+    }
+  });
+});
+
+var _calculateDirectionDelta = require("./calculateDirectionDelta");
+
+Object.keys(_calculateDirectionDelta).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateDirectionDelta[key];
+    }
+  });
+});
+
+var _calculateDuration = require("./calculateDuration");
+
+Object.keys(_calculateDuration).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateDuration[key];
+    }
+  });
+});
+
+var _calculateMovingPosition = require("./calculateMovingPosition");
+
+Object.keys(_calculateMovingPosition).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateMovingPosition[key];
+    }
+  });
+});
+
+var _calculatePosition = require("./calculatePosition");
+
+Object.keys(_calculatePosition).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculatePosition[key];
+    }
+  });
+});
+
+var _calculateTraceDirections = require("./calculateTraceDirections");
+
+Object.keys(_calculateTraceDirections).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateTraceDirections[key];
+    }
+  });
+});
+
+var _calculateVelocity = require("./calculateVelocity");
+
+Object.keys(_calculateVelocity).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _calculateVelocity[key];
+    }
+  });
+});
+
+var _checkIsMoreThanSingleTouches = require("./checkIsMoreThanSingleTouches");
+
+Object.keys(_checkIsMoreThanSingleTouches).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _checkIsMoreThanSingleTouches[key];
+    }
+  });
+});
+
+var _checkIsPassiveSupported = require("./checkIsPassiveSupported");
+
+Object.keys(_checkIsPassiveSupported).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _checkIsPassiveSupported[key];
+    }
+  });
+});
+
+var _common = require("./common");
+
+Object.keys(_common).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _common[key];
+    }
+  });
+});
+
+var _createOptions = require("./createOptions");
+
+Object.keys(_createOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _createOptions[key];
+    }
+  });
+});
+
+var _getInitialState = require("./getInitialState");
+
+Object.keys(_getInitialState).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _getInitialState[key];
+    }
+  });
+});
+
+var _getInitialProps = require("./getInitialProps");
+
+Object.keys(_getInitialProps).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _getInitialProps[key];
+    }
+  });
+});
+
+var _getOptions = require("./getOptions");
+
+Object.keys(_getOptions).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _getOptions[key];
+    }
+  });
+});
+
+var _resolveDirection = require("./resolveDirection");
+
+Object.keys(_resolveDirection).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _resolveDirection[key];
+    }
+  });
+});
+
+var _rotateByAngle = require("./rotateByAngle");
+
+Object.keys(_rotateByAngle).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _rotateByAngle[key];
+    }
+  });
+});
+
+var _updateTrace = require("./updateTrace");
+
+Object.keys(_updateTrace).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _updateTrace[key];
+    }
+  });
+});
+},{"./calculateDirection":"node_modules/vanilla-swipe/lib/utils/calculateDirection.js","./calculateDirectionDelta":"node_modules/vanilla-swipe/lib/utils/calculateDirectionDelta.js","./calculateDuration":"node_modules/vanilla-swipe/lib/utils/calculateDuration.js","./calculateMovingPosition":"node_modules/vanilla-swipe/lib/utils/calculateMovingPosition.js","./calculatePosition":"node_modules/vanilla-swipe/lib/utils/calculatePosition.js","./calculateTraceDirections":"node_modules/vanilla-swipe/lib/utils/calculateTraceDirections.js","./calculateVelocity":"node_modules/vanilla-swipe/lib/utils/calculateVelocity.js","./checkIsMoreThanSingleTouches":"node_modules/vanilla-swipe/lib/utils/checkIsMoreThanSingleTouches.js","./checkIsPassiveSupported":"node_modules/vanilla-swipe/lib/utils/checkIsPassiveSupported.js","./common":"node_modules/vanilla-swipe/lib/utils/common.js","./createOptions":"node_modules/vanilla-swipe/lib/utils/createOptions.js","./getInitialState":"node_modules/vanilla-swipe/lib/utils/getInitialState.js","./getInitialProps":"node_modules/vanilla-swipe/lib/utils/getInitialProps.js","./getOptions":"node_modules/vanilla-swipe/lib/utils/getOptions.js","./resolveDirection":"node_modules/vanilla-swipe/lib/utils/resolveDirection.js","./rotateByAngle":"node_modules/vanilla-swipe/lib/utils/rotateByAngle.js","./updateTrace":"node_modules/vanilla-swipe/lib/utils/updateTrace.js"}],"node_modules/vanilla-swipe/lib/index.js":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _exportNames = {};
+exports["default"] = void 0;
+
+var Utils = _interopRequireWildcard(require("./utils"));
+
+var _types = require("./types");
+
+Object.keys(_types).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _types[key];
+    }
+  });
+});
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var VanillaSwipe = /*#__PURE__*/function () {
+  function VanillaSwipe(props) {
+    _classCallCheck(this, VanillaSwipe);
+
+    _defineProperty(this, "state", void 0);
+
+    _defineProperty(this, "props", void 0);
+
+    this.state = Utils.getInitialState();
+    this.props = Utils.getInitialProps(props);
+    this.handleSwipeStart = this.handleSwipeStart.bind(this);
+    this.handleSwipeMove = this.handleSwipeMove.bind(this);
+    this.handleSwipeEnd = this.handleSwipeEnd.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+  }
+
+  _createClass(VanillaSwipe, [{
+    key: "init",
+    value: function init() {
+      this.setupTouchListeners();
+      this.setupMouseListeners();
+    }
+  }, {
+    key: "update",
+    value: function update(props) {
+      var prevProps = this.props;
+      var nextProps = Object.assign({}, prevProps, props);
+
+      if (prevProps.element !== nextProps.element || prevProps.target !== nextProps.target) {
+        this.destroy();
+        this.props = nextProps;
+        this.init();
+        return;
+      }
+
+      this.props = nextProps;
+
+      if (prevProps.mouseTrackingEnabled !== nextProps.mouseTrackingEnabled || prevProps.preventTrackingOnMouseleave !== nextProps.preventTrackingOnMouseleave) {
+        this.cleanupMouseListeners();
+        nextProps.mouseTrackingEnabled ? this.setupMouseListeners() : this.cleanupMouseListeners();
+      }
+
+      if (prevProps.touchTrackingEnabled !== nextProps.touchTrackingEnabled) {
+        this.cleanupTouchListeners();
+        nextProps.touchTrackingEnabled ? this.setupTouchListeners() : this.cleanupTouchListeners();
+      }
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.cleanupMouseListeners();
+      this.cleanupTouchListeners();
+      this.state = Utils.getInitialState();
+      this.props = Utils.getInitialProps();
+    }
+  }, {
+    key: "setupTouchListeners",
+    value: function setupTouchListeners() {
+      var _this$props = this.props,
+          element = _this$props.element,
+          target = _this$props.target,
+          touchTrackingEnabled = _this$props.touchTrackingEnabled;
+
+      if (element && touchTrackingEnabled) {
+        var listener = target || element;
+        var isPassiveSupported = Utils.checkIsPassiveSupported();
+        var options = Utils.getOptions(isPassiveSupported);
+        listener.addEventListener('touchstart', this.handleSwipeStart, options);
+        listener.addEventListener('touchmove', this.handleSwipeMove, options);
+        listener.addEventListener('touchend', this.handleSwipeEnd, options);
+      }
+    }
+  }, {
+    key: "cleanupTouchListeners",
+    value: function cleanupTouchListeners() {
+      var _this$props2 = this.props,
+          element = _this$props2.element,
+          target = _this$props2.target;
+      var listener = target || element;
+
+      if (listener) {
+        listener.removeEventListener('touchstart', this.handleSwipeStart);
+        listener.removeEventListener('touchmove', this.handleSwipeMove);
+        listener.removeEventListener('touchend', this.handleSwipeEnd);
+      }
+    }
+  }, {
+    key: "setupMouseListeners",
+    value: function setupMouseListeners() {
+      var _this$props3 = this.props,
+          element = _this$props3.element,
+          mouseTrackingEnabled = _this$props3.mouseTrackingEnabled,
+          preventTrackingOnMouseleave = _this$props3.preventTrackingOnMouseleave;
+
+      if (mouseTrackingEnabled && element) {
+        element.addEventListener('mousedown', this.handleMouseDown);
+        element.addEventListener('mousemove', this.handleMouseMove);
+        element.addEventListener('mouseup', this.handleMouseUp);
+
+        if (preventTrackingOnMouseleave) {
+          element.addEventListener('mouseleave', this.handleMouseLeave);
+        }
+      }
+    }
+  }, {
+    key: "cleanupMouseListeners",
+    value: function cleanupMouseListeners() {
+      var element = this.props.element;
+
+      if (element) {
+        element.removeEventListener('mousedown', this.handleMouseDown);
+        element.removeEventListener('mousemove', this.handleMouseMove);
+        element.removeEventListener('mouseup', this.handleMouseUp);
+        element.removeEventListener('mouseleave', this.handleMouseLeave);
+      }
+    }
+  }, {
+    key: "getEventData",
+    value: function getEventData(e) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+        directionDelta: 0
+      };
+      var rotationAngle = this.props.rotationAngle;
+      var directionDelta = options.directionDelta;
+      var movingPosition = Utils.calculateMovingPosition(e);
+      var rotatePosition = Utils.rotateByAngle(movingPosition, rotationAngle);
+      return Utils.calculatePosition(this.state, {
+        rotatePosition: rotatePosition,
+        directionDelta: directionDelta
+      });
+    }
+  }, {
+    key: "handleSwipeStart",
+    value: function handleSwipeStart(e) {
+      if (Utils.checkIsMoreThanSingleTouches(e)) return;
+      var rotationAngle = this.props.rotationAngle;
+      var movingPosition = Utils.calculateMovingPosition(e);
+
+      var _Utils$rotateByAngle = Utils.rotateByAngle(movingPosition, rotationAngle),
+          x = _Utils$rotateByAngle.x,
+          y = _Utils$rotateByAngle.y;
+
+      this.state = Utils.getInitialState({
+        isSwiping: false,
+        start: Date.now(),
+        x: x,
+        y: y
+      });
+    }
+  }, {
+    key: "handleSwipeMove",
+    value: function handleSwipeMove(e) {
+      var _this$state = this.state,
+          x = _this$state.x,
+          y = _this$state.y,
+          isSwiping = _this$state.isSwiping;
+      if (!x || !y || Utils.checkIsMoreThanSingleTouches(e)) return;
+
+      var _this$getEventData = this.getEventData(e),
+          absX = _this$getEventData.absX,
+          absY = _this$getEventData.absY,
+          deltaX = _this$getEventData.deltaX,
+          deltaY = _this$getEventData.deltaY,
+          directionX = _this$getEventData.directionX,
+          directionY = _this$getEventData.directionY,
+          duration = _this$getEventData.duration,
+          velocity = _this$getEventData.velocity;
+
+      var _this$props4 = this.props,
+          delta = _this$props4.delta,
+          preventDefaultTouchmoveEvent = _this$props4.preventDefaultTouchmoveEvent,
+          onSwipeStart = _this$props4.onSwipeStart,
+          onSwiping = _this$props4.onSwiping;
+      if (e.cancelable && preventDefaultTouchmoveEvent) e.preventDefault();
+      if (absX < Number(delta) && absY < Number(delta) && !isSwiping) return;
+
+      if (onSwipeStart && !isSwiping) {
+        onSwipeStart(e, {
+          deltaX: deltaX,
+          deltaY: deltaY,
+          absX: absX,
+          absY: absY,
+          directionX: directionX,
+          directionY: directionY,
+          duration: duration,
+          velocity: velocity
+        });
+      }
+
+      this.state.isSwiping = true;
+
+      if (onSwiping) {
+        onSwiping(e, {
+          deltaX: deltaX,
+          deltaY: deltaY,
+          absX: absX,
+          absY: absY,
+          directionX: directionX,
+          directionY: directionY,
+          duration: duration,
+          velocity: velocity
+        });
+      }
+    }
+  }, {
+    key: "handleSwipeEnd",
+    value: function handleSwipeEnd(e) {
+      var _this$props5 = this.props,
+          onSwiped = _this$props5.onSwiped,
+          onTap = _this$props5.onTap;
+
+      if (this.state.isSwiping) {
+        var directionDelta = this.props.directionDelta || 0;
+        var position = this.getEventData(e, {
+          directionDelta: directionDelta
+        });
+        onSwiped && onSwiped(e, position);
+      } else {
+        var _position = this.getEventData(e);
+
+        onTap && onTap(e, _position);
+      }
+
+      this.state = Utils.getInitialState();
+    }
+  }, {
+    key: "handleMouseDown",
+    value: function handleMouseDown(e) {
+      var target = this.props.target;
+
+      if (target) {
+        if (target === e.target) {
+          this.handleSwipeStart(e);
+        }
+      } else {
+        this.handleSwipeStart(e);
+      }
+    }
+  }, {
+    key: "handleMouseMove",
+    value: function handleMouseMove(e) {
+      this.handleSwipeMove(e);
+    }
+  }, {
+    key: "handleMouseUp",
+    value: function handleMouseUp(e) {
+      var isSwiping = this.state.isSwiping;
+      var target = this.props.target;
+
+      if (target) {
+        if (target === e.target || isSwiping) {
+          this.handleSwipeEnd(e);
+        }
+      } else {
+        this.handleSwipeEnd(e);
+      }
+    }
+  }, {
+    key: "handleMouseLeave",
+    value: function handleMouseLeave(e) {
+      var isSwiping = this.state.isSwiping;
+
+      if (isSwiping) {
+        this.handleSwipeEnd(e);
+      }
+    }
+  }]);
+
+  return VanillaSwipe;
+}();
+
+exports["default"] = VanillaSwipe;
+},{"./utils":"node_modules/vanilla-swipe/lib/utils/index.js","./types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/types/index.js":[function(require,module,exports) {
+"use strict";var AnimationType,AutoPlayStrategy,ControlsStrategy,AutoplayDirection,Classnames,Modifiers;Object.defineProperty(exports,"__esModule",{value:!0}),exports.Modifiers=exports.Classnames=exports.AutoplayDirection=exports.ControlsStrategy=exports.AutoPlayStrategy=exports.AnimationType=void 0,function(e){e.FADEOUT="fadeout",e.SLIDE="slide"}(AnimationType=exports.AnimationType||(exports.AnimationType={})),function(e){e.DEFAULT="default",e.ALL="all",e.ACTION="action",e.NONE="none"}(AutoPlayStrategy=exports.AutoPlayStrategy||(exports.AutoPlayStrategy={})),function(e){e.DEFAULT="default",e.RESPONSIVE="responsive"}(ControlsStrategy=exports.ControlsStrategy||(exports.ControlsStrategy={})),function(e){e.RTL="rtl",e.LTR="ltr"}(AutoplayDirection=exports.AutoplayDirection||(exports.AutoplayDirection={})),function(e){e.ANIMATED="animated animated-out fadeOut",e.ROOT="alice-carousel",e.WRAPPER="alice-carousel__wrapper",e.STAGE="alice-carousel__stage",e.STAGE_ITEM="alice-carousel__stage-item",e.DOTS="alice-carousel__dots",e.DOTS_ITEM="alice-carousel__dots-item",e.PLAY_BTN="alice-carousel__play-btn",e.PLAY_BTN_ITEM="alice-carousel__play-btn-item",e.PLAY_BTN_WRAPPER="alice-carousel__play-btn-wrapper",e.SLIDE_INFO="alice-carousel__slide-info",e.SLIDE_INFO_ITEM="alice-carousel__slide-info-item",e.BUTTON_PREV="alice-carousel__prev-btn",e.BUTTON_PREV_WRAPPER="alice-carousel__prev-btn-wrapper",e.BUTTON_PREV_ITEM="alice-carousel__prev-btn-item",e.BUTTON_NEXT="alice-carousel__next-btn",e.BUTTON_NEXT_WRAPPER="alice-carousel__next-btn-wrapper",e.BUTTON_NEXT_ITEM="alice-carousel__next-btn-item"}(Classnames=exports.Classnames||(exports.Classnames={})),function(e){e.ACTIVE="__active",e.INACTIVE="__inactive",e.CLONED="__cloned",e.CUSTOM="__custom",e.PAUSE="__pause",e.SEPARATOR="__separator",e.SSR="__ssr"}(Modifiers=exports.Modifiers||(exports.Modifiers={}));
+},{}],"node_modules/react-alice-carousel/lib/defaultProps.js":[function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.defaultProps=void 0;var types_1=require("./types");exports.defaultProps={activeIndex:0,animationDuration:400,animationEasingFunction:"ease",animationType:types_1.AnimationType.SLIDE,autoHeight:!1,autoWidth:!1,autoPlay:!1,autoPlayControls:!1,autoPlayDirection:types_1.AutoplayDirection.LTR,autoPlayInterval:400,autoPlayStrategy:types_1.AutoPlayStrategy.DEFAULT,children:void 0,controlsStrategy:types_1.ControlsStrategy.DEFAULT,disableButtonsControls:!1,disableDotsControls:!1,disableSlideInfo:!0,infinite:!1,innerWidth:0,items:void 0,mouseTracking:!1,paddingLeft:0,paddingRight:0,responsive:void 0,swipeDelta:20,swipeExtraPadding:200,touchTracking:!0,touchMoveDefaultEvents:!0,onInitialized:function(){},onResized:function(){},onResizeEvent:void 0,onSlideChange:function(){},onSlideChanged:function(){}};
+},{"./types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/common.js":[function(require,module,exports) {
+"use strict";var __createBinding=Object.create?function(t,e,i,n){void 0===n&&(n=i),Object.defineProperty(t,n,{enumerable:!0,get:function(){return e[i]}})}:function(t,e,i,n){t[n=void 0===n?i:n]=e[i]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var i in t)"default"!==i&&Object.hasOwnProperty.call(t,i)&&__createBinding(e,t,i);return __setModuleDefault(e,t),e};Object.defineProperty(exports,"__esModule",{value:!0}),exports.calculateInitialState=exports.getItemsInSlide=exports.getStageContentWidth=exports.getIsStageContentPartial=exports.canUseDOM=void 0;var Utils=__importStar(require("."));exports.canUseDOM=function(){var t;try{return Boolean(null===(t=null===window||void 0===window?void 0:window.document)||void 0===t?void 0:t.createElement)}catch(t){return!1}},exports.getIsStageContentPartial=function(t,e){return(e=void 0===e?0:e)<=(t=void 0===t?0:t)},exports.getStageContentWidth=function(t){var e=t.infinite,i=t.itemsCount,n=void 0===i?0:i,o=t.itemsInSlide,i=void 0===o?1:o,o=t.itemsOffset,o=void 0===o?0:o,t=t.transformationSet,t=void 0===t?[]:t;if(e){o=Utils.getShiftIndex(i,o);return t.slice(o,o+n).reduce(function(t,e){return t+e.width},0)}t=t[n-1]||{},n=t.position,t=t.width;return(void 0===n?0:n)+(void 0===t?0:t)},exports.getItemsInSlide=function(e,t){var i,n=1,o=t.responsive,a=t.autoWidth,r=void 0!==a&&a,a=t.infinite,a=void 0!==a&&a,t=t.innerWidth;return r&&a?n=e:!o||(a=Object.keys(o)).length&&(t||exports.canUseDOM())&&(i=t||window.innerWidth,a.forEach(function(t){Number(t)<i&&(n=Math.min(o[t].items,e)||n)})),n},exports.calculateInitialState=function(t,e,i){void 0===i&&(i=!1);var n=t.animationDuration,o=void 0===n?0:n,a=t.infinite,r=void 0!==a&&a,s=t.autoPlay,l=void 0!==s&&s,d=t.autoWidth,u=void 0!==d&&d,f=Utils.createClones(t),m=Utils.getTransitionProperty(),c=Utils.getItemsCount(t),g=Utils.getItemsOffset(t),S=exports.getItemsInSlide(c,t),v=Utils.getStartIndex(t.activeIndex,c),p=Utils.getActiveIndex({startIndex:v,itemsCount:c,itemsInSlide:S,infinite:r}),I=Utils.getElementDimensions(e).width,n=u?Utils.createAutowidthTransformationSet(e):Utils.createDefaultTransformationSet(f,I,S),a=Utils.getTransformationSetItem(-S,n).position,s=exports.getStageContentWidth({itemsCount:c,itemsInSlide:S,itemsOffset:g,transformationSet:n,infinite:r}),d=exports.getIsStageContentPartial(I,s),v=Utils.getSwipeLimitMin({itemsOffset:g,transformationSet:n},t),e=Utils.getSwipeLimitMax({itemsCount:c,itemsOffset:g,itemsInSlide:S,transformationSet:n},t),t=Utils.getSwipeShiftValue(c,n);return{activeIndex:p,autoWidth:u,animationDuration:o,clones:f,infinite:r,itemsCount:c,itemsInSlide:S,itemsOffset:g,translate3d:Utils.getTranslate3dProperty(p,{itemsInSlide:S,itemsOffset:g,transformationSet:n,autoWidth:u,infinite:r}),stageWidth:I,stageContentWidth:s,initialStageHeight:0,isStageContentPartial:d,isAutoPlaying:Boolean(l),isAutoPlayCanceledOnAction:!1,transformationSet:n,transition:m,fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1,swipeLimitMin:v,swipeLimitMax:e,swipeAllowedPositionMax:a,swipeShiftValue:t,canUseDom:i||exports.canUseDOM()}};
+},{".":"node_modules/react-alice-carousel/lib/utils/index.js"}],"node_modules/react-alice-carousel/lib/utils/elements.js":[function(require,module,exports) {
+"use strict";var __assign=function(){return(__assign=Object.assign||function(t){for(var e,n=1,r=arguments.length;n<r;n++)for(var i in e=arguments[n])Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i]);return t}).apply(this,arguments)},__createBinding=Object.create?function(t,e,n,r){void 0===r&&(r=n),Object.defineProperty(t,r,{enumerable:!0,get:function(){return e[n]}})}:function(t,e,n,r){t[r=void 0===r?n:r]=e[n]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)"default"!==n&&Object.hasOwnProperty.call(t,n)&&__createBinding(e,t,n);return __setModuleDefault(e,t),e};Object.defineProperty(exports,"__esModule",{value:!0}),exports.getTransformMatrix=exports.getTranslateXProperty=exports.getTouchmoveTranslatePosition=exports.getTranslate3dProperty=exports.getRenderStageItemStyles=exports.getRenderStageStyles=exports.getTransitionProperty=exports.getRenderWrapperStyles=exports.animate=exports.shouldHandleResizeEvent=exports.getElementFirstChild=exports.getElementCursor=exports.getAutoheightProperty=exports.getElementDimensions=exports.getItemWidth=exports.createDefaultTransformationSet=exports.createAutowidthTransformationSet=exports.isElement=exports.createClones=exports.getItemsOffset=exports.getItemsCount=exports.getSlides=void 0;var Utils=__importStar(require("."));function getElementDimensions(t){if(t&&t.getBoundingClientRect){t=t.getBoundingClientRect();return{width:t.width,height:t.height}}return{width:0,height:0}}function shouldHandleResizeEvent(t,e,n){return void 0===n&&(n={}),(e=void 0===e?{}:e).width!==n.width}function animate(t,e){var n=e||{},r=n.position,e=void 0===r?0:r,r=n.animationDuration,r=void 0===r?0:r,n=n.animationEasingFunction,n=void 0===n?"ease":n;return exports.isElement(t)&&(t.style.transition="transform "+r+"ms "+n+" 0ms",t.style.transform="translate3d("+e+"px, 0, 0)"),t}function getTranslateXProperty(t){t=getTransformMatrix(t),t=t&&t[4]||"";return Number(t)}function getTransformMatrix(t){return Utils.isElement(t)&&getComputedStyle(t).transform.match(/(-?[0-9.]+)/g)||[]}exports.getSlides=function(t){var e=t.children,t=t.items,t=void 0===t?[]:t;return e?e.length?e:[e]:t},exports.getItemsCount=function(t){return exports.getSlides(t).length},exports.getItemsOffset=function(t){var e=t.infinite,n=t.paddingRight,t=t.paddingLeft;return e&&(t||n)?1:0},exports.createClones=function(t){var e=exports.getSlides(t);if(!t.infinite)return e;var n=exports.getItemsCount(t),r=exports.getItemsOffset(t),i=Utils.getItemsInSlide(n,t),o=Math.min(i,n)+r,t=e.slice(0,o),o=e.slice(-o);return r&&i===n&&(i=e[0],n=e.slice(-1)[0],o.unshift(n),t.push(i)),o.concat(e,t)},exports.isElement=function(t){try{return t instanceof Element||t instanceof HTMLDocument}catch(t){return!1}},exports.createAutowidthTransformationSet=function(t){return exports.isElement(t)?Array.from(t.children||[]).reduce(function(t,e,n){var r=0,i=n-1,n=t[i],e=getElementDimensions(null==e?void 0:e.firstChild).width,e=void 0===e?0:e;return n&&(r=0==i?n.width:n.width+n.position),t.push({position:r,width:e}),t},[]):[]},exports.createDefaultTransformationSet=function(t,e,n){var i=exports.getItemWidth(e,n);return t.reduce(function(t,e,n){var r=0,n=t[n-1];return n&&(r=i+n.position||0),t.push({width:i,position:r}),t},[])},exports.getItemWidth=function(t,e){return 0<e?t/e:t},exports.getElementDimensions=getElementDimensions,exports.getAutoheightProperty=function(t,e,n){e=exports.getElementCursor(e,n),n=exports.getElementFirstChild(t,e);if(exports.isElement(n)){t=getComputedStyle(n),e=parseFloat(t.marginTop),t=parseFloat(t.marginBottom);return Math.ceil(n.offsetHeight+e+t)}},exports.getElementCursor=function(t,e){var n=e.activeIndex,e=e.itemsInSlide;return t.infinite?n+e+Utils.getItemsOffset(t):n},exports.getElementFirstChild=function(t,e){t=t&&t.children||[];return t[e]&&t[e].firstChild||null},exports.shouldHandleResizeEvent=shouldHandleResizeEvent,exports.animate=animate,exports.getRenderWrapperStyles=function(t,e,n){var r=t||{},i=r.paddingLeft,o=r.paddingRight,s=r.animationDuration,e=r.autoHeight?exports.getAutoheightProperty(n,t,e):void 0;return{height:e,transition:e?"height "+s+"ms":void 0,paddingLeft:i+"px",paddingRight:o+"px"}},exports.getTransitionProperty=function(t){var e=t||{},t=e.animationDuration,e=e.animationEasingFunction;return"transform "+(void 0===t?0:t)+"ms "+(void 0===e?"ease":e)+" 0ms"},exports.getRenderStageStyles=function(t,e){t=(t||{}).translate3d,t="translate3d("+-(void 0===t?0:t)+"px, 0, 0)";return __assign(__assign({},e),{transform:t})},exports.getRenderStageItemStyles=function(t,e){var n=e.transformationSet,r=e.fadeoutAnimationIndex,i=e.fadeoutAnimationPosition,o=e.fadeoutAnimationProcessing,e=e.animationDuration,n=(n[t]||{}).width;return o&&r===t?{transform:"translateX("+i+"px)",animationDuration:e+"ms",width:n+"px"}:{width:n}},exports.getTranslate3dProperty=function(t,e){var n=t,r=e.infinite,i=e.itemsOffset,o=void 0===i?0:i,i=e.itemsInSlide,i=void 0===i?0:i,e=e.transformationSet;return((void 0===e?[]:e)[n=r?t+Utils.getShiftIndex(i,o):n]||{}).position||0},exports.getTouchmoveTranslatePosition=function(t,e){return-(e-Math.floor(t))},exports.getTranslateXProperty=getTranslateXProperty,exports.getTransformMatrix=getTransformMatrix;
+},{".":"node_modules/react-alice-carousel/lib/utils/index.js"}],"node_modules/react-alice-carousel/lib/utils/classnames.js":[function(require,module,exports) {
+"use strict";var __createBinding=Object.create?function(e,t,i,r){void 0===r&&(r=i),Object.defineProperty(e,r,{enumerable:!0,get:function(){return t[i]}})}:function(e,t,i,r){e[r=void 0===r?i:r]=t[i]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var i in e)"default"!==i&&Object.hasOwnProperty.call(e,i)&&__createBinding(t,e,i);return __setModuleDefault(t,e),t};Object.defineProperty(exports,"__esModule",{value:!0}),exports.isClonedItem=exports.isActiveItem=exports.getRenderStageItemClasses=void 0;var Utils=__importStar(require(".")),types_1=require("../types");exports.getRenderStageItemClasses=function(e,t){void 0===e&&(e=0);var i=t.fadeoutAnimationIndex,r=exports.isActiveItem(e,t)?" "+types_1.Modifiers.ACTIVE:"",t=exports.isClonedItem(e,t)?" "+types_1.Modifiers.CLONED:"",i=e===i?" "+types_1.Classnames.ANIMATED:"";return types_1.Classnames.STAGE_ITEM+r+t+i},exports.isActiveItem=function(e,t){void 0===e&&(e=0);var i=t.activeIndex,r=t.itemsInSlide,n=t.itemsOffset,s=t.infinite,o=t.autoWidth,t=Utils.getShiftIndex(r,n);if(s&&o)return e-t===i+n;t=i+t;return s?t<=e&&e<t+r:i<=e&&e<t},exports.isClonedItem=function(e,t){void 0===e&&(e=0);var i=t.itemsInSlide,r=t.itemsOffset,n=t.itemsCount,s=t.infinite,t=t.autoWidth;if(!s)return!1;if(s&&t)return e<i||n-1+i<e;r=Utils.getShiftIndex(i,r);return e<r||n-1+r<e};
+},{".":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/timers.js":[function(require,module,exports) {
+"use strict";function debounce(i,n){void 0===n&&(n=0);var u=void 0;return function(){for(var e=this,o=[],t=0;t<arguments.length;t++)o[t]=arguments[t];u&&(clearTimeout(u),u=void 0),u=window.setTimeout(function(){i.apply(e,o),u=void 0},n)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports.debounce=void 0,exports.debounce=debounce;
+},{}],"node_modules/react-alice-carousel/lib/utils/math.js":[function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.isVerticalTouchmoveDetected=exports.getFadeoutAnimationPosition=exports.getFadeoutAnimationIndex=exports.getSwipeTouchendIndex=exports.getSwipeTouchendPosition=exports.getSwipeTransformationCursor=exports.getTransformationItemIndex=exports.getSwipeShiftValue=exports.getTransformationSetItem=exports.getIsLeftDirection=exports.shouldRecalculateSwipePosition=exports.getSwipeLimitMax=exports.getSwipeLimitMin=exports.shouldCancelSlideAnimation=exports.shouldRecalculateSlideIndex=exports.getUpdateSlidePositionIndex=exports.getActiveIndex=exports.getStartIndex=exports.getShiftIndex=void 0,exports.getShiftIndex=function(t,e){return(t=void 0===t?0:t)+(e=void 0===e?0:e)},exports.getStartIndex=function(t,e){return void 0===t&&(t=0),(e=void 0===e?0:e)&&Math.min(t,e-1)||0},exports.getActiveIndex=function(t){var e=t.startIndex,i=void 0===e?0:e,o=t.itemsCount,e=void 0===o?0:o,o=t.itemsInSlide,o=void 0===o?1:o,t=t.infinite;return void 0!==t&&t?i:e?Math.min(i,e-o):0},exports.getUpdateSlidePositionIndex=function(t,e){return t<0?e-1:e<=t?0:t},exports.shouldRecalculateSlideIndex=function(t,e){return t<0||e<=t},exports.shouldCancelSlideAnimation=function(t,e,i){return t<0||e-i<t},exports.getSwipeLimitMin=function(t,e){var i=t.itemsOffset,o=void 0===i?0:i,i=t.transformationSet,t=void 0===i?[]:i,i=e.infinite,e=e.swipeExtraPadding,e=void 0===e?0:e;if(i)return(t[o]||{}).position;t=(t[0]||{}).width,t=void 0===t?0:t;return Math.min(e,t)},exports.getSwipeLimitMax=function(t,e){var i=e.infinite,o=e.swipeExtraPadding,n=void 0===o?0:o,r=t.itemsCount,e=void 0===r?1:r,o=t.itemsOffset,r=void 0===o?0:o,o=t.itemsInSlide,o=void 0===o?1:o,t=t.transformationSet,t=void 0===t?[]:t;return i?(t[e+exports.getShiftIndex(o,r)]||{}).position||0:exports.getTransformationSetItem(-o,t).position+n},exports.shouldRecalculateSwipePosition=function(t,e,i){return-e<=t||Math.abs(t)>=i},exports.getIsLeftDirection=function(t){return(t=void 0===t?0:t)<0},exports.getTransformationSetItem=function(t,e){return void 0===t&&(t=0),(e=void 0===e?[]:e).slice(t)[0]||{position:0,width:0}},exports.getSwipeShiftValue=function(t,e){return void 0===t&&(t=0),void 0===e&&(e=[]),exports.getTransformationSetItem(t,e).position},exports.getTransformationItemIndex=function(t,e){return void 0===e&&(e=0),(t=void 0===t?[]:t).findIndex(function(t){return t.position>=Math.abs(e)})},exports.getSwipeTransformationCursor=function(t,e,i){void 0===t&&(t=[]),void 0===e&&(e=0),void 0===i&&(i=0);e=exports.getTransformationItemIndex(t,e);return exports.getIsLeftDirection(i)?e:e-1},exports.getSwipeTouchendPosition=function(t,e,i){void 0===i&&(i=0);var o=t.infinite,n=t.autoWidth,r=t.isStageContentPartial,s=t.swipeAllowedPositionMax,t=t.transformationSet,e=exports.getSwipeTransformationCursor(t,i,e),t=exports.getTransformationSetItem(e,t).position;if(!o){if(n&&r)return 0;if(s<t)return-s}return-t},exports.getSwipeTouchendIndex=function(t,e){var i=e.transformationSet,o=e.itemsInSlide,n=e.itemsOffset,r=e.itemsCount,e=e.infinite,t=exports.getTransformationItemIndex(i,t);if(e){e=exports.getShiftIndex(o,n);return t<e?r-o-n+t:e+r<=t?t-(e+r):t-e}return t},exports.getFadeoutAnimationIndex=function(t){var e=t.infinite,i=t.activeIndex,t=t.itemsInSlide;return e?i+t:i},exports.getFadeoutAnimationPosition=function(t,e){var i=e.activeIndex,e=e.stageWidth;return t<i?(i-t)*-e||0:(t-i)*e||0},exports.isVerticalTouchmoveDetected=function(t,e,i){return t<(i=void 0===i?0:i)||t<.1*e};
+},{}],"node_modules/react-alice-carousel/lib/utils/debug.js":[function(require,module,exports) {
+"use strict";
+
+function debug() {
+  for (var e = [], o = 0; o < arguments.length; o++) e[o] = arguments[o];
+
+  "development" === "development" && console.debug.apply(console, e);
+}
+
+Object.defineProperty(exports, "__esModule", {
+  value: !0
+}), exports.debug = void 0, exports.debug = debug;
+},{}],"node_modules/react-alice-carousel/lib/utils/render.js":[function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.getSlideItemInfo=exports.getSlideInfo=exports.getSlideIndexForMultipleItems=exports.getSlideIndexForNonMultipleItems=exports.getActiveSlideDotsLength=exports.getActiveSlideIndex=void 0,exports.getActiveSlideIndex=function(e,t){var i=t||{},o=i.itemsInSlide,t=i.itemsCount,i=i.activeIndex+o;return 1===o?exports.getSlideIndexForNonMultipleItems(i,o,t):exports.getSlideIndexForMultipleItems(i,o,t,e)},exports.getActiveSlideDotsLength=function(e,t){if(void 0===t&&(t=1),(e=void 0===e?0:e)&&t){var i=Math.floor(e/t);return e%t==0?i-1:i}return 0},exports.getSlideIndexForNonMultipleItems=function(e,t,i){return e<t?i-t:i<e?0:e-1},exports.getSlideIndexForMultipleItems=function(e,t,i,o){var n=exports.getActiveSlideDotsLength(i,t);return e===i+t?0:o||e<t&&0!==e?n:0===e?i%t==0?n:n-1:0<t?Math.floor(e/t)-1:0},exports.getSlideInfo=function(e,t){void 0===t&&(t=0);e=(e=void 0===e?0:e)+1;return e<1?e=t:t<e&&(e=1),{item:e,itemsCount:t}},exports.getSlideItemInfo=function(e){var t=e||{},i=t.activeIndex,e=t.infinite;return{isPrevSlideDisabled:!1===e&&0===i,isNextSlideDisabled:!1===e&&t.itemsCount-t.itemsInSlide===i}};
+},{}],"node_modules/react-alice-carousel/lib/utils/controls.js":[function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.shouldCancelAutoPlayOnHover=exports.shouldCancelAutoPlayOnAction=exports.getItemIndexForDotNavigation=exports.checkIsTheLastDotIndex=exports.getDotsNavigationLength=exports.shouldDisableDots=void 0;var types_1=require("../types");function shouldDisableDots(t,e){var o=t||{},s=e||{},t=s.itemsInSlide,e=s.itemsCount,s=s.autoWidth;return!!o.disableDotsControls||o.controlsStrategy===types_1.ControlsStrategy.RESPONSIVE&&(!s&&t===e)}exports.shouldDisableDots=shouldDisableDots,exports.getDotsNavigationLength=function(t,e,o){return void 0===t&&(t=0),void 0===e&&(e=1),o?t:0!==Number(e)&&Math.ceil(t/e)||0},exports.checkIsTheLastDotIndex=function(t,e,o){return!e&&t===o-1},exports.getItemIndexForDotNavigation=function(t,e,o,s){return(e?o-s:t*s)||0},exports.shouldCancelAutoPlayOnAction=function(t){return(t=void 0===t?"":t)===types_1.AutoPlayStrategy.ACTION||t===types_1.AutoPlayStrategy.ALL},exports.shouldCancelAutoPlayOnHover=function(t){return(t=void 0===t?"":t)===types_1.AutoPlayStrategy.DEFAULT||t===types_1.AutoPlayStrategy.ALL};
+},{"../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/index.js":[function(require,module,exports) {
+"use strict";var __createBinding=Object.create?function(e,r,t,o){void 0===o&&(o=t),Object.defineProperty(e,o,{enumerable:!0,get:function(){return r[t]}})}:function(e,r,t,o){e[o=void 0===o?t:o]=r[t]},__exportStar=function(e,r){for(var t in e)"default"===t||r.hasOwnProperty(t)||__createBinding(r,e,t)};Object.defineProperty(exports,"__esModule",{value:!0}),__exportStar(require("./common"),exports),__exportStar(require("./elements"),exports),__exportStar(require("./classnames"),exports),__exportStar(require("./timers"),exports),__exportStar(require("./math"),exports),__exportStar(require("./debug"),exports),__exportStar(require("./render"),exports),__exportStar(require("./controls"),exports);
+},{"./common":"node_modules/react-alice-carousel/lib/utils/common.js","./elements":"node_modules/react-alice-carousel/lib/utils/elements.js","./classnames":"node_modules/react-alice-carousel/lib/utils/classnames.js","./timers":"node_modules/react-alice-carousel/lib/utils/timers.js","./math":"node_modules/react-alice-carousel/lib/utils/math.js","./debug":"node_modules/react-alice-carousel/lib/utils/debug.js","./render":"node_modules/react-alice-carousel/lib/utils/render.js","./controls":"node_modules/react-alice-carousel/lib/utils/controls.js"}],"node_modules/react-alice-carousel/lib/views/SlideInfo.js":[function(require,module,exports) {
+"use strict";var __createBinding=Object.create?function(e,t,a,r){void 0===r&&(r=a),Object.defineProperty(e,r,{enumerable:!0,get:function(){return t[a]}})}:function(e,t,a,r){e[r=void 0===r?a:r]=t[a]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var a in e)"default"!==a&&Object.hasOwnProperty.call(e,a)&&__createBinding(t,e,a);return __setModuleDefault(t,e),t},__importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.SlideInfo=void 0;var react_1=__importDefault(require("react")),Utils=__importStar(require("../utils")),types_1=require("../types");exports.SlideInfo=function(e){var t=e.activeIndex,a=e.itemsCount,e=e.renderSlideInfo,t=Utils.getSlideInfo(t,a).item;return"function"==typeof e?react_1.default.createElement("div",{className:types_1.Classnames.SLIDE_INFO},e({item:t,itemsCount:a})):react_1.default.createElement("div",{className:types_1.Classnames.SLIDE_INFO},react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM},t),react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM+" "+types_1.Modifiers.SEPARATOR},"/"),react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM},a))};
+},{"react":"node_modules/react/index.js","../utils":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/StageItem.js":[function(require,module,exports) {
+"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.StageItem=void 0;var react_1=__importDefault(require("react"));exports.StageItem=function(e){var t=e.item,r=e.className,e=e.styles;return react_1.default.createElement("li",{style:e,className:r},t)};
+},{"react":"node_modules/react/index.js"}],"node_modules/react-alice-carousel/lib/views/DotsNavigation.js":[function(require,module,exports) {
+"use strict";var __createBinding=Object.create?function(e,t,i,n){void 0===n&&(n=i),Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[i]}})}:function(e,t,i,n){e[n=void 0===n?i:n]=t[i]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var i in e)"default"!==i&&Object.hasOwnProperty.call(e,i)&&__createBinding(t,e,i);return __setModuleDefault(t,e),t},__importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.DotsNavigation=void 0;var react_1=__importDefault(require("react")),Utils=__importStar(require("../utils")),types_1=require("../types");exports.DotsNavigation=function(e){var a=e.state,o=e.onClick,s=e.onMouseEnter,u=e.onMouseLeave,l=e.renderDotsItem,c=a.itemsCount,d=a.itemsInSlide,f=a.infinite,_=a.autoWidth,v=a.activeIndex,m=Utils.getSlideItemInfo(a).isNextSlideDisabled,p=Utils.getDotsNavigationLength(c,d,_);return react_1.default.createElement("ul",{className:types_1.Classnames.DOTS},Array.from({length:c}).map(function(e,t){if(t<p){var i=Utils.checkIsTheLastDotIndex(t,Boolean(f),p),n=Utils.getItemIndexForDotNavigation(t,i,c,d),r=Utils.getActiveSlideIndex(m,a);_&&((r=v)<0?r=c-1:c<=v&&(r=0),n=t);i=r===t?" "+types_1.Modifiers.ACTIVE:"",r=l?" "+types_1.Modifiers.CUSTOM:"",r=types_1.Classnames.DOTS_ITEM+i+r;return react_1.default.createElement("li",{key:"dot-item-"+t,onMouseEnter:s,onMouseLeave:u,onClick:function(){return o(n)},className:r},l&&l({isActive:i,activeIndex:t}))}}))};
+},{"react":"node_modules/react/index.js","../utils":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/PlayPauseButton.js":[function(require,module,exports) {
+"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.PlayPauseButton=void 0;var react_1=__importDefault(require("react")),types_1=require("../types");exports.PlayPauseButton=function(e){var t=e.isPlaying,a=e.onClick,e=e.renderPlayPauseButton;if("function"==typeof e)return react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN,onClick:a},e({isPlaying:t}));e=""+types_1.Classnames.PLAY_BTN_ITEM,t=t?" "+types_1.Modifiers.PAUSE:"";return react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN},react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN_WRAPPER},react_1.default.createElement("div",{onClick:a,className:e+t})))};
+},{"react":"node_modules/react/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/PrevNextButton.js":[function(require,module,exports) {
+"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.PrevNextButton=void 0;var react_1=__importDefault(require("react")),types_1=require("../types");exports.PrevNextButton=function(e){var t=e.name,a=e.isDisabled,s=e.onClick,r=e.renderPrevButton,n=e.renderNextButton;if("function"==typeof r)return react_1.default.createElement("div",{className:types_1.Classnames.BUTTON_PREV,onClick:s},r({isDisabled:a}));if("function"==typeof n)return react_1.default.createElement("div",{className:types_1.Classnames.BUTTON_NEXT,onClick:s},n({isDisabled:a}));e="prev"===t,r=e?"<":">",n=e?types_1.Classnames.BUTTON_PREV:types_1.Classnames.BUTTON_NEXT,t=e?types_1.Classnames.BUTTON_PREV_WRAPPER:types_1.Classnames.BUTTON_NEXT_WRAPPER,e=e?types_1.Classnames.BUTTON_PREV_ITEM:types_1.Classnames.BUTTON_NEXT_ITEM,a=a?" "+types_1.Modifiers.INACTIVE:"";return react_1.default.createElement("div",{className:n},react_1.default.createElement("div",{className:t},react_1.default.createElement("p",{className:e+a,onClick:s},react_1.default.createElement("span",{"data-area":r}))))};
+},{"react":"node_modules/react/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/index.js":[function(require,module,exports) {
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.PrevNextButton=exports.PlayPauseButton=exports.DotsNavigation=exports.StageItem=exports.SlideInfo=void 0;var SlideInfo_1=require("./SlideInfo");Object.defineProperty(exports,"SlideInfo",{enumerable:!0,get:function(){return SlideInfo_1.SlideInfo}});var StageItem_1=require("./StageItem");Object.defineProperty(exports,"StageItem",{enumerable:!0,get:function(){return StageItem_1.StageItem}});var DotsNavigation_1=require("./DotsNavigation");Object.defineProperty(exports,"DotsNavigation",{enumerable:!0,get:function(){return DotsNavigation_1.DotsNavigation}});var PlayPauseButton_1=require("./PlayPauseButton");Object.defineProperty(exports,"PlayPauseButton",{enumerable:!0,get:function(){return PlayPauseButton_1.PlayPauseButton}});var PrevNextButton_1=require("./PrevNextButton");Object.defineProperty(exports,"PrevNextButton",{enumerable:!0,get:function(){return PrevNextButton_1.PrevNextButton}});
+},{"./SlideInfo":"node_modules/react-alice-carousel/lib/views/SlideInfo.js","./StageItem":"node_modules/react-alice-carousel/lib/views/StageItem.js","./DotsNavigation":"node_modules/react-alice-carousel/lib/views/DotsNavigation.js","./PlayPauseButton":"node_modules/react-alice-carousel/lib/views/PlayPauseButton.js","./PrevNextButton":"node_modules/react-alice-carousel/lib/views/PrevNextButton.js"}],"node_modules/react-alice-carousel/lib/react-alice-carousel.js":[function(require,module,exports) {
+"use strict";var __extends=function(){var n=function(t,e){return(n=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var i in e)e.hasOwnProperty(i)&&(t[i]=e[i])})(t,e)};return function(t,e){function i(){this.constructor=t}n(t,e),t.prototype=null===e?Object.create(e):(i.prototype=e.prototype,new i)}}(),__assign=function(){return(__assign=Object.assign||function(t){for(var e,i=1,n=arguments.length;i<n;i++)for(var o in e=arguments[i])Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t}).apply(this,arguments)},__createBinding=Object.create?function(t,e,i,n){void 0===n&&(n=i),Object.defineProperty(t,n,{enumerable:!0,get:function(){return e[i]}})}:function(t,e,i,n){t[n=void 0===n?i:n]=e[i]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var i in t)"default"!==i&&Object.hasOwnProperty.call(t,i)&&__createBinding(e,t,i);return __setModuleDefault(e,t),e},__awaiter=function(t,a,r,l){return new(r=r||Promise)(function(i,e){function n(t){try{s(l.next(t))}catch(t){e(t)}}function o(t){try{s(l.throw(t))}catch(t){e(t)}}function s(t){var e;t.done?i(t.value):((e=t.value)instanceof r?e:new r(function(t){t(e)})).then(n,o)}s((l=l.apply(t,a||[])).next())})},__generator=function(i,n){var o,s,a,r={label:0,sent:function(){if(1&a[0])throw a[1];return a[1]},trys:[],ops:[]},t={next:e(0),throw:e(1),return:e(2)};return"function"==typeof Symbol&&(t[Symbol.iterator]=function(){return this}),t;function e(e){return function(t){return function(e){if(o)throw new TypeError("Generator is already executing.");for(;r;)try{if(o=1,s&&(a=2&e[0]?s.return:e[0]?s.throw||((a=s.return)&&a.call(s),0):s.next)&&!(a=a.call(s,e[1])).done)return a;switch(s=0,(e=a?[2&e[0],a.value]:e)[0]){case 0:case 1:a=e;break;case 4:return r.label++,{value:e[1],done:!1};case 5:r.label++,s=e[1],e=[0];continue;case 7:e=r.ops.pop(),r.trys.pop();continue;default:if(!(a=0<(a=r.trys).length&&a[a.length-1])&&(6===e[0]||2===e[0])){r=0;continue}if(3===e[0]&&(!a||e[1]>a[0]&&e[1]<a[3])){r.label=e[1];break}if(6===e[0]&&r.label<a[1]){r.label=a[1],a=e;break}if(a&&r.label<a[2]){r.label=a[2],r.ops.push(e);break}a[2]&&r.ops.pop(),r.trys.pop();continue}e=n.call(i,r)}catch(t){e=[6,t],s=0}finally{o=a=0}if(5&e[0])throw e[1];return{value:e[0]?e[1]:void 0,done:!0}}([e,t])}}},__importDefault=function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(exports,"__esModule",{value:!0});var react_1=__importDefault(require("react")),vanilla_swipe_1=__importDefault(require("vanilla-swipe")),defaultProps_1=require("./defaultProps"),Views=__importStar(require("./views")),Utils=__importStar(require("./utils")),types_1=require("./types"),AliceCarousel=function(e){function t(t){var o=e.call(this,t)||this;return o.swipeListener=null,o._handleBeforeSlideEnd=function(){return __awaiter(o,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return(i=this.state,e=i.activeIndex,n=i.itemsCount,i=i.fadeoutAnimationProcessing,Utils.shouldRecalculateSlideIndex(e,n))?(n=Utils.getUpdateSlidePositionIndex(e,n),[4,this._handleUpdateSlidePosition(n)]):[3,2];case 1:return t.sent(),[3,4];case 2:return i?[4,this.setState({fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1})]:[3,4];case 3:t.sent(),t.label=4;case 4:return this._handleSlideChanged(),[2]}})})},o._handleMouseEnter=function(){var t=o.props.autoPlayStrategy;Utils.shouldCancelAutoPlayOnHover(t)&&o.state.isAutoPlaying&&(o.isHovered=!0,o._handlePause())},o._handleMouseLeave=function(){o.state.isAutoPlaying&&(o.isHovered=!1,o._handlePlay())},o._handlePause=function(){o._clearAutoPlayTimeout()},o._handlePlayPauseToggle=function(){return __awaiter(o,void 0,void 0,function(){var e;return __generator(this,function(t){switch(t.label){case 0:return e=this.state.isAutoPlaying,this.hasUserAction=!0,[4,this.setState({isAutoPlaying:!e,isAutoPlayCanceledOnAction:!0})];case 1:return t.sent(),e?this._handlePause():this._handlePlay(),[2]}})})},o._setRootComponentRef=function(t){return o.rootElement=t},o._setStageComponentRef=function(t){return o.stageComponent=t},o._renderStageItem=function(t,e){var i=Utils.getRenderStageItemStyles(e,o.state),n=Utils.getRenderStageItemClasses(e,o.state);return react_1.default.createElement(Views.StageItem,{styles:i,className:n,key:"stage-item-"+e,item:t})},o._renderSlideInfo=function(){var t=o.props.renderSlideInfo,e=o.state,i=e.activeIndex,e=e.itemsCount;return react_1.default.createElement(Views.SlideInfo,{itemsCount:e,activeIndex:i,renderSlideInfo:t})},o.state=Utils.calculateInitialState(t,null),o.isHovered=!1,o.isAnimationDisabled=!1,o.isTouchMoveProcessStarted=!1,o.cancelTouchAnimations=!1,o.hasUserAction=!1,o.rootElement=null,o.rootComponentDimensions={},o.stageComponent=null,o.startTouchmovePosition=void 0,o.slideTo=o.slideTo.bind(o),o.slidePrev=o.slidePrev.bind(o),o.slideNext=o.slideNext.bind(o),o._handleTouchmove=o._handleTouchmove.bind(o),o._handleTouchend=o._handleTouchend.bind(o),o._handleDotClick=o._handleDotClick.bind(o),o._handleResize=o._handleResize.bind(o),o._handleResizeDebounced=Utils.debounce(o._handleResize,100),o}return __extends(t,e),t.prototype.componentDidMount=function(){return __awaiter(this,void 0,void 0,function(){return __generator(this,function(t){switch(t.label){case 0:return[4,this._setInitialState()];case 1:return t.sent(),this._setupSwipeHandlers(),this.props.autoPlay&&this._handlePlay(),window.addEventListener("resize",this._handleResizeDebounced),[2]}})})},t.prototype.componentDidUpdate=function(t,e){var i=this.props,n=i.activeIndex,o=i.animationDuration,s=i.autoWidth,a=i.children,r=i.infinite,l=i.items,u=i.paddingLeft,d=i.paddingRight,c=i.responsive,h=i.swipeExtraPadding,p=i.mouseTracking,m=i.swipeDelta,_=i.touchTracking,i=i.touchMoveDefaultEvents;a&&t.children!==a?(e=e.activeIndex,e=__assign(__assign({},this.props),{activeIndex:e}),this._updateComponent(e)):t.autoWidth!==s||t.infinite!==r||t.items!==l||t.paddingLeft!==u||t.paddingRight!==d||t.responsive!==c||t.swipeExtraPadding!==h?this._updateComponent():(t.animationDuration!==o&&this.setState({animationDuration:o}),t.activeIndex!==n&&this.slideTo(n)),t.swipeDelta===m&&t.mouseTracking===p&&t.touchTracking===_&&t.touchMoveDefaultEvents===i||this._updateSwipeProps()},t.prototype.componentWillUnmount=function(){this._cancelTimeoutAnimations(),this.swipeListener&&this.swipeListener.destroy(),window.removeEventListener("resize",this._handleResizeDebounced)},Object.defineProperty(t.prototype,"eventObject",{get:function(){var t=this.state,e=t.itemsInSlide,i=t.activeIndex,n=Utils.getSlideItemInfo(this.state),t=n.isNextSlideDisabled,n=n.isPrevSlideDisabled;return{item:i,slide:Utils.getActiveSlideIndex(t,this.state),itemsInSlide:e,isNextSlideDisabled:t,isPrevSlideDisabled:n}},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"isFadeoutAnimationAllowed",{get:function(){var t=this.state.itemsInSlide,e=this.props,i=e.animationType,n=e.paddingLeft,o=e.paddingRight,s=e.autoWidth,e=e.autoHeight;return 1===t&&i===types_1.AnimationType.FADEOUT&&!(n||o||s||e)},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"touchmovePosition",{get:function(){return void 0!==this.startTouchmovePosition?this.startTouchmovePosition:this.state.translate3d},enumerable:!1,configurable:!0}),t.prototype.slideTo=function(t){var e,i;void 0===t&&(t=0),this._handlePause(),this.isFadeoutAnimationAllowed?(e=Utils.getFadeoutAnimationPosition(t,this.state),i=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:t,fadeoutAnimationIndex:i,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:t})},t.prototype.slidePrev=function(t){this._handlePause(),t&&t.isTrusted&&(this.hasUserAction=!0);var e,i=this.state.activeIndex-1;this.isFadeoutAnimationAllowed?(e=-this.state.stageWidth,t=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:i,fadeoutAnimationIndex:t,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:i})},t.prototype.slideNext=function(t){this._handlePause(),t&&t.isTrusted&&(this.hasUserAction=!0);var e,i=this.state.activeIndex+1;this.isFadeoutAnimationAllowed?(e=this.state.stageWidth,t=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:i,fadeoutAnimationIndex:t,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:i})},t.prototype._handleResize=function(o){return __awaiter(this,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return(i=this.props.onResizeEvent,n=Utils.getElementDimensions(this.rootElement),(i||Utils.shouldHandleResizeEvent)(o,this.rootComponentDimensions,n))?(this._cancelTimeoutAnimations(),this.rootComponentDimensions=n,i=this.state,n=i.itemsCount,e=i.isAutoPlaying,i=Utils.getUpdateSlidePositionIndex(this.state.activeIndex,n),n=Utils.calculateInitialState(__assign(__assign({},this.props),{activeIndex:i}),this.stageComponent),i=Utils.getTranslate3dProperty(n.activeIndex,n),n=__assign(__assign({},n),{translate3d:i,isAutoPlaying:e}),Utils.animate(this.stageComponent,{position:-i}),[4,this.setState(n)]):[3,2];case 1:t.sent(),this._handleResized(),this.isAnimationDisabled=!1,e&&this._handlePlay(),t.label=2;case 2:return[2]}})})},t.prototype._handleTouchmove=function(t,e){var i=e.absY,n=e.absX,o=e.deltaX,s=this.props.swipeDelta,a=this.state,r=a.swipeShiftValue,l=a.swipeLimitMin,u=a.swipeLimitMax,e=a.infinite,a=a.fadeoutAnimationProcessing;if(this.hasUserAction=!0,!(a||!this.isTouchMoveProcessStarted&&Utils.isVerticalTouchmoveDetected(n,i,s))){this.isTouchMoveProcessStarted||(this._cancelTimeoutAnimations(),this._setTouchmovePosition(),this.isAnimationDisabled=!0,this.isTouchMoveProcessStarted=!0);var d=Utils.getTouchmoveTranslatePosition(o,this.touchmovePosition);if(!1===e)return l<d||d<-u?void 0:void Utils.animate(this.stageComponent,{position:d});if(Utils.shouldRecalculateSwipePosition(d,l,u))try{!function t(){Utils.getIsLeftDirection(o)?d+=r:d+=-r;Utils.shouldRecalculateSwipePosition(d,l,u)&&t()}()}catch(t){Utils.debug(t)}Utils.animate(this.stageComponent,{position:d})}},t.prototype._handleTouchend=function(t,e){var i,n,o=e.deltaX;this._clearTouchmovePosition(),this.isTouchMoveProcessStarted&&(this.isTouchMoveProcessStarted=!1,i=this.state.animationDuration,n=this.props.animationEasingFunction,e=Utils.getTranslateXProperty(this.stageComponent),e=Utils.getSwipeTouchendPosition(this.state,o,e),this._handleSlideChange(),Utils.animate(this.stageComponent,{position:e,animationDuration:i,animationEasingFunction:n}),this._handleBeforeTouchEnd(e))},t.prototype._handleBeforeTouchEnd=function(o){var t=this,e=this.state.animationDuration;this.touchEndTimeoutId=setTimeout(function(){return __awaiter(t,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return e=Utils.getSwipeTouchendIndex(o,this.state),i=Utils.getTranslate3dProperty(e,this.state),Utils.animate(this.stageComponent,{position:-i}),n=Utils.getTransitionProperty(),[4,this.setState({activeIndex:e,translate3d:i,transition:n})];case 1:return t.sent(),[4,this._handleSlideChanged()];case 2:return t.sent(),[2]}})})},e)},t.prototype._handleSlideTo=function(t){var e=t.activeIndex,a=void 0===e?0:e,e=t.fadeoutAnimationIndex,r=void 0===e?null:e,t=t.fadeoutAnimationPosition,l=void 0===t?null:t;return __awaiter(this,void 0,void 0,function(){var e,i,n,o,s;return __generator(this,function(t){switch(t.label){case 0:return(o=this.props,e=o.infinite,n=o.animationEasingFunction,i=this.state,s=i.itemsInSlide,o=i.itemsCount,i=i.animationDuration,this.isAnimationDisabled||this.state.activeIndex===a||!e&&Utils.shouldCancelSlideAnimation(a,o,s))?[2]:(this.isAnimationDisabled=!0,this._cancelTimeoutAnimations(),this._handleSlideChange(),o=!1,s=Utils.getTranslate3dProperty(a,this.state),n=null!==r&&null!==l?(o=!0,Utils.getTransitionProperty()):Utils.getTransitionProperty({animationDuration:i,animationEasingFunction:n}),[4,this.setState({activeIndex:a,transition:n,translate3d:s,animationDuration:i,fadeoutAnimationIndex:r,fadeoutAnimationPosition:l,fadeoutAnimationProcessing:o})]);case 1:return t.sent(),this.slideEndTimeoutId=setTimeout(this._handleBeforeSlideEnd,i),[2]}})})},t.prototype._handleUpdateSlidePosition=function(o){return __awaiter(this,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return e=this.state.animationDuration,i=Utils.getTranslate3dProperty(o,this.state),n=Utils.getTransitionProperty({animationDuration:0}),[4,this.setState({activeIndex:o,translate3d:i,transition:n,animationDuration:e,fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1})];case 1:return t.sent(),[2]}})})},t.prototype._handleSlideChange=function(){this.props.onSlideChange&&this.props.onSlideChange(this.eventObject)},t.prototype._handleResized=function(){this.props.onResized&&this.props.onResized(this.eventObject)},t.prototype._handleSlideChanged=function(){return __awaiter(this,void 0,void 0,function(){var e,i,n,o;return __generator(this,function(t){switch(t.label){case 0:return n=this.state,e=n.isAutoPlaying,i=n.isAutoPlayCanceledOnAction,o=this.props,n=o.autoPlayStrategy,o=o.onSlideChanged,Utils.shouldCancelAutoPlayOnAction(n)&&this.hasUserAction&&!i?[4,this.setState({isAutoPlayCanceledOnAction:!0,isAutoPlaying:!1})]:[3,2];case 1:return t.sent(),[3,3];case 2:e&&this._handlePlay(),t.label=3;case 3:return this.isAnimationDisabled=!1,o&&o(this.eventObject),[2]}})})},t.prototype._handleDotClick=function(t){this.hasUserAction=!0,this.slideTo(t)},t.prototype._handlePlay=function(){this._setAutoPlayInterval()},t.prototype._cancelTimeoutAnimations=function(){this._clearAutoPlayTimeout(),this._clearSlideEndTimeout(),this.clearTouchendTimeout()},t.prototype._clearAutoPlayTimeout=function(){clearTimeout(this.autoPlayTimeoutId),this.autoPlayTimeoutId=void 0},t.prototype._clearSlideEndTimeout=function(){clearTimeout(this.slideEndTimeoutId),this.slideEndTimeoutId=void 0},t.prototype.clearTouchendTimeout=function(){clearTimeout(this.touchEndTimeoutId),this.touchEndTimeoutId=void 0},t.prototype._clearTouchmovePosition=function(){this.startTouchmovePosition=void 0},t.prototype._setTouchmovePosition=function(){var t=Utils.getTranslateXProperty(this.stageComponent);this.startTouchmovePosition=-t},t.prototype._setInitialState=function(){return __awaiter(this,void 0,void 0,function(){var e;return __generator(this,function(t){switch(t.label){case 0:return e=Utils.calculateInitialState(this.props,this.stageComponent),this.rootComponentDimensions=Utils.getElementDimensions(this.rootElement),[4,this.setState(e)];case 1:return t.sent(),this.props.onInitialized&&this.props.onInitialized(this.eventObject),[2]}})})},t.prototype._setAutoPlayInterval=function(){var t=this,e=this.props,i=e.autoPlayDirection,e=e.autoPlayInterval;this.autoPlayTimeoutId=setTimeout(function(){t.isHovered||(i===types_1.AutoplayDirection.RTL?t.slidePrev({}):t.slideNext({}))},e)},t.prototype._setupSwipeHandlers=function(){this.swipeListener=new vanilla_swipe_1.default({element:this.rootElement,delta:this.props.swipeDelta,onSwiping:this._handleTouchmove,onSwiped:this._handleTouchend,rotationAngle:5,mouseTrackingEnabled:this.props.mouseTracking,touchTrackingEnabled:this.props.touchTracking,preventDefaultTouchmoveEvent:!this.props.touchMoveDefaultEvents,preventTrackingOnMouseleave:!0}),this.swipeListener.init()},t.prototype._updateComponent=function(t){var e=this;void 0===t&&(t=this.props),this._cancelTimeoutAnimations(),this.isAnimationDisabled=!1,this.state.isAutoPlaying&&this._handlePlay(),this.setState({clones:Utils.createClones(t)}),requestAnimationFrame(function(){e.setState(Utils.calculateInitialState(t,e.stageComponent))})},t.prototype._updateSwipeProps=function(){this.swipeListener&&this.swipeListener.update({delta:this.props.swipeDelta,mouseTrackingEnabled:this.props.mouseTracking,touchTrackingEnabled:this.props.touchTracking,preventDefaultTouchmoveEvent:!this.props.touchMoveDefaultEvents})},t.prototype._renderDotsNavigation=function(){var t=this.props.renderDotsItem;return react_1.default.createElement(Views.DotsNavigation,{state:this.state,onClick:this._handleDotClick,renderDotsItem:t})},t.prototype._renderPrevButton=function(){var t=this.props.renderPrevButton,e=Utils.getSlideItemInfo(this.state).isPrevSlideDisabled;return react_1.default.createElement(Views.PrevNextButton,{name:"prev",onClick:this.slidePrev,isDisabled:e,renderPrevButton:t})},t.prototype._renderNextButton=function(){var t=this.props.renderNextButton,e=Utils.getSlideItemInfo(this.state).isNextSlideDisabled;return react_1.default.createElement(Views.PrevNextButton,{name:"next",onClick:this.slideNext,isDisabled:e,renderNextButton:t})},t.prototype._renderPlayPauseButton=function(){var t=this.props.renderPlayPauseButton,e=this.state.isAutoPlaying;return react_1.default.createElement(Views.PlayPauseButton,{isPlaying:e,onClick:this._handlePlayPauseToggle,renderPlayPauseButton:t})},t.prototype.render=function(){var t=this.state,e=t.translate3d,i=t.clones,n=t.transition,o=t.canUseDom,s=Utils.shouldDisableDots(this.props,this.state),t=Utils.getRenderWrapperStyles(this.props,this.state,this.stageComponent),n=Utils.getRenderStageStyles({translate3d:e},{transition:n}),o=o?"":" "+types_1.Modifiers.SSR;return react_1.default.createElement("div",{className:types_1.Classnames.ROOT+o},react_1.default.createElement("div",{ref:this._setRootComponentRef},react_1.default.createElement("div",{style:t,className:types_1.Classnames.WRAPPER,onMouseEnter:this._handleMouseEnter,onMouseLeave:this._handleMouseLeave},react_1.default.createElement("ul",{style:n,className:types_1.Classnames.STAGE,ref:this._setStageComponentRef},i.map(this._renderStageItem)))),s?null:this._renderDotsNavigation(),this.props.disableSlideInfo?null:this._renderSlideInfo(),this.props.disableButtonsControls?null:this._renderPrevButton(),this.props.disableButtonsControls?null:this._renderNextButton(),this.props.autoPlayControls?this._renderPlayPauseButton():null)},t.defaultProps=defaultProps_1.defaultProps,t}(react_1.default.PureComponent);exports.default=AliceCarousel;
+},{"react":"node_modules/react/index.js","vanilla-swipe":"node_modules/vanilla-swipe/lib/index.js","./defaultProps":"node_modules/react-alice-carousel/lib/defaultProps.js","./views":"node_modules/react-alice-carousel/lib/views/index.js","./utils":"node_modules/react-alice-carousel/lib/utils/index.js","./types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/alice-carousel.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
 module.exports = "/pepe-saber.ef97c8b8.gif";
 },{}],"src/components/realisations/realisations.jsx":[function(require,module,exports) {
 "use strict";
@@ -89345,6 +90449,10 @@ var _react2 = require("@chakra-ui/react");
 
 var _icons = require("@chakra-ui/icons");
 
+var _reactAliceCarousel = _interopRequireDefault(require("react-alice-carousel"));
+
+require("react-alice-carousel/lib/alice-carousel.css");
+
 var _fullViewportContainer = require("../full-viewport-container/full-viewport-container.jsx");
 
 var _pepeSaber = _interopRequireDefault(require("../../assets/images/pepe-saber.gif"));
@@ -89356,48 +90464,62 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function Realisations() {
+  var itemsLength = Array.from({
+    length: 10
+  });
+  var items = itemsLength.map(function (item, index) {
+    return /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Center, {
+      minW: "200px",
+      minH: "200px",
+      bg: "tomato"
+    }, index));
+  });
+  var responsive = {
+    0: {
+      items: 1
+    },
+    475: {
+      items: 2
+    },
+    700: {
+      items: 3
+    },
+    975: {
+      items: 4
+    },
+    1200: {
+      items: 5
+    },
+    1425: {
+      items: 6
+    }
+  };
+  var style1 = {
+    position: "relative",
+    top: "50%",
+    transform: "translateY(-50%)",
+    borderTop: "solid",
+    borderBottom: "solid",
+    maxWidth: "95%"
+  };
   return /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
     id: "realisations"
   }, /*#__PURE__*/React.createElement(_react2.Container, {
-    height: "100%",
-    minH: "50em",
-    centerContent: true
-  }, /*#__PURE__*/React.createElement(_react2.Heading, {
-    as: "h1"
-  }, "R\xE9alisations"), /*#__PURE__*/React.createElement(_react2.SimpleGrid, {
-    columns: 3,
-    spacing: 10
-  }, /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"), /*#__PURE__*/React.createElement(_react2.Box, {
-    bg: "tomato",
-    w: "100%",
-    maxW: "1000px"
-  }, "AZER"))));
+    pt: "2.5em",
+    pb: "2.5em",
+    style: style1
+  }, /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Heading, null, "R\xE9alisations")), /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Box, {
+    maxW: "100%"
+  }, /*#__PURE__*/React.createElement(_reactAliceCarousel.default, {
+    mouseTracking: true,
+    items: items,
+    responsive: responsive // renderDotsItem={() => null}
+    // renderPrevButton={() => null}
+    // renderNextButton={() => null}
+
+  })))));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","../../assets/images/pepe-saber.gif":"src/assets/images/pepe-saber.gif"}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","react-alice-carousel":"node_modules/react-alice-carousel/lib/react-alice-carousel.js","react-alice-carousel/lib/alice-carousel.css":"node_modules/react-alice-carousel/lib/alice-carousel.css","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","../../assets/images/pepe-saber.gif":"src/assets/images/pepe-saber.gif"}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89500,7 +90622,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53325" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56906" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
