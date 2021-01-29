@@ -5,8 +5,11 @@
   "author": "joubierjc <joubier.j.c@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@brainhubeu/react-carousel": "^1.19.26",
     "@chakra-ui/icons": "^1.0.3",
     "@chakra-ui/react": "^1.1.6",
+    "@egjs/flicking-plugins": "^3.3.0",
+    "@egjs/react-flicking": "^3.5.2",
     "@emotion/react": "^11.1.4",
     "@emotion/styled": "^11.0.0",
     "framer-motion": "^3.2.2-rc.1",
@@ -16,6 +19,7 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "@types/brainhubeu__react-carousel": "^2.0.2",
     "parcel-bundler": "^1.12.4"
   },
   "scripts": {

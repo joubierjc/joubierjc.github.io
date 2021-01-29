@@ -60,7 +60,7 @@ function RandomFacts() {
         return () => clearInterval(timer);
     }, []);
 
-    return <Box mt="10" className="random-facts" boxShadow="base" width="100%" maxW="5xl" position="relative">
+    return <Box mt="0.5em" mb="0.5em" className="random-facts" boxShadow="base" width="100%" maxW="5xl" position="relative">
         <div className="box-header">Random facts</div>
         <Center p="5" position="relative" minH="100px" overflow="hidden" fontSize="md">
             <div key={data.key} className="fact">
@@ -78,7 +78,7 @@ export function Intro() {
         <div className="bg-image"></div>
         <Container className="intro-presentation" boxShadow="dark-lg" position="relative" top="-50%" transform="translateY(-50%)" maxW="6xl" centerContent>
             
-            <Box mt="10" maxW="xs" position="relative">
+            <Box maxW="xs" position="relative">
                 <Image 
                     boxShadow="base"
                     src={photo} 
@@ -87,14 +87,14 @@ export function Intro() {
                 />
             </Box>
 
-            <Box maxW="xl" position="relative">
-                <Heading mt="5" as="h1" size="2xl">Jean-Christophe Joubier</Heading>
+            <Box maxW="xl" mt="1.5em" mb="2.5em" position="relative">
+                <Heading as="h1" size="2xl">Jean-Christophe Joubier</Heading>
             </Box>
 
             <RandomFacts/>
 
             <IconButton
-                m="10"
+                mt=".5em"
                 borderRadius="full"
                 size="6xl"
                 fontSize="6xl"

@@ -89268,7 +89268,8 @@ function RandomFacts() {
     };
   }, []);
   return /*#__PURE__*/React.createElement(_react2.Box, {
-    mt: "10",
+    mt: "0.5em",
+    mb: "0.5em",
     className: "random-facts",
     boxShadow: "base",
     width: "100%",
@@ -89305,7 +89306,6 @@ function Intro() {
     maxW: "6xl",
     centerContent: true
   }, /*#__PURE__*/React.createElement(_react2.Box, {
-    mt: "10",
     maxW: "xs",
     position: "relative"
   }, /*#__PURE__*/React.createElement(_react2.Image, {
@@ -89315,13 +89315,14 @@ function Intro() {
     borderRadius: "full"
   })), /*#__PURE__*/React.createElement(_react2.Box, {
     maxW: "xl",
+    mt: "1.5em",
+    mb: "2.5em",
     position: "relative"
   }, /*#__PURE__*/React.createElement(_react2.Heading, {
-    mt: "5",
     as: "h1",
     size: "2xl"
   }, "Jean-Christophe Joubier")), /*#__PURE__*/React.createElement(RandomFacts, null), /*#__PURE__*/React.createElement(_react2.IconButton, {
-    m: "10",
+    mt: ".5em",
     borderRadius: "full",
     size: "6xl",
     fontSize: "6xl",
@@ -89329,1110 +89330,14150 @@ function Intro() {
     onClick: goToRealisations
   })));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/js/facts.js":"src/assets/js/facts.js"}],"node_modules/vanilla-swipe/lib/types/index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/js/facts.js":"src/assets/js/facts.js"}],"node_modules/@egjs/component/dist/component.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Axis = exports.Direction = exports.TraceDirectionKey = void 0;
-var TraceDirectionKey;
-exports.TraceDirectionKey = TraceDirectionKey;
-
-(function (TraceDirectionKey) {
-  TraceDirectionKey["NEGATIVE"] = "NEGATIVE";
-  TraceDirectionKey["POSITIVE"] = "POSITIVE";
-  TraceDirectionKey["NONE"] = "NONE";
-})(TraceDirectionKey || (exports.TraceDirectionKey = TraceDirectionKey = {}));
-
-var Direction;
-exports.Direction = Direction;
-
-(function (Direction) {
-  Direction["TOP"] = "TOP";
-  Direction["LEFT"] = "LEFT";
-  Direction["RIGHT"] = "RIGHT";
-  Direction["BOTTOM"] = "BOTTOM";
-  Direction["NONE"] = "NONE";
-})(Direction || (exports.Direction = Direction = {}));
-
-var Axis;
-exports.Axis = Axis;
-
-(function (Axis) {
-  Axis["X"] = "x";
-  Axis["Y"] = "y";
-})(Axis || (exports.Axis = Axis = {}));
-},{}],"node_modules/vanilla-swipe/lib/utils/calculateDirection.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateDirection = calculateDirection;
-
-var _types = require("../types");
-
-function calculateDirection(trace) {
-  var direction;
-  var negative = _types.TraceDirectionKey.NEGATIVE;
-  var positive = _types.TraceDirectionKey.POSITIVE;
-  var current = trace[trace.length - 1];
-  var previous = trace[trace.length - 2] || 0;
-
-  if (trace.every(function (i) {
-    return i === 0;
-  })) {
-    return _types.TraceDirectionKey.NONE;
-  }
-
-  direction = current > previous ? positive : negative;
-
-  if (current === 0) {
-    direction = previous < 0 ? positive : negative;
-  }
-
-  return direction;
-}
-},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateDirectionDelta.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateDirectionDelta = calculateDirectionDelta;
-
-var _types = require("../types");
-
-var _ = require(".");
-
-function calculateDirectionDelta(traceDirections) {
-  var delta = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var length = traceDirections.length;
-  var i = length - 1;
-  var direction = _types.TraceDirectionKey.NONE;
-
-  for (; i >= 0; i--) {
-    var current = traceDirections[i];
-    var currentKey = (0, _.getDirectionKey)(current);
-    var currentValue = (0, _.getDirectionValue)(current[currentKey]);
-    var prev = traceDirections[i - 1] || {};
-    var prevKey = (0, _.getDirectionKey)(prev);
-    var prevValue = (0, _.getDirectionValue)(prev[prevKey]);
-    var difference = (0, _.getDifference)(currentValue, prevValue);
-
-    if (difference >= delta) {
-      direction = currentKey;
-      break;
-    } else {
-      direction = prevKey;
-    }
-  }
-
-  return direction;
-}
-},{"../types":"node_modules/vanilla-swipe/lib/types/index.js",".":"node_modules/vanilla-swipe/lib/utils/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateDuration.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateDuration = calculateDuration;
-
-function calculateDuration() {
-  var prevTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  var nextTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  return prevTime ? nextTime - prevTime : 0;
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/calculateMovingPosition.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateMovingPosition = calculateMovingPosition;
-
-function calculateMovingPosition(e) {
-  if ('changedTouches' in e) {
-    var touches = e.changedTouches && e.changedTouches[0];
-    return {
-      x: touches && touches.clientX,
-      y: touches && touches.clientY
-    };
-  }
-
-  return {
-    x: e.clientX,
-    y: e.clientY
-  };
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/calculatePosition.js":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculatePosition = calculatePosition;
-
-var Utils = _interopRequireWildcard(require("."));
-
-var _types = require("../types");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function calculatePosition(state, options) {
-  var start = state.start,
-      x = state.x,
-      y = state.y,
-      traceX = state.traceX,
-      traceY = state.traceY;
-  var rotatePosition = options.rotatePosition,
-      directionDelta = options.directionDelta;
-  var deltaX = rotatePosition.x - x;
-  var deltaY = y - rotatePosition.y;
-  var absX = Math.abs(deltaX);
-  var absY = Math.abs(deltaY);
-  Utils.updateTrace(traceX, deltaX);
-  Utils.updateTrace(traceY, deltaY);
-  var directionX = Utils.resolveDirection(traceX, _types.Axis.X, directionDelta);
-  var directionY = Utils.resolveDirection(traceY, _types.Axis.Y, directionDelta);
-  var duration = Utils.calculateDuration(start, Date.now());
-  var velocity = Utils.calculateVelocity(absX, absY, duration);
-  return {
-    absX: absX,
-    absY: absY,
-    deltaX: deltaX,
-    deltaY: deltaY,
-    directionX: directionX,
-    directionY: directionY,
-    duration: duration,
-    positionX: rotatePosition.x,
-    positionY: rotatePosition.y,
-    velocity: velocity
-  };
-}
-},{".":"node_modules/vanilla-swipe/lib/utils/index.js","../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateTraceDirections.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateTraceDirections = calculateTraceDirections;
-
-var _types = require("../types");
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function calculateTraceDirections() {
-  var trace = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var ticks = [];
-  var positive = _types.TraceDirectionKey.POSITIVE;
-  var negative = _types.TraceDirectionKey.NEGATIVE;
-  var i = 0;
-  var tick = [];
-  var direction = _types.TraceDirectionKey.NONE;
-
-  for (; i < trace.length; i++) {
-    var current = trace[i];
-    var prev = trace[i - 1];
-
-    if (tick.length) {
-      var currentDirection = current > prev ? positive : negative;
-
-      if (direction === _types.TraceDirectionKey.NONE) {
-        direction = currentDirection;
-      }
-
-      if (currentDirection === direction) {
-        tick.push(current);
-      } else {
-        ticks.push(_defineProperty({}, direction, tick.slice()));
-        tick = [];
-        tick.push(current);
-        direction = currentDirection;
-      }
-    } else {
-      if (current !== 0) {
-        direction = current > 0 ? positive : negative;
-      }
-
-      tick.push(current);
-    }
-  }
-
-  if (tick.length) {
-    ticks.push(_defineProperty({}, direction, tick));
-  }
-
-  return ticks;
-}
-},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/calculateVelocity.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateVelocity = calculateVelocity;
-
-function calculateVelocity(x, y, time) {
-  var magnitude = Math.sqrt(x * x + y * y);
-  return magnitude / (time || 1);
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/checkIsMoreThanSingleTouches.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.checkIsMoreThanSingleTouches = void 0;
-
-var checkIsMoreThanSingleTouches = function checkIsMoreThanSingleTouches(e) {
-  return Boolean(e.touches && e.touches.length > 1);
-};
-
-exports.checkIsMoreThanSingleTouches = checkIsMoreThanSingleTouches;
-},{}],"node_modules/vanilla-swipe/lib/utils/createOptions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createOptions = createOptions;
-
-function createOptions() {
-  var proxy = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  Object.defineProperty(proxy, 'passive', {
-    get: function get() {
-      this.isPassiveSupported = true;
-      return true;
-    },
-    enumerable: true
-  });
-  return proxy;
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/checkIsPassiveSupported.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.checkIsPassiveSupported = checkIsPassiveSupported;
-exports.noop = void 0;
-
-var _createOptions = require("./createOptions");
-
-function checkIsPassiveSupported() {
-  var isPassiveSupported = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var proxy = {
-    isPassiveSupported: isPassiveSupported
-  };
-
-  try {
-    var options = (0, _createOptions.createOptions)(proxy);
-    window.addEventListener('checkIsPassiveSupported', noop, options);
-    window.removeEventListener('checkIsPassiveSupported', noop, options);
-  } catch (err) {}
-
-  return proxy.isPassiveSupported;
-}
-
-var noop = function noop() {};
-
-exports.noop = noop;
-},{"./createOptions":"node_modules/vanilla-swipe/lib/utils/createOptions.js"}],"node_modules/vanilla-swipe/lib/utils/common.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.resolveAxisDirection = exports.getDifference = exports.getDirectionValue = exports.getDirectionKey = void 0;
-
-var _types = require("../types");
-
-var getDirectionKey = function getDirectionKey() {
-  var object = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var key = Object.keys(object).toString();
-
-  switch (key) {
-    case _types.TraceDirectionKey.POSITIVE:
-      return _types.TraceDirectionKey.POSITIVE;
-
-    case _types.TraceDirectionKey.NEGATIVE:
-      return _types.TraceDirectionKey.NEGATIVE;
-
-    default:
-      return _types.TraceDirectionKey.NONE;
-  }
-};
-
-exports.getDirectionKey = getDirectionKey;
-
-var getDirectionValue = function getDirectionValue() {
-  var values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  return values[values.length - 1] || 0;
-};
-
-exports.getDirectionValue = getDirectionValue;
-
-var getDifference = function getDifference() {
-  var x = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-  var y = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  return Math.abs(x - y);
-};
-
-exports.getDifference = getDifference;
-
-var resolveAxisDirection = function resolveAxisDirection(axis, key) {
-  var negative = _types.Direction.LEFT;
-  var positive = _types.Direction.RIGHT;
-  var direction = _types.Direction.NONE;
-
-  if (axis === _types.Axis.Y) {
-    negative = _types.Direction.BOTTOM;
-    positive = _types.Direction.TOP;
-  }
-
-  if (key === _types.TraceDirectionKey.NEGATIVE) {
-    direction = negative;
-  }
-
-  if (key === _types.TraceDirectionKey.POSITIVE) {
-    direction = positive;
-  }
-
-  return direction;
-};
-
-exports.resolveAxisDirection = resolveAxisDirection;
-},{"../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/getInitialState.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getInitialState = void 0;
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var getInitialState = function getInitialState() {
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _objectSpread({
-    x: 0,
-    y: 0,
-    start: 0,
-    isSwiping: false,
-    traceX: [],
-    traceY: []
-  }, options);
-};
-
-exports.getInitialState = getInitialState;
-},{}],"node_modules/vanilla-swipe/lib/utils/getInitialProps.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getInitialProps = void 0;
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var getInitialProps = function getInitialProps() {
-  var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return _objectSpread({
-    element: null,
-    delta: 10,
-    directionDelta: 0,
-    rotationAngle: 0,
-    mouseTrackingEnabled: false,
-    touchTrackingEnabled: true,
-    preventDefaultTouchmoveEvent: false,
-    preventTrackingOnMouseleave: false
-  }, props);
-};
-
-exports.getInitialProps = getInitialProps;
-},{}],"node_modules/vanilla-swipe/lib/utils/getOptions.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getOptions = getOptions;
-
-function getOptions() {
-  var isPassiveSupported = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-  if (isPassiveSupported) {
-    return {
-      passive: false
-    };
-  }
-
-  return {};
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/resolveDirection.js":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.resolveDirection = resolveDirection;
-
-var Utils = _interopRequireWildcard(require("."));
-
-var _types = require("../types");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function resolveDirection(trace) {
-  var axis = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _types.Axis.X;
-  var directionDelta = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-  if (directionDelta) {
-    var directions = Utils.calculateTraceDirections(trace);
-
-    var _direction = Utils.calculateDirectionDelta(directions, directionDelta);
-
-    return Utils.resolveAxisDirection(axis, _direction);
-  }
-
-  var direction = Utils.calculateDirection(trace);
-  return Utils.resolveAxisDirection(axis, direction);
-}
-},{".":"node_modules/vanilla-swipe/lib/utils/index.js","../types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/vanilla-swipe/lib/utils/rotateByAngle.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.rotateByAngle = rotateByAngle;
-
-function rotateByAngle(position) {
-  var angle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-  if (angle === 0) {
-    return position;
-  }
-
-  var x = position.x,
-      y = position.y;
-  var angleInRadians = Math.PI / 180 * angle;
-  var rotatedX = x * Math.cos(angleInRadians) + y * Math.sin(angleInRadians);
-  var rotatedY = y * Math.cos(angleInRadians) - x * Math.sin(angleInRadians);
-  return {
-    x: rotatedX,
-    y: rotatedY
-  };
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/updateTrace.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateTrace = updateTrace;
-
-function updateTrace(trace, value) {
-  var last = trace[trace.length - 1];
-
-  if (last !== value) {
-    trace.push(value);
-  }
-
-  return trace;
-}
-},{}],"node_modules/vanilla-swipe/lib/utils/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _calculateDirection = require("./calculateDirection");
-
-Object.keys(_calculateDirection).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateDirection[key];
-    }
-  });
-});
-
-var _calculateDirectionDelta = require("./calculateDirectionDelta");
-
-Object.keys(_calculateDirectionDelta).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateDirectionDelta[key];
-    }
-  });
-});
-
-var _calculateDuration = require("./calculateDuration");
-
-Object.keys(_calculateDuration).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateDuration[key];
-    }
-  });
-});
-
-var _calculateMovingPosition = require("./calculateMovingPosition");
-
-Object.keys(_calculateMovingPosition).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateMovingPosition[key];
-    }
-  });
-});
-
-var _calculatePosition = require("./calculatePosition");
-
-Object.keys(_calculatePosition).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculatePosition[key];
-    }
-  });
-});
-
-var _calculateTraceDirections = require("./calculateTraceDirections");
-
-Object.keys(_calculateTraceDirections).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateTraceDirections[key];
-    }
-  });
-});
-
-var _calculateVelocity = require("./calculateVelocity");
-
-Object.keys(_calculateVelocity).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _calculateVelocity[key];
-    }
-  });
-});
-
-var _checkIsMoreThanSingleTouches = require("./checkIsMoreThanSingleTouches");
-
-Object.keys(_checkIsMoreThanSingleTouches).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _checkIsMoreThanSingleTouches[key];
-    }
-  });
-});
-
-var _checkIsPassiveSupported = require("./checkIsPassiveSupported");
-
-Object.keys(_checkIsPassiveSupported).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _checkIsPassiveSupported[key];
-    }
-  });
-});
-
-var _common = require("./common");
-
-Object.keys(_common).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _common[key];
-    }
-  });
-});
-
-var _createOptions = require("./createOptions");
-
-Object.keys(_createOptions).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _createOptions[key];
-    }
-  });
-});
-
-var _getInitialState = require("./getInitialState");
-
-Object.keys(_getInitialState).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _getInitialState[key];
-    }
-  });
-});
-
-var _getInitialProps = require("./getInitialProps");
-
-Object.keys(_getInitialProps).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _getInitialProps[key];
-    }
-  });
-});
-
-var _getOptions = require("./getOptions");
-
-Object.keys(_getOptions).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _getOptions[key];
-    }
-  });
-});
-
-var _resolveDirection = require("./resolveDirection");
-
-Object.keys(_resolveDirection).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _resolveDirection[key];
-    }
-  });
-});
-
-var _rotateByAngle = require("./rotateByAngle");
-
-Object.keys(_rotateByAngle).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _rotateByAngle[key];
-    }
-  });
-});
-
-var _updateTrace = require("./updateTrace");
-
-Object.keys(_updateTrace).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _updateTrace[key];
-    }
-  });
-});
-},{"./calculateDirection":"node_modules/vanilla-swipe/lib/utils/calculateDirection.js","./calculateDirectionDelta":"node_modules/vanilla-swipe/lib/utils/calculateDirectionDelta.js","./calculateDuration":"node_modules/vanilla-swipe/lib/utils/calculateDuration.js","./calculateMovingPosition":"node_modules/vanilla-swipe/lib/utils/calculateMovingPosition.js","./calculatePosition":"node_modules/vanilla-swipe/lib/utils/calculatePosition.js","./calculateTraceDirections":"node_modules/vanilla-swipe/lib/utils/calculateTraceDirections.js","./calculateVelocity":"node_modules/vanilla-swipe/lib/utils/calculateVelocity.js","./checkIsMoreThanSingleTouches":"node_modules/vanilla-swipe/lib/utils/checkIsMoreThanSingleTouches.js","./checkIsPassiveSupported":"node_modules/vanilla-swipe/lib/utils/checkIsPassiveSupported.js","./common":"node_modules/vanilla-swipe/lib/utils/common.js","./createOptions":"node_modules/vanilla-swipe/lib/utils/createOptions.js","./getInitialState":"node_modules/vanilla-swipe/lib/utils/getInitialState.js","./getInitialProps":"node_modules/vanilla-swipe/lib/utils/getInitialProps.js","./getOptions":"node_modules/vanilla-swipe/lib/utils/getOptions.js","./resolveDirection":"node_modules/vanilla-swipe/lib/utils/resolveDirection.js","./rotateByAngle":"node_modules/vanilla-swipe/lib/utils/rotateByAngle.js","./updateTrace":"node_modules/vanilla-swipe/lib/utils/updateTrace.js"}],"node_modules/vanilla-swipe/lib/index.js":[function(require,module,exports) {
-"use strict";
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var _exportNames = {};
-exports["default"] = void 0;
-
-var Utils = _interopRequireWildcard(require("./utils"));
-
-var _types = require("./types");
-
-Object.keys(_types).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _types[key];
-    }
-  });
-});
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var VanillaSwipe = /*#__PURE__*/function () {
-  function VanillaSwipe(props) {
-    _classCallCheck(this, VanillaSwipe);
-
-    _defineProperty(this, "state", void 0);
-
-    _defineProperty(this, "props", void 0);
-
-    this.state = Utils.getInitialState();
-    this.props = Utils.getInitialProps(props);
-    this.handleSwipeStart = this.handleSwipeStart.bind(this);
-    this.handleSwipeMove = this.handleSwipeMove.bind(this);
-    this.handleSwipeEnd = this.handleSwipeEnd.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleMouseLeave = this.handleMouseLeave.bind(this);
-  }
-
-  _createClass(VanillaSwipe, [{
-    key: "init",
-    value: function init() {
-      this.setupTouchListeners();
-      this.setupMouseListeners();
-    }
-  }, {
-    key: "update",
-    value: function update(props) {
-      var prevProps = this.props;
-      var nextProps = Object.assign({}, prevProps, props);
-
-      if (prevProps.element !== nextProps.element || prevProps.target !== nextProps.target) {
-        this.destroy();
-        this.props = nextProps;
-        this.init();
-        return;
-      }
-
-      this.props = nextProps;
-
-      if (prevProps.mouseTrackingEnabled !== nextProps.mouseTrackingEnabled || prevProps.preventTrackingOnMouseleave !== nextProps.preventTrackingOnMouseleave) {
-        this.cleanupMouseListeners();
-        nextProps.mouseTrackingEnabled ? this.setupMouseListeners() : this.cleanupMouseListeners();
-      }
-
-      if (prevProps.touchTrackingEnabled !== nextProps.touchTrackingEnabled) {
-        this.cleanupTouchListeners();
-        nextProps.touchTrackingEnabled ? this.setupTouchListeners() : this.cleanupTouchListeners();
-      }
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this.cleanupMouseListeners();
-      this.cleanupTouchListeners();
-      this.state = Utils.getInitialState();
-      this.props = Utils.getInitialProps();
-    }
-  }, {
-    key: "setupTouchListeners",
-    value: function setupTouchListeners() {
-      var _this$props = this.props,
-          element = _this$props.element,
-          target = _this$props.target,
-          touchTrackingEnabled = _this$props.touchTrackingEnabled;
-
-      if (element && touchTrackingEnabled) {
-        var listener = target || element;
-        var isPassiveSupported = Utils.checkIsPassiveSupported();
-        var options = Utils.getOptions(isPassiveSupported);
-        listener.addEventListener('touchstart', this.handleSwipeStart, options);
-        listener.addEventListener('touchmove', this.handleSwipeMove, options);
-        listener.addEventListener('touchend', this.handleSwipeEnd, options);
-      }
-    }
-  }, {
-    key: "cleanupTouchListeners",
-    value: function cleanupTouchListeners() {
-      var _this$props2 = this.props,
-          element = _this$props2.element,
-          target = _this$props2.target;
-      var listener = target || element;
-
-      if (listener) {
-        listener.removeEventListener('touchstart', this.handleSwipeStart);
-        listener.removeEventListener('touchmove', this.handleSwipeMove);
-        listener.removeEventListener('touchend', this.handleSwipeEnd);
-      }
-    }
-  }, {
-    key: "setupMouseListeners",
-    value: function setupMouseListeners() {
-      var _this$props3 = this.props,
-          element = _this$props3.element,
-          mouseTrackingEnabled = _this$props3.mouseTrackingEnabled,
-          preventTrackingOnMouseleave = _this$props3.preventTrackingOnMouseleave;
-
-      if (mouseTrackingEnabled && element) {
-        element.addEventListener('mousedown', this.handleMouseDown);
-        element.addEventListener('mousemove', this.handleMouseMove);
-        element.addEventListener('mouseup', this.handleMouseUp);
-
-        if (preventTrackingOnMouseleave) {
-          element.addEventListener('mouseleave', this.handleMouseLeave);
-        }
-      }
-    }
-  }, {
-    key: "cleanupMouseListeners",
-    value: function cleanupMouseListeners() {
-      var element = this.props.element;
-
-      if (element) {
-        element.removeEventListener('mousedown', this.handleMouseDown);
-        element.removeEventListener('mousemove', this.handleMouseMove);
-        element.removeEventListener('mouseup', this.handleMouseUp);
-        element.removeEventListener('mouseleave', this.handleMouseLeave);
-      }
-    }
-  }, {
-    key: "getEventData",
-    value: function getEventData(e) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-        directionDelta: 0
+exports.default = void 0;
+
+/*
+Copyright (c) NAVER Corp.
+name: @egjs/component
+license: MIT
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-component
+version: 2.2.2
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+function __values(o) {
+  var s = typeof Symbol === "function" && Symbol.iterator,
+      m = s && o[s],
+      i = 0;
+  if (m) return m.call(o);
+  if (o && typeof o.length === "number") return {
+    next: function () {
+      if (o && i >= o.length) o = void 0;
+      return {
+        value: o && o[i++],
+        done: !o
       };
-      var rotationAngle = this.props.rotationAngle;
-      var directionDelta = options.directionDelta;
-      var movingPosition = Utils.calculateMovingPosition(e);
-      var rotatePosition = Utils.rotateByAngle(movingPosition, rotationAngle);
-      return Utils.calculatePosition(this.state, {
-        rotatePosition: rotatePosition,
-        directionDelta: directionDelta
-      });
     }
-  }, {
-    key: "handleSwipeStart",
-    value: function handleSwipeStart(e) {
-      if (Utils.checkIsMoreThanSingleTouches(e)) return;
-      var rotationAngle = this.props.rotationAngle;
-      var movingPosition = Utils.calculateMovingPosition(e);
+  };
+  throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+/*
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
 
-      var _Utils$rotateByAngle = Utils.rotateByAngle(movingPosition, rotationAngle),
-          x = _Utils$rotateByAngle.x,
-          y = _Utils$rotateByAngle.y;
 
-      this.state = Utils.getInitialState({
-        isSwiping: false,
-        start: Date.now(),
-        x: x,
-        y: y
-      });
+function isUndefined(value) {
+  return typeof value === "undefined";
+}
+/**
+ * A class used to manage events in a component
+ * @ko 컴포넌트의 이벤트을 관리할 수 있게 하는 클래스
+ * @alias eg.Component
+ */
+
+
+var Component = /*#__PURE__*/function () {
+  /**
+   * @support {"ie": "7+", "ch" : "latest", "ff" : "latest",  "sf" : "latest", "edge" : "latest", "ios" : "7+", "an" : "2.1+ (except 3.x)"}
+   */
+  function Component() {
+    /**
+     * @deprecated
+     * @private
+     */
+    this.options = {};
+    this._eventHandler = {};
+  }
+  /**
+   * Triggers a custom event.
+   * @ko 커스텀 이벤트를 발생시킨다
+   * @param {string} eventName The name of the custom event to be triggered <ko>발생할 커스텀 이벤트의 이름</ko>
+   * @param {object} customEvent Event data to be sent when triggering a custom event <ko>커스텀 이벤트가 발생할 때 전달할 데이터</ko>
+   * @param {any[]} restParam Additional parameters when triggering a custom event <ko>커스텀 이벤트가 발생할 때 필요시 추가적으로 전달할 데이터</ko>
+   * @return Indicates whether the event has occurred. If the stop() method is called by a custom event handler, it will return false and prevent the event from occurring. <a href="https://github.com/naver/egjs-component/wiki/How-to-make-Component-event-design%3F">Ref</a> <ko>이벤트 발생 여부. 커스텀 이벤트 핸들러에서 stop() 메서드를 호출하면 'false'를 반환하고 이벤트 발생을 중단한다. <a href="https://github.com/naver/egjs-component/wiki/How-to-make-Component-event-design%3F">참고</a></ko>
+   * @example
+   * ```
+   * class Some extends eg.Component {
+   *   some(){
+   *     if(this.trigger("beforeHi")){ // When event call to stop return false.
+   *       this.trigger("hi");// fire hi event.
+   *     }
+   *   }
+   * }
+   *
+   * const some = new Some();
+   * some.on("beforeHi", (e) => {
+   *   if(condition){
+   *     e.stop(); // When event call to stop, `hi` event not call.
+   *   }
+   * });
+   * some.on("hi", (e) => {
+   *   // `currentTarget` is component instance.
+   *   console.log(some === e.currentTarget); // true
+   * });
+   * // If you want to more know event design. You can see article.
+   * // https://github.com/naver/egjs-component/wiki/How-to-make-Component-event-design%3F
+   * ```
+   */
+
+
+  var __proto = Component.prototype;
+
+  __proto.trigger = function (eventName) {
+    var _this = this;
+
+    var params = [];
+
+    for (var _i = 1; _i < arguments.length; _i++) {
+      params[_i - 1] = arguments[_i];
     }
-  }, {
-    key: "handleSwipeMove",
-    value: function handleSwipeMove(e) {
-      var _this$state = this.state,
-          x = _this$state.x,
-          y = _this$state.y,
-          isSwiping = _this$state.isSwiping;
-      if (!x || !y || Utils.checkIsMoreThanSingleTouches(e)) return;
 
-      var _this$getEventData = this.getEventData(e),
-          absX = _this$getEventData.absX,
-          absY = _this$getEventData.absY,
-          deltaX = _this$getEventData.deltaX,
-          deltaY = _this$getEventData.deltaY,
-          directionX = _this$getEventData.directionX,
-          directionY = _this$getEventData.directionY,
-          duration = _this$getEventData.duration,
-          velocity = _this$getEventData.velocity;
+    var handlerList = this._eventHandler[eventName] || [];
+    var hasHandlerList = handlerList.length > 0;
 
-      var _this$props4 = this.props,
-          delta = _this$props4.delta,
-          preventDefaultTouchmoveEvent = _this$props4.preventDefaultTouchmoveEvent,
-          onSwipeStart = _this$props4.onSwipeStart,
-          onSwiping = _this$props4.onSwiping;
-      if (e.cancelable && preventDefaultTouchmoveEvent) e.preventDefault();
-      if (absX < Number(delta) && absY < Number(delta) && !isSwiping) return;
+    if (!hasHandlerList) {
+      return true;
+    }
 
-      if (onSwipeStart && !isSwiping) {
-        onSwipeStart(e, {
-          deltaX: deltaX,
-          deltaY: deltaY,
-          absX: absX,
-          absY: absY,
-          directionX: directionX,
-          directionY: directionY,
-          duration: duration,
-          velocity: velocity
-        });
+    var customEvent = params[0] || {};
+    var restParams = params.slice(1); // If detach method call in handler in first time then handler list calls.
+
+    handlerList = handlerList.concat();
+    var isCanceled = false; // This should be done like this to pass previous tests
+
+    customEvent.eventType = eventName;
+
+    customEvent.stop = function () {
+      isCanceled = true;
+    };
+
+    customEvent.currentTarget = this;
+    var arg = [customEvent];
+
+    if (restParams.length >= 1) {
+      arg = arg.concat(restParams);
+    }
+
+    handlerList.forEach(function (handler) {
+      handler.apply(_this, arg);
+    });
+    return !isCanceled;
+  };
+  /**
+   * Executed event just one time.
+   * @ko 이벤트가 한번만 실행된다.
+   * @param {string} eventName The name of the event to be attached <ko>등록할 이벤트의 이름</ko>
+   * @param {function} handlerToAttach The handler function of the event to be attached <ko>등록할 이벤트의 핸들러 함수</ko>
+   * @return An instance of a component itself<ko>컴포넌트 자신의 인스턴스</ko>
+   * @example
+   * ```
+   * class Some extends eg.Component {
+   * hi() {
+   *   alert("hi");
+   * }
+   * thing() {
+   *   this.once("hi", this.hi);
+   * }
+   *
+   * var some = new Some();
+   * some.thing();
+   * some.trigger("hi");
+   * // fire alert("hi");
+   * some.trigger("hi");
+   * // Nothing happens
+   * ```
+   */
+
+
+  __proto.once = function (eventName, handlerToAttach) {
+    var _this = this;
+
+    if (typeof eventName === "object" && isUndefined(handlerToAttach)) {
+      var eventHash = eventName;
+
+      for (var key in eventHash) {
+        this.once(key, eventHash[key]);
       }
 
-      this.state.isSwiping = true;
+      return this;
+    } else if (typeof eventName === "string" && typeof handlerToAttach === "function") {
+      var listener_1 = function () {
+        var args = [];
 
-      if (onSwiping) {
-        onSwiping(e, {
-          deltaX: deltaX,
-          deltaY: deltaY,
-          absX: absX,
-          absY: absY,
-          directionX: directionX,
-          directionY: directionY,
-          duration: duration,
-          velocity: velocity
-        });
-      }
-    }
-  }, {
-    key: "handleSwipeEnd",
-    value: function handleSwipeEnd(e) {
-      var _this$props5 = this.props,
-          onSwiped = _this$props5.onSwiped,
-          onTap = _this$props5.onTap;
-
-      if (this.state.isSwiping) {
-        var directionDelta = this.props.directionDelta || 0;
-        var position = this.getEventData(e, {
-          directionDelta: directionDelta
-        });
-        onSwiped && onSwiped(e, position);
-      } else {
-        var _position = this.getEventData(e);
-
-        onTap && onTap(e, _position);
-      }
-
-      this.state = Utils.getInitialState();
-    }
-  }, {
-    key: "handleMouseDown",
-    value: function handleMouseDown(e) {
-      var target = this.props.target;
-
-      if (target) {
-        if (target === e.target) {
-          this.handleSwipeStart(e);
+        for (var _i = 0; _i < arguments.length; _i++) {
+          args[_i] = arguments[_i];
         }
-      } else {
-        this.handleSwipeStart(e);
-      }
-    }
-  }, {
-    key: "handleMouseMove",
-    value: function handleMouseMove(e) {
-      this.handleSwipeMove(e);
-    }
-  }, {
-    key: "handleMouseUp",
-    value: function handleMouseUp(e) {
-      var isSwiping = this.state.isSwiping;
-      var target = this.props.target;
 
-      if (target) {
-        if (target === e.target || isSwiping) {
-          this.handleSwipeEnd(e);
+        handlerToAttach.apply(_this, args);
+
+        _this.off(eventName, listener_1);
+      };
+
+      this.on(eventName, listener_1);
+    }
+
+    return this;
+  };
+  /**
+   * Checks whether an event has been attached to a component.
+   * @ko 컴포넌트에 이벤트가 등록됐는지 확인한다.
+   * @param {string} eventName The name of the event to be attached <ko>등록 여부를 확인할 이벤트의 이름</ko>
+   * @return {boolean} Indicates whether the event is attached. <ko>이벤트 등록 여부</ko>
+   * @example
+   * ```
+   * class Some extends eg.Component {
+   *   some() {
+   *     this.hasOn("hi");// check hi event.
+   *   }
+   * }
+   * ```
+   */
+
+
+  __proto.hasOn = function (eventName) {
+    return !!this._eventHandler[eventName];
+  };
+  /**
+   * Attaches an event to a component.
+   * @ko 컴포넌트에 이벤트를 등록한다.
+   * @param {string} eventName The name of the event to be attached <ko>등록할 이벤트의 이름</ko>
+   * @param {function} handlerToAttach The handler function of the event to be attached <ko>등록할 이벤트의 핸들러 함수</ko>
+   * @return An instance of a component itself<ko>컴포넌트 자신의 인스턴스</ko>
+   * @example
+   * ```
+   * class Some extends eg.Component {
+   *   hi() {
+   *     console.log("hi");
+   *   }
+   *   some() {
+   *     this.on("hi",this.hi); //attach event
+   *   }
+   * }
+   * ```
+   */
+
+
+  __proto.on = function (eventName, handlerToAttach) {
+    if (typeof eventName === "object" && isUndefined(handlerToAttach)) {
+      var eventHash = eventName;
+
+      for (var name in eventHash) {
+        this.on(name, eventHash[name]);
+      }
+
+      return this;
+    } else if (typeof eventName === "string" && typeof handlerToAttach === "function") {
+      var handlerList = this._eventHandler[eventName];
+
+      if (isUndefined(handlerList)) {
+        this._eventHandler[eventName] = [];
+        handlerList = this._eventHandler[eventName];
+      }
+
+      handlerList.push(handlerToAttach);
+    }
+
+    return this;
+  };
+  /**
+   * Detaches an event from the component.
+   * @ko 컴포넌트에 등록된 이벤트를 해제한다
+   * @param {string} eventName The name of the event to be detached <ko>해제할 이벤트의 이름</ko>
+   * @param {function} handlerToDetach The handler function of the event to be detached <ko>해제할 이벤트의 핸들러 함수</ko>
+   * @return An instance of a component itself <ko>컴포넌트 자신의 인스턴스</ko>
+   * @example
+   * ```
+   * class Some extends eg.Component {
+   *   hi() {
+   *     console.log("hi");
+   *   }
+   *   some() {
+   *     this.off("hi",this.hi); //detach event
+   *   }
+   * }
+   * ```
+   */
+
+
+  __proto.off = function (eventName, handlerToDetach) {
+    var e_1, _a; // Detach all event handlers.
+
+
+    if (isUndefined(eventName)) {
+      this._eventHandler = {};
+      return this;
+    } // Detach all handlers for eventname or detach event handlers by object.
+
+
+    if (isUndefined(handlerToDetach)) {
+      if (typeof eventName === "string") {
+        delete this._eventHandler[eventName];
+        return this;
+      } else {
+        var eventHash = eventName;
+
+        for (var name in eventHash) {
+          this.off(name, eventHash[name]);
         }
-      } else {
-        this.handleSwipeEnd(e);
+
+        return this;
+      }
+    } // Detach single event handler
+
+
+    var handlerList = this._eventHandler[eventName];
+
+    if (handlerList) {
+      var idx = 0;
+
+      try {
+        for (var handlerList_1 = __values(handlerList), handlerList_1_1 = handlerList_1.next(); !handlerList_1_1.done; handlerList_1_1 = handlerList_1.next()) {
+          var handlerFunction = handlerList_1_1.value;
+
+          if (handlerFunction === handlerToDetach) {
+            handlerList.splice(idx, 1);
+            break;
+          }
+
+          idx++;
+        }
+      } catch (e_1_1) {
+        e_1 = {
+          error: e_1_1
+        };
+      } finally {
+        try {
+          if (handlerList_1_1 && !handlerList_1_1.done && (_a = handlerList_1.return)) _a.call(handlerList_1);
+        } finally {
+          if (e_1) throw e_1.error;
+        }
       }
     }
-  }, {
-    key: "handleMouseLeave",
-    value: function handleMouseLeave(e) {
-      var isSwiping = this.state.isSwiping;
 
-      if (isSwiping) {
-        this.handleSwipeEnd(e);
-      }
-    }
-  }]);
+    return this;
+  };
+  /**
+   * Version info string
+   * @ko 버전정보 문자열
+   * @name VERSION
+   * @static
+   * @example
+   * eg.Component.VERSION;  // ex) 2.0.0
+   * @memberof eg.Component
+   */
 
-  return VanillaSwipe;
+
+  Component.VERSION = "2.2.2";
+  return Component;
 }();
 
-exports["default"] = VanillaSwipe;
-},{"./utils":"node_modules/vanilla-swipe/lib/utils/index.js","./types":"node_modules/vanilla-swipe/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/types/index.js":[function(require,module,exports) {
-"use strict";var AnimationType,AutoPlayStrategy,ControlsStrategy,AutoplayDirection,Classnames,Modifiers;Object.defineProperty(exports,"__esModule",{value:!0}),exports.Modifiers=exports.Classnames=exports.AutoplayDirection=exports.ControlsStrategy=exports.AutoPlayStrategy=exports.AnimationType=void 0,function(e){e.FADEOUT="fadeout",e.SLIDE="slide"}(AnimationType=exports.AnimationType||(exports.AnimationType={})),function(e){e.DEFAULT="default",e.ALL="all",e.ACTION="action",e.NONE="none"}(AutoPlayStrategy=exports.AutoPlayStrategy||(exports.AutoPlayStrategy={})),function(e){e.DEFAULT="default",e.RESPONSIVE="responsive"}(ControlsStrategy=exports.ControlsStrategy||(exports.ControlsStrategy={})),function(e){e.RTL="rtl",e.LTR="ltr"}(AutoplayDirection=exports.AutoplayDirection||(exports.AutoplayDirection={})),function(e){e.ANIMATED="animated animated-out fadeOut",e.ROOT="alice-carousel",e.WRAPPER="alice-carousel__wrapper",e.STAGE="alice-carousel__stage",e.STAGE_ITEM="alice-carousel__stage-item",e.DOTS="alice-carousel__dots",e.DOTS_ITEM="alice-carousel__dots-item",e.PLAY_BTN="alice-carousel__play-btn",e.PLAY_BTN_ITEM="alice-carousel__play-btn-item",e.PLAY_BTN_WRAPPER="alice-carousel__play-btn-wrapper",e.SLIDE_INFO="alice-carousel__slide-info",e.SLIDE_INFO_ITEM="alice-carousel__slide-info-item",e.BUTTON_PREV="alice-carousel__prev-btn",e.BUTTON_PREV_WRAPPER="alice-carousel__prev-btn-wrapper",e.BUTTON_PREV_ITEM="alice-carousel__prev-btn-item",e.BUTTON_NEXT="alice-carousel__next-btn",e.BUTTON_NEXT_WRAPPER="alice-carousel__next-btn-wrapper",e.BUTTON_NEXT_ITEM="alice-carousel__next-btn-item"}(Classnames=exports.Classnames||(exports.Classnames={})),function(e){e.ACTIVE="__active",e.INACTIVE="__inactive",e.CLONED="__cloned",e.CUSTOM="__custom",e.PAUSE="__pause",e.SEPARATOR="__separator",e.SSR="__ssr"}(Modifiers=exports.Modifiers||(exports.Modifiers={}));
-},{}],"node_modules/react-alice-carousel/lib/defaultProps.js":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.defaultProps=void 0;var types_1=require("./types");exports.defaultProps={activeIndex:0,animationDuration:400,animationEasingFunction:"ease",animationType:types_1.AnimationType.SLIDE,autoHeight:!1,autoWidth:!1,autoPlay:!1,autoPlayControls:!1,autoPlayDirection:types_1.AutoplayDirection.LTR,autoPlayInterval:400,autoPlayStrategy:types_1.AutoPlayStrategy.DEFAULT,children:void 0,controlsStrategy:types_1.ControlsStrategy.DEFAULT,disableButtonsControls:!1,disableDotsControls:!1,disableSlideInfo:!0,infinite:!1,innerWidth:0,items:void 0,mouseTracking:!1,paddingLeft:0,paddingRight:0,responsive:void 0,swipeDelta:20,swipeExtraPadding:200,touchTracking:!0,touchMoveDefaultEvents:!0,onInitialized:function(){},onResized:function(){},onResizeEvent:void 0,onSlideChange:function(){},onSlideChanged:function(){}};
-},{"./types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/common.js":[function(require,module,exports) {
-"use strict";var __createBinding=Object.create?function(t,e,i,n){void 0===n&&(n=i),Object.defineProperty(t,n,{enumerable:!0,get:function(){return e[i]}})}:function(t,e,i,n){t[n=void 0===n?i:n]=e[i]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var i in t)"default"!==i&&Object.hasOwnProperty.call(t,i)&&__createBinding(e,t,i);return __setModuleDefault(e,t),e};Object.defineProperty(exports,"__esModule",{value:!0}),exports.calculateInitialState=exports.getItemsInSlide=exports.getStageContentWidth=exports.getIsStageContentPartial=exports.canUseDOM=void 0;var Utils=__importStar(require("."));exports.canUseDOM=function(){var t;try{return Boolean(null===(t=null===window||void 0===window?void 0:window.document)||void 0===t?void 0:t.createElement)}catch(t){return!1}},exports.getIsStageContentPartial=function(t,e){return(e=void 0===e?0:e)<=(t=void 0===t?0:t)},exports.getStageContentWidth=function(t){var e=t.infinite,i=t.itemsCount,n=void 0===i?0:i,o=t.itemsInSlide,i=void 0===o?1:o,o=t.itemsOffset,o=void 0===o?0:o,t=t.transformationSet,t=void 0===t?[]:t;if(e){o=Utils.getShiftIndex(i,o);return t.slice(o,o+n).reduce(function(t,e){return t+e.width},0)}t=t[n-1]||{},n=t.position,t=t.width;return(void 0===n?0:n)+(void 0===t?0:t)},exports.getItemsInSlide=function(e,t){var i,n=1,o=t.responsive,a=t.autoWidth,r=void 0!==a&&a,a=t.infinite,a=void 0!==a&&a,t=t.innerWidth;return r&&a?n=e:!o||(a=Object.keys(o)).length&&(t||exports.canUseDOM())&&(i=t||window.innerWidth,a.forEach(function(t){Number(t)<i&&(n=Math.min(o[t].items,e)||n)})),n},exports.calculateInitialState=function(t,e,i){void 0===i&&(i=!1);var n=t.animationDuration,o=void 0===n?0:n,a=t.infinite,r=void 0!==a&&a,s=t.autoPlay,l=void 0!==s&&s,d=t.autoWidth,u=void 0!==d&&d,f=Utils.createClones(t),m=Utils.getTransitionProperty(),c=Utils.getItemsCount(t),g=Utils.getItemsOffset(t),S=exports.getItemsInSlide(c,t),v=Utils.getStartIndex(t.activeIndex,c),p=Utils.getActiveIndex({startIndex:v,itemsCount:c,itemsInSlide:S,infinite:r}),I=Utils.getElementDimensions(e).width,n=u?Utils.createAutowidthTransformationSet(e):Utils.createDefaultTransformationSet(f,I,S),a=Utils.getTransformationSetItem(-S,n).position,s=exports.getStageContentWidth({itemsCount:c,itemsInSlide:S,itemsOffset:g,transformationSet:n,infinite:r}),d=exports.getIsStageContentPartial(I,s),v=Utils.getSwipeLimitMin({itemsOffset:g,transformationSet:n},t),e=Utils.getSwipeLimitMax({itemsCount:c,itemsOffset:g,itemsInSlide:S,transformationSet:n},t),t=Utils.getSwipeShiftValue(c,n);return{activeIndex:p,autoWidth:u,animationDuration:o,clones:f,infinite:r,itemsCount:c,itemsInSlide:S,itemsOffset:g,translate3d:Utils.getTranslate3dProperty(p,{itemsInSlide:S,itemsOffset:g,transformationSet:n,autoWidth:u,infinite:r}),stageWidth:I,stageContentWidth:s,initialStageHeight:0,isStageContentPartial:d,isAutoPlaying:Boolean(l),isAutoPlayCanceledOnAction:!1,transformationSet:n,transition:m,fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1,swipeLimitMin:v,swipeLimitMax:e,swipeAllowedPositionMax:a,swipeShiftValue:t,canUseDom:i||exports.canUseDOM()}};
-},{".":"node_modules/react-alice-carousel/lib/utils/index.js"}],"node_modules/react-alice-carousel/lib/utils/elements.js":[function(require,module,exports) {
-"use strict";var __assign=function(){return(__assign=Object.assign||function(t){for(var e,n=1,r=arguments.length;n<r;n++)for(var i in e=arguments[n])Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i]);return t}).apply(this,arguments)},__createBinding=Object.create?function(t,e,n,r){void 0===r&&(r=n),Object.defineProperty(t,r,{enumerable:!0,get:function(){return e[n]}})}:function(t,e,n,r){t[r=void 0===r?n:r]=e[n]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var n in t)"default"!==n&&Object.hasOwnProperty.call(t,n)&&__createBinding(e,t,n);return __setModuleDefault(e,t),e};Object.defineProperty(exports,"__esModule",{value:!0}),exports.getTransformMatrix=exports.getTranslateXProperty=exports.getTouchmoveTranslatePosition=exports.getTranslate3dProperty=exports.getRenderStageItemStyles=exports.getRenderStageStyles=exports.getTransitionProperty=exports.getRenderWrapperStyles=exports.animate=exports.shouldHandleResizeEvent=exports.getElementFirstChild=exports.getElementCursor=exports.getAutoheightProperty=exports.getElementDimensions=exports.getItemWidth=exports.createDefaultTransformationSet=exports.createAutowidthTransformationSet=exports.isElement=exports.createClones=exports.getItemsOffset=exports.getItemsCount=exports.getSlides=void 0;var Utils=__importStar(require("."));function getElementDimensions(t){if(t&&t.getBoundingClientRect){t=t.getBoundingClientRect();return{width:t.width,height:t.height}}return{width:0,height:0}}function shouldHandleResizeEvent(t,e,n){return void 0===n&&(n={}),(e=void 0===e?{}:e).width!==n.width}function animate(t,e){var n=e||{},r=n.position,e=void 0===r?0:r,r=n.animationDuration,r=void 0===r?0:r,n=n.animationEasingFunction,n=void 0===n?"ease":n;return exports.isElement(t)&&(t.style.transition="transform "+r+"ms "+n+" 0ms",t.style.transform="translate3d("+e+"px, 0, 0)"),t}function getTranslateXProperty(t){t=getTransformMatrix(t),t=t&&t[4]||"";return Number(t)}function getTransformMatrix(t){return Utils.isElement(t)&&getComputedStyle(t).transform.match(/(-?[0-9.]+)/g)||[]}exports.getSlides=function(t){var e=t.children,t=t.items,t=void 0===t?[]:t;return e?e.length?e:[e]:t},exports.getItemsCount=function(t){return exports.getSlides(t).length},exports.getItemsOffset=function(t){var e=t.infinite,n=t.paddingRight,t=t.paddingLeft;return e&&(t||n)?1:0},exports.createClones=function(t){var e=exports.getSlides(t);if(!t.infinite)return e;var n=exports.getItemsCount(t),r=exports.getItemsOffset(t),i=Utils.getItemsInSlide(n,t),o=Math.min(i,n)+r,t=e.slice(0,o),o=e.slice(-o);return r&&i===n&&(i=e[0],n=e.slice(-1)[0],o.unshift(n),t.push(i)),o.concat(e,t)},exports.isElement=function(t){try{return t instanceof Element||t instanceof HTMLDocument}catch(t){return!1}},exports.createAutowidthTransformationSet=function(t){return exports.isElement(t)?Array.from(t.children||[]).reduce(function(t,e,n){var r=0,i=n-1,n=t[i],e=getElementDimensions(null==e?void 0:e.firstChild).width,e=void 0===e?0:e;return n&&(r=0==i?n.width:n.width+n.position),t.push({position:r,width:e}),t},[]):[]},exports.createDefaultTransformationSet=function(t,e,n){var i=exports.getItemWidth(e,n);return t.reduce(function(t,e,n){var r=0,n=t[n-1];return n&&(r=i+n.position||0),t.push({width:i,position:r}),t},[])},exports.getItemWidth=function(t,e){return 0<e?t/e:t},exports.getElementDimensions=getElementDimensions,exports.getAutoheightProperty=function(t,e,n){e=exports.getElementCursor(e,n),n=exports.getElementFirstChild(t,e);if(exports.isElement(n)){t=getComputedStyle(n),e=parseFloat(t.marginTop),t=parseFloat(t.marginBottom);return Math.ceil(n.offsetHeight+e+t)}},exports.getElementCursor=function(t,e){var n=e.activeIndex,e=e.itemsInSlide;return t.infinite?n+e+Utils.getItemsOffset(t):n},exports.getElementFirstChild=function(t,e){t=t&&t.children||[];return t[e]&&t[e].firstChild||null},exports.shouldHandleResizeEvent=shouldHandleResizeEvent,exports.animate=animate,exports.getRenderWrapperStyles=function(t,e,n){var r=t||{},i=r.paddingLeft,o=r.paddingRight,s=r.animationDuration,e=r.autoHeight?exports.getAutoheightProperty(n,t,e):void 0;return{height:e,transition:e?"height "+s+"ms":void 0,paddingLeft:i+"px",paddingRight:o+"px"}},exports.getTransitionProperty=function(t){var e=t||{},t=e.animationDuration,e=e.animationEasingFunction;return"transform "+(void 0===t?0:t)+"ms "+(void 0===e?"ease":e)+" 0ms"},exports.getRenderStageStyles=function(t,e){t=(t||{}).translate3d,t="translate3d("+-(void 0===t?0:t)+"px, 0, 0)";return __assign(__assign({},e),{transform:t})},exports.getRenderStageItemStyles=function(t,e){var n=e.transformationSet,r=e.fadeoutAnimationIndex,i=e.fadeoutAnimationPosition,o=e.fadeoutAnimationProcessing,e=e.animationDuration,n=(n[t]||{}).width;return o&&r===t?{transform:"translateX("+i+"px)",animationDuration:e+"ms",width:n+"px"}:{width:n}},exports.getTranslate3dProperty=function(t,e){var n=t,r=e.infinite,i=e.itemsOffset,o=void 0===i?0:i,i=e.itemsInSlide,i=void 0===i?0:i,e=e.transformationSet;return((void 0===e?[]:e)[n=r?t+Utils.getShiftIndex(i,o):n]||{}).position||0},exports.getTouchmoveTranslatePosition=function(t,e){return-(e-Math.floor(t))},exports.getTranslateXProperty=getTranslateXProperty,exports.getTransformMatrix=getTransformMatrix;
-},{".":"node_modules/react-alice-carousel/lib/utils/index.js"}],"node_modules/react-alice-carousel/lib/utils/classnames.js":[function(require,module,exports) {
-"use strict";var __createBinding=Object.create?function(e,t,i,r){void 0===r&&(r=i),Object.defineProperty(e,r,{enumerable:!0,get:function(){return t[i]}})}:function(e,t,i,r){e[r=void 0===r?i:r]=t[i]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var i in e)"default"!==i&&Object.hasOwnProperty.call(e,i)&&__createBinding(t,e,i);return __setModuleDefault(t,e),t};Object.defineProperty(exports,"__esModule",{value:!0}),exports.isClonedItem=exports.isActiveItem=exports.getRenderStageItemClasses=void 0;var Utils=__importStar(require(".")),types_1=require("../types");exports.getRenderStageItemClasses=function(e,t){void 0===e&&(e=0);var i=t.fadeoutAnimationIndex,r=exports.isActiveItem(e,t)?" "+types_1.Modifiers.ACTIVE:"",t=exports.isClonedItem(e,t)?" "+types_1.Modifiers.CLONED:"",i=e===i?" "+types_1.Classnames.ANIMATED:"";return types_1.Classnames.STAGE_ITEM+r+t+i},exports.isActiveItem=function(e,t){void 0===e&&(e=0);var i=t.activeIndex,r=t.itemsInSlide,n=t.itemsOffset,s=t.infinite,o=t.autoWidth,t=Utils.getShiftIndex(r,n);if(s&&o)return e-t===i+n;t=i+t;return s?t<=e&&e<t+r:i<=e&&e<t},exports.isClonedItem=function(e,t){void 0===e&&(e=0);var i=t.itemsInSlide,r=t.itemsOffset,n=t.itemsCount,s=t.infinite,t=t.autoWidth;if(!s)return!1;if(s&&t)return e<i||n-1+i<e;r=Utils.getShiftIndex(i,r);return e<r||n-1+r<e};
-},{".":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/timers.js":[function(require,module,exports) {
-"use strict";function debounce(i,n){void 0===n&&(n=0);var u=void 0;return function(){for(var e=this,o=[],t=0;t<arguments.length;t++)o[t]=arguments[t];u&&(clearTimeout(u),u=void 0),u=window.setTimeout(function(){i.apply(e,o),u=void 0},n)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports.debounce=void 0,exports.debounce=debounce;
-},{}],"node_modules/react-alice-carousel/lib/utils/math.js":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.isVerticalTouchmoveDetected=exports.getFadeoutAnimationPosition=exports.getFadeoutAnimationIndex=exports.getSwipeTouchendIndex=exports.getSwipeTouchendPosition=exports.getSwipeTransformationCursor=exports.getTransformationItemIndex=exports.getSwipeShiftValue=exports.getTransformationSetItem=exports.getIsLeftDirection=exports.shouldRecalculateSwipePosition=exports.getSwipeLimitMax=exports.getSwipeLimitMin=exports.shouldCancelSlideAnimation=exports.shouldRecalculateSlideIndex=exports.getUpdateSlidePositionIndex=exports.getActiveIndex=exports.getStartIndex=exports.getShiftIndex=void 0,exports.getShiftIndex=function(t,e){return(t=void 0===t?0:t)+(e=void 0===e?0:e)},exports.getStartIndex=function(t,e){return void 0===t&&(t=0),(e=void 0===e?0:e)&&Math.min(t,e-1)||0},exports.getActiveIndex=function(t){var e=t.startIndex,i=void 0===e?0:e,o=t.itemsCount,e=void 0===o?0:o,o=t.itemsInSlide,o=void 0===o?1:o,t=t.infinite;return void 0!==t&&t?i:e?Math.min(i,e-o):0},exports.getUpdateSlidePositionIndex=function(t,e){return t<0?e-1:e<=t?0:t},exports.shouldRecalculateSlideIndex=function(t,e){return t<0||e<=t},exports.shouldCancelSlideAnimation=function(t,e,i){return t<0||e-i<t},exports.getSwipeLimitMin=function(t,e){var i=t.itemsOffset,o=void 0===i?0:i,i=t.transformationSet,t=void 0===i?[]:i,i=e.infinite,e=e.swipeExtraPadding,e=void 0===e?0:e;if(i)return(t[o]||{}).position;t=(t[0]||{}).width,t=void 0===t?0:t;return Math.min(e,t)},exports.getSwipeLimitMax=function(t,e){var i=e.infinite,o=e.swipeExtraPadding,n=void 0===o?0:o,r=t.itemsCount,e=void 0===r?1:r,o=t.itemsOffset,r=void 0===o?0:o,o=t.itemsInSlide,o=void 0===o?1:o,t=t.transformationSet,t=void 0===t?[]:t;return i?(t[e+exports.getShiftIndex(o,r)]||{}).position||0:exports.getTransformationSetItem(-o,t).position+n},exports.shouldRecalculateSwipePosition=function(t,e,i){return-e<=t||Math.abs(t)>=i},exports.getIsLeftDirection=function(t){return(t=void 0===t?0:t)<0},exports.getTransformationSetItem=function(t,e){return void 0===t&&(t=0),(e=void 0===e?[]:e).slice(t)[0]||{position:0,width:0}},exports.getSwipeShiftValue=function(t,e){return void 0===t&&(t=0),void 0===e&&(e=[]),exports.getTransformationSetItem(t,e).position},exports.getTransformationItemIndex=function(t,e){return void 0===e&&(e=0),(t=void 0===t?[]:t).findIndex(function(t){return t.position>=Math.abs(e)})},exports.getSwipeTransformationCursor=function(t,e,i){void 0===t&&(t=[]),void 0===e&&(e=0),void 0===i&&(i=0);e=exports.getTransformationItemIndex(t,e);return exports.getIsLeftDirection(i)?e:e-1},exports.getSwipeTouchendPosition=function(t,e,i){void 0===i&&(i=0);var o=t.infinite,n=t.autoWidth,r=t.isStageContentPartial,s=t.swipeAllowedPositionMax,t=t.transformationSet,e=exports.getSwipeTransformationCursor(t,i,e),t=exports.getTransformationSetItem(e,t).position;if(!o){if(n&&r)return 0;if(s<t)return-s}return-t},exports.getSwipeTouchendIndex=function(t,e){var i=e.transformationSet,o=e.itemsInSlide,n=e.itemsOffset,r=e.itemsCount,e=e.infinite,t=exports.getTransformationItemIndex(i,t);if(e){e=exports.getShiftIndex(o,n);return t<e?r-o-n+t:e+r<=t?t-(e+r):t-e}return t},exports.getFadeoutAnimationIndex=function(t){var e=t.infinite,i=t.activeIndex,t=t.itemsInSlide;return e?i+t:i},exports.getFadeoutAnimationPosition=function(t,e){var i=e.activeIndex,e=e.stageWidth;return t<i?(i-t)*-e||0:(t-i)*e||0},exports.isVerticalTouchmoveDetected=function(t,e,i){return t<(i=void 0===i?0:i)||t<.1*e};
-},{}],"node_modules/react-alice-carousel/lib/utils/debug.js":[function(require,module,exports) {
+var _default = Component;
+exports.default = _default;
+},{}],"node_modules/@egjs/imready/dist/imready.esm.js":[function(require,module,exports) {
 "use strict";
 
-function debug() {
-  for (var e = [], o = 0; o < arguments.length; o++) e[o] = arguments[o];
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.VideoLoader = exports.Manager = exports.Loader = exports.ImageLoader = exports.default = void 0;
 
-  "development" === "development" && console.debug.apply(console, e);
+var _component = _interopRequireDefault(require("@egjs/component"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+Copyright (c) 2020-present NAVER Corp.
+name: @egjs/imready
+license: MIT
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-imready
+version: 1.1.2
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+  };
+
+  return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  extendStatics(d, b);
+
+  function __() {
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-Object.defineProperty(exports, "__esModule", {
-  value: !0
-}), exports.debug = void 0, exports.debug = debug;
-},{}],"node_modules/react-alice-carousel/lib/utils/render.js":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.getSlideItemInfo=exports.getSlideInfo=exports.getSlideIndexForMultipleItems=exports.getSlideIndexForNonMultipleItems=exports.getActiveSlideDotsLength=exports.getActiveSlideIndex=void 0,exports.getActiveSlideIndex=function(e,t){var i=t||{},o=i.itemsInSlide,t=i.itemsCount,i=i.activeIndex+o;return 1===o?exports.getSlideIndexForNonMultipleItems(i,o,t):exports.getSlideIndexForMultipleItems(i,o,t,e)},exports.getActiveSlideDotsLength=function(e,t){if(void 0===t&&(t=1),(e=void 0===e?0:e)&&t){var i=Math.floor(e/t);return e%t==0?i-1:i}return 0},exports.getSlideIndexForNonMultipleItems=function(e,t,i){return e<t?i-t:i<e?0:e-1},exports.getSlideIndexForMultipleItems=function(e,t,i,o){var n=exports.getActiveSlideDotsLength(i,t);return e===i+t?0:o||e<t&&0!==e?n:0===e?i%t==0?n:n-1:0<t?Math.floor(e/t)-1:0},exports.getSlideInfo=function(e,t){void 0===t&&(t=0);e=(e=void 0===e?0:e)+1;return e<1?e=t:t<e&&(e=1),{item:e,itemsCount:t}},exports.getSlideItemInfo=function(e){var t=e||{},i=t.activeIndex,e=t.infinite;return{isPrevSlideDisabled:!1===e&&0===i,isNextSlideDisabled:!1===e&&t.itemsCount-t.itemsInSlide===i}};
-},{}],"node_modules/react-alice-carousel/lib/utils/controls.js":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.shouldCancelAutoPlayOnHover=exports.shouldCancelAutoPlayOnAction=exports.getItemIndexForDotNavigation=exports.checkIsTheLastDotIndex=exports.getDotsNavigationLength=exports.shouldDisableDots=void 0;var types_1=require("../types");function shouldDisableDots(t,e){var o=t||{},s=e||{},t=s.itemsInSlide,e=s.itemsCount,s=s.autoWidth;return!!o.disableDotsControls||o.controlsStrategy===types_1.ControlsStrategy.RESPONSIVE&&(!s&&t===e)}exports.shouldDisableDots=shouldDisableDots,exports.getDotsNavigationLength=function(t,e,o){return void 0===t&&(t=0),void 0===e&&(e=1),o?t:0!==Number(e)&&Math.ceil(t/e)||0},exports.checkIsTheLastDotIndex=function(t,e,o){return!e&&t===o-1},exports.getItemIndexForDotNavigation=function(t,e,o,s){return(e?o-s:t*s)||0},exports.shouldCancelAutoPlayOnAction=function(t){return(t=void 0===t?"":t)===types_1.AutoPlayStrategy.ACTION||t===types_1.AutoPlayStrategy.ALL},exports.shouldCancelAutoPlayOnHover=function(t){return(t=void 0===t?"":t)===types_1.AutoPlayStrategy.DEFAULT||t===types_1.AutoPlayStrategy.ALL};
-},{"../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/utils/index.js":[function(require,module,exports) {
-"use strict";var __createBinding=Object.create?function(e,r,t,o){void 0===o&&(o=t),Object.defineProperty(e,o,{enumerable:!0,get:function(){return r[t]}})}:function(e,r,t,o){e[o=void 0===o?t:o]=r[t]},__exportStar=function(e,r){for(var t in e)"default"===t||r.hasOwnProperty(t)||__createBinding(r,e,t)};Object.defineProperty(exports,"__esModule",{value:!0}),__exportStar(require("./common"),exports),__exportStar(require("./elements"),exports),__exportStar(require("./classnames"),exports),__exportStar(require("./timers"),exports),__exportStar(require("./math"),exports),__exportStar(require("./debug"),exports),__exportStar(require("./render"),exports),__exportStar(require("./controls"),exports);
-},{"./common":"node_modules/react-alice-carousel/lib/utils/common.js","./elements":"node_modules/react-alice-carousel/lib/utils/elements.js","./classnames":"node_modules/react-alice-carousel/lib/utils/classnames.js","./timers":"node_modules/react-alice-carousel/lib/utils/timers.js","./math":"node_modules/react-alice-carousel/lib/utils/math.js","./debug":"node_modules/react-alice-carousel/lib/utils/debug.js","./render":"node_modules/react-alice-carousel/lib/utils/render.js","./controls":"node_modules/react-alice-carousel/lib/utils/controls.js"}],"node_modules/react-alice-carousel/lib/views/SlideInfo.js":[function(require,module,exports) {
-"use strict";var __createBinding=Object.create?function(e,t,a,r){void 0===r&&(r=a),Object.defineProperty(e,r,{enumerable:!0,get:function(){return t[a]}})}:function(e,t,a,r){e[r=void 0===r?a:r]=t[a]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var a in e)"default"!==a&&Object.hasOwnProperty.call(e,a)&&__createBinding(t,e,a);return __setModuleDefault(t,e),t},__importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.SlideInfo=void 0;var react_1=__importDefault(require("react")),Utils=__importStar(require("../utils")),types_1=require("../types");exports.SlideInfo=function(e){var t=e.activeIndex,a=e.itemsCount,e=e.renderSlideInfo,t=Utils.getSlideInfo(t,a).item;return"function"==typeof e?react_1.default.createElement("div",{className:types_1.Classnames.SLIDE_INFO},e({item:t,itemsCount:a})):react_1.default.createElement("div",{className:types_1.Classnames.SLIDE_INFO},react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM},t),react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM+" "+types_1.Modifiers.SEPARATOR},"/"),react_1.default.createElement("span",{className:types_1.Classnames.SLIDE_INFO_ITEM},a))};
-},{"react":"node_modules/react/index.js","../utils":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/StageItem.js":[function(require,module,exports) {
-"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.StageItem=void 0;var react_1=__importDefault(require("react"));exports.StageItem=function(e){var t=e.item,r=e.className,e=e.styles;return react_1.default.createElement("li",{style:e,className:r},t)};
-},{"react":"node_modules/react/index.js"}],"node_modules/react-alice-carousel/lib/views/DotsNavigation.js":[function(require,module,exports) {
-"use strict";var __createBinding=Object.create?function(e,t,i,n){void 0===n&&(n=i),Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[i]}})}:function(e,t,i,n){e[n=void 0===n?i:n]=t[i]},__setModuleDefault=Object.create?function(e,t){Object.defineProperty(e,"default",{enumerable:!0,value:t})}:function(e,t){e.default=t},__importStar=function(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var i in e)"default"!==i&&Object.hasOwnProperty.call(e,i)&&__createBinding(t,e,i);return __setModuleDefault(t,e),t},__importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.DotsNavigation=void 0;var react_1=__importDefault(require("react")),Utils=__importStar(require("../utils")),types_1=require("../types");exports.DotsNavigation=function(e){var a=e.state,o=e.onClick,s=e.onMouseEnter,u=e.onMouseLeave,l=e.renderDotsItem,c=a.itemsCount,d=a.itemsInSlide,f=a.infinite,_=a.autoWidth,v=a.activeIndex,m=Utils.getSlideItemInfo(a).isNextSlideDisabled,p=Utils.getDotsNavigationLength(c,d,_);return react_1.default.createElement("ul",{className:types_1.Classnames.DOTS},Array.from({length:c}).map(function(e,t){if(t<p){var i=Utils.checkIsTheLastDotIndex(t,Boolean(f),p),n=Utils.getItemIndexForDotNavigation(t,i,c,d),r=Utils.getActiveSlideIndex(m,a);_&&((r=v)<0?r=c-1:c<=v&&(r=0),n=t);i=r===t?" "+types_1.Modifiers.ACTIVE:"",r=l?" "+types_1.Modifiers.CUSTOM:"",r=types_1.Classnames.DOTS_ITEM+i+r;return react_1.default.createElement("li",{key:"dot-item-"+t,onMouseEnter:s,onMouseLeave:u,onClick:function(){return o(n)},className:r},l&&l({isActive:i,activeIndex:t}))}}))};
-},{"react":"node_modules/react/index.js","../utils":"node_modules/react-alice-carousel/lib/utils/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/PlayPauseButton.js":[function(require,module,exports) {
-"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.PlayPauseButton=void 0;var react_1=__importDefault(require("react")),types_1=require("../types");exports.PlayPauseButton=function(e){var t=e.isPlaying,a=e.onClick,e=e.renderPlayPauseButton;if("function"==typeof e)return react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN,onClick:a},e({isPlaying:t}));e=""+types_1.Classnames.PLAY_BTN_ITEM,t=t?" "+types_1.Modifiers.PAUSE:"";return react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN},react_1.default.createElement("div",{className:types_1.Classnames.PLAY_BTN_WRAPPER},react_1.default.createElement("div",{onClick:a,className:e+t})))};
-},{"react":"node_modules/react/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/PrevNextButton.js":[function(require,module,exports) {
-"use strict";var __importDefault=function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0}),exports.PrevNextButton=void 0;var react_1=__importDefault(require("react")),types_1=require("../types");exports.PrevNextButton=function(e){var t=e.name,a=e.isDisabled,s=e.onClick,r=e.renderPrevButton,n=e.renderNextButton;if("function"==typeof r)return react_1.default.createElement("div",{className:types_1.Classnames.BUTTON_PREV,onClick:s},r({isDisabled:a}));if("function"==typeof n)return react_1.default.createElement("div",{className:types_1.Classnames.BUTTON_NEXT,onClick:s},n({isDisabled:a}));e="prev"===t,r=e?"<":">",n=e?types_1.Classnames.BUTTON_PREV:types_1.Classnames.BUTTON_NEXT,t=e?types_1.Classnames.BUTTON_PREV_WRAPPER:types_1.Classnames.BUTTON_NEXT_WRAPPER,e=e?types_1.Classnames.BUTTON_PREV_ITEM:types_1.Classnames.BUTTON_NEXT_ITEM,a=a?" "+types_1.Modifiers.INACTIVE:"";return react_1.default.createElement("div",{className:n},react_1.default.createElement("div",{className:t},react_1.default.createElement("p",{className:e+a,onClick:s},react_1.default.createElement("span",{"data-area":r}))))};
-},{"react":"node_modules/react/index.js","../types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/views/index.js":[function(require,module,exports) {
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.PrevNextButton=exports.PlayPauseButton=exports.DotsNavigation=exports.StageItem=exports.SlideInfo=void 0;var SlideInfo_1=require("./SlideInfo");Object.defineProperty(exports,"SlideInfo",{enumerable:!0,get:function(){return SlideInfo_1.SlideInfo}});var StageItem_1=require("./StageItem");Object.defineProperty(exports,"StageItem",{enumerable:!0,get:function(){return StageItem_1.StageItem}});var DotsNavigation_1=require("./DotsNavigation");Object.defineProperty(exports,"DotsNavigation",{enumerable:!0,get:function(){return DotsNavigation_1.DotsNavigation}});var PlayPauseButton_1=require("./PlayPauseButton");Object.defineProperty(exports,"PlayPauseButton",{enumerable:!0,get:function(){return PlayPauseButton_1.PlayPauseButton}});var PrevNextButton_1=require("./PrevNextButton");Object.defineProperty(exports,"PrevNextButton",{enumerable:!0,get:function(){return PrevNextButton_1.PrevNextButton}});
-},{"./SlideInfo":"node_modules/react-alice-carousel/lib/views/SlideInfo.js","./StageItem":"node_modules/react-alice-carousel/lib/views/StageItem.js","./DotsNavigation":"node_modules/react-alice-carousel/lib/views/DotsNavigation.js","./PlayPauseButton":"node_modules/react-alice-carousel/lib/views/PlayPauseButton.js","./PrevNextButton":"node_modules/react-alice-carousel/lib/views/PrevNextButton.js"}],"node_modules/react-alice-carousel/lib/react-alice-carousel.js":[function(require,module,exports) {
-"use strict";var __extends=function(){var n=function(t,e){return(n=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var i in e)e.hasOwnProperty(i)&&(t[i]=e[i])})(t,e)};return function(t,e){function i(){this.constructor=t}n(t,e),t.prototype=null===e?Object.create(e):(i.prototype=e.prototype,new i)}}(),__assign=function(){return(__assign=Object.assign||function(t){for(var e,i=1,n=arguments.length;i<n;i++)for(var o in e=arguments[i])Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t}).apply(this,arguments)},__createBinding=Object.create?function(t,e,i,n){void 0===n&&(n=i),Object.defineProperty(t,n,{enumerable:!0,get:function(){return e[i]}})}:function(t,e,i,n){t[n=void 0===n?i:n]=e[i]},__setModuleDefault=Object.create?function(t,e){Object.defineProperty(t,"default",{enumerable:!0,value:e})}:function(t,e){t.default=e},__importStar=function(t){if(t&&t.__esModule)return t;var e={};if(null!=t)for(var i in t)"default"!==i&&Object.hasOwnProperty.call(t,i)&&__createBinding(e,t,i);return __setModuleDefault(e,t),e},__awaiter=function(t,a,r,l){return new(r=r||Promise)(function(i,e){function n(t){try{s(l.next(t))}catch(t){e(t)}}function o(t){try{s(l.throw(t))}catch(t){e(t)}}function s(t){var e;t.done?i(t.value):((e=t.value)instanceof r?e:new r(function(t){t(e)})).then(n,o)}s((l=l.apply(t,a||[])).next())})},__generator=function(i,n){var o,s,a,r={label:0,sent:function(){if(1&a[0])throw a[1];return a[1]},trys:[],ops:[]},t={next:e(0),throw:e(1),return:e(2)};return"function"==typeof Symbol&&(t[Symbol.iterator]=function(){return this}),t;function e(e){return function(t){return function(e){if(o)throw new TypeError("Generator is already executing.");for(;r;)try{if(o=1,s&&(a=2&e[0]?s.return:e[0]?s.throw||((a=s.return)&&a.call(s),0):s.next)&&!(a=a.call(s,e[1])).done)return a;switch(s=0,(e=a?[2&e[0],a.value]:e)[0]){case 0:case 1:a=e;break;case 4:return r.label++,{value:e[1],done:!1};case 5:r.label++,s=e[1],e=[0];continue;case 7:e=r.ops.pop(),r.trys.pop();continue;default:if(!(a=0<(a=r.trys).length&&a[a.length-1])&&(6===e[0]||2===e[0])){r=0;continue}if(3===e[0]&&(!a||e[1]>a[0]&&e[1]<a[3])){r.label=e[1];break}if(6===e[0]&&r.label<a[1]){r.label=a[1],a=e;break}if(a&&r.label<a[2]){r.label=a[2],r.ops.push(e);break}a[2]&&r.ops.pop(),r.trys.pop();continue}e=n.call(i,r)}catch(t){e=[6,t],s=0}finally{o=a=0}if(5&e[0])throw e[1];return{value:e[0]?e[1]:void 0,done:!0}}([e,t])}}},__importDefault=function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(exports,"__esModule",{value:!0});var react_1=__importDefault(require("react")),vanilla_swipe_1=__importDefault(require("vanilla-swipe")),defaultProps_1=require("./defaultProps"),Views=__importStar(require("./views")),Utils=__importStar(require("./utils")),types_1=require("./types"),AliceCarousel=function(e){function t(t){var o=e.call(this,t)||this;return o.swipeListener=null,o._handleBeforeSlideEnd=function(){return __awaiter(o,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return(i=this.state,e=i.activeIndex,n=i.itemsCount,i=i.fadeoutAnimationProcessing,Utils.shouldRecalculateSlideIndex(e,n))?(n=Utils.getUpdateSlidePositionIndex(e,n),[4,this._handleUpdateSlidePosition(n)]):[3,2];case 1:return t.sent(),[3,4];case 2:return i?[4,this.setState({fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1})]:[3,4];case 3:t.sent(),t.label=4;case 4:return this._handleSlideChanged(),[2]}})})},o._handleMouseEnter=function(){var t=o.props.autoPlayStrategy;Utils.shouldCancelAutoPlayOnHover(t)&&o.state.isAutoPlaying&&(o.isHovered=!0,o._handlePause())},o._handleMouseLeave=function(){o.state.isAutoPlaying&&(o.isHovered=!1,o._handlePlay())},o._handlePause=function(){o._clearAutoPlayTimeout()},o._handlePlayPauseToggle=function(){return __awaiter(o,void 0,void 0,function(){var e;return __generator(this,function(t){switch(t.label){case 0:return e=this.state.isAutoPlaying,this.hasUserAction=!0,[4,this.setState({isAutoPlaying:!e,isAutoPlayCanceledOnAction:!0})];case 1:return t.sent(),e?this._handlePause():this._handlePlay(),[2]}})})},o._setRootComponentRef=function(t){return o.rootElement=t},o._setStageComponentRef=function(t){return o.stageComponent=t},o._renderStageItem=function(t,e){var i=Utils.getRenderStageItemStyles(e,o.state),n=Utils.getRenderStageItemClasses(e,o.state);return react_1.default.createElement(Views.StageItem,{styles:i,className:n,key:"stage-item-"+e,item:t})},o._renderSlideInfo=function(){var t=o.props.renderSlideInfo,e=o.state,i=e.activeIndex,e=e.itemsCount;return react_1.default.createElement(Views.SlideInfo,{itemsCount:e,activeIndex:i,renderSlideInfo:t})},o.state=Utils.calculateInitialState(t,null),o.isHovered=!1,o.isAnimationDisabled=!1,o.isTouchMoveProcessStarted=!1,o.cancelTouchAnimations=!1,o.hasUserAction=!1,o.rootElement=null,o.rootComponentDimensions={},o.stageComponent=null,o.startTouchmovePosition=void 0,o.slideTo=o.slideTo.bind(o),o.slidePrev=o.slidePrev.bind(o),o.slideNext=o.slideNext.bind(o),o._handleTouchmove=o._handleTouchmove.bind(o),o._handleTouchend=o._handleTouchend.bind(o),o._handleDotClick=o._handleDotClick.bind(o),o._handleResize=o._handleResize.bind(o),o._handleResizeDebounced=Utils.debounce(o._handleResize,100),o}return __extends(t,e),t.prototype.componentDidMount=function(){return __awaiter(this,void 0,void 0,function(){return __generator(this,function(t){switch(t.label){case 0:return[4,this._setInitialState()];case 1:return t.sent(),this._setupSwipeHandlers(),this.props.autoPlay&&this._handlePlay(),window.addEventListener("resize",this._handleResizeDebounced),[2]}})})},t.prototype.componentDidUpdate=function(t,e){var i=this.props,n=i.activeIndex,o=i.animationDuration,s=i.autoWidth,a=i.children,r=i.infinite,l=i.items,u=i.paddingLeft,d=i.paddingRight,c=i.responsive,h=i.swipeExtraPadding,p=i.mouseTracking,m=i.swipeDelta,_=i.touchTracking,i=i.touchMoveDefaultEvents;a&&t.children!==a?(e=e.activeIndex,e=__assign(__assign({},this.props),{activeIndex:e}),this._updateComponent(e)):t.autoWidth!==s||t.infinite!==r||t.items!==l||t.paddingLeft!==u||t.paddingRight!==d||t.responsive!==c||t.swipeExtraPadding!==h?this._updateComponent():(t.animationDuration!==o&&this.setState({animationDuration:o}),t.activeIndex!==n&&this.slideTo(n)),t.swipeDelta===m&&t.mouseTracking===p&&t.touchTracking===_&&t.touchMoveDefaultEvents===i||this._updateSwipeProps()},t.prototype.componentWillUnmount=function(){this._cancelTimeoutAnimations(),this.swipeListener&&this.swipeListener.destroy(),window.removeEventListener("resize",this._handleResizeDebounced)},Object.defineProperty(t.prototype,"eventObject",{get:function(){var t=this.state,e=t.itemsInSlide,i=t.activeIndex,n=Utils.getSlideItemInfo(this.state),t=n.isNextSlideDisabled,n=n.isPrevSlideDisabled;return{item:i,slide:Utils.getActiveSlideIndex(t,this.state),itemsInSlide:e,isNextSlideDisabled:t,isPrevSlideDisabled:n}},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"isFadeoutAnimationAllowed",{get:function(){var t=this.state.itemsInSlide,e=this.props,i=e.animationType,n=e.paddingLeft,o=e.paddingRight,s=e.autoWidth,e=e.autoHeight;return 1===t&&i===types_1.AnimationType.FADEOUT&&!(n||o||s||e)},enumerable:!1,configurable:!0}),Object.defineProperty(t.prototype,"touchmovePosition",{get:function(){return void 0!==this.startTouchmovePosition?this.startTouchmovePosition:this.state.translate3d},enumerable:!1,configurable:!0}),t.prototype.slideTo=function(t){var e,i;void 0===t&&(t=0),this._handlePause(),this.isFadeoutAnimationAllowed?(e=Utils.getFadeoutAnimationPosition(t,this.state),i=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:t,fadeoutAnimationIndex:i,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:t})},t.prototype.slidePrev=function(t){this._handlePause(),t&&t.isTrusted&&(this.hasUserAction=!0);var e,i=this.state.activeIndex-1;this.isFadeoutAnimationAllowed?(e=-this.state.stageWidth,t=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:i,fadeoutAnimationIndex:t,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:i})},t.prototype.slideNext=function(t){this._handlePause(),t&&t.isTrusted&&(this.hasUserAction=!0);var e,i=this.state.activeIndex+1;this.isFadeoutAnimationAllowed?(e=this.state.stageWidth,t=Utils.getFadeoutAnimationIndex(this.state),this._handleSlideTo({activeIndex:i,fadeoutAnimationIndex:t,fadeoutAnimationPosition:e})):this._handleSlideTo({activeIndex:i})},t.prototype._handleResize=function(o){return __awaiter(this,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return(i=this.props.onResizeEvent,n=Utils.getElementDimensions(this.rootElement),(i||Utils.shouldHandleResizeEvent)(o,this.rootComponentDimensions,n))?(this._cancelTimeoutAnimations(),this.rootComponentDimensions=n,i=this.state,n=i.itemsCount,e=i.isAutoPlaying,i=Utils.getUpdateSlidePositionIndex(this.state.activeIndex,n),n=Utils.calculateInitialState(__assign(__assign({},this.props),{activeIndex:i}),this.stageComponent),i=Utils.getTranslate3dProperty(n.activeIndex,n),n=__assign(__assign({},n),{translate3d:i,isAutoPlaying:e}),Utils.animate(this.stageComponent,{position:-i}),[4,this.setState(n)]):[3,2];case 1:t.sent(),this._handleResized(),this.isAnimationDisabled=!1,e&&this._handlePlay(),t.label=2;case 2:return[2]}})})},t.prototype._handleTouchmove=function(t,e){var i=e.absY,n=e.absX,o=e.deltaX,s=this.props.swipeDelta,a=this.state,r=a.swipeShiftValue,l=a.swipeLimitMin,u=a.swipeLimitMax,e=a.infinite,a=a.fadeoutAnimationProcessing;if(this.hasUserAction=!0,!(a||!this.isTouchMoveProcessStarted&&Utils.isVerticalTouchmoveDetected(n,i,s))){this.isTouchMoveProcessStarted||(this._cancelTimeoutAnimations(),this._setTouchmovePosition(),this.isAnimationDisabled=!0,this.isTouchMoveProcessStarted=!0);var d=Utils.getTouchmoveTranslatePosition(o,this.touchmovePosition);if(!1===e)return l<d||d<-u?void 0:void Utils.animate(this.stageComponent,{position:d});if(Utils.shouldRecalculateSwipePosition(d,l,u))try{!function t(){Utils.getIsLeftDirection(o)?d+=r:d+=-r;Utils.shouldRecalculateSwipePosition(d,l,u)&&t()}()}catch(t){Utils.debug(t)}Utils.animate(this.stageComponent,{position:d})}},t.prototype._handleTouchend=function(t,e){var i,n,o=e.deltaX;this._clearTouchmovePosition(),this.isTouchMoveProcessStarted&&(this.isTouchMoveProcessStarted=!1,i=this.state.animationDuration,n=this.props.animationEasingFunction,e=Utils.getTranslateXProperty(this.stageComponent),e=Utils.getSwipeTouchendPosition(this.state,o,e),this._handleSlideChange(),Utils.animate(this.stageComponent,{position:e,animationDuration:i,animationEasingFunction:n}),this._handleBeforeTouchEnd(e))},t.prototype._handleBeforeTouchEnd=function(o){var t=this,e=this.state.animationDuration;this.touchEndTimeoutId=setTimeout(function(){return __awaiter(t,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return e=Utils.getSwipeTouchendIndex(o,this.state),i=Utils.getTranslate3dProperty(e,this.state),Utils.animate(this.stageComponent,{position:-i}),n=Utils.getTransitionProperty(),[4,this.setState({activeIndex:e,translate3d:i,transition:n})];case 1:return t.sent(),[4,this._handleSlideChanged()];case 2:return t.sent(),[2]}})})},e)},t.prototype._handleSlideTo=function(t){var e=t.activeIndex,a=void 0===e?0:e,e=t.fadeoutAnimationIndex,r=void 0===e?null:e,t=t.fadeoutAnimationPosition,l=void 0===t?null:t;return __awaiter(this,void 0,void 0,function(){var e,i,n,o,s;return __generator(this,function(t){switch(t.label){case 0:return(o=this.props,e=o.infinite,n=o.animationEasingFunction,i=this.state,s=i.itemsInSlide,o=i.itemsCount,i=i.animationDuration,this.isAnimationDisabled||this.state.activeIndex===a||!e&&Utils.shouldCancelSlideAnimation(a,o,s))?[2]:(this.isAnimationDisabled=!0,this._cancelTimeoutAnimations(),this._handleSlideChange(),o=!1,s=Utils.getTranslate3dProperty(a,this.state),n=null!==r&&null!==l?(o=!0,Utils.getTransitionProperty()):Utils.getTransitionProperty({animationDuration:i,animationEasingFunction:n}),[4,this.setState({activeIndex:a,transition:n,translate3d:s,animationDuration:i,fadeoutAnimationIndex:r,fadeoutAnimationPosition:l,fadeoutAnimationProcessing:o})]);case 1:return t.sent(),this.slideEndTimeoutId=setTimeout(this._handleBeforeSlideEnd,i),[2]}})})},t.prototype._handleUpdateSlidePosition=function(o){return __awaiter(this,void 0,void 0,function(){var e,i,n;return __generator(this,function(t){switch(t.label){case 0:return e=this.state.animationDuration,i=Utils.getTranslate3dProperty(o,this.state),n=Utils.getTransitionProperty({animationDuration:0}),[4,this.setState({activeIndex:o,translate3d:i,transition:n,animationDuration:e,fadeoutAnimationIndex:null,fadeoutAnimationPosition:null,fadeoutAnimationProcessing:!1})];case 1:return t.sent(),[2]}})})},t.prototype._handleSlideChange=function(){this.props.onSlideChange&&this.props.onSlideChange(this.eventObject)},t.prototype._handleResized=function(){this.props.onResized&&this.props.onResized(this.eventObject)},t.prototype._handleSlideChanged=function(){return __awaiter(this,void 0,void 0,function(){var e,i,n,o;return __generator(this,function(t){switch(t.label){case 0:return n=this.state,e=n.isAutoPlaying,i=n.isAutoPlayCanceledOnAction,o=this.props,n=o.autoPlayStrategy,o=o.onSlideChanged,Utils.shouldCancelAutoPlayOnAction(n)&&this.hasUserAction&&!i?[4,this.setState({isAutoPlayCanceledOnAction:!0,isAutoPlaying:!1})]:[3,2];case 1:return t.sent(),[3,3];case 2:e&&this._handlePlay(),t.label=3;case 3:return this.isAnimationDisabled=!1,o&&o(this.eventObject),[2]}})})},t.prototype._handleDotClick=function(t){this.hasUserAction=!0,this.slideTo(t)},t.prototype._handlePlay=function(){this._setAutoPlayInterval()},t.prototype._cancelTimeoutAnimations=function(){this._clearAutoPlayTimeout(),this._clearSlideEndTimeout(),this.clearTouchendTimeout()},t.prototype._clearAutoPlayTimeout=function(){clearTimeout(this.autoPlayTimeoutId),this.autoPlayTimeoutId=void 0},t.prototype._clearSlideEndTimeout=function(){clearTimeout(this.slideEndTimeoutId),this.slideEndTimeoutId=void 0},t.prototype.clearTouchendTimeout=function(){clearTimeout(this.touchEndTimeoutId),this.touchEndTimeoutId=void 0},t.prototype._clearTouchmovePosition=function(){this.startTouchmovePosition=void 0},t.prototype._setTouchmovePosition=function(){var t=Utils.getTranslateXProperty(this.stageComponent);this.startTouchmovePosition=-t},t.prototype._setInitialState=function(){return __awaiter(this,void 0,void 0,function(){var e;return __generator(this,function(t){switch(t.label){case 0:return e=Utils.calculateInitialState(this.props,this.stageComponent),this.rootComponentDimensions=Utils.getElementDimensions(this.rootElement),[4,this.setState(e)];case 1:return t.sent(),this.props.onInitialized&&this.props.onInitialized(this.eventObject),[2]}})})},t.prototype._setAutoPlayInterval=function(){var t=this,e=this.props,i=e.autoPlayDirection,e=e.autoPlayInterval;this.autoPlayTimeoutId=setTimeout(function(){t.isHovered||(i===types_1.AutoplayDirection.RTL?t.slidePrev({}):t.slideNext({}))},e)},t.prototype._setupSwipeHandlers=function(){this.swipeListener=new vanilla_swipe_1.default({element:this.rootElement,delta:this.props.swipeDelta,onSwiping:this._handleTouchmove,onSwiped:this._handleTouchend,rotationAngle:5,mouseTrackingEnabled:this.props.mouseTracking,touchTrackingEnabled:this.props.touchTracking,preventDefaultTouchmoveEvent:!this.props.touchMoveDefaultEvents,preventTrackingOnMouseleave:!0}),this.swipeListener.init()},t.prototype._updateComponent=function(t){var e=this;void 0===t&&(t=this.props),this._cancelTimeoutAnimations(),this.isAnimationDisabled=!1,this.state.isAutoPlaying&&this._handlePlay(),this.setState({clones:Utils.createClones(t)}),requestAnimationFrame(function(){e.setState(Utils.calculateInitialState(t,e.stageComponent))})},t.prototype._updateSwipeProps=function(){this.swipeListener&&this.swipeListener.update({delta:this.props.swipeDelta,mouseTrackingEnabled:this.props.mouseTracking,touchTrackingEnabled:this.props.touchTracking,preventDefaultTouchmoveEvent:!this.props.touchMoveDefaultEvents})},t.prototype._renderDotsNavigation=function(){var t=this.props.renderDotsItem;return react_1.default.createElement(Views.DotsNavigation,{state:this.state,onClick:this._handleDotClick,renderDotsItem:t})},t.prototype._renderPrevButton=function(){var t=this.props.renderPrevButton,e=Utils.getSlideItemInfo(this.state).isPrevSlideDisabled;return react_1.default.createElement(Views.PrevNextButton,{name:"prev",onClick:this.slidePrev,isDisabled:e,renderPrevButton:t})},t.prototype._renderNextButton=function(){var t=this.props.renderNextButton,e=Utils.getSlideItemInfo(this.state).isNextSlideDisabled;return react_1.default.createElement(Views.PrevNextButton,{name:"next",onClick:this.slideNext,isDisabled:e,renderNextButton:t})},t.prototype._renderPlayPauseButton=function(){var t=this.props.renderPlayPauseButton,e=this.state.isAutoPlaying;return react_1.default.createElement(Views.PlayPauseButton,{isPlaying:e,onClick:this._handlePlayPauseToggle,renderPlayPauseButton:t})},t.prototype.render=function(){var t=this.state,e=t.translate3d,i=t.clones,n=t.transition,o=t.canUseDom,s=Utils.shouldDisableDots(this.props,this.state),t=Utils.getRenderWrapperStyles(this.props,this.state,this.stageComponent),n=Utils.getRenderStageStyles({translate3d:e},{transition:n}),o=o?"":" "+types_1.Modifiers.SSR;return react_1.default.createElement("div",{className:types_1.Classnames.ROOT+o},react_1.default.createElement("div",{ref:this._setRootComponentRef},react_1.default.createElement("div",{style:t,className:types_1.Classnames.WRAPPER,onMouseEnter:this._handleMouseEnter,onMouseLeave:this._handleMouseLeave},react_1.default.createElement("ul",{style:n,className:types_1.Classnames.STAGE,ref:this._setStageComponentRef},i.map(this._renderStageItem)))),s?null:this._renderDotsNavigation(),this.props.disableSlideInfo?null:this._renderSlideInfo(),this.props.disableButtonsControls?null:this._renderPrevButton(),this.props.disableButtonsControls?null:this._renderNextButton(),this.props.autoPlayControls?this._renderPlayPauseButton():null)},t.defaultProps=defaultProps_1.defaultProps,t}(react_1.default.PureComponent);exports.default=AliceCarousel;
-},{"react":"node_modules/react/index.js","vanilla-swipe":"node_modules/vanilla-swipe/lib/index.js","./defaultProps":"node_modules/react-alice-carousel/lib/defaultProps.js","./views":"node_modules/react-alice-carousel/lib/views/index.js","./utils":"node_modules/react-alice-carousel/lib/utils/index.js","./types":"node_modules/react-alice-carousel/lib/types/index.js"}],"node_modules/react-alice-carousel/lib/alice-carousel.css":[function(require,module,exports) {
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
 
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function __spreadArrays() {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+}
+/*
+egjs-imready
+Copyright (c) 2020-present NAVER Corp.
+MIT license
+*/
+
+
+var isWindow = typeof window !== "undefined";
+var ua = isWindow ? window.navigator.userAgent : "";
+var SUPPORT_COMPUTEDSTYLE = isWindow ? !!("getComputedStyle" in window) : false;
+var IS_IE = /MSIE|Trident|Windows Phone|Edge/.test(ua);
+var SUPPORT_ADDEVENTLISTENER = isWindow ? !!("addEventListener" in document) : false;
+var WIDTH = "width";
+var HEIGHT = "height";
+
+function getAttribute(el, name) {
+  return el.getAttribute(name) || "";
+}
+
+function toArray(arr) {
+  return [].slice.call(arr);
+}
+
+function hasSizeAttribute(target, prefix) {
+  if (prefix === void 0) {
+    prefix = "data-";
+  }
+
+  return !!target.getAttribute(prefix + "width");
+}
+
+function hasLoadingAttribute(target) {
+  return "loading" in target && target.getAttribute("loading") === "lazy";
+}
+
+function hasSkipAttribute(target, prefix) {
+  if (prefix === void 0) {
+    prefix = "data-";
+  }
+
+  return !!target.getAttribute(prefix + "skip");
+}
+
+function addEvent(element, type, handler) {
+  if (SUPPORT_ADDEVENTLISTENER) {
+    element.addEventListener(type, handler, false);
+  } else if (element.attachEvent) {
+    element.attachEvent("on" + type, handler);
+  } else {
+    element["on" + type] = handler;
+  }
+}
+
+function removeEvent(element, type, handler) {
+  if (element.removeEventListener) {
+    element.removeEventListener(type, handler, false);
+  } else if (element.detachEvent) {
+    element.detachEvent("on" + type, handler);
+  } else {
+    element["on" + type] = null;
+  }
+}
+
+function innerWidth(el) {
+  return getSize(el, "Width");
+}
+
+function innerHeight(el) {
+  return getSize(el, "Height");
+}
+
+function getStyles(el) {
+  return (SUPPORT_COMPUTEDSTYLE ? window.getComputedStyle(el) : el.currentStyle) || {};
+}
+
+function getSize(el, name) {
+  var size = el["client" + name] || el["offset" + name];
+  return parseFloat(size || getStyles(el)[name.toLowerCase()]) || 0;
+}
+
+function getContentElements(element, tags, prefix) {
+  var skipElements = toArray(element.querySelectorAll(__spreadArrays(["[" + prefix + "skip] [" + prefix + "width]"], tags.map(function (tag) {
+    return ["[" + prefix + "skip] " + tag, tag + "[" + prefix + "skip]", "[" + prefix + "width] " + tag].join(", ");
+  })).join(", ")));
+  return toArray(element.querySelectorAll("[" + prefix + "width], " + tags.join(", "))).filter(function (el) {
+    return skipElements.indexOf(el) === -1;
+  });
+}
+/*
+egjs-imready
+Copyright (c) 2020-present NAVER Corp.
+MIT license
+*/
+
+
+var elements = [];
+
+function addAutoSizer(element, prefix) {
+  !elements.length && addEvent(window, "resize", resizeAllAutoSizers);
+  element.__PREFIX__ = prefix;
+  elements.push(element);
+  resize(element);
+}
+
+function removeAutoSizer(element, prefix) {
+  var index = elements.indexOf(element);
+
+  if (index < 0) {
+    return;
+  }
+
+  var fixed = getAttribute(element, prefix + "fixed");
+  delete element.__PREFIX__;
+  element.style[fixed === HEIGHT ? WIDTH : HEIGHT] = "";
+  elements.splice(index, 1);
+  !elements.length && removeEvent(window, "resize", resizeAllAutoSizers);
+}
+
+function resize(element, prefix) {
+  if (prefix === void 0) {
+    prefix = "data-";
+  }
+
+  var elementPrefix = element.__PREFIX__ || prefix;
+  var dataWidth = parseInt(getAttribute(element, "" + elementPrefix + WIDTH), 10) || 0;
+  var dataHeight = parseInt(getAttribute(element, "" + elementPrefix + HEIGHT), 10) || 0;
+  var fixed = getAttribute(element, elementPrefix + "fixed");
+
+  if (fixed === HEIGHT) {
+    var size = innerHeight(element) || dataHeight;
+    element.style[WIDTH] = dataWidth / dataHeight * size + "px";
+  } else {
+    var size = innerWidth(element) || dataWidth;
+    element.style[HEIGHT] = dataHeight / dataWidth * size + "px";
+  }
+}
+
+function resizeAllAutoSizers() {
+  elements.forEach(function (element) {
+    resize(element);
+  });
+}
+
+var Loader = /*#__PURE__*/function (_super) {
+  __extends(Loader, _super);
+
+  function Loader(element, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _this = _super.call(this) || this;
+
+    _this.isReady = false;
+    _this.isPreReady = false;
+    _this.hasDataSize = false;
+    _this.hasLoading = false;
+    _this.isSkip = false;
+
+    _this.onCheck = function (e) {
+      _this.clear();
+
+      if (e && e.type === "error") {
+        _this.onError(_this.element);
+      } // I'm pre-ready and ready!
+
+
+      var withPreReady = !_this.hasDataSize && !_this.hasLoading;
+
+      _this.onReady(withPreReady);
+    };
+
+    _this.options = __assign({
+      prefix: "data-"
+    }, options);
+    _this.element = element;
+    _this.hasDataSize = hasSizeAttribute(element, _this.options.prefix);
+    _this.hasLoading = hasLoadingAttribute(element);
+    _this.isSkip = hasSkipAttribute(_this.element);
+    return _this;
+  }
+
+  var __proto = Loader.prototype;
+
+  __proto.check = function () {
+    if (this.isSkip || !this.checkElement()) {
+      // I'm Ready
+      this.onAlreadyReady(true);
+      return false;
+    }
+
+    if (this.hasDataSize) {
+      addAutoSizer(this.element, this.options.prefix);
+    }
+
+    if (this.hasDataSize || this.hasLoading) {
+      // I'm Pre Ready
+      this.onAlreadyPreReady();
+    } // Wati Pre Ready, Ready
+
+
+    return true;
+  };
+
+  __proto.addEvents = function () {
+    var _this = this;
+
+    var element = this.element;
+    this.constructor.EVENTS.forEach(function (name) {
+      addEvent(element, name, _this.onCheck);
+    });
+  };
+
+  __proto.clear = function () {
+    var _this = this;
+
+    var element = this.element;
+    this.constructor.EVENTS.forEach(function (name) {
+      removeEvent(element, name, _this.onCheck);
+    });
+    this.removeAutoSizer();
+  };
+
+  __proto.destroy = function () {
+    this.clear();
+    this.off();
+  };
+
+  __proto.removeAutoSizer = function () {
+    if (this.hasDataSize) {
+      // I'm already ready.
+      var prefix = this.options.prefix;
+      removeAutoSizer(this.element, prefix);
+    }
+  };
+
+  __proto.onError = function (target) {
+    this.trigger("error", {
+      element: this.element,
+      target: target
+    });
+  };
+
+  __proto.onPreReady = function () {
+    if (this.isPreReady) {
+      return;
+    }
+
+    this.isPreReady = true;
+    this.trigger("preReady", {
+      element: this.element,
+      hasLoading: this.hasLoading,
+      isSkip: this.isSkip
+    });
+  };
+
+  __proto.onReady = function (withPreReady) {
+    if (this.isReady) {
+      return;
+    }
+
+    if (withPreReady) {
+      this.isPreReady = true;
+    }
+
+    this.removeAutoSizer();
+    this.isReady = true;
+    this.trigger("ready", {
+      element: this.element,
+      withPreReady: withPreReady,
+      hasLoading: this.hasLoading,
+      isSkip: this.isSkip
+    });
+  };
+
+  __proto.onAlreadyError = function (target) {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.onError(target);
+    });
+  };
+
+  __proto.onAlreadyPreReady = function () {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.onPreReady();
+    });
+  };
+
+  __proto.onAlreadyReady = function (withPreReady) {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.onReady(withPreReady);
+    });
+  };
+
+  Loader.EVENTS = [];
+  return Loader;
+}(_component.default);
+
+exports.Loader = Loader;
+
+var ElementLoader = /*#__PURE__*/function (_super) {
+  __extends(ElementLoader, _super);
+
+  function ElementLoader() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  var __proto = ElementLoader.prototype;
+
+  __proto.setHasLoading = function (hasLoading) {
+    this.hasLoading = hasLoading;
+  };
+
+  __proto.check = function () {
+    if (this.isSkip) {
+      // I'm Ready
+      this.onAlreadyReady(true);
+      return false;
+    }
+
+    if (this.hasDataSize) {
+      addAutoSizer(this.element, this.options.prefix);
+      this.onAlreadyPreReady();
+    } else {
+      // has not data size
+      this.trigger("requestChildren");
+    }
+
+    return true;
+  };
+
+  __proto.checkElement = function () {
+    return true;
+  };
+
+  __proto.destroy = function () {
+    this.clear();
+    this.trigger("requestDestroy");
+    this.off();
+  };
+
+  __proto.onAlreadyPreReady = function () {
+    // has data size
+    _super.prototype.onAlreadyPreReady.call(this);
+
+    this.trigger("reqeustReadyChildren");
+  };
+
+  ElementLoader.EVENTS = [];
+  return ElementLoader;
+}(Loader);
+/**
+ * @alias eg.ImReady
+ * @extends eg.Component
+ */
+
+
+var ImReadyManager = /*#__PURE__*/function (_super) {
+  __extends(ImReadyManager, _super);
+  /**
+   * @param - ImReady's options
+   */
+
+
+  function ImReadyManager(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _this = _super.call(this) || this;
+
+    _this.readyCount = 0;
+    _this.preReadyCount = 0;
+    _this.totalCount = 0;
+    _this.totalErrorCount = 0;
+    _this.isPreReadyOver = true;
+    _this.elementInfos = [];
+    _this.options = __assign({
+      loaders: {},
+      prefix: "data-"
+    }, options);
+    return _this;
+  }
+  /**
+   * Checks whether elements are in the ready state.
+   * @ko 엘리먼트가 준비 상태인지 체크한다.
+   * @elements - Elements to check ready status. <ko> 준비 상태를 체크할 엘리먼트들.</ko>
+   * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    <img src="ERR" data-width="1280" data-height="853"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReadyElement: e => {
+     *     // 1, 3
+     *     // 2, 3
+     *     // 3, 3
+     *     console.log(e.preReadyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+   */
+
+
+  var __proto = ImReadyManager.prototype;
+
+  __proto.check = function (elements) {
+    var _this = this;
+
+    var prefix = this.options.prefix;
+    this.clear();
+    this.elementInfos = toArray(elements).map(function (element, index) {
+      var loader = _this.getLoader(element, {
+        prefix: prefix
+      });
+
+      loader.check();
+      loader.on("error", function (e) {
+        _this.onError(index, e.target);
+      }).on("preReady", function (e) {
+        var info = _this.elementInfos[index];
+        info.hasLoading = e.hasLoading;
+        info.isSkip = e.isSkip;
+
+        var isPreReady = _this.checkPreReady(index);
+
+        _this.onPreReadyElement(index);
+
+        isPreReady && _this.onPreReady();
+      }).on("ready", function (_a) {
+        var withPreReady = _a.withPreReady,
+            hasLoading = _a.hasLoading,
+            isSkip = _a.isSkip;
+        var info = _this.elementInfos[index];
+        info.hasLoading = hasLoading;
+        info.isSkip = isSkip;
+
+        var isPreReady = withPreReady && _this.checkPreReady(index);
+
+        var isReady = _this.checkReady(index); // Pre-ready and ready occur simultaneously
+
+
+        withPreReady && _this.onPreReadyElement(index);
+
+        _this.onReadyElement(index);
+
+        isPreReady && _this.onPreReady();
+        isReady && _this.onReady();
+      });
+      return {
+        loader: loader,
+        element: element,
+        hasLoading: false,
+        hasError: false,
+        isPreReady: false,
+        isReady: false,
+        isSkip: false
+      };
+    });
+    var length = this.elementInfos.length;
+    this.totalCount = length;
+
+    if (!length) {
+      setTimeout(function () {
+        _this.onPreReady();
+
+        _this.onReady();
+      });
+    }
+
+    return this;
+  };
+  /**
+   * Gets the total count of elements to be checked.
+   * @ko 체크하는 element의 총 개수를 가져온다.
+   */
+
+
+  __proto.getTotalCount = function () {
+    return this.totalCount;
+  };
+  /**
+   * Whether the elements are all pre-ready. (all sizes are known)
+   * @ko 엘리먼트들이 모두 사전 준비가 됐는지 (사이즈를 전부 알 수 있는지) 여부.
+   */
+
+
+  __proto.isPreReady = function () {
+    return this.elementInfos.every(function (info) {
+      return info.isPreReady;
+    });
+  };
+  /**
+   * Whether the elements are all ready.
+   * @ko 엘리먼트들이 모두 준비가 됐는지 여부.
+   */
+
+
+  __proto.isReady = function () {
+    return this.elementInfos.every(function (info) {
+      return info.isReady;
+    });
+  };
+  /**
+   * Whether an error has occurred in the elements in the current state.
+   * @ko 현재 상태에서 엘리먼트들이 에러가 발생했는지 여부.
+   */
+
+
+  __proto.hasError = function () {
+    return this.totalErrorCount > 0;
+  };
+  /**
+   * Clears events of elements being checked.
+   * @ko 체크 중인 엘리먼트들의 이벤트를 해제 한다.
+   */
+
+
+  __proto.clear = function () {
+    this.isPreReadyOver = false;
+    this.totalCount = 0;
+    this.preReadyCount = 0;
+    this.readyCount = 0;
+    this.totalErrorCount = 0;
+    this.elementInfos.forEach(function (info) {
+      if (!info.isReady && info.loader) {
+        info.loader.destroy();
+      }
+    });
+    this.elementInfos = [];
+  };
+  /**
+   * Destory all events.
+   * @ko 모든 이벤트를 해제 한다.
+   */
+
+
+  __proto.destroy = function () {
+    this.clear();
+    this.off();
+  };
+
+  __proto.getLoader = function (element, options) {
+    var _this = this;
+
+    var tagName = element.tagName.toLowerCase();
+    var loaders = this.options.loaders;
+    var tags = Object.keys(loaders);
+
+    if (loaders[tagName]) {
+      return new loaders[tagName](element, options);
+    }
+
+    var loader = new ElementLoader(element, options);
+    var children = toArray(element.querySelectorAll(tags.join(", ")));
+    loader.setHasLoading(children.some(function (el) {
+      return hasLoadingAttribute(el);
+    }));
+    var withPreReady = false;
+    var childrenImReady = this.clone().on("error", function (e) {
+      loader.onError(e.target);
+    }).on("ready", function () {
+      loader.onReady(withPreReady);
+    });
+    loader.on("requestChildren", function () {
+      // has not data size
+      var contentElements = getContentElements(element, tags, _this.options.prefix);
+      childrenImReady.check(contentElements).on("preReady", function (e) {
+        withPreReady = e.isReady;
+
+        if (!withPreReady) {
+          loader.onPreReady();
+        }
+      });
+    }).on("reqeustReadyChildren", function () {
+      // has data size
+      // loader call preReady
+      // check only video, image elements
+      childrenImReady.check(children);
+    }).on("requestDestroy", function () {
+      childrenImReady.destroy();
+    });
+    return loader;
+  };
+
+  __proto.clone = function () {
+    return new ImReadyManager(__assign({}, this.options));
+  };
+
+  __proto.checkPreReady = function (index) {
+    this.elementInfos[index].isPreReady = true;
+    ++this.preReadyCount;
+
+    if (this.preReadyCount < this.totalCount) {
+      return false;
+    }
+
+    return true;
+  };
+
+  __proto.checkReady = function (index) {
+    this.elementInfos[index].isReady = true;
+    ++this.readyCount;
+
+    if (this.readyCount < this.totalCount) {
+      return false;
+    }
+
+    return true;
+  };
+
+  __proto.onError = function (index, target) {
+    var info = this.elementInfos[index];
+    info.hasError = true;
+    /**
+     * An event occurs if the image, video fails to load.
+     * @ko 이미지, 비디오가 로딩에 실패하면 이벤트가 발생한다.
+     * @event eg.ImReady#error
+     * @param {eg.ImReady.OnError} e - The object of data to be sent to an event <ko>이벤트에 전달되는 데이터 객체</ko>
+     * @param {HTMLElement} [e.element] - The element with error images.<ko>오류난 이미지가 있는 엘리먼트</ko>
+     * @param {number} [e.index] - The item's index with error images. <ko>오류난 이미지가 있는 엘리먼트의 인덱스</ko>
+     * @param {HTMLElement} [e.target] - Error image target in element <ko>엘리먼트의 오류난 이미지 타겟</ko>
+     * @param {number} [e.errorCount] - The number of elements with errors <ko>에러가 있는 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalErrorCount] - The total number of targets with errors <ko>에러가 있는 타겟들의 총 개수</ko>
+     * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg"/>
+     *    <img src="ERR"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check([document.querySelector("div")]).on({
+     *   error: e => {
+     *     // <div>...</div>, 0, <img src="ERR"/>
+     *     console.log(e.element, e.index, e.target),
+     *   },
+     * });
+     * ```
+     */
+
+    this.trigger("error", {
+      element: info.element,
+      index: index,
+      target: target,
+      errorCount: this.getErrorCount(),
+      totalErrorCount: ++this.totalErrorCount
+    });
+  };
+
+  __proto.onPreReadyElement = function (index) {
+    var info = this.elementInfos[index];
+    /**
+     * An event occurs when the element is pre-ready (when the loading attribute is applied or the size is known)
+     * @ko 해당 엘리먼트가 사전 준비되었을 때(loading 속성이 적용되었거나 사이즈를 알 수 있을 때) 이벤트가 발생한다.
+     * @event eg.ImReady#preReadyElement
+     * @param {eg.ImReady.OnPreReadyElement} e - The object of data to be sent to an event <ko>이벤트에 전달되는 데이터 객체</ko>
+     * @param {HTMLElement} [e.element] - The pre-ready element.<ko>사전 준비된 엘리먼트</ko>
+     * @param {number} [e.index] - The index of the pre-ready element. <ko>사전 준비된 엘리먼트의 인덱스</ko>
+     * @param {number} [e.preReadyCount] - Number of elements pre-ready <ko>사전 준비된 엘리먼트들의 개수</ko>
+     * @param {number} [e.readyCount] - Number of elements ready <ko>준비된 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalCount] - Total number of elements <ko>엘리먼트들의 총 개수</ko>
+     * @param {boolean} [e.isPreReady] - Whether all elements are pre-ready <ko>모든 엘리먼트가 사전 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.isReady] - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.hasLoading] - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
+     * @param {boolean} [e.isSkip] - Whether the check is omitted due to skip attribute <ko>skip 속성으로 인하여 체크가 생략됐는지 여부</ko>
+     * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    <img src="ERR" data-width="1280" data-height="853"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReadyElement: e => {
+     *     // 1, 3
+     *     // 2, 3
+     *     // 3, 3
+     *     console.log(e.preReadyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+
+    this.trigger("preReadyElement", {
+      element: info.element,
+      index: index,
+      preReadyCount: this.preReadyCount,
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+      isPreReady: this.isPreReady(),
+      isReady: this.isReady(),
+      hasLoading: info.hasLoading,
+      isSkip: info.isSkip
+    });
+  };
+
+  __proto.onPreReady = function () {
+    this.isPreReadyOver = true;
+    /**
+     * An event occurs when all element are pre-ready (When all elements have the loading attribute applied or the size is known)
+     * @ko 모든 엘리먼트들이 사전 준비된 경우 (모든 엘리먼트들이 loading 속성이 적용되었거나 사이즈를 알 수 있는 경우) 이벤트가 발생한다.
+     * @event eg.ImReady#preReady
+     * @param {eg.ImReady.OnPreReady} e - The object of data to be sent to an event <ko>이벤트에 전달되는 데이터 객체</ko>
+     * @param {number} [e.readyCount] - Number of elements ready <ko>준비된 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalCount] - Total number of elements <ko>엘리먼트들의 총 개수</ko>
+     * @param {boolean} [e.isReady] - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.hasLoading] - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
+     * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    <img src="ERR" data-width="1280" data-height="853"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReady: e => {
+     *     // 0, 3
+     *     console.log(e.readyCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+
+    this.trigger("preReady", {
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+      isReady: this.isReady(),
+      hasLoading: this.hasLoading()
+    });
+  };
+
+  __proto.onReadyElement = function (index) {
+    var info = this.elementInfos[index];
+    /**
+     * An event occurs when the element is ready
+     * @ko 해당 엘리먼트가 준비가 되었을 때 이벤트가 발생한다.
+     * @event eg.ImReady#readyElement
+     * @param {eg.ImReady.OnReadyElement} e - The object of data to be sent to an event <ko>이벤트에 전달되는 데이터 객체</ko>
+     * @param {HTMLElement} [e.element] - The ready element.<ko>준비된 엘리먼트</ko>
+     * @param {number} [e.index] - The index of the ready element. <ko>준비된 엘리먼트의 인덱스</ko>
+     * @param {boolean} [e.hasError] - Whether there is an error in the element <ko>해당 엘리먼트에 에러가 있는지 여부</ko>
+     * @param {number} [e.errorCount] - The number of elements with errors <ko>에러가 있는 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalErrorCount] - The total number of targets with errors <ko>에러가 있는 타겟들의 총 개수</ko>
+     * @param {number} [e.preReadyCount] - Number of elements pre-ready <ko>사전 준비된 엘리먼트들의 개수</ko>
+     * @param {number} [e.readyCount] - Number of elements ready <ko>준비된 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalCount] - Total number of elements <ko>엘리먼트들의 총 개수</ko>
+     * @param {boolean} [e.isPreReady] - Whether all elements are pre-ready <ko>모든 엘리먼트가 사전 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.isReady] - Whether all elements are ready <ko>모든 엘리먼트가 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.hasLoading] - Whether the loading attribute has been applied <ko>loading 속성이 적용되었는지 여부</ko>
+     * @param {boolean} [e.isPreReadyOver] - Whether pre-ready is over <ko>사전 준비가 끝났는지 여부</ko>
+     * @param {boolean} [e.isSkip] - Whether the check is omitted due to skip attribute <ko>skip 속성으로 인하여 체크가 생략됐는지 여부</ko>
+     * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    <img src="ERR" data-width="1280" data-height="853"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   readyElement: e => {
+     *     // 1, 0, false, 3
+     *     // 2, 1, false, 3
+     *     // 3, 2, true, 3
+     *     console.log(e.readyCount, e.index, e.hasError, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+
+    this.trigger("readyElement", {
+      index: index,
+      element: info.element,
+      hasError: info.hasError,
+      errorCount: this.getErrorCount(),
+      totalErrorCount: this.totalErrorCount,
+      preReadyCount: this.preReadyCount,
+      readyCount: this.readyCount,
+      totalCount: this.totalCount,
+      isPreReady: this.isPreReady(),
+      isReady: this.isReady(),
+      hasLoading: info.hasLoading,
+      isPreReadyOver: this.isPreReadyOver,
+      isSkip: info.isSkip
+    });
+  };
+
+  __proto.onReady = function () {
+    /**
+     * An event occurs when all element are ready
+     * @ko 모든 엘리먼트들이 준비된 경우 이벤트가 발생한다.
+     * @event eg.ImReady#ready
+     * @param {eg.ImReady.OnReady} e - The object of data to be sent to an event <ko>이벤트에 전달되는 데이터 객체</ko>
+     * @param {number} [e.errorCount] - The number of elements with errors <ko>에러가 있는 엘리먼트들의 개수</ko>
+     * @param {number} [e.totalErrorCount] - The total number of targets with errors <ko>에러가 있는 타겟들의 총 개수</ko>
+     * @param {number} [e.totalCount] - Total number of elements <ko>엘리먼트들의 총 개수</ko>
+     * @example
+     * ```html
+     * <div>
+     *    <img src="./1.jpg" data-width="1280" data-height="853" style="width:100%"/>
+     *    <img src="./2.jpg" data-width="1280" data-height="853"/>
+     *    <img src="ERR" data-width="1280" data-height="853"/>
+     * </div>
+     * ```
+     * ## Javascript
+     * ```js
+     * import ImReady from "@egjs/imready";
+     *
+     * const im = new ImReady(); // umd: eg.ImReady
+     * im.check(document.querySelectorAll("img")).on({
+     *   preReady: e => {
+     *     // 0, 3
+     *     console.log(e.readyCount, e.totalCount),
+     *   },
+     *   ready: e => {
+     *     // 1, 3
+     *     console.log(e.errorCount, e.totalCount),
+     *   },
+     * });
+     * ```
+     */
+    this.trigger("ready", {
+      errorCount: this.getErrorCount(),
+      totalErrorCount: this.totalErrorCount,
+      totalCount: this.totalCount
+    });
+  };
+
+  __proto.getErrorCount = function () {
+    return this.elementInfos.filter(function (info) {
+      return info.hasError;
+    }).length;
+  };
+
+  __proto.hasLoading = function () {
+    return this.elementInfos.some(function (info) {
+      return info.hasLoading;
+    });
+  };
+
+  return ImReadyManager;
+}(_component.default);
+
+exports.Manager = ImReadyManager;
+
+var ImageLoader = /*#__PURE__*/function (_super) {
+  __extends(ImageLoader, _super);
+
+  function ImageLoader() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  var __proto = ImageLoader.prototype;
+
+  __proto.checkElement = function () {
+    var element = this.element;
+    var src = element.getAttribute("src");
+
+    if (element.complete && src) {
+      if (!element.naturalWidth) {
+        this.onAlreadyError(element);
+      }
+
+      return false;
+    }
+
+    this.addEvents();
+    IS_IE && element.setAttribute("src", src);
+    return true;
+  };
+
+  ImageLoader.EVENTS = ["load", "error"];
+  return ImageLoader;
+}(Loader);
+
+exports.ImageLoader = ImageLoader;
+
+var VideoLoader = /*#__PURE__*/function (_super) {
+  __extends(VideoLoader, _super);
+
+  function VideoLoader() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  var __proto = VideoLoader.prototype;
+
+  __proto.checkElement = function () {
+    var element = this.element; // HAVE_NOTHING: 0, no information whether or not the audio/video is ready
+    // HAVE_METADATA: 1, HAVE_METADATA - metadata for the audio/video is ready
+    // HAVE_CURRENT_DATA: 2, data for the current playback position is available, but not enough data to play next frame/millisecond
+    // HAVE_FUTURE_DATA: 3, data for the current and at least the next frame is available
+    // HAVE_ENOUGH_DATA: 4, enough data available to start playing
+
+    if (element.readyState >= 1) {
+      return false;
+    }
+
+    if (element.error) {
+      this.onAlreadyError(element);
+      return false;
+    }
+
+    this.addEvents();
+    return true;
+  };
+
+  VideoLoader.EVENTS = ["loadedmetadata", "error"];
+  return VideoLoader;
+}(Loader);
+
+exports.VideoLoader = VideoLoader;
+
+var ImReady = /*#__PURE__*/function (_super) {
+  __extends(ImReady, _super);
+
+  function ImReady(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _super.call(this, __assign({
+      loaders: {
+        img: ImageLoader,
+        video: VideoLoader
+      }
+    }, options)) || this;
+  }
+
+  return ImReady;
+}(ImReadyManager);
+/*
+egjs-imready
+Copyright (c) 2020-present NAVER Corp.
+MIT license
+*/
+
+
+var _default = ImReady;
+exports.default = _default;
+},{"@egjs/component":"node_modules/@egjs/component/dist/component.esm.js"}],"node_modules/@egjs/hammerjs/dist/hammer.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addEventListeners = exports.on = addEventListeners;
+exports.removeEventListeners = exports.off = removeEventListeners;
+exports.each = each;
+exports.inherit = inherit;
+exports.bindFn = bindFn;
+exports.prefixed = prefixed;
+exports.toArray = toArray;
+exports.inArray = inArray;
+exports.uniqueArray = uniqueArray;
+exports.splitStr = splitStr;
+exports.boolOrFn = boolOrFn;
+exports.hasParent = hasParent;
+exports.defaults = exports.assign = exports.extend = exports.merge = exports.Press = exports.Rotate = exports.Pinch = exports.Swipe = exports.Pan = exports.Tap = exports.AttrRecognizer = exports.Recognizer = exports.SingleTouchInput = exports.TouchMouseInput = exports.PointerEventInput = exports.MouseInput = exports.TouchInput = exports.TouchAction = exports.Input = exports.Manager = exports.DIRECTION_ALL = exports.DIRECTION_VERTICAL = exports.DIRECTION_HORIZONTAL = exports.DIRECTION_DOWN = exports.DIRECTION_UP = exports.DIRECTION_RIGHT = exports.DIRECTION_LEFT = exports.DIRECTION_NONE = exports.STATE_FAILED = exports.STATE_CANCELLED = exports.STATE_RECOGNIZED = exports.STATE_ENDED = exports.STATE_CHANGED = exports.STATE_BEGAN = exports.STATE_POSSIBLE = exports.INPUT_CANCEL = exports.INPUT_END = exports.INPUT_MOVE = exports.INPUT_START = exports.default = void 0;
+
+/*! Hammer.JS - v2.0.17-rc - 2019-12-16
+ * http://naver.github.io/egjs
+ *
+ * Forked By Naver egjs
+ * Copyright (c) hammerjs
+ * Licensed under the MIT license */
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+/**
+ * @private
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} target
+ * @param {...Object} objects_to_assign
+ * @returns {Object} target
+ */
+
+
+var assign;
+
+if (typeof Object.assign !== 'function') {
+  assign = function assign(target) {
+    if (target === undefined || target === null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    var output = Object(target);
+
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+
+      if (source !== undefined && source !== null) {
+        for (var nextKey in source) {
+          if (source.hasOwnProperty(nextKey)) {
+            output[nextKey] = source[nextKey];
+          }
+        }
+      }
+    }
+
+    return output;
+  };
+} else {
+  assign = Object.assign;
+}
+
+var assign$1 = assign;
+exports.assign = assign$1;
+var VENDOR_PREFIXES = ['', 'webkit', 'Moz', 'MS', 'ms', 'o'];
+var TEST_ELEMENT = typeof document === "undefined" ? {
+  style: {}
+} : document.createElement('div');
+var TYPE_FUNCTION = 'function';
+var round = Math.round,
+    abs = Math.abs;
+var now = Date.now;
+/**
+ * @private
+ * get the prefixed property
+ * @param {Object} obj
+ * @param {String} property
+ * @returns {String|Undefined} prefixed
+ */
+
+function prefixed(obj, property) {
+  var prefix;
+  var prop;
+  var camelProp = property[0].toUpperCase() + property.slice(1);
+  var i = 0;
+
+  while (i < VENDOR_PREFIXES.length) {
+    prefix = VENDOR_PREFIXES[i];
+    prop = prefix ? prefix + camelProp : property;
+
+    if (prop in obj) {
+      return prop;
+    }
+
+    i++;
+  }
+
+  return undefined;
+}
+/* eslint-disable no-new-func, no-nested-ternary */
+
+
+var win;
+
+if (typeof window === "undefined") {
+  // window is undefined in node.js
+  win = {};
+} else {
+  win = window;
+}
+
+var PREFIXED_TOUCH_ACTION = prefixed(TEST_ELEMENT.style, 'touchAction');
+var NATIVE_TOUCH_ACTION = PREFIXED_TOUCH_ACTION !== undefined;
+
+function getTouchActionProps() {
+  if (!NATIVE_TOUCH_ACTION) {
+    return false;
+  }
+
+  var touchMap = {};
+  var cssSupports = win.CSS && win.CSS.supports;
+  ['auto', 'manipulation', 'pan-y', 'pan-x', 'pan-x pan-y', 'none'].forEach(function (val) {
+    // If css.supports is not supported but there is native touch-action assume it supports
+    // all values. This is the case for IE 10 and 11.
+    return touchMap[val] = cssSupports ? win.CSS.supports('touch-action', val) : true;
+  });
+  return touchMap;
+}
+
+var TOUCH_ACTION_COMPUTE = 'compute';
+var TOUCH_ACTION_AUTO = 'auto';
+var TOUCH_ACTION_MANIPULATION = 'manipulation'; // not implemented
+
+var TOUCH_ACTION_NONE = 'none';
+var TOUCH_ACTION_PAN_X = 'pan-x';
+var TOUCH_ACTION_PAN_Y = 'pan-y';
+var TOUCH_ACTION_MAP = getTouchActionProps();
+var MOBILE_REGEX = /mobile|tablet|ip(ad|hone|od)|android/i;
+var SUPPORT_TOUCH = ('ontouchstart' in win);
+var SUPPORT_POINTER_EVENTS = prefixed(win, 'PointerEvent') !== undefined;
+var SUPPORT_ONLY_TOUCH = SUPPORT_TOUCH && MOBILE_REGEX.test(navigator.userAgent);
+var INPUT_TYPE_TOUCH = 'touch';
+var INPUT_TYPE_PEN = 'pen';
+var INPUT_TYPE_MOUSE = 'mouse';
+var INPUT_TYPE_KINECT = 'kinect';
+var COMPUTE_INTERVAL = 25;
+var INPUT_START = 1;
+exports.INPUT_START = INPUT_START;
+var INPUT_MOVE = 2;
+exports.INPUT_MOVE = INPUT_MOVE;
+var INPUT_END = 4;
+exports.INPUT_END = INPUT_END;
+var INPUT_CANCEL = 8;
+exports.INPUT_CANCEL = INPUT_CANCEL;
+var DIRECTION_NONE = 1;
+exports.DIRECTION_NONE = DIRECTION_NONE;
+var DIRECTION_LEFT = 2;
+exports.DIRECTION_LEFT = DIRECTION_LEFT;
+var DIRECTION_RIGHT = 4;
+exports.DIRECTION_RIGHT = DIRECTION_RIGHT;
+var DIRECTION_UP = 8;
+exports.DIRECTION_UP = DIRECTION_UP;
+var DIRECTION_DOWN = 16;
+exports.DIRECTION_DOWN = DIRECTION_DOWN;
+var DIRECTION_HORIZONTAL = DIRECTION_LEFT | DIRECTION_RIGHT;
+exports.DIRECTION_HORIZONTAL = DIRECTION_HORIZONTAL;
+var DIRECTION_VERTICAL = DIRECTION_UP | DIRECTION_DOWN;
+exports.DIRECTION_VERTICAL = DIRECTION_VERTICAL;
+var DIRECTION_ALL = DIRECTION_HORIZONTAL | DIRECTION_VERTICAL;
+exports.DIRECTION_ALL = DIRECTION_ALL;
+var PROPS_XY = ['x', 'y'];
+var PROPS_CLIENT_XY = ['clientX', 'clientY'];
+/**
+ * @private
+ * walk objects and arrays
+ * @param {Object} obj
+ * @param {Function} iterator
+ * @param {Object} context
+ */
+
+function each(obj, iterator, context) {
+  var i;
+
+  if (!obj) {
+    return;
+  }
+
+  if (obj.forEach) {
+    obj.forEach(iterator, context);
+  } else if (obj.length !== undefined) {
+    i = 0;
+
+    while (i < obj.length) {
+      iterator.call(context, obj[i], i, obj);
+      i++;
+    }
+  } else {
+    for (i in obj) {
+      obj.hasOwnProperty(i) && iterator.call(context, obj[i], i, obj);
+    }
+  }
+}
+/**
+ * @private
+ * let a boolean value also be a function that must return a boolean
+ * this first item in args will be used as the context
+ * @param {Boolean|Function} val
+ * @param {Array} [args]
+ * @returns {Boolean}
+ */
+
+
+function boolOrFn(val, args) {
+  if (typeof val === TYPE_FUNCTION) {
+    return val.apply(args ? args[0] || undefined : undefined, args);
+  }
+
+  return val;
+}
+/**
+ * @private
+ * small indexOf wrapper
+ * @param {String} str
+ * @param {String} find
+ * @returns {Boolean} found
+ */
+
+
+function inStr(str, find) {
+  return str.indexOf(find) > -1;
+}
+/**
+ * @private
+ * when the touchActions are collected they are not a valid value, so we need to clean things up. *
+ * @param {String} actions
+ * @returns {*}
+ */
+
+
+function cleanTouchActions(actions) {
+  // none
+  if (inStr(actions, TOUCH_ACTION_NONE)) {
+    return TOUCH_ACTION_NONE;
+  }
+
+  var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X);
+  var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y); // if both pan-x and pan-y are set (different recognizers
+  // for different directions, e.g. horizontal pan but vertical swipe?)
+  // we need none (as otherwise with pan-x pan-y combined none of these
+  // recognizers will work, since the browser would handle all panning
+
+  if (hasPanX && hasPanY) {
+    return TOUCH_ACTION_NONE;
+  } // pan-x OR pan-y
+
+
+  if (hasPanX || hasPanY) {
+    return hasPanX ? TOUCH_ACTION_PAN_X : TOUCH_ACTION_PAN_Y;
+  } // manipulation
+
+
+  if (inStr(actions, TOUCH_ACTION_MANIPULATION)) {
+    return TOUCH_ACTION_MANIPULATION;
+  }
+
+  return TOUCH_ACTION_AUTO;
+}
+/**
+ * @private
+ * Touch Action
+ * sets the touchAction property or uses the js alternative
+ * @param {Manager} manager
+ * @param {String} value
+ * @constructor
+ */
+
+
+var TouchAction = /*#__PURE__*/function () {
+  function TouchAction(manager, value) {
+    this.manager = manager;
+    this.set(value);
+  }
+  /**
+   * @private
+   * set the touchAction value on the element or enable the polyfill
+   * @param {String} value
+   */
+
+
+  var _proto = TouchAction.prototype;
+
+  _proto.set = function set(value) {
+    // find out the touch-action by the event handlers
+    if (value === TOUCH_ACTION_COMPUTE) {
+      value = this.compute();
+    }
+
+    if (NATIVE_TOUCH_ACTION && this.manager.element.style && TOUCH_ACTION_MAP[value]) {
+      this.manager.element.style[PREFIXED_TOUCH_ACTION] = value;
+    }
+
+    this.actions = value.toLowerCase().trim();
+  };
+  /**
+   * @private
+   * just re-set the touchAction value
+   */
+
+
+  _proto.update = function update() {
+    this.set(this.manager.options.touchAction);
+  };
+  /**
+   * @private
+   * compute the value for the touchAction property based on the recognizer's settings
+   * @returns {String} value
+   */
+
+
+  _proto.compute = function compute() {
+    var actions = [];
+    each(this.manager.recognizers, function (recognizer) {
+      if (boolOrFn(recognizer.options.enable, [recognizer])) {
+        actions = actions.concat(recognizer.getTouchAction());
+      }
+    });
+    return cleanTouchActions(actions.join(' '));
+  };
+  /**
+   * @private
+   * this method is called on each input cycle and provides the preventing of the browser behavior
+   * @param {Object} input
+   */
+
+
+  _proto.preventDefaults = function preventDefaults(input) {
+    var srcEvent = input.srcEvent;
+    var direction = input.offsetDirection; // if the touch action did prevented once this session
+
+    if (this.manager.session.prevented) {
+      srcEvent.preventDefault();
+      return;
+    }
+
+    var actions = this.actions;
+    var hasNone = inStr(actions, TOUCH_ACTION_NONE) && !TOUCH_ACTION_MAP[TOUCH_ACTION_NONE];
+    var hasPanY = inStr(actions, TOUCH_ACTION_PAN_Y) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_Y];
+    var hasPanX = inStr(actions, TOUCH_ACTION_PAN_X) && !TOUCH_ACTION_MAP[TOUCH_ACTION_PAN_X];
+
+    if (hasNone) {
+      // do not prevent defaults if this is a tap gesture
+      var isTapPointer = input.pointers.length === 1;
+      var isTapMovement = input.distance < 2;
+      var isTapTouchTime = input.deltaTime < 250;
+
+      if (isTapPointer && isTapMovement && isTapTouchTime) {
+        return;
+      }
+    }
+
+    if (hasPanX && hasPanY) {
+      // `pan-x pan-y` means browser handles all scrolling/panning, do not prevent
+      return;
+    }
+
+    if (hasNone || hasPanY && direction & DIRECTION_HORIZONTAL || hasPanX && direction & DIRECTION_VERTICAL) {
+      return this.preventSrc(srcEvent);
+    }
+  };
+  /**
+   * @private
+   * call preventDefault to prevent the browser's default behavior (scrolling in most cases)
+   * @param {Object} srcEvent
+   */
+
+
+  _proto.preventSrc = function preventSrc(srcEvent) {
+    this.manager.session.prevented = true;
+    srcEvent.preventDefault();
+  };
+
+  return TouchAction;
+}();
+/**
+ * @private
+ * find if a node is in the given parent
+ * @method hasParent
+ * @param {HTMLElement} node
+ * @param {HTMLElement} parent
+ * @return {Boolean} found
+ */
+
+
+exports.TouchAction = TouchAction;
+
+function hasParent(node, parent) {
+  while (node) {
+    if (node === parent) {
+      return true;
+    }
+
+    node = node.parentNode;
+  }
+
+  return false;
+}
+/**
+ * @private
+ * get the center of all the pointers
+ * @param {Array} pointers
+ * @return {Object} center contains `x` and `y` properties
+ */
+
+
+function getCenter(pointers) {
+  var pointersLength = pointers.length; // no need to loop when only one touch
+
+  if (pointersLength === 1) {
+    return {
+      x: round(pointers[0].clientX),
+      y: round(pointers[0].clientY)
+    };
+  }
+
+  var x = 0;
+  var y = 0;
+  var i = 0;
+
+  while (i < pointersLength) {
+    x += pointers[i].clientX;
+    y += pointers[i].clientY;
+    i++;
+  }
+
+  return {
+    x: round(x / pointersLength),
+    y: round(y / pointersLength)
+  };
+}
+/**
+ * @private
+ * create a simple clone from the input used for storage of firstInput and firstMultiple
+ * @param {Object} input
+ * @returns {Object} clonedInputData
+ */
+
+
+function simpleCloneInputData(input) {
+  // make a simple copy of the pointers because we will get a reference if we don't
+  // we only need clientXY for the calculations
+  var pointers = [];
+  var i = 0;
+
+  while (i < input.pointers.length) {
+    pointers[i] = {
+      clientX: round(input.pointers[i].clientX),
+      clientY: round(input.pointers[i].clientY)
+    };
+    i++;
+  }
+
+  return {
+    timeStamp: now(),
+    pointers: pointers,
+    center: getCenter(pointers),
+    deltaX: input.deltaX,
+    deltaY: input.deltaY
+  };
+}
+/**
+ * @private
+ * calculate the absolute distance between two points
+ * @param {Object} p1 {x, y}
+ * @param {Object} p2 {x, y}
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} distance
+ */
+
+
+function getDistance(p1, p2, props) {
+  if (!props) {
+    props = PROPS_XY;
+  }
+
+  var x = p2[props[0]] - p1[props[0]];
+  var y = p2[props[1]] - p1[props[1]];
+  return Math.sqrt(x * x + y * y);
+}
+/**
+ * @private
+ * calculate the angle between two coordinates
+ * @param {Object} p1
+ * @param {Object} p2
+ * @param {Array} [props] containing x and y keys
+ * @return {Number} angle
+ */
+
+
+function getAngle(p1, p2, props) {
+  if (!props) {
+    props = PROPS_XY;
+  }
+
+  var x = p2[props[0]] - p1[props[0]];
+  var y = p2[props[1]] - p1[props[1]];
+  return Math.atan2(y, x) * 180 / Math.PI;
+}
+/**
+ * @private
+ * get the direction between two points
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Number} direction
+ */
+
+
+function getDirection(x, y) {
+  if (x === y) {
+    return DIRECTION_NONE;
+  }
+
+  if (abs(x) >= abs(y)) {
+    return x < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+  }
+
+  return y < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+}
+
+function computeDeltaXY(session, input) {
+  var center = input.center; // let { offsetDelta:offset = {}, prevDelta = {}, prevInput = {} } = session;
+  // jscs throwing error on defalut destructured values and without defaults tests fail
+
+  var offset = session.offsetDelta || {};
+  var prevDelta = session.prevDelta || {};
+  var prevInput = session.prevInput || {};
+
+  if (input.eventType === INPUT_START || prevInput.eventType === INPUT_END) {
+    prevDelta = session.prevDelta = {
+      x: prevInput.deltaX || 0,
+      y: prevInput.deltaY || 0
+    };
+    offset = session.offsetDelta = {
+      x: center.x,
+      y: center.y
+    };
+  }
+
+  input.deltaX = prevDelta.x + (center.x - offset.x);
+  input.deltaY = prevDelta.y + (center.y - offset.y);
+}
+/**
+ * @private
+ * calculate the velocity between two points. unit is in px per ms.
+ * @param {Number} deltaTime
+ * @param {Number} x
+ * @param {Number} y
+ * @return {Object} velocity `x` and `y`
+ */
+
+
+function getVelocity(deltaTime, x, y) {
+  return {
+    x: x / deltaTime || 0,
+    y: y / deltaTime || 0
+  };
+}
+/**
+ * @private
+ * calculate the scale factor between two pointersets
+ * no scale is 1, and goes down to 0 when pinched together, and bigger when pinched out
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} scale
+ */
+
+
+function getScale(start, end) {
+  return getDistance(end[0], end[1], PROPS_CLIENT_XY) / getDistance(start[0], start[1], PROPS_CLIENT_XY);
+}
+/**
+ * @private
+ * calculate the rotation degrees between two pointersets
+ * @param {Array} start array of pointers
+ * @param {Array} end array of pointers
+ * @return {Number} rotation
+ */
+
+
+function getRotation(start, end) {
+  return getAngle(end[1], end[0], PROPS_CLIENT_XY) + getAngle(start[1], start[0], PROPS_CLIENT_XY);
+}
+/**
+ * @private
+ * velocity is calculated every x ms
+ * @param {Object} session
+ * @param {Object} input
+ */
+
+
+function computeIntervalInputData(session, input) {
+  var last = session.lastInterval || input;
+  var deltaTime = input.timeStamp - last.timeStamp;
+  var velocity;
+  var velocityX;
+  var velocityY;
+  var direction;
+
+  if (input.eventType !== INPUT_CANCEL && (deltaTime > COMPUTE_INTERVAL || last.velocity === undefined)) {
+    var deltaX = input.deltaX - last.deltaX;
+    var deltaY = input.deltaY - last.deltaY;
+    var v = getVelocity(deltaTime, deltaX, deltaY);
+    velocityX = v.x;
+    velocityY = v.y;
+    velocity = abs(v.x) > abs(v.y) ? v.x : v.y;
+    direction = getDirection(deltaX, deltaY);
+    session.lastInterval = input;
+  } else {
+    // use latest velocity info if it doesn't overtake a minimum period
+    velocity = last.velocity;
+    velocityX = last.velocityX;
+    velocityY = last.velocityY;
+    direction = last.direction;
+  }
+
+  input.velocity = velocity;
+  input.velocityX = velocityX;
+  input.velocityY = velocityY;
+  input.direction = direction;
+}
+/**
+* @private
+ * extend the data with some usable properties like scale, rotate, velocity etc
+ * @param {Object} manager
+ * @param {Object} input
+ */
+
+
+function computeInputData(manager, input) {
+  var session = manager.session;
+  var pointers = input.pointers;
+  var pointersLength = pointers.length; // store the first input to calculate the distance and direction
+
+  if (!session.firstInput) {
+    session.firstInput = simpleCloneInputData(input);
+  } // to compute scale and rotation we need to store the multiple touches
+
+
+  if (pointersLength > 1 && !session.firstMultiple) {
+    session.firstMultiple = simpleCloneInputData(input);
+  } else if (pointersLength === 1) {
+    session.firstMultiple = false;
+  }
+
+  var firstInput = session.firstInput,
+      firstMultiple = session.firstMultiple;
+  var offsetCenter = firstMultiple ? firstMultiple.center : firstInput.center;
+  var center = input.center = getCenter(pointers);
+  input.timeStamp = now();
+  input.deltaTime = input.timeStamp - firstInput.timeStamp;
+  input.angle = getAngle(offsetCenter, center);
+  input.distance = getDistance(offsetCenter, center);
+  computeDeltaXY(session, input);
+  input.offsetDirection = getDirection(input.deltaX, input.deltaY);
+  var overallVelocity = getVelocity(input.deltaTime, input.deltaX, input.deltaY);
+  input.overallVelocityX = overallVelocity.x;
+  input.overallVelocityY = overallVelocity.y;
+  input.overallVelocity = abs(overallVelocity.x) > abs(overallVelocity.y) ? overallVelocity.x : overallVelocity.y;
+  input.scale = firstMultiple ? getScale(firstMultiple.pointers, pointers) : 1;
+  input.rotation = firstMultiple ? getRotation(firstMultiple.pointers, pointers) : 0;
+  input.maxPointers = !session.prevInput ? input.pointers.length : input.pointers.length > session.prevInput.maxPointers ? input.pointers.length : session.prevInput.maxPointers;
+  computeIntervalInputData(session, input); // find the correct target
+
+  var target = manager.element;
+  var srcEvent = input.srcEvent;
+  var srcEventTarget;
+
+  if (srcEvent.composedPath) {
+    srcEventTarget = srcEvent.composedPath()[0];
+  } else if (srcEvent.path) {
+    srcEventTarget = srcEvent.path[0];
+  } else {
+    srcEventTarget = srcEvent.target;
+  }
+
+  if (hasParent(srcEventTarget, target)) {
+    target = srcEventTarget;
+  }
+
+  input.target = target;
+}
+/**
+ * @private
+ * handle input events
+ * @param {Manager} manager
+ * @param {String} eventType
+ * @param {Object} input
+ */
+
+
+function inputHandler(manager, eventType, input) {
+  var pointersLen = input.pointers.length;
+  var changedPointersLen = input.changedPointers.length;
+  var isFirst = eventType & INPUT_START && pointersLen - changedPointersLen === 0;
+  var isFinal = eventType & (INPUT_END | INPUT_CANCEL) && pointersLen - changedPointersLen === 0;
+  input.isFirst = !!isFirst;
+  input.isFinal = !!isFinal;
+
+  if (isFirst) {
+    manager.session = {};
+  } // source event is the normalized value of the domEvents
+  // like 'touchstart, mouseup, pointerdown'
+
+
+  input.eventType = eventType; // compute scale, rotation etc
+
+  computeInputData(manager, input); // emit secret event
+
+  manager.emit('hammer.input', input);
+  manager.recognize(input);
+  manager.session.prevInput = input;
+}
+/**
+ * @private
+ * split string on whitespace
+ * @param {String} str
+ * @returns {Array} words
+ */
+
+
+function splitStr(str) {
+  return str.trim().split(/\s+/g);
+}
+/**
+ * @private
+ * addEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+
+
+function addEventListeners(target, types, handler) {
+  each(splitStr(types), function (type) {
+    target.addEventListener(type, handler, false);
+  });
+}
+/**
+ * @private
+ * removeEventListener with multiple events at once
+ * @param {EventTarget} target
+ * @param {String} types
+ * @param {Function} handler
+ */
+
+
+function removeEventListeners(target, types, handler) {
+  each(splitStr(types), function (type) {
+    target.removeEventListener(type, handler, false);
+  });
+}
+/**
+ * @private
+ * get the window object of an element
+ * @param {HTMLElement} element
+ * @returns {DocumentView|Window}
+ */
+
+
+function getWindowForElement(element) {
+  var doc = element.ownerDocument || element;
+  return doc.defaultView || doc.parentWindow || window;
+}
+/**
+ * @private
+ * create new input type manager
+ * @param {Manager} manager
+ * @param {Function} callback
+ * @returns {Input}
+ * @constructor
+ */
+
+
+var Input = /*#__PURE__*/function () {
+  function Input(manager, callback) {
+    var self = this;
+    this.manager = manager;
+    this.callback = callback;
+    this.element = manager.element;
+    this.target = manager.options.inputTarget; // smaller wrapper around the handler, for the scope and the enabled state of the manager,
+    // so when disabled the input events are completely bypassed.
+
+    this.domHandler = function (ev) {
+      if (boolOrFn(manager.options.enable, [manager])) {
+        self.handler(ev);
+      }
+    };
+
+    this.init();
+  }
+  /**
+   * @private
+   * should handle the inputEvent data and trigger the callback
+   * @virtual
+   */
+
+
+  var _proto = Input.prototype;
+
+  _proto.handler = function handler() {};
+  /**
+   * @private
+   * bind the events
+   */
+
+
+  _proto.init = function init() {
+    this.evEl && addEventListeners(this.element, this.evEl, this.domHandler);
+    this.evTarget && addEventListeners(this.target, this.evTarget, this.domHandler);
+    this.evWin && addEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+  };
+  /**
+   * @private
+   * unbind the events
+   */
+
+
+  _proto.destroy = function destroy() {
+    this.evEl && removeEventListeners(this.element, this.evEl, this.domHandler);
+    this.evTarget && removeEventListeners(this.target, this.evTarget, this.domHandler);
+    this.evWin && removeEventListeners(getWindowForElement(this.element), this.evWin, this.domHandler);
+  };
+
+  return Input;
+}();
+/**
+ * @private
+ * find if a array contains the object using indexOf or a simple polyFill
+ * @param {Array} src
+ * @param {String} find
+ * @param {String} [findByKey]
+ * @return {Boolean|Number} false when not found, or the index
+ */
+
+
+exports.Input = Input;
+
+function inArray(src, find, findByKey) {
+  if (src.indexOf && !findByKey) {
+    return src.indexOf(find);
+  } else {
+    var i = 0;
+
+    while (i < src.length) {
+      if (findByKey && src[i][findByKey] == find || !findByKey && src[i] === find) {
+        // do not use === here, test fails
+        return i;
+      }
+
+      i++;
+    }
+
+    return -1;
+  }
+}
+
+var POINTER_INPUT_MAP = {
+  pointerdown: INPUT_START,
+  pointermove: INPUT_MOVE,
+  pointerup: INPUT_END,
+  pointercancel: INPUT_CANCEL,
+  pointerout: INPUT_CANCEL
+}; // in IE10 the pointer types is defined as an enum
+
+var IE10_POINTER_TYPE_ENUM = {
+  2: INPUT_TYPE_TOUCH,
+  3: INPUT_TYPE_PEN,
+  4: INPUT_TYPE_MOUSE,
+  5: INPUT_TYPE_KINECT // see https://twitter.com/jacobrossi/status/480596438489890816
+
+};
+var POINTER_ELEMENT_EVENTS = 'pointerdown';
+var POINTER_WINDOW_EVENTS = 'pointermove pointerup pointercancel'; // IE10 has prefixed support, and case-sensitive
+
+if (win.MSPointerEvent && !win.PointerEvent) {
+  POINTER_ELEMENT_EVENTS = 'MSPointerDown';
+  POINTER_WINDOW_EVENTS = 'MSPointerMove MSPointerUp MSPointerCancel';
+}
+/**
+ * @private
+ * Pointer events input
+ * @constructor
+ * @extends Input
+ */
+
+
+var PointerEventInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(PointerEventInput, _Input);
+
+  function PointerEventInput() {
+    var _this;
+
+    var proto = PointerEventInput.prototype;
+    proto.evEl = POINTER_ELEMENT_EVENTS;
+    proto.evWin = POINTER_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.store = _this.manager.session.pointerEvents = [];
+    return _this;
+  }
+  /**
+   * @private
+   * handle mouse events
+   * @param {Object} ev
+   */
+
+
+  var _proto = PointerEventInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var store = this.store;
+    var removePointer = false;
+    var eventTypeNormalized = ev.type.toLowerCase().replace('ms', '');
+    var eventType = POINTER_INPUT_MAP[eventTypeNormalized];
+    var pointerType = IE10_POINTER_TYPE_ENUM[ev.pointerType] || ev.pointerType;
+    var isTouch = pointerType === INPUT_TYPE_TOUCH; // get index of the event in the store
+
+    var storeIndex = inArray(store, ev.pointerId, 'pointerId'); // start and mouse must be down
+
+    if (eventType & INPUT_START && (ev.button === 0 || isTouch)) {
+      if (storeIndex < 0) {
+        store.push(ev);
+        storeIndex = store.length - 1;
+      }
+    } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+      removePointer = true;
+    } // it not found, so the pointer hasn't been down (so it's probably a hover)
+
+
+    if (storeIndex < 0) {
+      return;
+    } // update the event in the store
+
+
+    store[storeIndex] = ev;
+    this.callback(this.manager, eventType, {
+      pointers: store,
+      changedPointers: [ev],
+      pointerType: pointerType,
+      srcEvent: ev
+    });
+
+    if (removePointer) {
+      // remove from the store
+      store.splice(storeIndex, 1);
+    }
+  };
+
+  return PointerEventInput;
+}(Input);
+/**
+ * @private
+ * convert array-like objects to real arrays
+ * @param {Object} obj
+ * @returns {Array}
+ */
+
+
+exports.PointerEventInput = PointerEventInput;
+
+function toArray(obj) {
+  return Array.prototype.slice.call(obj, 0);
+}
+/**
+ * @private
+ * unique array with objects based on a key (like 'id') or just by the array's value
+ * @param {Array} src [{id:1},{id:2},{id:1}]
+ * @param {String} [key]
+ * @param {Boolean} [sort=False]
+ * @returns {Array} [{id:1},{id:2}]
+ */
+
+
+function uniqueArray(src, key, sort) {
+  var results = [];
+  var values = [];
+  var i = 0;
+
+  while (i < src.length) {
+    var val = key ? src[i][key] : src[i];
+
+    if (inArray(values, val) < 0) {
+      results.push(src[i]);
+    }
+
+    values[i] = val;
+    i++;
+  }
+
+  if (sort) {
+    if (!key) {
+      results = results.sort();
+    } else {
+      results = results.sort(function (a, b) {
+        return a[key] > b[key];
+      });
+    }
+  }
+
+  return results;
+}
+
+var TOUCH_INPUT_MAP = {
+  touchstart: INPUT_START,
+  touchmove: INPUT_MOVE,
+  touchend: INPUT_END,
+  touchcancel: INPUT_CANCEL
+};
+var TOUCH_TARGET_EVENTS = 'touchstart touchmove touchend touchcancel';
+/**
+ * @private
+ * Multi-user touch events input
+ * @constructor
+ * @extends Input
+ */
+
+var TouchInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(TouchInput, _Input);
+
+  function TouchInput() {
+    var _this;
+
+    TouchInput.prototype.evTarget = TOUCH_TARGET_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.targetIds = {}; // this.evTarget = TOUCH_TARGET_EVENTS;
+
+    return _this;
+  }
+
+  var _proto = TouchInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var type = TOUCH_INPUT_MAP[ev.type];
+    var touches = getTouches.call(this, ev, type);
+
+    if (!touches) {
+      return;
+    }
+
+    this.callback(this.manager, type, {
+      pointers: touches[0],
+      changedPointers: touches[1],
+      pointerType: INPUT_TYPE_TOUCH,
+      srcEvent: ev
+    });
+  };
+
+  return TouchInput;
+}(Input);
+
+exports.TouchInput = TouchInput;
+
+function getTouches(ev, type) {
+  var allTouches = toArray(ev.touches);
+  var targetIds = this.targetIds; // when there is only one touch, the process can be simplified
+
+  if (type & (INPUT_START | INPUT_MOVE) && allTouches.length === 1) {
+    targetIds[allTouches[0].identifier] = true;
+    return [allTouches, allTouches];
+  }
+
+  var i;
+  var targetTouches;
+  var changedTouches = toArray(ev.changedTouches);
+  var changedTargetTouches = [];
+  var target = this.target; // get target touches from touches
+
+  targetTouches = allTouches.filter(function (touch) {
+    return hasParent(touch.target, target);
+  }); // collect touches
+
+  if (type === INPUT_START) {
+    i = 0;
+
+    while (i < targetTouches.length) {
+      targetIds[targetTouches[i].identifier] = true;
+      i++;
+    }
+  } // filter changed touches to only contain touches that exist in the collected target ids
+
+
+  i = 0;
+
+  while (i < changedTouches.length) {
+    if (targetIds[changedTouches[i].identifier]) {
+      changedTargetTouches.push(changedTouches[i]);
+    } // cleanup removed touches
+
+
+    if (type & (INPUT_END | INPUT_CANCEL)) {
+      delete targetIds[changedTouches[i].identifier];
+    }
+
+    i++;
+  }
+
+  if (!changedTargetTouches.length) {
+    return;
+  }
+
+  return [// merge targetTouches with changedTargetTouches so it contains ALL touches, including 'end' and 'cancel'
+  uniqueArray(targetTouches.concat(changedTargetTouches), 'identifier', true), changedTargetTouches];
+}
+
+var MOUSE_INPUT_MAP = {
+  mousedown: INPUT_START,
+  mousemove: INPUT_MOVE,
+  mouseup: INPUT_END
+};
+var MOUSE_ELEMENT_EVENTS = 'mousedown';
+var MOUSE_WINDOW_EVENTS = 'mousemove mouseup';
+/**
+ * @private
+ * Mouse events input
+ * @constructor
+ * @extends Input
+ */
+
+var MouseInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(MouseInput, _Input);
+
+  function MouseInput() {
+    var _this;
+
+    var proto = MouseInput.prototype;
+    proto.evEl = MOUSE_ELEMENT_EVENTS;
+    proto.evWin = MOUSE_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.pressed = false; // mousedown state
+
+    return _this;
+  }
+  /**
+   * @private
+   * handle mouse events
+   * @param {Object} ev
+   */
+
+
+  var _proto = MouseInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var eventType = MOUSE_INPUT_MAP[ev.type]; // on start we want to have the left mouse button down
+
+    if (eventType & INPUT_START && ev.button === 0) {
+      this.pressed = true;
+    }
+
+    if (eventType & INPUT_MOVE && ev.which !== 1) {
+      eventType = INPUT_END;
+    } // mouse must be down
+
+
+    if (!this.pressed) {
+      return;
+    }
+
+    if (eventType & INPUT_END) {
+      this.pressed = false;
+    }
+
+    this.callback(this.manager, eventType, {
+      pointers: [ev],
+      changedPointers: [ev],
+      pointerType: INPUT_TYPE_MOUSE,
+      srcEvent: ev
+    });
+  };
+
+  return MouseInput;
+}(Input);
+/**
+ * @private
+ * Combined touch and mouse input
+ *
+ * Touch has a higher priority then mouse, and while touching no mouse events are allowed.
+ * This because touch devices also emit mouse events while doing a touch.
+ *
+ * @constructor
+ * @extends Input
+ */
+
+
+exports.MouseInput = MouseInput;
+var DEDUP_TIMEOUT = 2500;
+var DEDUP_DISTANCE = 25;
+
+function setLastTouch(eventData) {
+  var _eventData$changedPoi = eventData.changedPointers,
+      touch = _eventData$changedPoi[0];
+
+  if (touch.identifier === this.primaryTouch) {
+    var lastTouch = {
+      x: touch.clientX,
+      y: touch.clientY
+    };
+    var lts = this.lastTouches;
+    this.lastTouches.push(lastTouch);
+
+    var removeLastTouch = function removeLastTouch() {
+      var i = lts.indexOf(lastTouch);
+
+      if (i > -1) {
+        lts.splice(i, 1);
+      }
+    };
+
+    setTimeout(removeLastTouch, DEDUP_TIMEOUT);
+  }
+}
+
+function recordTouches(eventType, eventData) {
+  if (eventType & INPUT_START) {
+    this.primaryTouch = eventData.changedPointers[0].identifier;
+    setLastTouch.call(this, eventData);
+  } else if (eventType & (INPUT_END | INPUT_CANCEL)) {
+    setLastTouch.call(this, eventData);
+  }
+}
+
+function isSyntheticEvent(eventData) {
+  var x = eventData.srcEvent.clientX;
+  var y = eventData.srcEvent.clientY;
+
+  for (var i = 0; i < this.lastTouches.length; i++) {
+    var t = this.lastTouches[i];
+    var dx = Math.abs(x - t.x);
+    var dy = Math.abs(y - t.y);
+
+    if (dx <= DEDUP_DISTANCE && dy <= DEDUP_DISTANCE) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+var TouchMouseInput = /*#__PURE__*/function () {
+  var TouchMouseInput = /*#__PURE__*/function (_Input) {
+    _inheritsLoose(TouchMouseInput, _Input);
+
+    function TouchMouseInput(_manager, callback) {
+      var _this;
+
+      _this = _Input.call(this, _manager, callback) || this;
+
+      _this.handler = function (manager, inputEvent, inputData) {
+        var isTouch = inputData.pointerType === INPUT_TYPE_TOUCH;
+        var isMouse = inputData.pointerType === INPUT_TYPE_MOUSE;
+
+        if (isMouse && inputData.sourceCapabilities && inputData.sourceCapabilities.firesTouchEvents) {
+          return;
+        } // when we're in a touch event, record touches to  de-dupe synthetic mouse event
+
+
+        if (isTouch) {
+          recordTouches.call(_assertThisInitialized(_assertThisInitialized(_this)), inputEvent, inputData);
+        } else if (isMouse && isSyntheticEvent.call(_assertThisInitialized(_assertThisInitialized(_this)), inputData)) {
+          return;
+        }
+
+        _this.callback(manager, inputEvent, inputData);
+      };
+
+      _this.touch = new TouchInput(_this.manager, _this.handler);
+      _this.mouse = new MouseInput(_this.manager, _this.handler);
+      _this.primaryTouch = null;
+      _this.lastTouches = [];
+      return _this;
+    }
+    /**
+     * @private
+     * handle mouse and touch events
+     * @param {Hammer} manager
+     * @param {String} inputEvent
+     * @param {Object} inputData
+     */
+
+
+    var _proto = TouchMouseInput.prototype;
+    /**
+     * @private
+     * remove the event listeners
+     */
+
+    _proto.destroy = function destroy() {
+      this.touch.destroy();
+      this.mouse.destroy();
+    };
+
+    return TouchMouseInput;
+  }(Input);
+
+  return TouchMouseInput;
+}();
+/**
+ * @private
+ * create new input type manager
+ * called by the Manager constructor
+ * @param {Hammer} manager
+ * @returns {Input}
+ */
+
+
+exports.TouchMouseInput = TouchMouseInput;
+
+function createInputInstance(manager) {
+  var Type; // let inputClass = manager.options.inputClass;
+
+  var inputClass = manager.options.inputClass;
+
+  if (inputClass) {
+    Type = inputClass;
+  } else if (SUPPORT_POINTER_EVENTS) {
+    Type = PointerEventInput;
+  } else if (SUPPORT_ONLY_TOUCH) {
+    Type = TouchInput;
+  } else if (!SUPPORT_TOUCH) {
+    Type = MouseInput;
+  } else {
+    Type = TouchMouseInput;
+  }
+
+  return new Type(manager, inputHandler);
+}
+/**
+ * @private
+ * if the argument is an array, we want to execute the fn on each entry
+ * if it aint an array we don't want to do a thing.
+ * this is used by all the methods that accept a single and array argument.
+ * @param {*|Array} arg
+ * @param {String} fn
+ * @param {Object} [context]
+ * @returns {Boolean}
+ */
+
+
+function invokeArrayArg(arg, fn, context) {
+  if (Array.isArray(arg)) {
+    each(arg, context[fn], context);
+    return true;
+  }
+
+  return false;
+}
+
+var STATE_POSSIBLE = 1;
+exports.STATE_POSSIBLE = STATE_POSSIBLE;
+var STATE_BEGAN = 2;
+exports.STATE_BEGAN = STATE_BEGAN;
+var STATE_CHANGED = 4;
+exports.STATE_CHANGED = STATE_CHANGED;
+var STATE_ENDED = 8;
+exports.STATE_ENDED = STATE_ENDED;
+var STATE_RECOGNIZED = STATE_ENDED;
+exports.STATE_RECOGNIZED = STATE_RECOGNIZED;
+var STATE_CANCELLED = 16;
+exports.STATE_CANCELLED = STATE_CANCELLED;
+var STATE_FAILED = 32;
+/**
+ * @private
+ * get a unique id
+ * @returns {number} uniqueId
+ */
+
+exports.STATE_FAILED = STATE_FAILED;
+var _uniqueId = 1;
+
+function uniqueId() {
+  return _uniqueId++;
+}
+/**
+ * @private
+ * get a recognizer by name if it is bound to a manager
+ * @param {Recognizer|String} otherRecognizer
+ * @param {Recognizer} recognizer
+ * @returns {Recognizer}
+ */
+
+
+function getRecognizerByNameIfManager(otherRecognizer, recognizer) {
+  var manager = recognizer.manager;
+
+  if (manager) {
+    return manager.get(otherRecognizer);
+  }
+
+  return otherRecognizer;
+}
+/**
+ * @private
+ * get a usable string, used as event postfix
+ * @param {constant} state
+ * @returns {String} state
+ */
+
+
+function stateStr(state) {
+  if (state & STATE_CANCELLED) {
+    return 'cancel';
+  } else if (state & STATE_ENDED) {
+    return 'end';
+  } else if (state & STATE_CHANGED) {
+    return 'move';
+  } else if (state & STATE_BEGAN) {
+    return 'start';
+  }
+
+  return '';
+}
+/**
+ * @private
+ * Recognizer flow explained; *
+ * All recognizers have the initial state of POSSIBLE when a input session starts.
+ * The definition of a input session is from the first input until the last input, with all it's movement in it. *
+ * Example session for mouse-input: mousedown -> mousemove -> mouseup
+ *
+ * On each recognizing cycle (see Manager.recognize) the .recognize() method is executed
+ * which determines with state it should be.
+ *
+ * If the recognizer has the state FAILED, CANCELLED or RECOGNIZED (equals ENDED), it is reset to
+ * POSSIBLE to give it another change on the next cycle.
+ *
+ *               Possible
+ *                  |
+ *            +-----+---------------+
+ *            |                     |
+ *      +-----+-----+               |
+ *      |           |               |
+ *   Failed      Cancelled          |
+ *                          +-------+------+
+ *                          |              |
+ *                      Recognized       Began
+ *                                         |
+ *                                      Changed
+ *                                         |
+ *                                  Ended/Recognized
+ */
+
+/**
+ * @private
+ * Recognizer
+ * Every recognizer needs to extend from this class.
+ * @constructor
+ * @param {Object} options
+ */
+
+
+var Recognizer = /*#__PURE__*/function () {
+  function Recognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    this.options = _extends({
+      enable: true
+    }, options);
+    this.id = uniqueId();
+    this.manager = null; // default is enable true
+
+    this.state = STATE_POSSIBLE;
+    this.simultaneous = {};
+    this.requireFail = [];
+  }
+  /**
+   * @private
+   * set options
+   * @param {Object} options
+   * @return {Recognizer}
+   */
+
+
+  var _proto = Recognizer.prototype;
+
+  _proto.set = function set(options) {
+    assign$1(this.options, options); // also update the touchAction, in case something changed about the directions/enabled state
+
+    this.manager && this.manager.touchAction.update();
+    return this;
+  };
+  /**
+   * @private
+   * recognize simultaneous with an other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.recognizeWith = function recognizeWith(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'recognizeWith', this)) {
+      return this;
+    }
+
+    var simultaneous = this.simultaneous;
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+
+    if (!simultaneous[otherRecognizer.id]) {
+      simultaneous[otherRecognizer.id] = otherRecognizer;
+      otherRecognizer.recognizeWith(this);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * drop the simultaneous link. it doesnt remove the link on the other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.dropRecognizeWith = function dropRecognizeWith(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'dropRecognizeWith', this)) {
+      return this;
+    }
+
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+    delete this.simultaneous[otherRecognizer.id];
+    return this;
+  };
+  /**
+   * @private
+   * recognizer can only run when an other is failing
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.requireFailure = function requireFailure(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'requireFailure', this)) {
+      return this;
+    }
+
+    var requireFail = this.requireFail;
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+
+    if (inArray(requireFail, otherRecognizer) === -1) {
+      requireFail.push(otherRecognizer);
+      otherRecognizer.requireFailure(this);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * drop the requireFailure link. it does not remove the link on the other recognizer.
+   * @param {Recognizer} otherRecognizer
+   * @returns {Recognizer} this
+   */
+
+
+  _proto.dropRequireFailure = function dropRequireFailure(otherRecognizer) {
+    if (invokeArrayArg(otherRecognizer, 'dropRequireFailure', this)) {
+      return this;
+    }
+
+    otherRecognizer = getRecognizerByNameIfManager(otherRecognizer, this);
+    var index = inArray(this.requireFail, otherRecognizer);
+
+    if (index > -1) {
+      this.requireFail.splice(index, 1);
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * has require failures boolean
+   * @returns {boolean}
+   */
+
+
+  _proto.hasRequireFailures = function hasRequireFailures() {
+    return this.requireFail.length > 0;
+  };
+  /**
+   * @private
+   * if the recognizer can recognize simultaneous with an other recognizer
+   * @param {Recognizer} otherRecognizer
+   * @returns {Boolean}
+   */
+
+
+  _proto.canRecognizeWith = function canRecognizeWith(otherRecognizer) {
+    return !!this.simultaneous[otherRecognizer.id];
+  };
+  /**
+   * @private
+   * You should use `tryEmit` instead of `emit` directly to check
+   * that all the needed recognizers has failed before emitting.
+   * @param {Object} input
+   */
+
+
+  _proto.emit = function emit(input) {
+    var self = this;
+    var state = this.state;
+
+    function emit(event) {
+      self.manager.emit(event, input);
+    } // 'panstart' and 'panmove'
+
+
+    if (state < STATE_ENDED) {
+      emit(self.options.event + stateStr(state));
+    }
+
+    emit(self.options.event); // simple 'eventName' events
+
+    if (input.additionalEvent) {
+      // additional event(panleft, panright, pinchin, pinchout...)
+      emit(input.additionalEvent);
+    } // panend and pancancel
+
+
+    if (state >= STATE_ENDED) {
+      emit(self.options.event + stateStr(state));
+    }
+  };
+  /**
+   * @private
+   * Check that all the require failure recognizers has failed,
+   * if true, it emits a gesture event,
+   * otherwise, setup the state to FAILED.
+   * @param {Object} input
+   */
+
+
+  _proto.tryEmit = function tryEmit(input) {
+    if (this.canEmit()) {
+      return this.emit(input);
+    } // it's failing anyway
+
+
+    this.state = STATE_FAILED;
+  };
+  /**
+   * @private
+   * can we emit?
+   * @returns {boolean}
+   */
+
+
+  _proto.canEmit = function canEmit() {
+    var i = 0;
+
+    while (i < this.requireFail.length) {
+      if (!(this.requireFail[i].state & (STATE_FAILED | STATE_POSSIBLE))) {
+        return false;
+      }
+
+      i++;
+    }
+
+    return true;
+  };
+  /**
+   * @private
+   * update the recognizer
+   * @param {Object} inputData
+   */
+
+
+  _proto.recognize = function recognize(inputData) {
+    // make a new copy of the inputData
+    // so we can change the inputData without messing up the other recognizers
+    var inputDataClone = assign$1({}, inputData); // is is enabled and allow recognizing?
+
+    if (!boolOrFn(this.options.enable, [this, inputDataClone])) {
+      this.reset();
+      this.state = STATE_FAILED;
+      return;
+    } // reset when we've reached the end
+
+
+    if (this.state & (STATE_RECOGNIZED | STATE_CANCELLED | STATE_FAILED)) {
+      this.state = STATE_POSSIBLE;
+    }
+
+    this.state = this.process(inputDataClone); // the recognizer has recognized a gesture
+    // so trigger an event
+
+    if (this.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED | STATE_CANCELLED)) {
+      this.tryEmit(inputDataClone);
+    }
+  };
+  /**
+   * @private
+   * return the state of the recognizer
+   * the actual recognizing happens in this method
+   * @virtual
+   * @param {Object} inputData
+   * @returns {constant} STATE
+   */
+
+  /* jshint ignore:start */
+
+
+  _proto.process = function process(inputData) {};
+  /* jshint ignore:end */
+
+  /**
+   * @private
+   * return the preferred touch-action
+   * @virtual
+   * @returns {Array}
+   */
+
+
+  _proto.getTouchAction = function getTouchAction() {};
+  /**
+   * @private
+   * called when the gesture isn't allowed to recognize
+   * like when another is being recognized or it is disabled
+   * @virtual
+   */
+
+
+  _proto.reset = function reset() {};
+
+  return Recognizer;
+}();
+/**
+ * @private
+ * A tap is recognized when the pointer is doing a small tap/click. Multiple taps are recognized if they occur
+ * between the given interval and position. The delay option can be used to recognize multi-taps without firing
+ * a single tap.
+ *
+ * The eventData from the emitted event contains the property `tapCount`, which contains the amount of
+ * multi-taps being recognized.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+exports.Recognizer = Recognizer;
+
+var TapRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(TapRecognizer, _Recognizer);
+
+  function TapRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _Recognizer.call(this, _extends({
+      event: 'tap',
+      pointers: 1,
+      taps: 1,
+      interval: 300,
+      // max time between the multi-tap taps
+      time: 250,
+      // max time of the pointer to be down (like finger on the screen)
+      threshold: 9,
+      // a minimal movement is ok, but keep it low
+      posThreshold: 10
+    }, options)) || this; // previous time and center,
+    // used for tap counting
+
+    _this.pTime = false;
+    _this.pCenter = false;
+    _this._timer = null;
+    _this._input = null;
+    _this.count = 0;
+    return _this;
+  }
+
+  var _proto = TapRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_MANIPULATION];
+  };
+
+  _proto.process = function process(input) {
+    var _this2 = this;
+
+    var options = this.options;
+    var validPointers = input.pointers.length === options.pointers;
+    var validMovement = input.distance < options.threshold;
+    var validTouchTime = input.deltaTime < options.time;
+    this.reset();
+
+    if (input.eventType & INPUT_START && this.count === 0) {
+      return this.failTimeout();
+    } // we only allow little movement
+    // and we've reached an end event, so a tap is possible
+
+
+    if (validMovement && validTouchTime && validPointers) {
+      if (input.eventType !== INPUT_END) {
+        return this.failTimeout();
+      }
+
+      var validInterval = this.pTime ? input.timeStamp - this.pTime < options.interval : true;
+      var validMultiTap = !this.pCenter || getDistance(this.pCenter, input.center) < options.posThreshold;
+      this.pTime = input.timeStamp;
+      this.pCenter = input.center;
+
+      if (!validMultiTap || !validInterval) {
+        this.count = 1;
+      } else {
+        this.count += 1;
+      }
+
+      this._input = input; // if tap count matches we have recognized it,
+      // else it has began recognizing...
+
+      var tapCount = this.count % options.taps;
+
+      if (tapCount === 0) {
+        // no failing requirements, immediately trigger the tap event
+        // or wait as long as the multitap interval to trigger
+        if (!this.hasRequireFailures()) {
+          return STATE_RECOGNIZED;
+        } else {
+          this._timer = setTimeout(function () {
+            _this2.state = STATE_RECOGNIZED;
+
+            _this2.tryEmit();
+          }, options.interval);
+          return STATE_BEGAN;
+        }
+      }
+    }
+
+    return STATE_FAILED;
+  };
+
+  _proto.failTimeout = function failTimeout() {
+    var _this3 = this;
+
+    this._timer = setTimeout(function () {
+      _this3.state = STATE_FAILED;
+    }, this.options.interval);
+    return STATE_FAILED;
+  };
+
+  _proto.reset = function reset() {
+    clearTimeout(this._timer);
+  };
+
+  _proto.emit = function emit() {
+    if (this.state === STATE_RECOGNIZED) {
+      this._input.tapCount = this.count;
+      this.manager.emit(this.options.event, this._input);
+    }
+  };
+
+  return TapRecognizer;
+}(Recognizer);
+/**
+ * @private
+ * This recognizer is just used as a base for the simple attribute recognizers.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+exports.Tap = TapRecognizer;
+
+var AttrRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(AttrRecognizer, _Recognizer);
+
+  function AttrRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _Recognizer.call(this, _extends({
+      pointers: 1
+    }, options)) || this;
+  }
+  /**
+   * @private
+   * Used to check if it the recognizer receives valid input, like input.distance > 10.
+   * @memberof AttrRecognizer
+   * @param {Object} input
+   * @returns {Boolean} recognized
+   */
+
+
+  var _proto = AttrRecognizer.prototype;
+
+  _proto.attrTest = function attrTest(input) {
+    var optionPointers = this.options.pointers;
+    return optionPointers === 0 || input.pointers.length === optionPointers;
+  };
+  /**
+   * @private
+   * Process the input and return the state for the recognizer
+   * @memberof AttrRecognizer
+   * @param {Object} input
+   * @returns {*} State
+   */
+
+
+  _proto.process = function process(input) {
+    var state = this.state;
+    var eventType = input.eventType;
+    var isRecognized = state & (STATE_BEGAN | STATE_CHANGED);
+    var isValid = this.attrTest(input); // on cancel input and we've recognized before, return STATE_CANCELLED
+
+    if (isRecognized && (eventType & INPUT_CANCEL || !isValid)) {
+      return state | STATE_CANCELLED;
+    } else if (isRecognized || isValid) {
+      if (eventType & INPUT_END) {
+        return state | STATE_ENDED;
+      } else if (!(state & STATE_BEGAN)) {
+        return STATE_BEGAN;
+      }
+
+      return state | STATE_CHANGED;
+    }
+
+    return STATE_FAILED;
+  };
+
+  return AttrRecognizer;
+}(Recognizer);
+/**
+ * @private
+ * direction cons to string
+ * @param {constant} direction
+ * @returns {String}
+ */
+
+
+exports.AttrRecognizer = AttrRecognizer;
+
+function directionStr(direction) {
+  if (direction === DIRECTION_DOWN) {
+    return 'down';
+  } else if (direction === DIRECTION_UP) {
+    return 'up';
+  } else if (direction === DIRECTION_LEFT) {
+    return 'left';
+  } else if (direction === DIRECTION_RIGHT) {
+    return 'right';
+  }
+
+  return '';
+}
+/**
+ * @private
+ * Pan
+ * Recognized when the pointer is down and moved in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+var PanRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(PanRecognizer, _AttrRecognizer);
+
+  function PanRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _AttrRecognizer.call(this, _extends({
+      event: 'pan',
+      threshold: 10,
+      pointers: 1,
+      direction: DIRECTION_ALL
+    }, options)) || this;
+    _this.pX = null;
+    _this.pY = null;
+    return _this;
+  }
+
+  var _proto = PanRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    var direction = this.options.direction;
+    var actions = [];
+
+    if (direction & DIRECTION_HORIZONTAL) {
+      actions.push(TOUCH_ACTION_PAN_Y);
+    }
+
+    if (direction & DIRECTION_VERTICAL) {
+      actions.push(TOUCH_ACTION_PAN_X);
+    }
+
+    return actions;
+  };
+
+  _proto.directionTest = function directionTest(input) {
+    var options = this.options;
+    var hasMoved = true;
+    var distance = input.distance;
+    var direction = input.direction;
+    var x = input.deltaX;
+    var y = input.deltaY; // lock to axis?
+
+    if (!(direction & options.direction)) {
+      if (options.direction & DIRECTION_HORIZONTAL) {
+        direction = x === 0 ? DIRECTION_NONE : x < 0 ? DIRECTION_LEFT : DIRECTION_RIGHT;
+        hasMoved = x !== this.pX;
+        distance = Math.abs(input.deltaX);
+      } else {
+        direction = y === 0 ? DIRECTION_NONE : y < 0 ? DIRECTION_UP : DIRECTION_DOWN;
+        hasMoved = y !== this.pY;
+        distance = Math.abs(input.deltaY);
+      }
+    }
+
+    input.direction = direction;
+    return hasMoved && distance > options.threshold && direction & options.direction;
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return AttrRecognizer.prototype.attrTest.call(this, input) && ( // replace with a super call
+    this.state & STATE_BEGAN || !(this.state & STATE_BEGAN) && this.directionTest(input));
+  };
+
+  _proto.emit = function emit(input) {
+    this.pX = input.deltaX;
+    this.pY = input.deltaY;
+    var direction = directionStr(input.direction);
+
+    if (direction) {
+      input.additionalEvent = this.options.event + direction;
+    }
+
+    _AttrRecognizer.prototype.emit.call(this, input);
+  };
+
+  return PanRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Swipe
+ * Recognized when the pointer is moving fast (velocity), with enough distance in the allowed direction.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+exports.Pan = PanRecognizer;
+
+var SwipeRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(SwipeRecognizer, _AttrRecognizer);
+
+  function SwipeRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'swipe',
+      threshold: 10,
+      velocity: 0.3,
+      direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
+      pointers: 1
+    }, options)) || this;
+  }
+
+  var _proto = SwipeRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return PanRecognizer.prototype.getTouchAction.call(this);
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    var direction = this.options.direction;
+    var velocity;
+
+    if (direction & (DIRECTION_HORIZONTAL | DIRECTION_VERTICAL)) {
+      velocity = input.overallVelocity;
+    } else if (direction & DIRECTION_HORIZONTAL) {
+      velocity = input.overallVelocityX;
+    } else if (direction & DIRECTION_VERTICAL) {
+      velocity = input.overallVelocityY;
+    }
+
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && direction & input.offsetDirection && input.distance > this.options.threshold && input.maxPointers === this.options.pointers && abs(velocity) > this.options.velocity && input.eventType & INPUT_END;
+  };
+
+  _proto.emit = function emit(input) {
+    var direction = directionStr(input.offsetDirection);
+
+    if (direction) {
+      this.manager.emit(this.options.event + direction, input);
+    }
+
+    this.manager.emit(this.options.event, input);
+  };
+
+  return SwipeRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Pinch
+ * Recognized when two or more pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+exports.Swipe = SwipeRecognizer;
+
+var PinchRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(PinchRecognizer, _AttrRecognizer);
+
+  function PinchRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'pinch',
+      threshold: 0,
+      pointers: 2
+    }, options)) || this;
+  }
+
+  var _proto = PinchRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_NONE];
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && (Math.abs(input.scale - 1) > this.options.threshold || this.state & STATE_BEGAN);
+  };
+
+  _proto.emit = function emit(input) {
+    if (input.scale !== 1) {
+      var inOut = input.scale < 1 ? 'in' : 'out';
+      input.additionalEvent = this.options.event + inOut;
+    }
+
+    _AttrRecognizer.prototype.emit.call(this, input);
+  };
+
+  return PinchRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Rotate
+ * Recognized when two or more pointer are moving in a circular motion.
+ * @constructor
+ * @extends AttrRecognizer
+ */
+
+
+exports.Pinch = PinchRecognizer;
+
+var RotateRecognizer = /*#__PURE__*/function (_AttrRecognizer) {
+  _inheritsLoose(RotateRecognizer, _AttrRecognizer);
+
+  function RotateRecognizer(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return _AttrRecognizer.call(this, _extends({
+      event: 'rotate',
+      threshold: 0,
+      pointers: 2
+    }, options)) || this;
+  }
+
+  var _proto = RotateRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_NONE];
+  };
+
+  _proto.attrTest = function attrTest(input) {
+    return _AttrRecognizer.prototype.attrTest.call(this, input) && (Math.abs(input.rotation) > this.options.threshold || this.state & STATE_BEGAN);
+  };
+
+  return RotateRecognizer;
+}(AttrRecognizer);
+/**
+ * @private
+ * Press
+ * Recognized when the pointer is down for x ms without any movement.
+ * @constructor
+ * @extends Recognizer
+ */
+
+
+exports.Rotate = RotateRecognizer;
+
+var PressRecognizer = /*#__PURE__*/function (_Recognizer) {
+  _inheritsLoose(PressRecognizer, _Recognizer);
+
+  function PressRecognizer(options) {
+    var _this;
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    _this = _Recognizer.call(this, _extends({
+      event: 'press',
+      pointers: 1,
+      time: 251,
+      // minimal time of the pointer to be pressed
+      threshold: 9
+    }, options)) || this;
+    _this._timer = null;
+    _this._input = null;
+    return _this;
+  }
+
+  var _proto = PressRecognizer.prototype;
+
+  _proto.getTouchAction = function getTouchAction() {
+    return [TOUCH_ACTION_AUTO];
+  };
+
+  _proto.process = function process(input) {
+    var _this2 = this;
+
+    var options = this.options;
+    var validPointers = input.pointers.length === options.pointers;
+    var validMovement = input.distance < options.threshold;
+    var validTime = input.deltaTime > options.time;
+    this._input = input; // we only allow little movement
+    // and we've reached an end event, so a tap is possible
+
+    if (!validMovement || !validPointers || input.eventType & (INPUT_END | INPUT_CANCEL) && !validTime) {
+      this.reset();
+    } else if (input.eventType & INPUT_START) {
+      this.reset();
+      this._timer = setTimeout(function () {
+        _this2.state = STATE_RECOGNIZED;
+
+        _this2.tryEmit();
+      }, options.time);
+    } else if (input.eventType & INPUT_END) {
+      return STATE_RECOGNIZED;
+    }
+
+    return STATE_FAILED;
+  };
+
+  _proto.reset = function reset() {
+    clearTimeout(this._timer);
+  };
+
+  _proto.emit = function emit(input) {
+    if (this.state !== STATE_RECOGNIZED) {
+      return;
+    }
+
+    if (input && input.eventType & INPUT_END) {
+      this.manager.emit(this.options.event + "up", input);
+    } else {
+      this._input.timeStamp = now();
+      this.manager.emit(this.options.event, this._input);
+    }
+  };
+
+  return PressRecognizer;
+}(Recognizer);
+
+exports.Press = PressRecognizer;
+var defaults = {
+  /**
+   * @private
+   * set if DOM events are being triggered.
+   * But this is slower and unused by simple implementations, so disabled by default.
+   * @type {Boolean}
+   * @default false
+   */
+  domEvents: false,
+
+  /**
+   * @private
+   * The value for the touchAction property/fallback.
+   * When set to `compute` it will magically set the correct value based on the added recognizers.
+   * @type {String}
+   * @default compute
+   */
+  touchAction: TOUCH_ACTION_COMPUTE,
+
+  /**
+   * @private
+   * @type {Boolean}
+   * @default true
+   */
+  enable: true,
+
+  /**
+   * @private
+   * EXPERIMENTAL FEATURE -- can be removed/changed
+   * Change the parent input target element.
+   * If Null, then it is being set the to main element.
+   * @type {Null|EventTarget}
+   * @default null
+   */
+  inputTarget: null,
+
+  /**
+   * @private
+   * force an input class
+   * @type {Null|Function}
+   * @default null
+   */
+  inputClass: null,
+
+  /**
+   * @private
+   * Some CSS properties can be used to improve the working of Hammer.
+   * Add them to this method and they will be set when creating a new Manager.
+   * @namespace
+   */
+  cssProps: {
+    /**
+     * @private
+     * Disables text selection to improve the dragging gesture. Mainly for desktop browsers.
+     * @type {String}
+     * @default 'none'
+     */
+    userSelect: "none",
+
+    /**
+     * @private
+     * Disable the Windows Phone grippers when pressing an element.
+     * @type {String}
+     * @default 'none'
+     */
+    touchSelect: "none",
+
+    /**
+     * @private
+     * Disables the default callout shown when you touch and hold a touch target.
+     * On iOS, when you touch and hold a touch target such as a link, Safari displays
+     * a callout containing information about the link. This property allows you to disable that callout.
+     * @type {String}
+     * @default 'none'
+     */
+    touchCallout: "none",
+
+    /**
+     * @private
+     * Specifies whether zooming is enabled. Used by IE10>
+     * @type {String}
+     * @default 'none'
+     */
+    contentZooming: "none",
+
+    /**
+     * @private
+     * Specifies that an entire element should be draggable instead of its contents. Mainly for desktop browsers.
+     * @type {String}
+     * @default 'none'
+     */
+    userDrag: "none",
+
+    /**
+     * @private
+     * Overrides the highlight color shown when the user taps a link or a JavaScript
+     * clickable element in iOS. This property obeys the alpha value, if specified.
+     * @type {String}
+     * @default 'rgba(0,0,0,0)'
+     */
+    tapHighlightColor: "rgba(0,0,0,0)"
+  }
+};
+/**
+ * @private
+ * Default recognizer setup when calling `Hammer()`
+ * When creating a new Manager these will be skipped.
+ * This is separated with other defaults because of tree-shaking.
+ * @type {Array}
+ */
+
+var preset = [[RotateRecognizer, {
+  enable: false
+}], [PinchRecognizer, {
+  enable: false
+}, ['rotate']], [SwipeRecognizer, {
+  direction: DIRECTION_HORIZONTAL
+}], [PanRecognizer, {
+  direction: DIRECTION_HORIZONTAL
+}, ['swipe']], [TapRecognizer], [TapRecognizer, {
+  event: 'doubletap',
+  taps: 2
+}, ['tap']], [PressRecognizer]];
+var STOP = 1;
+var FORCED_STOP = 2;
+/**
+ * @private
+ * add/remove the css properties as defined in manager.options.cssProps
+ * @param {Manager} manager
+ * @param {Boolean} add
+ */
+
+function toggleCssProps(manager, add) {
+  var element = manager.element;
+
+  if (!element.style) {
+    return;
+  }
+
+  var prop;
+  each(manager.options.cssProps, function (value, name) {
+    prop = prefixed(element.style, name);
+
+    if (add) {
+      manager.oldCssProps[prop] = element.style[prop];
+      element.style[prop] = value;
+    } else {
+      element.style[prop] = manager.oldCssProps[prop] || "";
+    }
+  });
+
+  if (!add) {
+    manager.oldCssProps = {};
+  }
+}
+/**
+ * @private
+ * trigger dom event
+ * @param {String} event
+ * @param {Object} data
+ */
+
+
+function triggerDomEvent(event, data) {
+  var gestureEvent = document.createEvent("Event");
+  gestureEvent.initEvent(event, true, true);
+  gestureEvent.gesture = data;
+  data.target.dispatchEvent(gestureEvent);
+}
+/**
+* @private
+ * Manager
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+
+
+var Manager = /*#__PURE__*/function () {
+  function Manager(element, options) {
+    var _this = this;
+
+    this.options = assign$1({}, defaults, options || {});
+    this.options.inputTarget = this.options.inputTarget || element;
+    this.handlers = {};
+    this.session = {};
+    this.recognizers = [];
+    this.oldCssProps = {};
+    this.element = element;
+    this.input = createInputInstance(this);
+    this.touchAction = new TouchAction(this, this.options.touchAction);
+    toggleCssProps(this, true);
+    each(this.options.recognizers, function (item) {
+      var recognizer = _this.add(new item[0](item[1]));
+
+      item[2] && recognizer.recognizeWith(item[2]);
+      item[3] && recognizer.requireFailure(item[3]);
+    }, this);
+  }
+  /**
+   * @private
+   * set options
+   * @param {Object} options
+   * @returns {Manager}
+   */
+
+
+  var _proto = Manager.prototype;
+
+  _proto.set = function set(options) {
+    assign$1(this.options, options); // Options that need a little more setup
+
+    if (options.touchAction) {
+      this.touchAction.update();
+    }
+
+    if (options.inputTarget) {
+      // Clean up existing event listeners and reinitialize
+      this.input.destroy();
+      this.input.target = options.inputTarget;
+      this.input.init();
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * stop recognizing for this session.
+   * This session will be discarded, when a new [input]start event is fired.
+   * When forced, the recognizer cycle is stopped immediately.
+   * @param {Boolean} [force]
+   */
+
+
+  _proto.stop = function stop(force) {
+    this.session.stopped = force ? FORCED_STOP : STOP;
+  };
+  /**
+   * @private
+   * run the recognizers!
+   * called by the inputHandler function on every movement of the pointers (touches)
+   * it walks through all the recognizers and tries to detect the gesture that is being made
+   * @param {Object} inputData
+   */
+
+
+  _proto.recognize = function recognize(inputData) {
+    var session = this.session;
+
+    if (session.stopped) {
+      return;
+    } // run the touch-action polyfill
+
+
+    this.touchAction.preventDefaults(inputData);
+    var recognizer;
+    var recognizers = this.recognizers; // this holds the recognizer that is being recognized.
+    // so the recognizer's state needs to be BEGAN, CHANGED, ENDED or RECOGNIZED
+    // if no recognizer is detecting a thing, it is set to `null`
+
+    var curRecognizer = session.curRecognizer; // reset when the last recognizer is recognized
+    // or when we're in a new session
+
+    if (!curRecognizer || curRecognizer && curRecognizer.state & STATE_RECOGNIZED) {
+      session.curRecognizer = null;
+      curRecognizer = null;
+    }
+
+    var i = 0;
+
+    while (i < recognizers.length) {
+      recognizer = recognizers[i]; // find out if we are allowed try to recognize the input for this one.
+      // 1.   allow if the session is NOT forced stopped (see the .stop() method)
+      // 2.   allow if we still haven't recognized a gesture in this session, or the this recognizer is the one
+      //      that is being recognized.
+      // 3.   allow if the recognizer is allowed to run simultaneous with the current recognized recognizer.
+      //      this can be setup with the `recognizeWith()` method on the recognizer.
+
+      if (session.stopped !== FORCED_STOP && ( // 1
+      !curRecognizer || recognizer === curRecognizer || // 2
+      recognizer.canRecognizeWith(curRecognizer))) {
+        // 3
+        recognizer.recognize(inputData);
+      } else {
+        recognizer.reset();
+      } // if the recognizer has been recognizing the input as a valid gesture, we want to store this one as the
+      // current active recognizer. but only if we don't already have an active recognizer
+
+
+      if (!curRecognizer && recognizer.state & (STATE_BEGAN | STATE_CHANGED | STATE_ENDED)) {
+        session.curRecognizer = recognizer;
+        curRecognizer = recognizer;
+      }
+
+      i++;
+    }
+  };
+  /**
+   * @private
+   * get a recognizer by its event name.
+   * @param {Recognizer|String} recognizer
+   * @returns {Recognizer|Null}
+   */
+
+
+  _proto.get = function get(recognizer) {
+    if (recognizer instanceof Recognizer) {
+      return recognizer;
+    }
+
+    var recognizers = this.recognizers;
+
+    for (var i = 0; i < recognizers.length; i++) {
+      if (recognizers[i].options.event === recognizer) {
+        return recognizers[i];
+      }
+    }
+
+    return null;
+  };
+  /**
+   * @private add a recognizer to the manager
+   * existing recognizers with the same event name will be removed
+   * @param {Recognizer} recognizer
+   * @returns {Recognizer|Manager}
+   */
+
+
+  _proto.add = function add(recognizer) {
+    if (invokeArrayArg(recognizer, "add", this)) {
+      return this;
+    } // remove existing
+
+
+    var existing = this.get(recognizer.options.event);
+
+    if (existing) {
+      this.remove(existing);
+    }
+
+    this.recognizers.push(recognizer);
+    recognizer.manager = this;
+    this.touchAction.update();
+    return recognizer;
+  };
+  /**
+   * @private
+   * remove a recognizer by name or instance
+   * @param {Recognizer|String} recognizer
+   * @returns {Manager}
+   */
+
+
+  _proto.remove = function remove(recognizer) {
+    if (invokeArrayArg(recognizer, "remove", this)) {
+      return this;
+    }
+
+    var targetRecognizer = this.get(recognizer); // let's make sure this recognizer exists
+
+    if (recognizer) {
+      var recognizers = this.recognizers;
+      var index = inArray(recognizers, targetRecognizer);
+
+      if (index !== -1) {
+        recognizers.splice(index, 1);
+        this.touchAction.update();
+      }
+    }
+
+    return this;
+  };
+  /**
+   * @private
+   * bind event
+   * @param {String} events
+   * @param {Function} handler
+   * @returns {EventEmitter} this
+   */
+
+
+  _proto.on = function on(events, handler) {
+    if (events === undefined || handler === undefined) {
+      return this;
+    }
+
+    var handlers = this.handlers;
+    each(splitStr(events), function (event) {
+      handlers[event] = handlers[event] || [];
+      handlers[event].push(handler);
+    });
+    return this;
+  };
+  /**
+   * @private unbind event, leave emit blank to remove all handlers
+   * @param {String} events
+   * @param {Function} [handler]
+   * @returns {EventEmitter} this
+   */
+
+
+  _proto.off = function off(events, handler) {
+    if (events === undefined) {
+      return this;
+    }
+
+    var handlers = this.handlers;
+    each(splitStr(events), function (event) {
+      if (!handler) {
+        delete handlers[event];
+      } else {
+        handlers[event] && handlers[event].splice(inArray(handlers[event], handler), 1);
+      }
+    });
+    return this;
+  };
+  /**
+   * @private emit event to the listeners
+   * @param {String} event
+   * @param {Object} data
+   */
+
+
+  _proto.emit = function emit(event, data) {
+    // we also want to trigger dom events
+    if (this.options.domEvents) {
+      triggerDomEvent(event, data);
+    } // no handlers, so skip it all
+
+
+    var handlers = this.handlers[event] && this.handlers[event].slice();
+
+    if (!handlers || !handlers.length) {
+      return;
+    }
+
+    data.type = event;
+
+    data.preventDefault = function () {
+      data.srcEvent.preventDefault();
+    };
+
+    var i = 0;
+
+    while (i < handlers.length) {
+      handlers[i](data);
+      i++;
+    }
+  };
+  /**
+   * @private
+   * destroy the manager and unbinds all events
+   * it doesn't unbind dom events, that is the user own responsibility
+   */
+
+
+  _proto.destroy = function destroy() {
+    this.element && toggleCssProps(this, false);
+    this.handlers = {};
+    this.session = {};
+    this.input.destroy();
+    this.element = null;
+  };
+
+  return Manager;
+}();
+
+exports.Manager = Manager;
+var SINGLE_TOUCH_INPUT_MAP = {
+  touchstart: INPUT_START,
+  touchmove: INPUT_MOVE,
+  touchend: INPUT_END,
+  touchcancel: INPUT_CANCEL
+};
+var SINGLE_TOUCH_TARGET_EVENTS = 'touchstart';
+var SINGLE_TOUCH_WINDOW_EVENTS = 'touchstart touchmove touchend touchcancel';
+/**
+ * @private
+ * Touch events input
+ * @constructor
+ * @extends Input
+ */
+
+var SingleTouchInput = /*#__PURE__*/function (_Input) {
+  _inheritsLoose(SingleTouchInput, _Input);
+
+  function SingleTouchInput() {
+    var _this;
+
+    var proto = SingleTouchInput.prototype;
+    proto.evTarget = SINGLE_TOUCH_TARGET_EVENTS;
+    proto.evWin = SINGLE_TOUCH_WINDOW_EVENTS;
+    _this = _Input.apply(this, arguments) || this;
+    _this.started = false;
+    return _this;
+  }
+
+  var _proto = SingleTouchInput.prototype;
+
+  _proto.handler = function handler(ev) {
+    var type = SINGLE_TOUCH_INPUT_MAP[ev.type]; // should we handle the touch events?
+
+    if (type === INPUT_START) {
+      this.started = true;
+    }
+
+    if (!this.started) {
+      return;
+    }
+
+    var touches = normalizeSingleTouches.call(this, ev, type); // when done, reset the started state
+
+    if (type & (INPUT_END | INPUT_CANCEL) && touches[0].length - touches[1].length === 0) {
+      this.started = false;
+    }
+
+    this.callback(this.manager, type, {
+      pointers: touches[0],
+      changedPointers: touches[1],
+      pointerType: INPUT_TYPE_TOUCH,
+      srcEvent: ev
+    });
+  };
+
+  return SingleTouchInput;
+}(Input);
+
+exports.SingleTouchInput = SingleTouchInput;
+
+function normalizeSingleTouches(ev, type) {
+  var all = toArray(ev.touches);
+  var changed = toArray(ev.changedTouches);
+
+  if (type & (INPUT_END | INPUT_CANCEL)) {
+    all = uniqueArray(all.concat(changed), 'identifier', true);
+  }
+
+  return [all, changed];
+}
+/**
+ * @private
+ * wrap a method with a deprecation warning and stack trace
+ * @param {Function} method
+ * @param {String} name
+ * @param {String} message
+ * @returns {Function} A new function wrapping the supplied method.
+ */
+
+
+function deprecate(method, name, message) {
+  var deprecationMessage = "DEPRECATED METHOD: " + name + "\n" + message + " AT \n";
+  return function () {
+    var e = new Error('get-stack-trace');
+    var stack = e && e.stack ? e.stack.replace(/^[^\(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@') : 'Unknown Stack Trace';
+    var log = window.console && (window.console.warn || window.console.log);
+
+    if (log) {
+      log.call(window.console, deprecationMessage, stack);
+    }
+
+    return method.apply(this, arguments);
+  };
+}
+/**
+ * @private
+ * extend object.
+ * means that properties in dest will be overwritten by the ones in src.
+ * @param {Object} dest
+ * @param {Object} src
+ * @param {Boolean} [merge=false]
+ * @returns {Object} dest
+ */
+
+
+var extend = deprecate(function (dest, src, merge) {
+  var keys = Object.keys(src);
+  var i = 0;
+
+  while (i < keys.length) {
+    if (!merge || merge && dest[keys[i]] === undefined) {
+      dest[keys[i]] = src[keys[i]];
+    }
+
+    i++;
+  }
+
+  return dest;
+}, 'extend', 'Use `assign`.');
+/**
+ * @private
+ * merge the values from src in the dest.
+ * means that properties that exist in dest will not be overwritten by src
+ * @param {Object} dest
+ * @param {Object} src
+ * @returns {Object} dest
+ */
+
+exports.extend = extend;
+var merge = deprecate(function (dest, src) {
+  return extend(dest, src, true);
+}, 'merge', 'Use `assign`.');
+/**
+ * @private
+ * simple class inheritance
+ * @param {Function} child
+ * @param {Function} base
+ * @param {Object} [properties]
+ */
+
+exports.merge = merge;
+
+function inherit(child, base, properties) {
+  var baseP = base.prototype;
+  var childP;
+  childP = child.prototype = Object.create(baseP);
+  childP.constructor = child;
+  childP._super = baseP;
+
+  if (properties) {
+    assign$1(childP, properties);
+  }
+}
+/**
+ * @private
+ * simple function bind
+ * @param {Function} fn
+ * @param {Object} context
+ * @returns {Function}
+ */
+
+
+function bindFn(fn, context) {
+  return function boundFn() {
+    return fn.apply(context, arguments);
+  };
+}
+/**
+ * @private
+ * Simple way to create a manager with a default set of recognizers.
+ * @param {HTMLElement} element
+ * @param {Object} [options]
+ * @constructor
+ */
+
+
+var Hammer = /*#__PURE__*/function () {
+  var Hammer =
+  /**
+    * @private
+    * @const {string}
+    */
+  function Hammer(element, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return new Manager(element, _extends({
+      recognizers: preset.concat()
+    }, options));
+  };
+
+  Hammer.VERSION = "2.0.17-rc";
+  Hammer.DIRECTION_ALL = DIRECTION_ALL;
+  Hammer.DIRECTION_DOWN = DIRECTION_DOWN;
+  Hammer.DIRECTION_LEFT = DIRECTION_LEFT;
+  Hammer.DIRECTION_RIGHT = DIRECTION_RIGHT;
+  Hammer.DIRECTION_UP = DIRECTION_UP;
+  Hammer.DIRECTION_HORIZONTAL = DIRECTION_HORIZONTAL;
+  Hammer.DIRECTION_VERTICAL = DIRECTION_VERTICAL;
+  Hammer.DIRECTION_NONE = DIRECTION_NONE;
+  Hammer.DIRECTION_DOWN = DIRECTION_DOWN;
+  Hammer.INPUT_START = INPUT_START;
+  Hammer.INPUT_MOVE = INPUT_MOVE;
+  Hammer.INPUT_END = INPUT_END;
+  Hammer.INPUT_CANCEL = INPUT_CANCEL;
+  Hammer.STATE_POSSIBLE = STATE_POSSIBLE;
+  Hammer.STATE_BEGAN = STATE_BEGAN;
+  Hammer.STATE_CHANGED = STATE_CHANGED;
+  Hammer.STATE_ENDED = STATE_ENDED;
+  Hammer.STATE_RECOGNIZED = STATE_RECOGNIZED;
+  Hammer.STATE_CANCELLED = STATE_CANCELLED;
+  Hammer.STATE_FAILED = STATE_FAILED;
+  Hammer.Manager = Manager;
+  Hammer.Input = Input;
+  Hammer.TouchAction = TouchAction;
+  Hammer.TouchInput = TouchInput;
+  Hammer.MouseInput = MouseInput;
+  Hammer.PointerEventInput = PointerEventInput;
+  Hammer.TouchMouseInput = TouchMouseInput;
+  Hammer.SingleTouchInput = SingleTouchInput;
+  Hammer.Recognizer = Recognizer;
+  Hammer.AttrRecognizer = AttrRecognizer;
+  Hammer.Tap = TapRecognizer;
+  Hammer.Pan = PanRecognizer;
+  Hammer.Swipe = SwipeRecognizer;
+  Hammer.Pinch = PinchRecognizer;
+  Hammer.Rotate = RotateRecognizer;
+  Hammer.Press = PressRecognizer;
+  Hammer.on = addEventListeners;
+  Hammer.off = removeEventListeners;
+  Hammer.each = each;
+  Hammer.merge = merge;
+  Hammer.extend = extend;
+  Hammer.bindFn = bindFn;
+  Hammer.assign = assign$1;
+  Hammer.inherit = inherit;
+  Hammer.bindFn = bindFn;
+  Hammer.prefixed = prefixed;
+  Hammer.toArray = toArray;
+  Hammer.inArray = inArray;
+  Hammer.uniqueArray = uniqueArray;
+  Hammer.splitStr = splitStr;
+  Hammer.boolOrFn = boolOrFn;
+  Hammer.hasParent = hasParent;
+  Hammer.addEventListeners = addEventListeners;
+  Hammer.removeEventListeners = removeEventListeners;
+  Hammer.defaults = assign$1({}, defaults, {
+    preset: preset
+  });
+  return Hammer;
+}(); //  style loader but by script tag, not by the loader.
+
+
+var defaults$1 = Hammer.defaults;
+exports.defaults = defaults$1;
+var _default = Hammer;
+exports.default = _default;
+},{}],"node_modules/@egjs/agent/dist/agent.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getAccurateAgent = getAccurateAgent;
+exports.default = void 0;
+
+/*
+Copyright (c) 2015 NAVER Corp.
+name: @egjs/agent
+license: MIT
+author: NAVER Corp.
+repository: git+https://github.com/naver/agent.git
+version: 2.2.1
+*/
+function some(arr, callback) {
+  var length = arr.length;
+
+  for (var i = 0; i < length; ++i) {
+    if (callback(arr[i], i)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function find(arr, callback) {
+  var length = arr.length;
+
+  for (var i = 0; i < length; ++i) {
+    if (callback(arr[i], i)) {
+      return arr[i];
+    }
+  }
+
+  return null;
+}
+
+function getUserAgent(agent) {
+  var userAgent = agent;
+
+  if (typeof userAgent === "undefined") {
+    if (typeof navigator === "undefined" || !navigator) {
+      return "";
+    }
+
+    userAgent = navigator.userAgent || "";
+  }
+
+  return userAgent.toLowerCase();
+}
+
+function execRegExp(pattern, text) {
+  try {
+    return new RegExp(pattern, "g").exec(text);
+  } catch (e) {
+    return null;
+  }
+}
+
+function hasUserAgentData() {
+  if (typeof navigator === "undefined" || !navigator || !navigator.userAgentData) {
+    return false;
+  }
+
+  var userAgentData = navigator.userAgentData;
+  var brands = userAgentData.brands || userAgentData.uaList;
+  return !!(brands && brands.length);
+}
+
+function findVersion(versionTest, userAgent) {
+  var result = execRegExp("(" + versionTest + ")((?:\\/|\\s|:)([0-9|\\.|_]+))?", userAgent);
+  return result ? result[3] : "";
+}
+
+function convertVersion(text) {
+  return text.replace(/_/g, ".");
+}
+
+function findPreset(presets, userAgent) {
+  var userPreset = null;
+  var version = "-1";
+  some(presets, function (preset) {
+    var result = execRegExp("(" + preset.test + ")((?:\\/|\\s|:)([0-9|\\.|_]+))?", userAgent);
+
+    if (!result || preset.brand) {
+      return false;
+    }
+
+    userPreset = preset;
+    version = result[3] || "-1";
+
+    if (preset.versionAlias) {
+      version = preset.versionAlias;
+    } else if (preset.versionTest) {
+      version = findVersion(preset.versionTest.toLowerCase(), userAgent) || version;
+    }
+
+    version = convertVersion(version);
+    return true;
+  });
+  return {
+    preset: userPreset,
+    version: version
+  };
+}
+
+function findBrand(brands, preset) {
+  return find(brands, function (_a) {
+    var brand = _a.brand;
+    return execRegExp("" + preset.test, brand.toLowerCase());
+  });
+}
+
+var BROWSER_PRESETS = [{
+  test: "phantomjs",
+  id: "phantomjs"
+}, {
+  test: "whale",
+  id: "whale"
+}, {
+  test: "edgios|edge|edg",
+  id: "edge"
+}, {
+  test: "msie|trident|windows phone",
+  id: "ie",
+  versionTest: "iemobile|msie|rv"
+}, {
+  test: "miuibrowser",
+  id: "miui browser"
+}, {
+  test: "samsungbrowser",
+  id: "samsung internet"
+}, {
+  test: "samsung",
+  id: "samsung internet",
+  versionTest: "version"
+}, {
+  test: "chrome|crios",
+  id: "chrome"
+}, {
+  test: "firefox|fxios",
+  id: "firefox"
+}, {
+  test: "android",
+  id: "android browser",
+  versionTest: "version"
+}, {
+  test: "safari|iphone|ipad|ipod",
+  id: "safari",
+  versionTest: "version"
+}]; // chromium's engine(blink) is based on applewebkit 537.36.
+
+var CHROMIUM_PRESETS = [{
+  test: "(?=.*applewebkit/(53[0-7]|5[0-2]|[0-4]))(?=.*\\schrome)",
+  id: "chrome"
+}, {
+  test: "chromium",
+  id: "chrome"
+}, {
+  test: "whale",
+  id: "chrome",
+  brand: true
+}];
+var WEBKIT_PRESETS = [{
+  test: "applewebkit",
+  id: "webkit"
+}];
+var WEBVIEW_PRESETS = [{
+  test: "(?=(iphone|ipad))(?!(.*version))",
+  id: "webview"
+}, {
+  test: "(?=(android|iphone|ipad))(?=.*(naver|daum|; wv))",
+  id: "webview"
+}, {
+  // test webview
+  test: "webview",
+  id: "webview"
+}];
+var OS_PRESETS = [{
+  test: "windows phone",
+  id: "windows phone"
+}, {
+  test: "windows 2000",
+  id: "window",
+  versionAlias: "5.0"
+}, {
+  test: "windows nt",
+  id: "window"
+}, {
+  test: "iphone|ipad|ipod",
+  id: "ios",
+  versionTest: "iphone os|cpu os"
+}, {
+  test: "mac os x",
+  id: "mac"
+}, {
+  test: "android",
+  id: "android"
+}, {
+  test: "tizen",
+  id: "tizen"
+}, {
+  test: "webos|web0s",
+  id: "webos"
+}];
+
+function parseUserAgentData(osData) {
+  var userAgentData = navigator.userAgentData;
+  var brands = (userAgentData.uaList || userAgentData.brands).slice();
+  var isMobile = userAgentData.mobile || false;
+  var firstBrand = brands[0];
+  var browser = {
+    name: firstBrand.brand,
+    version: firstBrand.version,
+    majorVersion: -1,
+    webkit: false,
+    webview: some(WEBVIEW_PRESETS, function (preset) {
+      return findBrand(brands, preset);
+    }),
+    chromium: some(CHROMIUM_PRESETS, function (preset) {
+      return findBrand(brands, preset);
+    })
+  };
+  var os = {
+    name: "unknown",
+    version: "-1",
+    majorVersion: -1
+  };
+  browser.webkit = !browser.chromium && some(WEBKIT_PRESETS, function (preset) {
+    return findBrand(brands, preset);
+  });
+
+  if (osData) {
+    var platform_1 = osData.platform.toLowerCase();
+    var result = find(OS_PRESETS, function (preset) {
+      return new RegExp("" + preset.test, "g").exec(platform_1);
+    });
+    os.name = result ? result.id : platform_1;
+    os.version = osData.platformVersion;
+  }
+
+  some(BROWSER_PRESETS, function (preset) {
+    var result = findBrand(brands, preset);
+
+    if (!result) {
+      return false;
+    }
+
+    browser.name = preset.id;
+    browser.version = osData ? osData.uaFullVersion : result.version;
+    return true;
+  });
+
+  if (navigator.platform === "Linux armv8l") {
+    os.name = "android";
+  } else if (browser.webkit) {
+    os.name = isMobile ? "ios" : "mac";
+  }
+
+  if (os.name === "ios" && browser.webview) {
+    browser.version = "-1";
+  }
+
+  os.version = convertVersion(os.version);
+  browser.version = convertVersion(browser.version);
+  os.majorVersion = parseInt(os.version, 10);
+  browser.majorVersion = parseInt(browser.version, 10);
+  return {
+    browser: browser,
+    os: os,
+    isMobile: isMobile,
+    isHints: true
+  };
+}
+
+function parseUserAgent(userAgent) {
+  var nextAgent = getUserAgent(userAgent);
+  var isMobile = !!/mobi/g.exec(nextAgent);
+  var browser = {
+    name: "unknown",
+    version: "-1",
+    majorVersion: -1,
+    webview: !!findPreset(WEBVIEW_PRESETS, nextAgent).preset,
+    chromium: !!findPreset(CHROMIUM_PRESETS, nextAgent).preset,
+    webkit: false
+  };
+  var os = {
+    name: "unknown",
+    version: "-1",
+    majorVersion: -1
+  };
+
+  var _a = findPreset(BROWSER_PRESETS, nextAgent),
+      browserPreset = _a.preset,
+      browserVersion = _a.version;
+
+  var _b = findPreset(OS_PRESETS, nextAgent),
+      osPreset = _b.preset,
+      osVersion = _b.version;
+
+  browser.webkit = !browser.chromium && !!findPreset(WEBKIT_PRESETS, nextAgent).preset;
+
+  if (osPreset) {
+    os.name = osPreset.id;
+    os.version = osVersion;
+    os.majorVersion = parseInt(osVersion, 10);
+  }
+
+  if (browserPreset) {
+    browser.name = browserPreset.id;
+    browser.version = browserVersion;
+
+    if (browser.webview && os.name === "ios" && browser.name !== "safari") {
+      browser.webview = false;
+    }
+  }
+
+  browser.majorVersion = parseInt(browser.version, 10);
+  return {
+    browser: browser,
+    os: os,
+    isMobile: isMobile,
+    isHints: false
+  };
+}
+/**
+ * @namespace eg.agent
+ */
+
+/**
+* Extracts accuate browser and operating system information from the user agent string or client hints.
+* @ko 유저 에이전트 문자열 또는 client hints에서 정확한 브라우저와 운영체제 정보를 추출한다.
+* @function eg.agent#getAccurateAgent
+* @param - Callback function to get the accuate agent <ko>정확한 에이전트를 가져오기 위한 callback 함수</ko>
+* @return - get the accuate agent promise. If Promise are not supported, null is returned. <ko> 정확한 에이전트 promise를 가져온다. Promise를 지원 하지 않는 경우, null을 반환한다. </ko>
+* @example
+import { getAccurateAgent } from "@egjs/agent";
+// eg.agent.getAccurateAgent()
+getAccurateAgent().then(agent => {
+   const { os, browser, isMobile } = agent;
+});
+getAccurateAgent(agent => {
+    const { os, browser, isMobile } = agent;
+});
+*/
+
+
+function getAccurateAgent(callback) {
+  if (hasUserAgentData()) {
+    return navigator.userAgentData.getHighEntropyValues(["architecture", "model", "platform", "platformVersion", "uaFullVersion"]).then(function (info) {
+      var agentInfo = parseUserAgentData(info);
+      callback && callback(agentInfo);
+      return agentInfo;
+    });
+  }
+
+  callback && callback(agent());
+
+  if (typeof Promise === "undefined" || !Promise) {
+    return null;
+  }
+
+  return Promise.resolve(agent());
+}
+/**
+ * Extracts browser and operating system information from the user agent string.
+ * @ko 유저 에이전트 문자열에서 브라우저와 운영체제 정보를 추출한다.
+ * @function eg.agent#agent
+ * @param - user agent string to parse <ko>파싱할 유저에이전트 문자열</ko>
+ * @return - agent Info <ko> 에이전트 정보 </ko>
+ * @example
+import agent from "@egjs/agent";
+// eg.agent();
+const { os, browser, isMobile } = agent();
+ */
+
+
+function agent(userAgent) {
+  if (typeof userAgent === "undefined" && hasUserAgentData()) {
+    return parseUserAgentData();
+  } else {
+    return parseUserAgent(userAgent);
+  }
+}
+
+var _default = agent;
+exports.default = _default;
+},{}],"node_modules/@egjs/axes/dist/axes.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MoveKeyInput = exports.WheelInput = exports.PinchInput = exports.RotatePanInput = exports.PanInput = exports.default = void 0;
+
+var _hammerjs = require("@egjs/hammerjs");
+
+var _agent = _interopRequireDefault(require("@egjs/agent"));
+
+var _component = _interopRequireDefault(require("@egjs/component"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+Copyright (c) 2017 NAVER Corp.
+@egjs/axes project is licensed under the MIT license
+
+@egjs/axes JavaScript library
+https://github.com/naver/egjs-axes
+
+@version 2.7.2
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  extendStatics(d, b);
+
+  function __() {
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+function getInsidePosition(destPos, range, circular, bounce) {
+  var toDestPos = destPos;
+  var targetRange = [circular[0] ? range[0] : bounce ? range[0] - bounce[0] : range[0], circular[1] ? range[1] : bounce ? range[1] + bounce[1] : range[1]];
+  toDestPos = Math.max(targetRange[0], toDestPos);
+  toDestPos = Math.min(targetRange[1], toDestPos);
+  return toDestPos;
+} // determine outside
+
+
+function isOutside(pos, range) {
+  return pos < range[0] || pos > range[1];
+}
+
+function getDuration(distance, deceleration) {
+  var duration = Math.sqrt(distance / deceleration * 2); // when duration is under 100, then value is zero
+
+  return duration < 100 ? 0 : duration;
+}
+
+function isCircularable(destPos, range, circular) {
+  return circular[1] && destPos > range[1] || circular[0] && destPos < range[0];
+}
+
+function getCirculatedPos(pos, range, circular) {
+  var toPos = pos;
+  var min = range[0];
+  var max = range[1];
+  var length = max - min;
+
+  if (circular[1] && pos > max) {
+    // right
+    toPos = (toPos - max) % length + min;
+  }
+
+  if (circular[0] && pos < min) {
+    // left
+    toPos = (toPos - min) % length + max;
+  }
+
+  return toPos;
+}
+/* eslint-disable no-new-func, no-nested-ternary */
+
+
+var win;
+
+if (typeof window === "undefined") {
+  // window is undefined in node.js
+  win = {
+    navigator: {
+      userAgent: ""
+    }
+  };
+} else {
+  win = window;
+}
+
+function toArray(nodes) {
+  // const el = Array.prototype.slice.call(nodes);
+  // for IE8
+  var el = [];
+
+  for (var i = 0, len = nodes.length; i < len; i++) {
+    el.push(nodes[i]);
+  }
+
+  return el;
+}
+
+function $(param, multi) {
+  if (multi === void 0) {
+    multi = false;
+  }
+
+  var el;
+
+  if (typeof param === "string") {
+    // String (HTML, Selector)
+    // check if string is HTML tag format
+    var match = param.match(/^<([a-z]+)\s*([^>]*)>/); // creating element
+
+    if (match) {
+      // HTML
+      var dummy = document.createElement("div");
+      dummy.innerHTML = param;
+      el = toArray(dummy.childNodes);
+    } else {
+      // Selector
+      el = toArray(document.querySelectorAll(param));
+    }
+
+    if (!multi) {
+      el = el.length >= 1 ? el[0] : undefined;
+    }
+  } else if (param === win) {
+    // window
+    el = param;
+  } else if (param.nodeName && (param.nodeType === 1 || param.nodeType === 9)) {
+    // HTMLElement, Document
+    el = param;
+  } else if ("jQuery" in win && param instanceof jQuery || param.constructor.prototype.jquery) {
+    // jQuery
+    el = multi ? param.toArray() : param.get(0);
+  } else if (Array.isArray(param)) {
+    el = param.map(function (v) {
+      return $(v);
+    });
+
+    if (!multi) {
+      el = el.length >= 1 ? el[0] : undefined;
+    }
+  }
+
+  return el;
+}
+
+var raf = win.requestAnimationFrame || win.webkitRequestAnimationFrame;
+var caf = win.cancelAnimationFrame || win.webkitCancelAnimationFrame;
+
+if (raf && !caf) {
+  var keyInfo_1 = {};
+  var oldraf_1 = raf;
+
+  raf = function (callback) {
+    function wrapCallback(timestamp) {
+      if (keyInfo_1[key]) {
+        callback(timestamp);
+      }
+    }
+
+    var key = oldraf_1(wrapCallback);
+    keyInfo_1[key] = true;
+    return key;
+  };
+
+  caf = function (key) {
+    delete keyInfo_1[key];
+  };
+} else if (!(raf && caf)) {
+  raf = function (callback) {
+    return win.setTimeout(function () {
+      callback(win.performance && win.performance.now && win.performance.now() || new Date().getTime());
+    }, 16);
+  };
+
+  caf = win.clearTimeout;
+}
+/**
+ * A polyfill for the window.requestAnimationFrame() method.
+ * @see  https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+ * @private
+ */
+
+
+function requestAnimationFrame(fp) {
+  return raf(fp);
+}
+/**
+* A polyfill for the window.cancelAnimationFrame() method. It cancels an animation executed through a call to the requestAnimationFrame() method.
+* @param {Number} key −	The ID value returned through a call to the requestAnimationFrame() method. <ko>requestAnimationFrame() 메서드가 반환한 아이디 값</ko>
+* @see  https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame
+* @private
+*/
+
+
+function cancelAnimationFrame(key) {
+  caf(key);
+}
+
+function map(obj, callback) {
+  var tranformed = {};
+
+  for (var k in obj) {
+    k && (tranformed[k] = callback(obj[k], k));
+  }
+
+  return tranformed;
+}
+
+function filter(obj, callback) {
+  var filtered = {};
+
+  for (var k in obj) {
+    k && callback(obj[k], k) && (filtered[k] = obj[k]);
+  }
+
+  return filtered;
+}
+
+function every(obj, callback) {
+  for (var k in obj) {
+    if (k && !callback(obj[k], k)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function equal(target, base) {
+  return every(target, function (v, k) {
+    return v === base[k];
+  });
+}
+
+var roundNumFunc = {};
+
+function roundNumber(num, roundUnit) {
+  // Cache for performance
+  if (!roundNumFunc[roundUnit]) {
+    roundNumFunc[roundUnit] = getRoundFunc(roundUnit);
+  }
+
+  return roundNumFunc[roundUnit](num);
+}
+
+function roundNumbers(num, roundUnit) {
+  if (!num || !roundUnit) {
+    return num;
+  }
+
+  var isNumber = typeof roundUnit === "number";
+  return map(num, function (value, key) {
+    return roundNumber(value, isNumber ? roundUnit : roundUnit[key]);
+  });
+}
+
+function getDecimalPlace(val) {
+  if (!isFinite(val)) {
+    return 0;
+  }
+
+  var v = val + "";
+
+  if (v.indexOf("e") >= 0) {
+    // Exponential Format
+    // 1e-10, 1e-12
+    var p = 0;
+    var e = 1;
+
+    while (Math.round(val * e) / e !== val) {
+      e *= 10;
+      p++;
+    }
+
+    return p;
+  } // In general, following has performance benefit.
+  // https://jsperf.com/precision-calculation
+
+
+  return v.indexOf(".") >= 0 ? v.length - v.indexOf(".") - 1 : 0;
+}
+
+function inversePow(n) {
+  // replace Math.pow(10, -n) to solve floating point issue.
+  // eg. Math.pow(10, -4) => 0.00009999999999999999
+  return 1 / Math.pow(10, n);
+}
+
+function getRoundFunc(v) {
+  var p = v < 1 ? Math.pow(10, getDecimalPlace(v)) : 1;
+  return function (n) {
+    if (v === 0) {
+      return 0;
+    }
+
+    return Math.round(Math.round(n / v) * v * p) / p;
+  };
+}
+
+function minMax(value, min, max) {
+  return Math.max(Math.min(value, max), min);
+}
+
+var AnimationManager = /*#__PURE__*/function () {
+  function AnimationManager(_a) {
+    var options = _a.options,
+        itm = _a.itm,
+        em = _a.em,
+        axm = _a.axm;
+    this.options = options;
+    this.itm = itm;
+    this.em = em;
+    this.axm = axm;
+    this.animationEnd = this.animationEnd.bind(this);
+  }
+
+  var __proto = AnimationManager.prototype;
+
+  __proto.getDuration = function (depaPos, destPos, wishDuration) {
+    var _this = this;
+
+    var duration;
+
+    if (typeof wishDuration !== "undefined") {
+      duration = wishDuration;
+    } else {
+      var durations_1 = map(destPos, function (v, k) {
+        return getDuration(Math.abs(v - depaPos[k]), _this.options.deceleration);
+      });
+      duration = Object.keys(durations_1).reduce(function (max, v) {
+        return Math.max(max, durations_1[v]);
+      }, -Infinity);
+    }
+
+    return minMax(duration, this.options.minimumDuration, this.options.maximumDuration);
+  };
+
+  __proto.createAnimationParam = function (pos, duration, option) {
+    var depaPos = this.axm.get();
+    var destPos = pos;
+    var inputEvent = option && option.event || null;
+    return {
+      depaPos: depaPos,
+      destPos: destPos,
+      duration: minMax(duration, this.options.minimumDuration, this.options.maximumDuration),
+      delta: this.axm.getDelta(depaPos, destPos),
+      inputEvent: inputEvent,
+      input: option && option.input || null,
+      isTrusted: !!inputEvent,
+      done: this.animationEnd
+    };
+  };
+
+  __proto.grab = function (axes, option) {
+    if (this._animateParam && axes.length) {
+      var orgPos_1 = this.axm.get(axes);
+      var pos = this.axm.map(orgPos_1, function (v, opt) {
+        return getCirculatedPos(v, opt.range, opt.circular);
+      });
+
+      if (!every(pos, function (v, k) {
+        return orgPos_1[k] === v;
+      })) {
+        this.em.triggerChange(pos, false, orgPos_1, option, !!option);
+      }
+
+      this._animateParam = null;
+      this._raf && cancelAnimationFrame(this._raf);
+      this._raf = null;
+      this.em.triggerAnimationEnd(!!(option && option.event));
+    }
+  };
+
+  __proto.getEventInfo = function () {
+    if (this._animateParam && this._animateParam.input && this._animateParam.inputEvent) {
+      return {
+        input: this._animateParam.input,
+        event: this._animateParam.inputEvent
+      };
+    } else {
+      return null;
+    }
+  };
+
+  __proto.restore = function (option) {
+    var pos = this.axm.get();
+    var destPos = this.axm.map(pos, function (v, opt) {
+      return Math.min(opt.range[1], Math.max(opt.range[0], v));
+    });
+    this.animateTo(destPos, this.getDuration(pos, destPos), option);
+  };
+
+  __proto.animationEnd = function () {
+    var beforeParam = this.getEventInfo();
+    this._animateParam = null; // for Circular
+
+    var circularTargets = this.axm.filter(this.axm.get(), function (v, opt) {
+      return isCircularable(v, opt.range, opt.circular);
+    });
+    Object.keys(circularTargets).length > 0 && this.setTo(this.axm.map(circularTargets, function (v, opt) {
+      return getCirculatedPos(v, opt.range, opt.circular);
+    }));
+    this.itm.setInterrupt(false);
+    this.em.triggerAnimationEnd(!!beforeParam);
+
+    if (this.axm.isOutside()) {
+      this.restore(beforeParam);
+    } else {
+      this.finish(!!beforeParam);
+    }
+  };
+
+  __proto.finish = function (isTrusted) {
+    this._animateParam = null;
+    this.itm.setInterrupt(false);
+    this.em.triggerFinish(isTrusted);
+  };
+
+  __proto.animateLoop = function (param, complete) {
+    if (param.duration) {
+      this._animateParam = __assign({}, param);
+      var info_1 = this._animateParam;
+      var self_1 = this;
+      var destPos_1 = info_1.destPos;
+      var prevPos_1 = info_1.depaPos;
+      var prevEasingPer_1 = 0;
+      var directions_1 = map(prevPos_1, function (value, key) {
+        return value <= destPos_1[key] ? 1 : -1;
+      });
+      var originalIntendedPos_1 = map(destPos_1, function (v) {
+        return v;
+      });
+      var prevTime_1 = new Date().getTime();
+      info_1.startTime = prevTime_1;
+
+      (function loop() {
+        self_1._raf = null;
+        var currentTime = new Date().getTime();
+        var ratio = (currentTime - info_1.startTime) / param.duration;
+        var easingPer = self_1.easing(ratio);
+        var toPos = self_1.axm.map(prevPos_1, function (pos, options, key) {
+          var nextPos = ratio >= 1 ? destPos_1[key] : pos + info_1.delta[key] * (easingPer - prevEasingPer_1); // Subtract distance from distance already moved.
+          // Recalculate the remaining distance.
+          // Fix the bouncing phenomenon by changing the range.
+
+          var circulatedPos = getCirculatedPos(nextPos, options.range, options.circular);
+
+          if (nextPos !== circulatedPos) {
+            // circular
+            var rangeOffset = directions_1[key] * (options.range[1] - options.range[0]);
+            destPos_1[key] -= rangeOffset;
+            prevPos_1[key] -= rangeOffset;
+          }
+
+          return circulatedPos;
+        });
+        var isCanceled = !self_1.em.triggerChange(toPos, false, prevPos_1);
+        prevPos_1 = toPos;
+        prevTime_1 = currentTime;
+        prevEasingPer_1 = easingPer;
+
+        if (easingPer >= 1) {
+          destPos_1 = self_1.getFinalPos(destPos_1, originalIntendedPos_1);
+
+          if (!equal(destPos_1, self_1.axm.get(Object.keys(destPos_1)))) {
+            self_1.em.triggerChange(destPos_1, true, prevPos_1);
+          }
+
+          complete();
+          return;
+        } else if (isCanceled) {
+          self_1.finish(false);
+        } else {
+          // animationEnd
+          self_1._raf = requestAnimationFrame(loop);
+        }
+      })();
+    } else {
+      this.em.triggerChange(param.destPos, true);
+      complete();
+    }
+  };
+  /**
+   * Get estimated final value.
+   *
+   * If destPos is within the 'error range' of the original intended position, the initial intended position is returned.
+   *   - eg. original intended pos: 100, destPos: 100.0000000004 ==> return 100;
+   * If dest Pos is outside the 'range of error' compared to the originally intended pos, it is returned rounded based on the originally intended pos.
+   *   - eg. original intended pos: 100.123 destPos: 50.12345 => return 50.123
+   *
+   * @param originalIntendedPos
+   * @param destPos
+   */
+
+
+  __proto.getFinalPos = function (destPos, originalIntendedPos) {
+    var _this = this; // compare destPos and originalIntendedPos
+
+
+    var ERROR_LIMIT = 0.000001;
+    var finalPos = map(destPos, function (value, key) {
+      if (value >= originalIntendedPos[key] - ERROR_LIMIT && value <= originalIntendedPos[key] + ERROR_LIMIT) {
+        // In error range, return original intended
+        return originalIntendedPos[key];
+      } else {
+        // Out of error range, return rounded pos.
+        var roundUnit = _this.getRoundUnit(value, key);
+
+        var result = roundNumber(value, roundUnit);
+        return result;
+      }
+    });
+    return finalPos;
+  };
+
+  __proto.getRoundUnit = function (val, key) {
+    var roundUnit = this.options.round; // manual mode
+
+    var minRoundUnit = null; // auto mode
+    // auto mode
+
+    if (!roundUnit) {
+      // Get minimum round unit
+      var options = this.axm.getAxisOptions(key);
+      minRoundUnit = inversePow(Math.max(getDecimalPlace(options.range[0]), getDecimalPlace(options.range[1]), getDecimalPlace(val)));
+    }
+
+    return minRoundUnit || roundUnit;
+  };
+
+  __proto.getUserControll = function (param) {
+    var userWish = param.setTo();
+    userWish.destPos = this.axm.get(userWish.destPos);
+    userWish.duration = minMax(userWish.duration, this.options.minimumDuration, this.options.maximumDuration);
+    return userWish;
+  };
+
+  __proto.animateTo = function (destPos, duration, option) {
+    var _this = this;
+
+    var param = this.createAnimationParam(destPos, duration, option);
+
+    var depaPos = __assign({}, param.depaPos);
+
+    var retTrigger = this.em.triggerAnimationStart(param); // to control
+
+    var userWish = this.getUserControll(param); // You can't stop the 'animationStart' event when 'circular' is true.
+
+    if (!retTrigger && this.axm.every(userWish.destPos, function (v, opt) {
+      return isCircularable(v, opt.range, opt.circular);
+    })) {
+      console.warn("You can't stop the 'animation' event when 'circular' is true.");
+    }
+
+    if (retTrigger && !equal(userWish.destPos, depaPos)) {
+      var inputEvent = option && option.event || null;
+      this.animateLoop({
+        depaPos: depaPos,
+        destPos: userWish.destPos,
+        duration: userWish.duration,
+        delta: this.axm.getDelta(depaPos, userWish.destPos),
+        isTrusted: !!inputEvent,
+        inputEvent: inputEvent,
+        input: option && option.input || null
+      }, function () {
+        return _this.animationEnd();
+      });
+    }
+  };
+
+  __proto.easing = function (p) {
+    return p > 1 ? 1 : this.options.easing(p);
+  };
+
+  __proto.setTo = function (pos, duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
+    var axes = Object.keys(pos);
+    this.grab(axes);
+    var orgPos = this.axm.get(axes);
+
+    if (equal(pos, orgPos)) {
+      return this;
+    }
+
+    this.itm.setInterrupt(true);
+    var movedPos = filter(pos, function (v, k) {
+      return orgPos[k] !== v;
+    });
+
+    if (!Object.keys(movedPos).length) {
+      return this;
+    }
+
+    movedPos = this.axm.map(movedPos, function (v, opt) {
+      var range = opt.range,
+          circular = opt.circular;
+
+      if (circular && (circular[0] || circular[1])) {
+        return v;
+      } else {
+        return getInsidePosition(v, range, circular);
+      }
+    });
+
+    if (equal(movedPos, orgPos)) {
+      return this;
+    }
+
+    if (duration > 0) {
+      this.animateTo(movedPos, duration);
+    } else {
+      this.em.triggerChange(movedPos);
+      this.finish(false);
+    }
+
+    return this;
+  };
+
+  __proto.setBy = function (pos, duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
+    return this.setTo(map(this.axm.get(Object.keys(pos)), function (v, k) {
+      return v + pos[k];
+    }), duration);
+  };
+
+  return AnimationManager;
+}();
+
+var EventManager = /*#__PURE__*/function () {
+  function EventManager(axes) {
+    this.axes = axes;
+  }
+  /**
+   * This event is fired when a user holds an element on the screen of the device.
+   * @ko 사용자가 기기의 화면에 손을 대고 있을 때 발생하는 이벤트
+   * @name eg.Axes#hold
+   * @event
+   * @type {object} The object of data to be sent when the event is fired<ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Object.<string, number>} pos coordinate <ko>좌표 정보</ko>
+   * @property {Object} input The instance of inputType where the event occurred<ko>이벤트가 발생한 inputType 인스턴스</ko>
+   * @property {Object} inputEvent The event object received from inputType <ko>inputType으로 부터 받은 이벤트 객체</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("hold", function(event) {
+   *   // event.pos
+   *   // event.input
+   *   // event.inputEvent
+   *   // isTrusted
+   * });
+   */
+
+
+  var __proto = EventManager.prototype;
+
+  __proto.triggerHold = function (pos, option) {
+    var roundPos = this.getRoundPos(pos).roundPos;
+    this.axes.trigger("hold", {
+      pos: roundPos,
+      input: option.input || null,
+      inputEvent: option.event || null,
+      isTrusted: true
+    });
+  };
+  /**
+   * Specifies the coordinates to move after the 'change' event. It works when the holding value of the change event is true.
+   * @ko 'change' 이벤트 이후 이동할 좌표를 지정한다. change이벤트의 holding 값이 true일 경우에 동작한다
+   * @name set
+  * @function
+   * @param {Object.<string, number>} pos The coordinate to move to <ko>이동할 좌표</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("change", function(event) {
+   *   event.holding && event.set({x: 10});
+   * });
+   */
+
+  /** Specifies the animation coordinates to move after the 'release' or 'animationStart' events.
+   * @ko 'release' 또는 'animationStart' 이벤트 이후 이동할 좌표를 지정한다.
+   * @name setTo
+  * @function
+   * @param {Object.<string, number>} pos The coordinate to move to <ko>이동할 좌표</ko>
+   * @param {Number} [duration] Duration of the animation (unit: ms) <ko>애니메이션 진행 시간(단위: ms)</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("animationStart", function(event) {
+   *   event.setTo({x: 10}, 2000);
+   * });
+   */
+
+  /**
+   * This event is fired when a user release an element on the screen of the device.
+   * @ko 사용자가 기기의 화면에서 손을 뗐을 때 발생하는 이벤트
+   * @name eg.Axes#release
+   * @event
+   * @type {object} The object of data to be sent when the event is fired<ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Object.<string, number>} depaPos The coordinates when releasing an element<ko>손을 뗐을 때의 좌표 </ko>
+   * @property {Object.<string, number>} destPos The coordinates to move to after releasing an element<ko>손을 뗀 뒤에 이동할 좌표</ko>
+   * @property {Object.<string, number>} delta  The movement variation of coordinate <ko>좌표의 변화량</ko>
+   * @property {Object} inputEvent The event object received from inputType <ko>inputType으로 부터 받은 이벤트 객체</ko>
+   * @property {Object} input The instance of inputType where the event occurred<ko>이벤트가 발생한 inputType 인스턴스</ko>
+   * @property {setTo} setTo Specifies the animation coordinates to move after the event <ko>이벤트 이후 이동할 애니메이션 좌표를 지정한다</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("release", function(event) {
+   *   // event.depaPos
+   *   // event.destPos
+   *   // event.delta
+   *   // event.input
+   *   // event.inputEvent
+   *   // event.setTo
+   *   // event.isTrusted
+   *
+   *   // if you want to change the animation coordinates to move after the 'release' event.
+   *   event.setTo({x: 10}, 2000);
+   * });
+   */
+
+
+  __proto.triggerRelease = function (param) {
+    var _a = this.getRoundPos(param.destPos, param.depaPos),
+        roundPos = _a.roundPos,
+        roundDepa = _a.roundDepa;
+
+    param.destPos = roundPos;
+    param.depaPos = roundDepa;
+    param.setTo = this.createUserControll(param.destPos, param.duration);
+    this.axes.trigger("release", param);
+  };
+  /**
+   * This event is fired when coordinate changes.
+   * @ko 좌표가 변경됐을 때 발생하는 이벤트
+   * @name eg.Axes#change
+   * @event
+   * @type {object} The object of data to be sent when the event is fired <ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Object.<string, number>} pos  The coordinate <ko>좌표</ko>
+   * @property {Object.<string, number>} delta  The movement variation of coordinate <ko>좌표의 변화량</ko>
+   * @property {Boolean} holding Indicates whether a user holds an element on the screen of the device.<ko>사용자가 기기의 화면을 누르고 있는지 여부</ko>
+   * @property {Object} input The instance of inputType where the event occurred. If the value is changed by animation, it returns 'null'.<ko>이벤트가 발생한 inputType 인스턴스. 애니메이션에 의해 값이 변경될 경우에는 'null'을 반환한다.</ko>
+   * @property {Object} inputEvent The event object received from inputType. If the value is changed by animation, it returns 'null'.<ko>inputType으로 부터 받은 이벤트 객체. 애니메이션에 의해 값이 변경될 경우에는 'null'을 반환한다.</ko>
+   * @property {set} set Specifies the coordinates to move after the event. It works when the holding value is true <ko>이벤트 이후 이동할 좌표를 지정한다. holding 값이 true일 경우에 동작한다.</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("change", function(event) {
+   *   // event.pos
+   *   // event.delta
+   *   // event.input
+   *   // event.inputEvent
+   *   // event.holding
+   *   // event.set
+   *   // event.isTrusted
+   *
+   *   // if you want to change the coordinates to move after the 'change' event.
+   *   // it works when the holding value of the change event is true.
+   *   event.holding && event.set({x: 10});
+   * });
+   */
+
+
+  __proto.triggerChange = function (pos, isAccurate, depaPos, option, holding) {
+    if (holding === void 0) {
+      holding = false;
+    }
+
+    var am = this.am;
+    var axm = am.axm;
+    var eventInfo = am.getEventInfo();
+
+    var _a = this.getRoundPos(pos, depaPos),
+        roundPos = _a.roundPos,
+        roundDepa = _a.roundDepa;
+
+    var moveTo = axm.moveTo(roundPos, roundDepa);
+    var inputEvent = option && option.event || eventInfo && eventInfo.event || null;
+    var param = {
+      pos: moveTo.pos,
+      delta: moveTo.delta,
+      holding: holding,
+      inputEvent: inputEvent,
+      isTrusted: !!inputEvent,
+      input: option && option.input || eventInfo && eventInfo.input || null,
+      set: inputEvent ? this.createUserControll(moveTo.pos) : function () {}
+    };
+    var result = this.axes.trigger("change", param);
+    inputEvent && axm.set(param.set()["destPos"]);
+    return result;
+  };
+  /**
+   * This event is fired when animation starts.
+   * @ko 에니메이션이 시작할 때 발생한다.
+   * @name eg.Axes#animationStart
+   * @event
+   * @type {object} The object of data to be sent when the event is fired<ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Object.<string, number>} depaPos The coordinates when animation starts<ko>애니메이션이 시작 되었을 때의 좌표 </ko>
+   * @property {Object.<string, number>} destPos The coordinates to move to. If you change this value, you can run the animation<ko>이동할 좌표. 이값을 변경하여 애니메이션을 동작시킬수 있다</ko>
+   * @property {Object.<string, number>} delta  The movement variation of coordinate <ko>좌표의 변화량</ko>
+   * @property {Number} duration Duration of the animation (unit: ms). If you change this value, you can control the animation duration time.<ko>애니메이션 진행 시간(단위: ms). 이값을 변경하여 애니메이션의 이동시간을 조절할 수 있다.</ko>
+   * @property {Object} input The instance of inputType where the event occurred. If the value is changed by animation, it returns 'null'.<ko>이벤트가 발생한 inputType 인스턴스. 애니메이션에 의해 값이 변경될 경우에는 'null'을 반환한다.</ko>
+   * @property {Object} inputEvent The event object received from inputType <ko>inputType으로 부터 받은 이벤트 객체</ko>
+   * @property {setTo} setTo Specifies the animation coordinates to move after the event <ko>이벤트 이후 이동할 애니메이션 좌표를 지정한다</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("release", function(event) {
+   *   // event.depaPos
+   *   // event.destPos
+   *   // event.delta
+   *   // event.input
+   *   // event.inputEvent
+   *   // event.setTo
+   *   // event.isTrusted
+   *
+   *   // if you want to change the animation coordinates to move after the 'animationStart' event.
+   *   event.setTo({x: 10}, 2000);
+   * });
+   */
+
+
+  __proto.triggerAnimationStart = function (param) {
+    var _a = this.getRoundPos(param.destPos, param.depaPos),
+        roundPos = _a.roundPos,
+        roundDepa = _a.roundDepa;
+
+    param.destPos = roundPos;
+    param.depaPos = roundDepa;
+    param.setTo = this.createUserControll(param.destPos, param.duration);
+    return this.axes.trigger("animationStart", param);
+  };
+  /**
+   * This event is fired when animation ends.
+   * @ko 에니메이션이 끝났을 때 발생한다.
+   * @name eg.Axes#animationEnd
+   * @event
+   * @type {object} The object of data to be sent when the event is fired<ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("animationEnd", function(event) {
+   *   // event.isTrusted
+   * });
+   */
+
+
+  __proto.triggerAnimationEnd = function (isTrusted) {
+    if (isTrusted === void 0) {
+      isTrusted = false;
+    }
+
+    this.axes.trigger("animationEnd", {
+      isTrusted: isTrusted
+    });
+  };
+  /**
+   * This event is fired when all actions have been completed.
+   * @ko 에니메이션이 끝났을 때 발생한다.
+   * @name eg.Axes#finish
+   * @event
+   * @type {object} The object of data to be sent when the event is fired<ko>이벤트가 발생할 때 전달되는 데이터 객체</ko>
+   * @property {Boolean} isTrusted Returns true if an event was generated by the user action, or false if it was caused by a script or API call <ko>사용자의 액션에 의해 이벤트가 발생하였으면 true, 스크립트나 API호출에 의해 발생하였을 경우에는 false를 반환한다.</ko>
+   *
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "zoom": {
+   *      range: [50, 30]
+   *   }
+   * }).on("finish", function(event) {
+   *   // event.isTrusted
+   * });
+   */
+
+
+  __proto.triggerFinish = function (isTrusted) {
+    if (isTrusted === void 0) {
+      isTrusted = false;
+    }
+
+    this.axes.trigger("finish", {
+      isTrusted: isTrusted
+    });
+  };
+
+  __proto.createUserControll = function (pos, duration) {
+    if (duration === void 0) {
+      duration = 0;
+    } // to controll
+
+
+    var userControl = {
+      destPos: __assign({}, pos),
+      duration: duration
+    };
+    return function (toPos, userDuration) {
+      toPos && (userControl.destPos = __assign({}, toPos));
+      userDuration !== undefined && (userControl.duration = userDuration);
+      return userControl;
+    };
+  };
+
+  __proto.setAnimationManager = function (am) {
+    this.am = am;
+  };
+
+  __proto.destroy = function () {
+    this.axes.off();
+  };
+
+  __proto.getRoundPos = function (pos, depaPos) {
+    // round value if round exist
+    var roundUnit = this.axes.options.round; // if (round == null) {
+    // 	return {pos, depaPos}; // undefined, undefined
+    // }
+
+    return {
+      roundPos: roundNumbers(pos, roundUnit),
+      roundDepa: roundNumbers(depaPos, roundUnit)
+    };
+  };
+
+  return EventManager;
+}();
+
+var InterruptManager = /*#__PURE__*/function () {
+  function InterruptManager(options) {
+    this.options = options;
+    this._prevented = false; //  check whether the animation event was prevented
+  }
+
+  var __proto = InterruptManager.prototype;
+
+  __proto.isInterrupting = function () {
+    // when interruptable is 'true', return value is always 'true'.
+    return this.options.interruptable || this._prevented;
+  };
+
+  __proto.isInterrupted = function () {
+    return !this.options.interruptable && this._prevented;
+  };
+
+  __proto.setInterrupt = function (prevented) {
+    !this.options.interruptable && (this._prevented = prevented);
+  };
+
+  return InterruptManager;
+}();
+
+var AxisManager = /*#__PURE__*/function () {
+  function AxisManager(axis, options) {
+    var _this = this;
+
+    this.axis = axis;
+    this.options = options;
+
+    this._complementOptions();
+
+    this._pos = Object.keys(this.axis).reduce(function (acc, v) {
+      acc[v] = _this.axis[v].range[0];
+      return acc;
+    }, {});
+  }
+  /**
+     * set up 'css' expression
+     * @private
+     */
+
+
+  var __proto = AxisManager.prototype;
+
+  __proto._complementOptions = function () {
+    var _this = this;
+
+    Object.keys(this.axis).forEach(function (axis) {
+      _this.axis[axis] = __assign({
+        range: [0, 100],
+        bounce: [0, 0],
+        circular: [false, false]
+      }, _this.axis[axis]);
+      ["bounce", "circular"].forEach(function (v) {
+        var axisOption = _this.axis;
+        var key = axisOption[axis][v];
+
+        if (/string|number|boolean/.test(typeof key)) {
+          axisOption[axis][v] = [key, key];
+        }
+      });
+    });
+  };
+
+  __proto.getDelta = function (depaPos, destPos) {
+    var fullDepaPos = this.get(depaPos);
+    return map(this.get(destPos), function (v, k) {
+      return v - fullDepaPos[k];
+    });
+  };
+
+  __proto.get = function (axes) {
+    var _this = this;
+
+    if (axes && Array.isArray(axes)) {
+      return axes.reduce(function (acc, v) {
+        if (v && v in _this._pos) {
+          acc[v] = _this._pos[v];
+        }
+
+        return acc;
+      }, {});
+    } else {
+      return __assign(__assign({}, this._pos), axes || {});
+    }
+  };
+
+  __proto.moveTo = function (pos, depaPos) {
+    if (depaPos === void 0) {
+      depaPos = this._pos;
+    }
+
+    var delta = map(this._pos, function (v, key) {
+      return key in pos && key in depaPos ? pos[key] - depaPos[key] : 0;
+    });
+    this.set(this.map(pos, function (v, opt) {
+      return opt ? getCirculatedPos(v, opt.range, opt.circular) : 0;
+    }));
+    return {
+      pos: __assign({}, this._pos),
+      delta: delta
+    };
+  };
+
+  __proto.set = function (pos) {
+    for (var k in pos) {
+      if (k && k in this._pos) {
+        this._pos[k] = pos[k];
+      }
+    }
+  };
+
+  __proto.every = function (pos, callback) {
+    var axisOptions = this.axis;
+    return every(pos, function (value, key) {
+      return callback(value, axisOptions[key], key);
+    });
+  };
+
+  __proto.filter = function (pos, callback) {
+    var axisOptions = this.axis;
+    return filter(pos, function (value, key) {
+      return callback(value, axisOptions[key], key);
+    });
+  };
+
+  __proto.map = function (pos, callback) {
+    var axisOptions = this.axis;
+    return map(pos, function (value, key) {
+      return callback(value, axisOptions[key], key);
+    });
+  };
+
+  __proto.isOutside = function (axes) {
+    return !this.every(axes ? this.get(axes) : this._pos, function (v, opt) {
+      return !isOutside(v, opt.range);
+    });
+  };
+
+  __proto.getAxisOptions = function (key) {
+    return this.axis[key];
+  };
+
+  return AxisManager;
+}();
+
+var InputObserver = /*#__PURE__*/function () {
+  function InputObserver(_a) {
+    var options = _a.options,
+        itm = _a.itm,
+        em = _a.em,
+        axm = _a.axm,
+        am = _a.am;
+    this.isOutside = false;
+    this.moveDistance = null;
+    this.isStopped = false;
+    this.options = options;
+    this.itm = itm;
+    this.em = em;
+    this.axm = axm;
+    this.am = am;
+  } // when move pointer is held in outside
+
+
+  var __proto = InputObserver.prototype;
+
+  __proto.atOutside = function (pos) {
+    var _this = this;
+
+    if (this.isOutside) {
+      return this.axm.map(pos, function (v, opt) {
+        var tn = opt.range[0] - opt.bounce[0];
+        var tx = opt.range[1] + opt.bounce[1];
+        return v > tx ? tx : v < tn ? tn : v;
+      });
+    } else {
+      // when start pointer is held in inside
+      // get a initialization slope value to prevent smooth animation.
+      var initSlope_1 = this.am.easing(0.00001) / 0.00001;
+      return this.axm.map(pos, function (v, opt) {
+        var min = opt.range[0];
+        var max = opt.range[1];
+        var out = opt.bounce;
+        var circular = opt.circular;
+
+        if (circular && (circular[0] || circular[1])) {
+          return v;
+        } else if (v < min) {
+          // left
+          return min - _this.am.easing((min - v) / (out[0] * initSlope_1)) * out[0];
+        } else if (v > max) {
+          // right
+          return max + _this.am.easing((v - max) / (out[1] * initSlope_1)) * out[1];
+        }
+
+        return v;
+      });
+    }
+  };
+
+  __proto.get = function (input) {
+    return this.axm.get(input.axes);
+  };
+
+  __proto.hold = function (input, event) {
+    if (this.itm.isInterrupted() || !input.axes.length) {
+      return;
+    }
+
+    var changeOption = {
+      input: input,
+      event: event
+    };
+    this.isStopped = false;
+    this.itm.setInterrupt(true);
+    this.am.grab(input.axes, changeOption);
+    !this.moveDistance && this.em.triggerHold(this.axm.get(), changeOption);
+    this.isOutside = this.axm.isOutside(input.axes);
+    this.moveDistance = this.axm.get(input.axes);
+  };
+
+  __proto.change = function (input, event, offset) {
+    if (this.isStopped || !this.itm.isInterrupting() || this.axm.every(offset, function (v) {
+      return v === 0;
+    })) {
+      return;
+    }
+
+    var depaPos = this.moveDistance || this.axm.get(input.axes);
+    var destPos; // for outside logic
+
+    destPos = map(depaPos, function (v, k) {
+      return v + (offset[k] || 0);
+    });
+    this.moveDistance && (this.moveDistance = destPos); // from outside to inside
+
+    if (this.isOutside && this.axm.every(depaPos, function (v, opt) {
+      return !isOutside(v, opt.range);
+    })) {
+      this.isOutside = false;
+    }
+
+    depaPos = this.atOutside(depaPos);
+    destPos = this.atOutside(destPos);
+    var isCanceled = !this.em.triggerChange(destPos, false, depaPos, {
+      input: input,
+      event: event
+    }, true);
+
+    if (isCanceled) {
+      this.isStopped = true;
+      this.moveDistance = null;
+      this.am.finish(false);
+    }
+  };
+
+  __proto.release = function (input, event, offset, inputDuration) {
+    if (this.isStopped || !this.itm.isInterrupting() || !this.moveDistance) {
+      return;
+    }
+
+    var pos = this.axm.get(input.axes);
+    var depaPos = this.axm.get();
+    var destPos = this.axm.get(this.axm.map(offset, function (v, opt, k) {
+      if (opt.circular && (opt.circular[0] || opt.circular[1])) {
+        return pos[k] + v;
+      } else {
+        return getInsidePosition(pos[k] + v, opt.range, opt.circular, opt.bounce);
+      }
+    }));
+    var duration = this.am.getDuration(destPos, pos, inputDuration);
+
+    if (duration === 0) {
+      destPos = __assign({}, depaPos);
+    } // prepare params
+
+
+    var param = {
+      depaPos: depaPos,
+      destPos: destPos,
+      duration: duration,
+      delta: this.axm.getDelta(depaPos, destPos),
+      inputEvent: event,
+      input: input,
+      isTrusted: true
+    };
+    this.em.triggerRelease(param);
+    this.moveDistance = null; // to contol
+
+    var userWish = this.am.getUserControll(param);
+    var isEqual = equal(userWish.destPos, depaPos);
+    var changeOption = {
+      input: input,
+      event: event
+    };
+
+    if (isEqual || userWish.duration === 0) {
+      !isEqual && this.em.triggerChange(userWish.destPos, false, depaPos, changeOption, true);
+      this.itm.setInterrupt(false);
+
+      if (this.axm.isOutside()) {
+        this.am.restore(changeOption);
+      } else {
+        this.em.triggerFinish(true);
+      }
+    } else {
+      this.am.animateTo(userWish.destPos, userWish.duration, changeOption);
+    }
+  };
+
+  return InputObserver;
+}(); // export const DIRECTION_NONE = 1;
+
+
+var IOS_EDGE_THRESHOLD = 30;
+var IS_IOS_SAFARI = "ontouchstart" in win && (0, _agent.default)().browser.name === "safari";
+
+var TRANSFORM = function () {
+  if (typeof document === "undefined") {
+    return "";
+  }
+
+  var bodyStyle = (document.head || document.getElementsByTagName("head")[0]).style;
+  var target = ["transform", "webkitTransform", "msTransform", "mozTransform"];
+
+  for (var i = 0, len = target.length; i < len; i++) {
+    if (target[i] in bodyStyle) {
+      return target[i];
+    }
+  }
+
+  return "";
+}();
+/**
+ * @typedef {Object} AxisOption The Axis information. The key of the axis specifies the name to use as the logical virtual coordinate system.
+ * @ko 축 정보. 축의 키는 논리적인 가상 좌표계로 사용할 이름을 지정한다.
+ * @property {Number[]} [range] The coordinate of range <ko>좌표 범위</ko>
+ * @property {Number} [range.0=0] The coordinate of the minimum <ko>최소 좌표</ko>
+ * @property {Number} [range.1=0] The coordinate of the maximum <ko>최대 좌표</ko>
+ * @property {Number[]} [bounce] The size of bouncing area. The coordinates can exceed the coordinate area as much as the bouncing area based on user action. If the coordinates does not exceed the bouncing area when an element is dragged, the coordinates where bouncing effects are applied are retuned back into the coordinate area<ko>바운스 영역의 크기. 사용자의 동작에 따라 좌표가 좌표 영역을 넘어 바운스 영역의 크기만큼 더 이동할 수 있다. 사용자가 끌어다 놓는 동작을 했을 때 좌표가 바운스 영역에 있으면, 바운스 효과가 적용된 좌표가 다시 좌표 영역 안으로 들어온다</ko>
+ * @property {Number} [bounce.0=0] The size of coordinate of the minimum area <ko>최소 좌표 바운스 영역의 크기</ko>
+ * @property {Number} [bounce.1=0] The size of coordinate of the maximum area <ko>최대 좌표 바운스 영역의 크기</ko>
+ * @property {Boolean[]} [circular] Indicates whether a circular element is available. If it is set to "true" and an element is dragged outside the coordinate area, the element will appear on the other side.<ko>순환 여부. 'true'로 설정한 방향의 좌표 영역 밖으로 엘리먼트가 이동하면 반대 방향에서 엘리먼트가 나타난다</ko>
+ * @property {Boolean} [circular.0=false] Indicates whether to circulate to the coordinate of the minimum <ko>최소 좌표 방향의 순환 여부</ko>
+ * @property {Boolean} [circular.1=false] Indicates whether to circulate to the coordinate of the maximum <ko>최대 좌표 방향의 순환 여부</ko>
+**/
+
+/**
+ * @typedef {Object} AxesOption The option object of the eg.Axes module
+ * @ko eg.Axes 모듈의 옵션 객체
+ * @property {Function} [easing=easing.easeOutCubic] The easing function to apply to an animation <ko>애니메이션에 적용할 easing 함수</ko>
+ * @property {Number} [maximumDuration=Infinity] Maximum duration of the animation <ko>가속도에 의해 애니메이션이 동작할 때의 최대 좌표 이동 시간</ko>
+ * @property {Number} [minimumDuration=0] Minimum duration of the animation <ko>가속도에 의해 애니메이션이 동작할 때의 최소 좌표 이동 시간</ko>
+ * @property {Number} [deceleration=0.0006] Deceleration of the animation where acceleration is manually enabled by user. A higher value indicates shorter running time. <ko>사용자의 동작으로 가속도가 적용된 애니메이션의 감속도. 값이 높을수록 애니메이션 실행 시간이 짧아진다</ko>
+ * @property {Boolean} [interruptable=true] Indicates whether an animation is interruptible.<br>- true: It can be paused or stopped by user action or the API.<br>- false: It cannot be paused or stopped by user action or the API while it is running.<ko>진행 중인 애니메이션 중지 가능 여부.<br>- true: 사용자의 동작이나 API로 애니메이션을 중지할 수 있다.<br>- false: 애니메이션이 진행 중일 때는 사용자의 동작이나 API가 적용되지 않는다</ko>
+ * @property {Number} [round = null] Rounding unit. For example, 0.1 rounds to 0.1 decimal point(6.1234 => 6.1), 5 rounds to 5 (93 => 95) <br>[Details](https://github.com/naver/egjs-axes/wiki/round-option)<ko>반올림 단위. 예를 들어 0.1 은 소숫점 0.1 까지 반올림(6.1234 => 6.1), 5 는 5 단위로 반올림(93 => 95).<br>[상세내용](https://github.com/naver/egjs-axes/wiki/round-option)</ko>
+**/
+
+/**
+ * @class eg.Axes
+ * @classdesc A module used to change the information of user action entered by various input devices such as touch screen or mouse into the logical virtual coordinates. You can easily create a UI that responds to user actions.
+ * @ko 터치 입력 장치나 마우스와 같은 다양한 입력 장치를 통해 전달 받은 사용자의 동작을 논리적인 가상 좌표로 변경하는 모듈이다. 사용자 동작에 반응하는 UI를 손쉽게 만들수 있다.
+ * @extends eg.Component
+ *
+ * @param {Object.<string, AxisOption>} axis Axis information managed by eg.Axes. The key of the axis specifies the name to use as the logical virtual coordinate system.  <ko>eg.Axes가 관리하는 축 정보. 축의 키는 논리적인 가상 좌표계로 사용할 이름을 지정한다.</ko>
+ * @param {AxesOption} [options] The option object of the eg.Axes module<ko>eg.Axes 모듈의 옵션 객체</ko>
+ * @param {Object.<string, number>} [startPos] The coordinates to be moved when creating an instance. not triggering change event.<ko>인스턴스 생성시 이동할 좌표, change 이벤트는 발생하지 않음.</ko>
+ *
+ * @support {"ie": "10+", "ch" : "latest", "ff" : "latest",  "sf" : "latest", "edge" : "latest", "ios" : "7+", "an" : "2.3+ (except 3.x)"}
+ * @example
+ *
+ * // 1. Initialize eg.Axes
+ * const axes = new eg.Axes({
+ *	something1: {
+ *		range: [0, 150],
+ *		bounce: 50
+ *	},
+ *	something2: {
+ *		range: [0, 200],
+ *		bounce: 100
+ *	},
+ *	somethingN: {
+ *		range: [1, 10],
+ *	}
+ * }, {
+ *  deceleration : 0.0024
+ * });
+ *
+ * // 2. attach event handler
+ * axes.on({
+ *	"hold" : function(evt) {
+ *	},
+ *	"release" : function(evt) {
+ *	},
+ *	"animationStart" : function(evt) {
+ *	},
+ *	"animationEnd" : function(evt) {
+ *	},
+ *	"change" : function(evt) {
+ *	}
+ * });
+ *
+ * // 3. Initialize inputTypes
+ * const panInputArea = new eg.Axes.PanInput("#area", {
+ *	scale: [0.5, 1]
+ * });
+ * const panInputHmove = new eg.Axes.PanInput("#hmove");
+ * const panInputVmove = new eg.Axes.PanInput("#vmove");
+ * const pinchInputArea = new eg.Axes.PinchInput("#area", {
+ *	scale: 1.5
+ * });
+ *
+ * // 4. Connect eg.Axes and InputTypes
+ * // [PanInput] When the mouse or touchscreen is down and moved.
+ * // Connect the 'something2' axis to the mouse or touchscreen x position and
+ * // connect the 'somethingN' axis to the mouse or touchscreen y position.
+ * axes.connect(["something2", "somethingN"], panInputArea); // or axes.connect("something2 somethingN", panInputArea);
+ *
+ * // Connect only one 'something1' axis to the mouse or touchscreen x position.
+ * axes.connect(["something1"], panInputHmove); // or axes.connect("something1", panInputHmove);
+ *
+ * // Connect only one 'something2' axis to the mouse or touchscreen y position.
+ * axes.connect(["", "something2"], panInputVmove); // or axes.connect(" something2", panInputVmove);
+ *
+ * // [PinchInput] Connect 'something2' axis when two pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * axes.connect("something2", pinchInputArea);
+ */
+
+
+var Axes = /*#__PURE__*/function (_super) {
+  __extends(Axes, _super);
+
+  function Axes(axis, options, startPos) {
+    if (axis === void 0) {
+      axis = {};
+    }
+
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _this = _super.call(this) || this;
+
+    _this.axis = axis;
+    _this._inputs = [];
+    _this.options = __assign({
+      easing: function easeOutCubic(x) {
+        return 1 - Math.pow(1 - x, 3);
+      },
+      interruptable: true,
+      maximumDuration: Infinity,
+      minimumDuration: 0,
+      deceleration: 0.0006,
+      round: null
+    }, options);
+    _this.itm = new InterruptManager(_this.options);
+    _this.axm = new AxisManager(_this.axis, _this.options);
+    _this.em = new EventManager(_this);
+    _this.am = new AnimationManager(_this);
+    _this.io = new InputObserver(_this);
+
+    _this.em.setAnimationManager(_this.am);
+
+    startPos && _this.em.triggerChange(startPos);
+    return _this;
+  }
+  /**
+   * Connect the axis of eg.Axes to the inputType.
+   * @ko eg.Axes의 축과 inputType을 연결한다
+   * @method eg.Axes#connect
+   * @param {(String[]|String)} axes The name of the axis to associate with inputType <ko>inputType과 연결할 축의 이름</ko>
+   * @param {Object} inputType The inputType instance to associate with the axis of eg.Axes <ko>eg.Axes의 축과 연결할 inputType 인스턴스<ko>
+   * @return {eg.Axes} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   }
+   * });
+   *
+   * axes.connect("x", new eg.Axes.PanInput("#area1"))
+   *    .connect("x xOther", new eg.Axes.PanInput("#area2"))
+   *    .connect(" xOther", new eg.Axes.PanInput("#area3"))
+   *    .connect(["x"], new eg.Axes.PanInput("#area4"))
+   *    .connect(["xOther", "x"], new eg.Axes.PanInput("#area5"))
+   *    .connect(["", "xOther"], new eg.Axes.PanInput("#area6"));
+   */
+
+
+  var __proto = Axes.prototype;
+
+  __proto.connect = function (axes, inputType) {
+    var mapped;
+
+    if (typeof axes === "string") {
+      mapped = axes.split(" ");
+    } else {
+      mapped = axes.concat();
+    } // check same instance
+
+
+    if (~this._inputs.indexOf(inputType)) {
+      this.disconnect(inputType);
+    } // check same element in hammer type for share
+
+
+    if ("hammer" in inputType) {
+      var targets = this._inputs.filter(function (v) {
+        return v.hammer && v.element === inputType.element;
+      });
+
+      if (targets.length) {
+        inputType.hammer = targets[0].hammer;
+      }
+    }
+
+    inputType.mapAxes(mapped);
+    inputType.connect(this.io);
+
+    this._inputs.push(inputType);
+
+    return this;
+  };
+  /**
+   * Disconnect the axis of eg.Axes from the inputType.
+   * @ko eg.Axes의 축과 inputType의 연결을 끊는다.
+   * @method eg.Axes#disconnect
+   * @param {Object} [inputType] An inputType instance associated with the axis of eg.Axes <ko>eg.Axes의 축과 연결한 inputType 인스턴스<ko>
+   * @return {eg.Axes} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   }
+   * });
+   *
+   * const input1 = new eg.Axes.PanInput("#area1");
+   * const input2 = new eg.Axes.PanInput("#area2");
+   * const input3 = new eg.Axes.PanInput("#area3");
+   *
+   * axes.connect("x", input1);
+   *    .connect("x xOther", input2)
+   *    .connect(["xOther", "x"], input3);
+   *
+   * axes.disconnect(input1); // disconnects input1
+   * axes.disconnect(); // disconnects all of them
+   */
+
+
+  __proto.disconnect = function (inputType) {
+    if (inputType) {
+      var index = this._inputs.indexOf(inputType);
+
+      if (index >= 0) {
+        this._inputs[index].disconnect();
+
+        this._inputs.splice(index, 1);
+      }
+    } else {
+      this._inputs.forEach(function (v) {
+        return v.disconnect();
+      });
+
+      this._inputs = [];
+    }
+
+    return this;
+  };
+  /**
+   * Returns the current position of the coordinates.
+   * @ko 좌표의 현재 위치를 반환한다
+   * @method eg.Axes#get
+   * @param {Object} [axes] The names of the axis <ko>축 이름들</ko>
+   * @return {Object.<string, number>} Axis coordinate information <ko>축 좌표 정보</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   },
+   * 	 "zoom": {
+   *      range: [50, 30]
+   *   }
+   * });
+   *
+   * axes.get(); // {"x": 0, "xOther": -100, "zoom": 50}
+   * axes.get(["x", "zoom"]); // {"x": 0, "zoom": 50}
+   */
+
+
+  __proto.get = function (axes) {
+    return this.axm.get(axes);
+  };
+  /**
+   * Moves an axis to specific coordinates.
+   * @ko 좌표를 이동한다.
+   * @method eg.Axes#setTo
+   * @param {Object.<string, number>} pos The coordinate to move to <ko>이동할 좌표</ko>
+   * @param {Number} [duration=0] Duration of the animation (unit: ms) <ko>애니메이션 진행 시간(단위: ms)</ko>
+   * @return {eg.Axes} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   },
+   * 	 "zoom": {
+   *      range: [50, 30]
+   *   }
+   * });
+   *
+   * axes.setTo({"x": 30, "zoom": 60});
+   * axes.get(); // {"x": 30, "xOther": -100, "zoom": 60}
+   *
+   * axes.setTo({"x": 100, "xOther": 60}, 1000); // animatation
+   *
+   * // after 1000 ms
+   * axes.get(); // {"x": 100, "xOther": 60, "zoom": 60}
+   */
+
+
+  __proto.setTo = function (pos, duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
+    this.am.setTo(pos, duration);
+    return this;
+  };
+  /**
+   * Moves an axis from the current coordinates to specific coordinates.
+   * @ko 현재 좌표를 기준으로 좌표를 이동한다.
+   * @method eg.Axes#setBy
+   * @param {Object.<string, number>} pos The coordinate to move to <ko>이동할 좌표</ko>
+   * @param {Number} [duration=0] Duration of the animation (unit: ms) <ko>애니메이션 진행 시간(단위: ms)</ko>
+   * @return {eg.Axes} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   },
+   * 	 "zoom": {
+   *      range: [50, 30]
+   *   }
+   * });
+   *
+   * axes.setBy({"x": 30, "zoom": 10});
+   * axes.get(); // {"x": 30, "xOther": -100, "zoom": 60}
+   *
+   * axes.setBy({"x": 70, "xOther": 60}, 1000); // animatation
+   *
+   * // after 1000 ms
+   * axes.get(); // {"x": 100, "xOther": -40, "zoom": 60}
+   */
+
+
+  __proto.setBy = function (pos, duration) {
+    if (duration === void 0) {
+      duration = 0;
+    }
+
+    this.am.setBy(pos, duration);
+    return this;
+  };
+  /**
+   * Returns whether there is a coordinate in the bounce area of ​​the target axis.
+   * @ko 대상 축 중 bounce영역에 좌표가 존재하는지를 반환한다
+   * @method eg.Axes#isBounceArea
+   * @param {Object} [axes] The names of the axis <ko>축 이름들</ko>
+   * @return {Boolen} Whether the bounce area exists. <ko>bounce 영역 존재 여부</ko>
+   * @example
+   * const axes = new eg.Axes({
+   *   "x": {
+   *      range: [0, 100]
+   *   },
+   *   "xOther": {
+   *      range: [-100, 100]
+   *   },
+   * 	 "zoom": {
+   *      range: [50, 30]
+   *   }
+   * });
+   *
+   * axes.isBounceArea(["x"]);
+   * axes.isBounceArea(["x", "zoom"]);
+   * axes.isBounceArea();
+   */
+
+
+  __proto.isBounceArea = function (axes) {
+    return this.axm.isOutside(axes);
+  };
+  /**
+  * Destroys properties, and events used in a module and disconnect all connections to inputTypes.
+  * @ko 모듈에 사용한 속성, 이벤트를 해제한다. 모든 inputType과의 연결을 끊는다.
+  * @method eg.Axes#destroy
+  */
+
+
+  __proto.destroy = function () {
+    this.disconnect();
+    this.em.destroy();
+  };
+  /**
+   * Version info string
+   * @ko 버전정보 문자열
+   * @name VERSION
+   * @static
+   * @type {String}
+   * @example
+   * eg.Axes.VERSION;  // ex) 3.3.3
+   * @memberof eg.Axes
+   */
+
+
+  Axes.VERSION = "2.7.2";
+  /**
+   * @name eg.Axes.TRANSFORM
+   * @desc Returns the transform attribute with CSS vendor prefixes.
+   * @ko CSS vendor prefixes를 붙인 transform 속성을 반환한다.
+   *
+   * @constant
+   * @type {String}
+   * @example
+   * eg.Axes.TRANSFORM; // "transform" or "webkitTransform"
+   */
+
+  Axes.TRANSFORM = TRANSFORM;
+  /**
+   * @name eg.Axes.DIRECTION_NONE
+   * @constant
+   * @type {Number}
+   */
+
+  Axes.DIRECTION_NONE = _hammerjs.DIRECTION_NONE;
+  /**
+   * @name eg.Axes.DIRECTION_LEFT
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_LEFT = _hammerjs.DIRECTION_LEFT;
+  /**
+   * @name eg.Axes.DIRECTION_RIGHT
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_RIGHT = _hammerjs.DIRECTION_RIGHT;
+  /**
+   * @name eg.Axes.DIRECTION_UP
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_UP = _hammerjs.DIRECTION_UP;
+  /**
+   * @name eg.Axes.DIRECTION_DOWN
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_DOWN = _hammerjs.DIRECTION_DOWN;
+  /**
+   * @name eg.Axes.DIRECTION_HORIZONTAL
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_HORIZONTAL = _hammerjs.DIRECTION_HORIZONTAL;
+  /**
+   * @name eg.Axes.DIRECTION_VERTICAL
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_VERTICAL = _hammerjs.DIRECTION_VERTICAL;
+  /**
+   * @name eg.Axes.DIRECTION_ALL
+   * @constant
+   * @type {Number}
+  */
+
+  Axes.DIRECTION_ALL = _hammerjs.DIRECTION_ALL;
+  return Axes;
+}(_component.default);
+
+var SUPPORT_POINTER_EVENTS = "PointerEvent" in win || "MSPointerEvent" in win;
+var SUPPORT_TOUCH = ("ontouchstart" in win);
+var UNIQUEKEY = "_EGJS_AXES_INPUTTYPE_";
+
+function toAxis(source, offset) {
+  return offset.reduce(function (acc, v, i) {
+    if (source[i]) {
+      acc[source[i]] = v;
+    }
+
+    return acc;
+  }, {});
+}
+
+function createHammer(element, options) {
+  try {
+    // create Hammer
+    return new _hammerjs.Manager(element, __assign({}, options));
+  } catch (e) {
+    return null;
+  }
+}
+
+function convertInputType(inputType) {
+  if (inputType === void 0) {
+    inputType = [];
+  }
+
+  var hasTouch = false;
+  var hasMouse = false;
+  var hasPointer = false;
+  inputType.forEach(function (v) {
+    switch (v) {
+      case "mouse":
+        hasMouse = true;
+        break;
+
+      case "touch":
+        hasTouch = SUPPORT_TOUCH;
+        break;
+
+      case "pointer":
+        hasPointer = SUPPORT_POINTER_EVENTS;
+      // no default
+    }
+  });
+
+  if (hasPointer) {
+    return _hammerjs.PointerEventInput;
+  } else if (hasTouch && hasMouse) {
+    return _hammerjs.TouchMouseInput;
+  } else if (hasTouch) {
+    return _hammerjs.TouchInput;
+  } else if (hasMouse) {
+    return _hammerjs.MouseInput;
+  }
+
+  return null;
+}
+
+function getDirectionByAngle(angle, thresholdAngle) {
+  if (thresholdAngle < 0 || thresholdAngle > 90) {
+    return _hammerjs.DIRECTION_NONE;
+  }
+
+  var toAngle = Math.abs(angle);
+  return toAngle > thresholdAngle && toAngle < 180 - thresholdAngle ? _hammerjs.DIRECTION_VERTICAL : _hammerjs.DIRECTION_HORIZONTAL;
+}
+
+function getNextOffset(speeds, deceleration) {
+  var normalSpeed = Math.sqrt(speeds[0] * speeds[0] + speeds[1] * speeds[1]);
+  var duration = Math.abs(normalSpeed / -deceleration);
+  return [speeds[0] / 2 * duration, speeds[1] / 2 * duration];
+}
+
+function useDirection(checkType, direction, userDirection) {
+  if (userDirection) {
+    return !!(direction === _hammerjs.DIRECTION_ALL || direction & checkType && userDirection & checkType);
+  } else {
+    return !!(direction & checkType);
+  }
+}
+/**
+ * @typedef {Object} PanInputOption The option object of the eg.Axes.PanInput module.
+ * @ko eg.Axes.PanInput 모듈의 옵션 객체
+ * @property {String[]} [inputType=["touch","mouse", "pointer"]] Types of input devices.<br>- touch: Touch screen<br>- mouse: Mouse <ko>입력 장치 종류.<br>- touch: 터치 입력 장치<br>- mouse: 마우스</ko>
+ * @property {Number[]} [scale] Coordinate scale that a user can move<ko>사용자의 동작으로 이동하는 좌표의 배율</ko>
+ * @property {Number} [scale.0=1] horizontal axis scale <ko>수평축 배율</ko>
+ * @property {Number} [scale.1=1] vertical axis scale <ko>수직축 배율</ko>
+ * @property {Number} [thresholdAngle=45] The threshold value that determines whether user action is horizontal or vertical (0~90) <ko>사용자의 동작이 가로 방향인지 세로 방향인지 판단하는 기준 각도(0~90)</ko>
+ * @property {Number} [threshold=0] Minimal pan distance required before recognizing <ko>사용자의 Pan 동작을 인식하기 위해산 최소한의 거리</ko>
+ * @property {Number} [iOSEdgeSwipeThreshold=30] Area (px) that can go to the next page when swiping the right edge in iOS safari <ko>iOS Safari에서 오른쪽 엣지를 스와이프 하는 경우 다음 페이지로 넘어갈 수 있는 영역(px)</ko>
+ * @property {Object} [hammerManagerOptions={cssProps: {userSelect: "none",touchSelect: "none",touchCallout: "none",userDrag: "none"}] Options of Hammer.Manager <ko>Hammer.Manager의 옵션</ko>
+**/
+
+/**
+ * @class eg.Axes.PanInput
+ * @classdesc A module that passes the amount of change to eg.Axes when the mouse or touchscreen is down and moved. use less than two axes.
+ * @ko 마우스나 터치 스크린을 누르고 움직일때의 변화량을 eg.Axes에 전달하는 모듈. 두개 이하의 축을 사용한다.
+ *
+ * @example
+ * const pan = new eg.Axes.PanInput("#area", {
+ * 		inputType: ["touch"],
+ * 		scale: [1, 1.3],
+ * });
+ *
+ * // Connect the 'something2' axis to the mouse or touchscreen x position when the mouse or touchscreen is down and moved.
+ * // Connect the 'somethingN' axis to the mouse or touchscreen y position when the mouse or touchscreen is down and moved.
+ * axes.connect(["something2", "somethingN"], pan); // or axes.connect("something2 somethingN", pan);
+ *
+ * // Connect only one 'something1' axis to the mouse or touchscreen x position when the mouse or touchscreen is down and moved.
+ * axes.connect(["something1"], pan); // or axes.connect("something1", pan);
+ *
+ * // Connect only one 'something2' axis to the mouse or touchscreen y position when the mouse or touchscreen is down and moved.
+ * axes.connect(["", "something2"], pan); // or axes.connect(" something2", pan);
+ *
+ * @param {HTMLElement|String|jQuery} element An element to use the eg.Axes.PanInput module <ko>eg.Axes.PanInput 모듈을 사용할 엘리먼트</ko>
+ * @param {PanInputOption} [options] The option object of the eg.Axes.PanInput module<ko>eg.Axes.PanInput 모듈의 옵션 객체</ko>
+ */
+
+
+var PanInput = /*#__PURE__*/function () {
+  function PanInput(el, options) {
+    this.axes = [];
+    this.hammer = null;
+    this.element = null;
+    this.panRecognizer = null;
+    this.isRightEdge = false;
+    this.rightEdgeTimer = 0;
+    this.panFlag = false;
+    /**
+     * Hammer helps you add support for touch gestures to your page
+     *
+     * @external Hammer
+     * @see {@link http://hammerjs.github.io|Hammer.JS}
+     * @see {@link http://hammerjs.github.io/jsdoc/Hammer.html|Hammer.JS API documents}
+     * @see Hammer.JS applies specific CSS properties by {@link http://hammerjs.github.io/jsdoc/Hammer.defaults.cssProps.html|default} when creating an instance. The eg.Axes module removes all default CSS properties provided by Hammer.JS
+     */
+
+    if (typeof _hammerjs.Manager === "undefined") {
+      throw new Error("The Hammerjs must be loaded before eg.Axes.PanInput.\nhttp://hammerjs.github.io/");
+    }
+
+    this.element = $(el);
+    this.options = __assign({
+      inputType: ["touch", "mouse", "pointer"],
+      scale: [1, 1],
+      thresholdAngle: 45,
+      threshold: 0,
+      iOSEdgeSwipeThreshold: IOS_EDGE_THRESHOLD,
+      hammerManagerOptions: {
+        // css properties were removed due to usablility issue
+        // http://hammerjs.github.io/jsdoc/Hammer.defaults.cssProps.html
+        cssProps: {
+          userSelect: "none",
+          touchSelect: "none",
+          touchCallout: "none",
+          userDrag: "none"
+        }
+      }
+    }, options);
+    this.onHammerInput = this.onHammerInput.bind(this);
+    this.onPanmove = this.onPanmove.bind(this);
+    this.onPanend = this.onPanend.bind(this);
+  }
+
+  var __proto = PanInput.prototype;
+
+  __proto.mapAxes = function (axes) {
+    var useHorizontal = !!axes[0];
+    var useVertical = !!axes[1];
+
+    if (useHorizontal && useVertical) {
+      this._direction = _hammerjs.DIRECTION_ALL;
+    } else if (useHorizontal) {
+      this._direction = _hammerjs.DIRECTION_HORIZONTAL;
+    } else if (useVertical) {
+      this._direction = _hammerjs.DIRECTION_VERTICAL;
+    } else {
+      this._direction = _hammerjs.DIRECTION_NONE;
+    }
+
+    this.axes = axes;
+  };
+
+  __proto.connect = function (observer) {
+    var hammerOption = {
+      direction: this._direction,
+      threshold: this.options.threshold
+    };
+
+    if (this.hammer) {
+      // for sharing hammer instance.
+      // hammer remove previous PanRecognizer.
+      this.removeRecognizer();
+      this.dettachEvent();
+    } else {
+      var keyValue = this.element[UNIQUEKEY];
+
+      if (!keyValue) {
+        keyValue = String(Math.round(Math.random() * new Date().getTime()));
+      }
+
+      var inputClass = convertInputType(this.options.inputType);
+
+      if (!inputClass) {
+        throw new Error("Wrong inputType parameter!");
+      }
+
+      this.hammer = createHammer(this.element, __assign({
+        inputClass: inputClass
+      }, this.options.hammerManagerOptions));
+      this.element[UNIQUEKEY] = keyValue;
+    }
+
+    this.panRecognizer = new _hammerjs.Pan(hammerOption);
+    this.hammer.add(this.panRecognizer);
+    this.attachEvent(observer);
+    return this;
+  };
+
+  __proto.disconnect = function () {
+    this.removeRecognizer();
+
+    if (this.hammer) {
+      this.dettachEvent();
+    }
+
+    this._direction = _hammerjs.DIRECTION_NONE;
+    return this;
+  };
+  /**
+  * Destroys elements, properties, and events used in a module.
+  * @ko 모듈에 사용한 엘리먼트와 속성, 이벤트를 해제한다.
+  * @method eg.Axes.PanInput#destroy
+  */
+
+
+  __proto.destroy = function () {
+    this.disconnect();
+
+    if (this.hammer && this.hammer.recognizers.length === 0) {
+      this.hammer.destroy();
+    }
+
+    delete this.element[UNIQUEKEY];
+    this.element = null;
+    this.hammer = null;
+  };
+  /**
+   * Enables input devices
+   * @ko 입력 장치를 사용할 수 있게 한다
+   * @method eg.Axes.PanInput#enable
+   * @return {eg.Axes.PanInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.enable = function () {
+    this.hammer && (this.hammer.get("pan").options.enable = true);
+    return this;
+  };
+  /**
+   * Disables input devices
+   * @ko 입력 장치를 사용할 수 없게 한다.
+   * @method eg.Axes.PanInput#disable
+   * @return {eg.Axes.PanInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.disable = function () {
+    this.hammer && (this.hammer.get("pan").options.enable = false);
+    return this;
+  };
+  /**
+   * Returns whether to use an input device
+   * @ko 입력 장치를 사용 여부를 반환한다.
+   * @method eg.Axes.PanInput#isEnable
+   * @return {Boolean} Whether to use an input device <ko>입력장치 사용여부</ko>
+   */
+
+
+  __proto.isEnable = function () {
+    return !!(this.hammer && this.hammer.get("pan").options.enable);
+  };
+
+  __proto.removeRecognizer = function () {
+    if (this.hammer && this.panRecognizer) {
+      this.hammer.remove(this.panRecognizer);
+      this.panRecognizer = null;
+    }
+  };
+
+  __proto.onHammerInput = function (event) {
+    if (this.isEnable()) {
+      if (event.isFirst) {
+        this.panFlag = false;
+
+        if (event.srcEvent.cancelable !== false) {
+          var edgeThreshold = this.options.iOSEdgeSwipeThreshold;
+          this.observer.hold(this, event);
+          this.isRightEdge = IS_IOS_SAFARI && event.center.x > window.innerWidth - edgeThreshold;
+          this.panFlag = true;
+        }
+      } else if (event.isFinal) {
+        this.onPanend(event);
+      }
+    }
+  };
+
+  __proto.onPanmove = function (event) {
+    var _this = this;
+
+    if (!this.panFlag) {
+      return;
+    }
+
+    var userDirection = getDirectionByAngle(event.angle, this.options.thresholdAngle); // not support offset properties in Hammerjs - start
+
+    var prevInput = this.hammer.session.prevInput;
+
+    if (prevInput && IS_IOS_SAFARI) {
+      var swipeLeftToRight = event.center.x < 0;
+
+      if (swipeLeftToRight) {
+        // iOS swipe left => right
+        this.onPanend(__assign(__assign({}, prevInput), {
+          velocityX: 0,
+          velocityY: 0,
+          offsetX: 0,
+          offsetY: 0
+        }));
+        return;
+      } else if (this.isRightEdge) {
+        clearTimeout(this.rightEdgeTimer); // - is right to left
+
+        var edgeThreshold = this.options.iOSEdgeSwipeThreshold;
+        var swipeRightToLeft = event.deltaX < -edgeThreshold;
+
+        if (swipeRightToLeft) {
+          this.isRightEdge = false;
+        } else {
+          // iOS swipe right => left
+          this.rightEdgeTimer = window.setTimeout(function () {
+            _this.onPanend(__assign(__assign({}, prevInput), {
+              velocityX: 0,
+              velocityY: 0,
+              offsetX: 0,
+              offsetY: 0
+            }));
+          }, 100);
+        }
+      }
+    }
+    /* eslint-disable no-param-reassign */
+
+
+    if (prevInput) {
+      event.offsetX = event.deltaX - prevInput.deltaX;
+      event.offsetY = event.deltaY - prevInput.deltaY;
+    } else {
+      event.offsetX = 0;
+      event.offsetY = 0;
+    }
+
+    var offset = this.getOffset([event.offsetX, event.offsetY], [useDirection(_hammerjs.DIRECTION_HORIZONTAL, this._direction, userDirection), useDirection(_hammerjs.DIRECTION_VERTICAL, this._direction, userDirection)]);
+    var prevent = offset.some(function (v) {
+      return v !== 0;
+    });
+
+    if (prevent) {
+      var srcEvent = event.srcEvent;
+
+      if (srcEvent.cancelable !== false) {
+        srcEvent.preventDefault();
+      }
+
+      srcEvent.stopPropagation();
+    }
+
+    event.preventSystemEvent = prevent;
+    prevent && this.observer.change(this, event, toAxis(this.axes, offset));
+  };
+
+  __proto.onPanend = function (event) {
+    if (!this.panFlag) {
+      return;
+    }
+
+    clearTimeout(this.rightEdgeTimer);
+    this.panFlag = false;
+    var offset = this.getOffset([Math.abs(event.velocityX) * (event.deltaX < 0 ? -1 : 1), Math.abs(event.velocityY) * (event.deltaY < 0 ? -1 : 1)], [useDirection(_hammerjs.DIRECTION_HORIZONTAL, this._direction), useDirection(_hammerjs.DIRECTION_VERTICAL, this._direction)]);
+    offset = getNextOffset(offset, this.observer.options.deceleration);
+    this.observer.release(this, event, toAxis(this.axes, offset));
+  };
+
+  __proto.attachEvent = function (observer) {
+    this.observer = observer;
+    this.hammer.on("hammer.input", this.onHammerInput).on("panstart panmove", this.onPanmove);
+  };
+
+  __proto.dettachEvent = function () {
+    this.hammer.off("hammer.input", this.onHammerInput).off("panstart panmove", this.onPanmove);
+    this.observer = null;
+  };
+
+  __proto.getOffset = function (properties, direction) {
+    var offset = [0, 0];
+    var scale = this.options.scale;
+
+    if (direction[0]) {
+      offset[0] = properties[0] * scale[0];
+    }
+
+    if (direction[1]) {
+      offset[1] = properties[1] * scale[1];
+    }
+
+    return offset;
+  };
+
+  return PanInput;
+}();
+/**
+ * @class eg.Axes.RotatePanInput
+ * @classdesc A module that passes the angle moved by touch to Axes and uses one axis of rotation.<br>[Details](https://github.com/naver/egjs-axes/wiki/RotatePanInput)
+ * @ko 터치에 의해 움직인 각도를 Axes 에 전달하며 1개의 회전축만 사용한다.<br>[상세내용](https://github.com/naver/egjs-axes/wiki/RotatePanInput-%7C-%ED%95%9C%EA%B5%AD%EC%96%B4)
+ *
+ * @example
+ * const input = new eg.Axes.RotatePanInput("#area");
+ *
+ * var axes = new eg.Axes({
+ *	// property name('angle') could be anything you want (eg. x, y, z...)
+ * 	angle: {
+ * 		range: [-180, 180] // from -180deg to 180deg
+ * 	}
+ * });
+ *
+ * axes.connect("angle", input)
+ *
+ * @param {HTMLElement|String|jQuery} element An element to use the eg.Axes.RotatePanInput module <ko>eg.Axes.RotatePanInput 모듈을 사용할 엘리먼트</ko>
+ * @param {PanInputOption} [options] The option object of the eg.Axes.PanInput module<ko>eg.Axes.PanInput 모듈의 옵션 객체</ko>
+ * @extends eg.Axes.PanInput
+ */
+
+
+exports.PanInput = PanInput;
+
+var RotatePanInput = /*#__PURE__*/function (_super) {
+  __extends(RotatePanInput, _super);
+
+  function RotatePanInput(el, options) {
+    var _this = _super.call(this, el, options) || this;
+
+    _this.prevQuadrant = null;
+    _this.lastDiff = 0;
+    return _this;
+  }
+
+  var __proto = RotatePanInput.prototype;
+
+  __proto.mapAxes = function (axes) {
+    this._direction = Axes.DIRECTION_ALL;
+    this.axes = axes;
+  };
+
+  __proto.onHammerInput = function (event) {
+    if (this.isEnable()) {
+      if (event.isFirst) {
+        this.observer.hold(this, event);
+        this.onPanstart(event);
+      } else if (event.isFinal) {
+        this.onPanend(event);
+      }
+    }
+  };
+
+  __proto.onPanstart = function (event) {
+    var rect = this.element.getBoundingClientRect();
+    /**
+     * Responsive
+     */
+    // TODO: how to do if element is ellipse not circle.
+
+    this.coefficientForDistanceToAngle = 360 / (rect.width * Math.PI); // from 2*pi*r * x / 360
+    // TODO: provide a way to set origin like https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin
+
+    this.rotateOrigin = [rect.left + (rect.width - 1) / 2, rect.top + (rect.height - 1) / 2]; // init angle.
+
+    this.prevAngle = null;
+    this.triggerChange(event);
+  };
+
+  __proto.onPanmove = function (event) {
+    this.triggerChange(event);
+  };
+
+  __proto.onPanend = function (event) {
+    this.triggerChange(event);
+    this.triggerAnimation(event);
+  };
+
+  __proto.triggerChange = function (event) {
+    var angle = this.getAngle(event.center.x, event.center.y);
+    var quadrant = this.getQuadrant(event.center.x, event.center.y);
+    var diff = this.getDifference(this.prevAngle, angle, this.prevQuadrant, quadrant);
+    this.prevAngle = angle;
+    this.prevQuadrant = quadrant;
+
+    if (diff === 0) {
+      return;
+    }
+
+    this.lastDiff = diff;
+    this.observer.change(this, event, toAxis(this.axes, [-diff])); // minus for clockwise
+  };
+
+  __proto.triggerAnimation = function (event) {
+    var vx = event.velocityX;
+    var vy = event.velocityY;
+    var velocity = Math.sqrt(vx * vx + vy * vy) * (this.lastDiff > 0 ? -1 : 1); // clockwise
+
+    var duration = Math.abs(velocity / -this.observer.options.deceleration);
+    var distance = velocity / 2 * duration;
+    this.observer.release(this, event, toAxis(this.axes, [distance * this.coefficientForDistanceToAngle]));
+  };
+
+  __proto.getDifference = function (prevAngle, angle, prevQuadrant, quadrant) {
+    var diff;
+
+    if (prevAngle === null) {
+      diff = 0;
+    } else if (prevQuadrant === 1 && quadrant === 4) {
+      diff = -prevAngle - (360 - angle);
+    } else if (prevQuadrant === 4 && quadrant === 1) {
+      diff = 360 - prevAngle + angle;
+    } else {
+      diff = angle - prevAngle;
+    }
+
+    return diff;
+  };
+
+  __proto.getPosFromOrigin = function (posX, posY) {
+    return {
+      x: posX - this.rotateOrigin[0],
+      y: this.rotateOrigin[1] - posY
+    };
+  };
+
+  __proto.getAngle = function (posX, posY) {
+    var _a = this.getPosFromOrigin(posX, posY),
+        x = _a.x,
+        y = _a.y;
+
+    var angle = Math.atan2(y, x) * 180 / Math.PI; // console.log(angle, x, y);
+
+    return angle < 0 ? 360 + angle : angle;
+  };
+  /**
+   * Quadrant
+   *       y(+)
+   *       |
+   *   2   |    1
+   * --------------->x(+)
+   *   3   |    4
+   *       |
+   */
+
+
+  __proto.getQuadrant = function (posX, posY) {
+    var _a = this.getPosFromOrigin(posX, posY),
+        x = _a.x,
+        y = _a.y;
+
+    var q = 0;
+
+    if (x >= 0 && y >= 0) {
+      q = 1;
+    } else if (x < 0 && y >= 0) {
+      q = 2;
+    } else if (x < 0 && y < 0) {
+      q = 3;
+    } else if (x >= 0 && y < 0) {
+      q = 4;
+    }
+
+    return q;
+  };
+
+  return RotatePanInput;
+}(PanInput);
+/**
+ * @typedef {Object} PinchInputOption The option object of the eg.Axes.PinchInput module
+ * @ko eg.Axes.PinchInput 모듈의 옵션 객체
+ * @property {Number} [scale=1] Coordinate scale that a user can move<ko>사용자의 동작으로 이동하는 좌표의 배율</ko>
+ * @property {Number} [threshold=0] Minimal scale before recognizing <ko>사용자의 Pinch 동작을 인식하기 위해산 최소한의 배율</ko>
+ * @property {Object} [hammerManagerOptions={cssProps: {userSelect: "none",touchSelect: "none",touchCallout: "none",userDrag: "none"}] Options of Hammer.Manager <ko>Hammer.Manager의 옵션</ko>
+**/
+
+/**
+ * @class eg.Axes.PinchInput
+ * @classdesc A module that passes the amount of change to eg.Axes when two pointers are moving toward (zoom-in) or away from each other (zoom-out). use one axis.
+ * @ko 2개의 pointer를 이용하여 zoom-in하거나 zoom-out 하는 동작의 변화량을 eg.Axes에 전달하는 모듈. 한 개 의 축을 사용한다.
+ * @example
+ * const pinch = new eg.Axes.PinchInput("#area", {
+ * 		scale: 1
+ * });
+ *
+ * // Connect 'something' axis when two pointers are moving toward (zoom-in) or away from each other (zoom-out).
+ * axes.connect("something", pinch);
+ *
+ * @param {HTMLElement|String|jQuery} element An element to use the eg.Axes.PinchInput module <ko>eg.Axes.PinchInput 모듈을 사용할 엘리먼트</ko>
+ * @param {PinchInputOption} [options] The option object of the eg.Axes.PinchInput module<ko>eg.Axes.PinchInput 모듈의 옵션 객체</ko>
+ */
+
+
+exports.RotatePanInput = RotatePanInput;
+
+var PinchInput = /*#__PURE__*/function () {
+  function PinchInput(el, options) {
+    this.axes = [];
+    this.hammer = null;
+    this.element = null;
+    this._base = null;
+    this._prev = null;
+    this.pinchRecognizer = null;
+    /**
+     * Hammer helps you add support for touch gestures to your page
+     *
+     * @external Hammer
+     * @see {@link http://hammerjs.github.io|Hammer.JS}
+     * @see {@link http://hammerjs.github.io/jsdoc/Hammer.html|Hammer.JS API documents}
+     * @see Hammer.JS applies specific CSS properties by {@link http://hammerjs.github.io/jsdoc/Hammer.defaults.cssProps.html|default} when creating an instance. The eg.Axes module removes all default CSS properties provided by Hammer.JS
+     */
+
+    if (typeof _hammerjs.Manager === "undefined") {
+      throw new Error("The Hammerjs must be loaded before eg.Axes.PinchInput.\nhttp://hammerjs.github.io/");
+    }
+
+    this.element = $(el);
+    this.options = __assign({
+      scale: 1,
+      threshold: 0,
+      inputType: ["touch", "pointer"],
+      hammerManagerOptions: {
+        // css properties were removed due to usablility issue
+        // http://hammerjs.github.io/jsdoc/Hammer.defaults.cssProps.html
+        cssProps: {
+          userSelect: "none",
+          touchSelect: "none",
+          touchCallout: "none",
+          userDrag: "none"
+        }
+      }
+    }, options);
+    this.onPinchStart = this.onPinchStart.bind(this);
+    this.onPinchMove = this.onPinchMove.bind(this);
+    this.onPinchEnd = this.onPinchEnd.bind(this);
+  }
+
+  var __proto = PinchInput.prototype;
+
+  __proto.mapAxes = function (axes) {
+    this.axes = axes;
+  };
+
+  __proto.connect = function (observer) {
+    var hammerOption = {
+      threshold: this.options.threshold
+    };
+
+    if (this.hammer) {
+      // for sharing hammer instance.
+      // hammer remove previous PinchRecognizer.
+      this.removeRecognizer();
+      this.dettachEvent();
+    } else {
+      var keyValue = this.element[UNIQUEKEY];
+
+      if (!keyValue) {
+        keyValue = String(Math.round(Math.random() * new Date().getTime()));
+      }
+
+      var inputClass = convertInputType(this.options.inputType);
+
+      if (!inputClass) {
+        throw new Error("Wrong inputType parameter!");
+      }
+
+      this.hammer = createHammer(this.element, __assign({
+        inputClass: inputClass
+      }, this.options.hammerManagerOptions));
+      this.element[UNIQUEKEY] = keyValue;
+    }
+
+    this.pinchRecognizer = new _hammerjs.Pinch(hammerOption);
+    this.hammer.add(this.pinchRecognizer);
+    this.attachEvent(observer);
+    return this;
+  };
+
+  __proto.disconnect = function () {
+    this.removeRecognizer();
+
+    if (this.hammer) {
+      this.hammer.remove(this.pinchRecognizer);
+      this.pinchRecognizer = null;
+      this.dettachEvent();
+    }
+
+    return this;
+  };
+  /**
+  * Destroys elements, properties, and events used in a module.
+  * @ko 모듈에 사용한 엘리먼트와 속성, 이벤트를 해제한다.
+  * @method eg.Axes.PinchInput#destroy
+  */
+
+
+  __proto.destroy = function () {
+    this.disconnect();
+
+    if (this.hammer && this.hammer.recognizers.length === 0) {
+      this.hammer.destroy();
+    }
+
+    delete this.element[UNIQUEKEY];
+    this.element = null;
+    this.hammer = null;
+  };
+
+  __proto.removeRecognizer = function () {
+    if (this.hammer && this.pinchRecognizer) {
+      this.hammer.remove(this.pinchRecognizer);
+      this.pinchRecognizer = null;
+    }
+  };
+
+  __proto.onPinchStart = function (event) {
+    this._base = this.observer.get(this)[this.axes[0]];
+    var offset = this.getOffset(event.scale);
+    this.observer.hold(this, event);
+    this.observer.change(this, event, toAxis(this.axes, [offset]));
+    this._prev = event.scale;
+  };
+
+  __proto.onPinchMove = function (event) {
+    var offset = this.getOffset(event.scale, this._prev);
+    this.observer.change(this, event, toAxis(this.axes, [offset]));
+    this._prev = event.scale;
+  };
+
+  __proto.onPinchEnd = function (event) {
+    var offset = this.getOffset(event.scale, this._prev);
+    this.observer.change(this, event, toAxis(this.axes, [offset]));
+    this.observer.release(this, event, toAxis(this.axes, [0]), 0);
+    this._base = null;
+    this._prev = null;
+  };
+
+  __proto.getOffset = function (pinchScale, prev) {
+    if (prev === void 0) {
+      prev = 1;
+    }
+
+    return this._base * (pinchScale - prev) * this.options.scale;
+  };
+
+  __proto.attachEvent = function (observer) {
+    this.observer = observer;
+    this.hammer.on("pinchstart", this.onPinchStart).on("pinchmove", this.onPinchMove).on("pinchend", this.onPinchEnd);
+  };
+
+  __proto.dettachEvent = function () {
+    this.hammer.off("pinchstart", this.onPinchStart).off("pinchmove", this.onPinchMove).off("pinchend", this.onPinchEnd);
+    this.observer = null;
+    this._prev = null;
+  };
+  /**
+   * Enables input devices
+   * @ko 입력 장치를 사용할 수 있게 한다
+   * @method eg.Axes.PinchInput#enable
+   * @return {eg.Axes.PinchInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.enable = function () {
+    this.hammer && (this.hammer.get("pinch").options.enable = true);
+    return this;
+  };
+  /**
+   * Disables input devices
+   * @ko 입력 장치를 사용할 수 없게 한다.
+   * @method eg.Axes.PinchInput#disable
+   * @return {eg.Axes.PinchInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.disable = function () {
+    this.hammer && (this.hammer.get("pinch").options.enable = false);
+    return this;
+  };
+  /**
+   * Returns whether to use an input device
+   * @ko 입력 장치를 사용 여부를 반환한다.
+   * @method eg.Axes.PinchInput#isEnable
+   * @return {Boolean} Whether to use an input device <ko>입력장치 사용여부</ko>
+   */
+
+
+  __proto.isEnable = function () {
+    return !!(this.hammer && this.hammer.get("pinch").options.enable);
+  };
+
+  return PinchInput;
+}();
+/**
+ * @typedef {Object} WheelInputOption The option object of the eg.Axes.WheelInput module
+ * @ko eg.Axes.WheelInput 모듈의 옵션 객체
+ * @property {Number} [scale=1] Coordinate scale that a user can move<ko>사용자의 동작으로 이동하는 좌표의 배율</ko>
+**/
+
+/**
+ * @class eg.Axes.WheelInput
+ * @classdesc A module that passes the amount of change to eg.Axes when the mouse wheel is moved. use one axis.
+ * @ko 마우스 휠이 움직일때의 변화량을 eg.Axes에 전달하는 모듈. 한 개 의 축을 사용한다.
+ *
+ * @example
+ * const wheel = new eg.Axes.WheelInput("#area", {
+ * 		scale: 1
+ * });
+ *
+ * // Connect 'something' axis when the mousewheel is moved.
+ * axes.connect("something", wheel);
+ *
+ * @param {HTMLElement|String|jQuery} element An element to use the eg.Axes.WheelInput module <ko>eg.Axes.WheelInput 모듈을 사용할 엘리먼트</ko>
+ * @param {WheelInputOption} [options] The option object of the eg.Axes.WheelInput module<ko>eg.Axes.WheelInput 모듈의 옵션 객체</ko>
+ */
+
+
+exports.PinchInput = PinchInput;
+
+var WheelInput = /*#__PURE__*/function () {
+  function WheelInput(el, options) {
+    this.axes = [];
+    this.element = null;
+    this._isEnabled = false;
+    this._isHolded = false;
+    this._timer = null;
+    this.element = $(el);
+    this.options = __assign({
+      scale: 1,
+      useNormalized: true
+    }, options);
+    this.onWheel = this.onWheel.bind(this);
+  }
+
+  var __proto = WheelInput.prototype;
+
+  __proto.mapAxes = function (axes) {
+    this.axes = axes;
+  };
+
+  __proto.connect = function (observer) {
+    this.dettachEvent();
+    this.attachEvent(observer);
+    return this;
+  };
+
+  __proto.disconnect = function () {
+    this.dettachEvent();
+    return this;
+  };
+  /**
+  * Destroys elements, properties, and events used in a module.
+  * @ko 모듈에 사용한 엘리먼트와 속성, 이벤트를 해제한다.
+  * @method eg.Axes.WheelInput#destroy
+  */
+
+
+  __proto.destroy = function () {
+    this.disconnect();
+    this.element = null;
+  };
+
+  __proto.onWheel = function (event) {
+    var _this = this;
+
+    if (!this._isEnabled) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.deltaY === 0) {
+      return;
+    }
+
+    if (!this._isHolded) {
+      this.observer.hold(this, event);
+      this._isHolded = true;
+    }
+
+    var offset = (event.deltaY > 0 ? -1 : 1) * this.options.scale * (this.options.useNormalized ? 1 : Math.abs(event.deltaY));
+    this.observer.change(this, event, toAxis(this.axes, [offset]));
+    clearTimeout(this._timer);
+    this._timer = setTimeout(function () {
+      if (_this._isHolded) {
+        _this._isHolded = false;
+
+        _this.observer.release(_this, event, toAxis(_this.axes, [0]));
+      }
+    }, 50);
+  };
+
+  __proto.attachEvent = function (observer) {
+    this.observer = observer;
+    this.element.addEventListener("wheel", this.onWheel);
+    this._isEnabled = true;
+  };
+
+  __proto.dettachEvent = function () {
+    this.element.removeEventListener("wheel", this.onWheel);
+    this._isEnabled = false;
+    this.observer = null;
+
+    if (this._timer) {
+      clearTimeout(this._timer);
+      this._timer = null;
+    }
+  };
+  /**
+   * Enables input devices
+   * @ko 입력 장치를 사용할 수 있게 한다
+   * @method eg.Axes.WheelInput#enable
+   * @return {eg.Axes.WheelInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.enable = function () {
+    this._isEnabled = true;
+    return this;
+  };
+  /**
+   * Disables input devices
+   * @ko 입력 장치를 사용할 수 없게 한다.
+   * @method eg.Axes.WheelInput#disable
+   * @return {eg.Axes.WheelInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.disable = function () {
+    this._isEnabled = false;
+    return this;
+  };
+  /**
+   * Returns whether to use an input device
+   * @ko 입력 장치를 사용 여부를 반환한다.
+   * @method eg.Axes.WheelInput#isEnable
+   * @return {Boolean} Whether to use an input device <ko>입력장치 사용여부</ko>
+   */
+
+
+  __proto.isEnable = function () {
+    return this._isEnabled;
+  };
+
+  return WheelInput;
+}();
+
+exports.WheelInput = WheelInput;
+var KEY_LEFT_ARROW = 37;
+var KEY_A = 65;
+var KEY_UP_ARROW = 38;
+var KEY_W = 87;
+var KEY_RIGHT_ARROW = 39;
+var KEY_D = 68;
+var KEY_DOWN_ARROW = 40;
+var KEY_S = 83;
+var DIRECTION_REVERSE = -1;
+var DIRECTION_FORWARD = 1;
+var DIRECTION_HORIZONTAL$1 = -1;
+var DIRECTION_VERTICAL$1 = 1;
+var DELAY = 80;
+/**
+ * @typedef {Object} MoveKeyInputOption The option object of the eg.Axes.MoveKeyInput module
+ * @ko eg.Axes.MoveKeyInput 모듈의 옵션 객체
+ * @property {Array<Number>} [scale] Coordinate scale that a user can move<ko>사용자의 동작으로 이동하는 좌표의 배율</ko>
+ * @property {Number} [scale[0]=1] Coordinate scale for the first axis<ko>첫번째 축의 배율</ko>
+ * @property {Number} [scale[1]=1] Coordinate scale for the decond axis<ko>두번째 축의 배율</ko>
+**/
+
+/**
+ * @class eg.Axes.MoveKeyInput
+ * @classdesc A module that passes the amount of change to eg.Axes when the move key stroke is occured. use two axis.
+ * @ko 이동키 입력이 발생했을 때의 변화량을 eg.Axes에 전달하는 모듈. 두 개 의 축을 사용한다.
+ *
+ * @example
+ * const moveKey = new eg.Axes.MoveKeyInput("#area", {
+ * 		scale: [1, 1]
+ * });
+ *
+ * // Connect 'x', 'y' axes when the moveKey is pressed.
+ * axes.connect(["x", "y"], moveKey);
+ *
+ * @param {HTMLElement|String|jQuery} element An element to use the eg.Axes.MoveKeyInput module <ko>eg.Axes.MoveKeyInput 모듈을 사용할 엘리먼트</ko>
+ * @param {MoveKeyInputOption} [options] The option object of the eg.Axes.MoveKeyInput module<ko>eg.Axes.MoveKeyInput 모듈의 옵션 객체</ko>
+ */
+
+var MoveKeyInput = /*#__PURE__*/function () {
+  function MoveKeyInput(el, options) {
+    this.axes = [];
+    this.element = null;
+    this._isEnabled = false;
+    this._isHolded = false;
+    this._timer = null;
+    this.element = $(el);
+    this.options = __assign({
+      scale: [1, 1]
+    }, options);
+    this.onKeydown = this.onKeydown.bind(this);
+    this.onKeyup = this.onKeyup.bind(this);
+  }
+
+  var __proto = MoveKeyInput.prototype;
+
+  __proto.mapAxes = function (axes) {
+    this.axes = axes;
+  };
+
+  __proto.connect = function (observer) {
+    this.dettachEvent(); // add tabindex="0" to the container for making it focusable
+
+    if (this.element.getAttribute("tabindex") !== "0") {
+      this.element.setAttribute("tabindex", "0");
+    }
+
+    this.attachEvent(observer);
+    return this;
+  };
+
+  __proto.disconnect = function () {
+    this.dettachEvent();
+    return this;
+  };
+  /**
+  * Destroys elements, properties, and events used in a module.
+  * @ko 모듈에 사용한 엘리먼트와 속성, 이벤트를 해제한다.
+  * @method eg.Axes.MoveKeyInput#destroy
+  */
+
+
+  __proto.destroy = function () {
+    this.disconnect();
+    this.element = null;
+  };
+
+  __proto.onKeydown = function (e) {
+    if (!this._isEnabled) {
+      return;
+    }
+
+    var isMoveKey = true;
+    var direction = DIRECTION_FORWARD;
+    var move = DIRECTION_HORIZONTAL$1;
+
+    switch (e.keyCode) {
+      case KEY_LEFT_ARROW:
+      case KEY_A:
+        direction = DIRECTION_REVERSE;
+        break;
+
+      case KEY_RIGHT_ARROW:
+      case KEY_D:
+        break;
+
+      case KEY_DOWN_ARROW:
+      case KEY_S:
+        direction = DIRECTION_REVERSE;
+        move = DIRECTION_VERTICAL$1;
+        break;
+
+      case KEY_UP_ARROW:
+      case KEY_W:
+        move = DIRECTION_VERTICAL$1;
+        break;
+
+      default:
+        isMoveKey = false;
+    }
+
+    if (move === DIRECTION_HORIZONTAL$1 && !this.axes[0] || move === DIRECTION_VERTICAL$1 && !this.axes[1]) {
+      isMoveKey = false;
+    }
+
+    if (!isMoveKey) {
+      return;
+    }
+
+    var offsets = move === DIRECTION_HORIZONTAL$1 ? [+this.options.scale[0] * direction, 0] : [0, +this.options.scale[1] * direction];
+
+    if (!this._isHolded) {
+      this.observer.hold(this, event);
+      this._isHolded = true;
+    }
+
+    clearTimeout(this._timer);
+    this.observer.change(this, event, toAxis(this.axes, offsets));
+  };
+
+  __proto.onKeyup = function (e) {
+    var _this = this;
+
+    if (!this._isHolded) {
+      return;
+    }
+
+    clearTimeout(this._timer);
+    this._timer = setTimeout(function () {
+      _this.observer.release(_this, e, toAxis(_this.axes, [0, 0]));
+
+      _this._isHolded = false;
+    }, DELAY);
+  };
+
+  __proto.attachEvent = function (observer) {
+    this.observer = observer;
+    this.element.addEventListener("keydown", this.onKeydown, false);
+    this.element.addEventListener("keypress", this.onKeydown, false);
+    this.element.addEventListener("keyup", this.onKeyup, false);
+    this._isEnabled = true;
+  };
+
+  __proto.dettachEvent = function () {
+    this.element.removeEventListener("keydown", this.onKeydown, false);
+    this.element.removeEventListener("keypress", this.onKeydown, false);
+    this.element.removeEventListener("keyup", this.onKeyup, false);
+    this._isEnabled = false;
+    this.observer = null;
+  };
+  /**
+   * Enables input devices
+   * @ko 입력 장치를 사용할 수 있게 한다
+   * @method eg.Axes.MoveKeyInput#enable
+   * @return {eg.Axes.MoveKeyInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.enable = function () {
+    this._isEnabled = true;
+    return this;
+  };
+  /**
+   * Disables input devices
+   * @ko 입력 장치를 사용할 수 없게 한다.
+   * @method eg.Axes.MoveKeyInput#disable
+   * @return {eg.Axes.MoveKeyInput} An instance of a module itself <ko>모듈 자신의 인스턴스</ko>
+   */
+
+
+  __proto.disable = function () {
+    this._isEnabled = false;
+    return this;
+  };
+  /**
+   * Returns whether to use an input device
+   * @ko 입력 장치를 사용 여부를 반환한다.
+   * @method eg.Axes.MoveKeyInput#isEnable
+   * @return {Boolean} Whether to use an input device <ko>입력장치 사용여부</ko>
+   */
+
+
+  __proto.isEnable = function () {
+    return this._isEnabled;
+  };
+
+  return MoveKeyInput;
+}();
+
+exports.MoveKeyInput = MoveKeyInput;
+var _default = Axes;
+exports.default = _default;
+},{"@egjs/hammerjs":"node_modules/@egjs/hammerjs/dist/hammer.esm.js","@egjs/agent":"node_modules/@egjs/agent/dist/agent.esm.js","@egjs/component":"node_modules/@egjs/component/dist/component.esm.js"}],"node_modules/@egjs/flicking/dist/flicking.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.withFlickingMethods = withFlickingMethods;
+exports.MOVE_TYPE = exports.DEFAULT_OPTIONS = exports.default = void 0;
+
+var _component = _interopRequireDefault(require("@egjs/component"));
+
+var _imready = _interopRequireDefault(require("@egjs/imready"));
+
+var _axes = _interopRequireWildcard(require("@egjs/axes"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/*
+Copyright (c) 2015-present NAVER Corp.
+name: @egjs/flicking
+license: MIT
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-flicking
+version: 3.7.1
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  extendStatics(d, b);
+
+  function __() {
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __spreadArrays() {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
+
+  return r;
+}
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var MOVE_TYPE = {
+  SNAP: "snap",
+  FREE_SCROLL: "freeScroll"
+};
+exports.MOVE_TYPE = MOVE_TYPE;
+var DEFAULT_MOVE_TYPE_OPTIONS = {
+  snap: {
+    type: "snap",
+    count: 1
+  },
+  freeScroll: {
+    type: "freeScroll"
+  }
+};
+var isBrowser = typeof document !== "undefined";
+/**
+ * Default options for creating Flicking.
+ * @ko 플리킹을 만들 때 사용하는 기본 옵션들
+ * @private
+ * @memberof eg.Flicking
+ */
+
+var DEFAULT_OPTIONS = {
+  classPrefix: "eg-flick",
+  deceleration: 0.0075,
+  horizontal: true,
+  circular: false,
+  infinite: false,
+  infiniteThreshold: 0,
+  lastIndex: Infinity,
+  threshold: 40,
+  duration: 100,
+  panelEffect: function (x) {
+    return 1 - Math.pow(1 - x, 3);
+  },
+  defaultIndex: 0,
+  inputType: ["touch", "mouse"],
+  thresholdAngle: 45,
+  bounce: 10,
+  autoResize: false,
+  adaptive: false,
+  zIndex: 2000,
+  bound: false,
+  overflow: false,
+  hanger: "50%",
+  anchor: "50%",
+  gap: 0,
+  moveType: DEFAULT_MOVE_TYPE_OPTIONS.snap,
+  useOffset: false,
+  isEqualSize: false,
+  isConstantSize: false,
+  renderOnlyVisible: false,
+  renderExternal: false,
+  resizeOnContentsReady: false,
+  iOSEdgeSwipeThreshold: 30,
+  collectStatistics: true
+};
+exports.DEFAULT_OPTIONS = DEFAULT_OPTIONS;
+var DEFAULT_VIEWPORT_CSS = {
+  position: "relative",
+  zIndex: DEFAULT_OPTIONS.zIndex,
+  overflow: "hidden"
+};
+var DEFAULT_CAMERA_CSS = {
+  width: "100%",
+  height: "100%",
+  willChange: "transform"
+};
+var DEFAULT_PANEL_CSS = {
+  position: "absolute"
+};
+var EVENTS = {
+  HOLD_START: "holdStart",
+  HOLD_END: "holdEnd",
+  MOVE_START: "moveStart",
+  MOVE: "move",
+  MOVE_END: "moveEnd",
+  CHANGE: "change",
+  RESTORE: "restore",
+  SELECT: "select",
+  NEED_PANEL: "needPanel",
+  VISIBLE_CHANGE: "visibleChange",
+  CONTENT_ERROR: "contentError"
+};
+var AXES_EVENTS = {
+  HOLD: "hold",
+  CHANGE: "change",
+  RELEASE: "release",
+  ANIMATION_END: "animationEnd",
+  FINISH: "finish"
+};
+var STATE_TYPE = {
+  IDLE: 0,
+  HOLDING: 1,
+  DRAGGING: 2,
+  ANIMATING: 3,
+  DISABLED: 4
+};
+var DIRECTION = {
+  PREV: "PREV",
+  NEXT: "NEXT"
+};
+var FLICKING_METHODS = {
+  prev: true,
+  next: true,
+  moveTo: true,
+  getIndex: true,
+  getAllPanels: true,
+  getCurrentPanel: true,
+  getElement: true,
+  getSize: true,
+  getPanel: true,
+  getPanelCount: true,
+  getStatus: true,
+  getVisiblePanels: true,
+  enableInput: true,
+  disableInput: true,
+  destroy: true,
+  resize: true,
+  setStatus: true,
+  isPlaying: true
+}; // Check whether browser supports transform: translate3d
+// https://stackoverflow.com/questions/5661671/detecting-transform-translate3d-support
+
+var checkTranslateSupport = function () {
+  var transforms = {
+    webkitTransform: "-webkit-transform",
+    msTransform: "-ms-transform",
+    MozTransform: "-moz-transform",
+    OTransform: "-o-transform",
+    transform: "transform"
+  };
+
+  if (!isBrowser) {
+    return {
+      name: transforms.transform,
+      has3d: true
+    };
+  }
+
+  var supportedStyle = document.documentElement.style;
+  var transformName = "";
+
+  for (var prefixedTransform in transforms) {
+    if (prefixedTransform in supportedStyle) {
+      transformName = prefixedTransform;
+    }
+  }
+
+  if (!transformName) {
+    throw new Error("Browser doesn't support CSS3 2D Transforms.");
+  }
+
+  var el = document.createElement("div");
+  document.documentElement.insertBefore(el, null);
+  el.style[transformName] = "translate3d(1px, 1px, 1px)";
+  var styleVal = window.getComputedStyle(el).getPropertyValue(transforms[transformName]);
+  el.parentElement.removeChild(el);
+  var transformInfo = {
+    name: transformName,
+    has3d: styleVal.length > 0 && styleVal !== "none"
+  };
+
+  checkTranslateSupport = function () {
+    return transformInfo;
+  };
+
+  return transformInfo;
+};
+
+var TRANSFORM = checkTranslateSupport();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+function merge(target) {
+  var srcs = [];
+
+  for (var _i = 1; _i < arguments.length; _i++) {
+    srcs[_i - 1] = arguments[_i];
+  }
+
+  srcs.forEach(function (source) {
+    Object.keys(source).forEach(function (key) {
+      var value = source[key];
+      target[key] = value;
+    });
+  });
+  return target;
+}
+
+function parseElement(element) {
+  if (!Array.isArray(element)) {
+    element = [element];
+  }
+
+  var elements = [];
+  element.forEach(function (el) {
+    if (isString(el)) {
+      var tempDiv = document.createElement("div");
+      tempDiv.innerHTML = el;
+      elements.push.apply(elements, toArray(tempDiv.children));
+
+      while (tempDiv.firstChild) {
+        tempDiv.removeChild(tempDiv.firstChild);
+      }
+    } else {
+      elements.push(el);
+    }
+  });
+  return elements;
+}
+
+function isString(value) {
+  return typeof value === "string";
+} // Get class list of element as string array
+
+
+function addClass(element, className) {
+  if (element.classList) {
+    element.classList.add(className);
+  } else {
+    if (!hasClass(element, className)) {
+      element.className = (element.className + " " + className).replace(/\s{2,}/g, " ");
+    }
+  }
+}
+
+function hasClass(element, className) {
+  if (element.classList) {
+    return element.classList.contains(className);
+  } else {
+    return element.className.split(" ").indexOf(className) >= 0;
+  }
+}
+
+function applyCSS(element, cssObj) {
+  Object.keys(cssObj).forEach(function (property) {
+    element.style[property] = cssObj[property];
+  });
+}
+
+function clamp(val, min, max) {
+  return Math.max(Math.min(val, max), min);
+} // Min: inclusive, Max: exclusive
+
+
+function isBetween(val, min, max) {
+  return val >= min && val <= max;
+}
+
+function toArray(iterable) {
+  return [].slice.call(iterable);
+}
+
+function isArray(arr) {
+  return arr && arr.constructor === Array;
+}
+
+function parseArithmeticExpression(cssValue, base, defaultVal) {
+  // Set base / 2 to default value, if it's undefined
+  var defaultValue = defaultVal != null ? defaultVal : base / 2;
+  var cssRegex = /(?:(\+|\-)\s*)?(\d+(?:\.\d+)?(%|px)?)/g;
+
+  if (typeof cssValue === "number") {
+    return clamp(cssValue, 0, base);
+  }
+
+  var idx = 0;
+  var calculatedValue = 0;
+  var matchResult = cssRegex.exec(cssValue);
+
+  while (matchResult != null) {
+    var sign = matchResult[1];
+    var value = matchResult[2];
+    var unit = matchResult[3];
+    var parsedValue = parseFloat(value);
+
+    if (idx <= 0) {
+      sign = sign || "+";
+    } // Return default value for values not in good form
+
+
+    if (!sign) {
+      return defaultValue;
+    }
+
+    if (unit === "%") {
+      parsedValue = parsedValue / 100 * base;
+    }
+
+    calculatedValue += sign === "+" ? parsedValue : -parsedValue; // Match next occurrence
+
+    ++idx;
+    matchResult = cssRegex.exec(cssValue);
+  } // None-matched
+
+
+  if (idx === 0) {
+    return defaultValue;
+  } // Clamp between 0 ~ base
+
+
+  return clamp(calculatedValue, 0, base);
+}
+
+function getProgress(pos, range) {
+  // start, anchor, end
+  // -1 , 0 , 1
+  var min = range[0],
+      center = range[1],
+      max = range[2];
+
+  if (pos > center && max - center) {
+    // 0 ~ 1
+    return (pos - center) / (max - center);
+  } else if (pos < center && center - min) {
+    // -1 ~ 0
+    return (pos - center) / (center - min);
+  } else if (pos !== center && max - min) {
+    return (pos - min) / (max - min);
+  }
+
+  return 0;
+}
+
+function findIndex(iterable, callback) {
+  for (var i = 0; i < iterable.length; i += 1) {
+    var element = iterable[i];
+
+    if (element && callback(element)) {
+      return i;
+    }
+  }
+
+  return -1;
+} // return [0, 1, ...., max - 1]
+
+
+function counter(max) {
+  var counterArray = [];
+
+  for (var i = 0; i < max; i += 1) {
+    counterArray[i] = i;
+  }
+
+  return counterArray;
+} // Circulate number between range [min, max]
+
+/*
+ * "indexed" means min and max is not same, so if it's true "min - 1" should be max
+ * While if it's false, "min - 1" should be "max - 1"
+ * use `indexed: true` when it should be used for circulating integers like index
+ * or `indexed: false` when it should be used for something like positions.
+ */
+
+
+function circulate(value, min, max, indexed) {
+  var size = indexed ? max - min + 1 : max - min;
+
+  if (value < min) {
+    var offset = indexed ? (min - value - 1) % size : (min - value) % size;
+    value = max - offset;
+  } else if (value > max) {
+    var offset = indexed ? (value - max - 1) % size : (value - max) % size;
+    value = min + offset;
+  }
+
+  return value;
+}
+
+function restoreStyle(element, originalStyle) {
+  originalStyle.className ? element.setAttribute("class", originalStyle.className) : element.removeAttribute("class");
+  originalStyle.style ? element.setAttribute("style", originalStyle.style) : element.removeAttribute("style");
+}
+/**
+ * Decorator that makes the method of flicking available in the framework.
+ * @ko 프레임워크에서 플리킹의 메소드를 사용할 수 있게 하는 데코레이터.
+ * @memberof eg.Flicking
+ * @private
+ * @example
+ * ```js
+ * import Flicking, { withFlickingMethods } from "@egjs/flicking";
+ *
+ * class Flicking extends React.Component<Partial<FlickingProps & FlickingOptions>> {
+ *   &#64;withFlickingMethods
+ *   private flicking: Flicking;
+ * }
+ * ```
+ */
+
+
+function withFlickingMethods(prototype, flickingName) {
+  Object.keys(FLICKING_METHODS).forEach(function (name) {
+    if (prototype[name]) {
+      return;
+    }
+
+    prototype[name] = function () {
+      var _a;
+
+      var args = [];
+
+      for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+      }
+
+      var result = (_a = this[flickingName])[name].apply(_a, args); // fix `this` type to return your own `flicking` instance to the instance using the decorator.
+
+
+      if (result === this[flickingName]) {
+        return this;
+      } else {
+        return result;
+      }
+    };
+  });
+}
+
+function getBbox(element, useOffset) {
+  var bbox;
+
+  if (useOffset) {
+    bbox = {
+      x: 0,
+      y: 0,
+      width: element.offsetWidth,
+      height: element.offsetHeight
+    };
+  } else {
+    var clientRect = element.getBoundingClientRect();
+    bbox = {
+      x: clientRect.left,
+      y: clientRect.top,
+      width: clientRect.width,
+      height: clientRect.height
+    };
+  }
+
+  return bbox;
+}
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var Panel = /*#__PURE__*/function () {
+  function Panel(element, index, viewport) {
+    this.viewport = viewport;
+    this.prevSibling = null;
+    this.nextSibling = null;
+    this.clonedPanels = [];
+    this.state = {
+      index: index,
+      position: 0,
+      relativeAnchorPosition: 0,
+      size: 0,
+      isClone: false,
+      isVirtual: false,
+      cloneIndex: -1,
+      originalStyle: {
+        className: "",
+        style: ""
+      },
+      cachedBbox: null
+    };
+    this.setElement(element);
+  }
+
+  var __proto = Panel.prototype;
+
+  __proto.resize = function (givenBbox) {
+    var state = this.state;
+    var options = this.viewport.options;
+    var bbox = givenBbox ? givenBbox : this.getBbox();
+    this.state.cachedBbox = bbox;
+    var prevSize = state.size;
+    state.size = options.horizontal ? bbox.width : bbox.height;
+
+    if (prevSize !== state.size) {
+      state.relativeAnchorPosition = parseArithmeticExpression(options.anchor, state.size);
+    }
+
+    if (!state.isClone) {
+      this.clonedPanels.forEach(function (panel) {
+        var cloneState = panel.state;
+        cloneState.size = state.size;
+        cloneState.cachedBbox = state.cachedBbox;
+        cloneState.relativeAnchorPosition = state.relativeAnchorPosition;
+      });
+    }
+  };
+
+  __proto.unCacheBbox = function () {
+    this.state.cachedBbox = null;
+  };
+
+  __proto.getProgress = function () {
+    var viewport = this.viewport;
+    var options = viewport.options;
+    var panelCount = viewport.panelManager.getPanelCount();
+    var scrollAreaSize = viewport.getScrollAreaSize();
+    var relativeIndex = (options.circular ? Math.floor(this.getPosition() / scrollAreaSize) * panelCount : 0) + this.getIndex();
+    var progress = relativeIndex - viewport.getCurrentProgress();
+    return progress;
+  };
+
+  __proto.getOutsetProgress = function () {
+    var viewport = this.viewport;
+    var outsetRange = [-this.getSize(), viewport.getRelativeHangerPosition() - this.getRelativeAnchorPosition(), viewport.getSize()];
+    var relativePanelPosition = this.getPosition() - viewport.getCameraPosition();
+    var outsetProgress = getProgress(relativePanelPosition, outsetRange);
+    return outsetProgress;
+  };
+
+  __proto.getVisibleRatio = function () {
+    var viewport = this.viewport;
+    var panelSize = this.getSize();
+    var relativePanelPosition = this.getPosition() - viewport.getCameraPosition();
+    var rightRelativePanelPosition = relativePanelPosition + panelSize;
+    var visibleSize = Math.min(viewport.getSize(), rightRelativePanelPosition) - Math.max(relativePanelPosition, 0);
+    var visibleRatio = visibleSize >= 0 ? visibleSize / panelSize : 0;
+    return visibleRatio;
+  };
+
+  __proto.focus = function (duration) {
+    var viewport = this.viewport;
+    var currentPanel = viewport.getCurrentPanel();
+    var hangerPosition = viewport.getHangerPosition();
+    var anchorPosition = this.getAnchorPosition();
+
+    if (hangerPosition === anchorPosition || !currentPanel) {
+      return;
+    }
+
+    var currentPosition = currentPanel.getPosition();
+    var eventType = currentPosition === this.getPosition() ? "" : EVENTS.CHANGE;
+    viewport.moveTo(this, viewport.findEstimatedPosition(this), eventType, null, duration);
+  };
+
+  __proto.update = function (updateFunction, shouldResize) {
+    if (updateFunction === void 0) {
+      updateFunction = null;
+    }
+
+    if (shouldResize === void 0) {
+      shouldResize = true;
+    }
+
+    var identicalPanels = this.getIdenticalPanels();
+
+    if (updateFunction) {
+      identicalPanels.forEach(function (eachPanel) {
+        updateFunction(eachPanel.getElement());
+      });
+    }
+
+    if (shouldResize) {
+      identicalPanels.forEach(function (eachPanel) {
+        eachPanel.unCacheBbox();
+      });
+      this.viewport.addVisiblePanel(this);
+      this.viewport.resize();
+    }
+  };
+
+  __proto.prev = function () {
+    var viewport = this.viewport;
+    var options = viewport.options;
+    var prevSibling = this.prevSibling;
+
+    if (!prevSibling) {
+      return null;
+    }
+
+    var currentIndex = this.getIndex();
+    var currentPosition = this.getPosition();
+    var prevPanelIndex = prevSibling.getIndex();
+    var prevPanelPosition = prevSibling.getPosition();
+    var prevPanelSize = prevSibling.getSize();
+    var hasEmptyPanelBetween = currentIndex - prevPanelIndex > 1;
+    var notYetMinPanel = options.infinite && currentIndex > 0 && prevPanelIndex > currentIndex;
+
+    if (hasEmptyPanelBetween || notYetMinPanel) {
+      // Empty panel exists between
+      return null;
+    }
+
+    var newPosition = currentPosition - prevPanelSize - options.gap;
+    var prevPanel = prevSibling;
+
+    if (prevPanelPosition !== newPosition) {
+      prevPanel = prevSibling.clone(prevSibling.getCloneIndex(), true);
+      prevPanel.setPosition(newPosition);
+    }
+
+    return prevPanel;
+  };
+
+  __proto.next = function () {
+    var viewport = this.viewport;
+    var options = viewport.options;
+    var nextSibling = this.nextSibling;
+    var lastIndex = viewport.panelManager.getLastIndex();
+
+    if (!nextSibling) {
+      return null;
+    }
+
+    var currentIndex = this.getIndex();
+    var currentPosition = this.getPosition();
+    var nextPanelIndex = nextSibling.getIndex();
+    var nextPanelPosition = nextSibling.getPosition();
+    var hasEmptyPanelBetween = nextPanelIndex - currentIndex > 1;
+    var notYetMaxPanel = options.infinite && currentIndex < lastIndex && nextPanelIndex < currentIndex;
+
+    if (hasEmptyPanelBetween || notYetMaxPanel) {
+      return null;
+    }
+
+    var newPosition = currentPosition + this.getSize() + options.gap;
+    var nextPanel = nextSibling;
+
+    if (nextPanelPosition !== newPosition) {
+      nextPanel = nextSibling.clone(nextSibling.getCloneIndex(), true);
+      nextPanel.setPosition(newPosition);
+    }
+
+    return nextPanel;
+  };
+
+  __proto.insertBefore = function (element) {
+    var viewport = this.viewport;
+    var parsedElements = parseElement(element);
+    var firstPanel = viewport.panelManager.firstPanel();
+    var prevSibling = this.prevSibling; // Finding correct inserting index
+    // While it should insert removing empty spaces,
+    // It also should have to be bigger than prevSibling' s index
+
+    var targetIndex = prevSibling && firstPanel.getIndex() !== this.getIndex() ? Math.max(prevSibling.getIndex() + 1, this.getIndex() - parsedElements.length) : Math.max(this.getIndex() - parsedElements.length, 0);
+    return viewport.insert(targetIndex, parsedElements);
+  };
+
+  __proto.insertAfter = function (element) {
+    return this.viewport.insert(this.getIndex() + 1, element);
+  };
+
+  __proto.remove = function () {
+    this.viewport.remove(this.getIndex());
+    return this;
+  };
+
+  __proto.destroy = function (option) {
+    if (!option.preserveUI) {
+      var originalStyle = this.state.originalStyle;
+      restoreStyle(this.element, originalStyle);
+    } // release resources
+
+
+    for (var x in this) {
+      this[x] = null;
+    }
+  };
+
+  __proto.getElement = function () {
+    return this.element;
+  };
+
+  __proto.getAnchorPosition = function () {
+    return this.state.position + this.state.relativeAnchorPosition;
+  };
+
+  __proto.getRelativeAnchorPosition = function () {
+    return this.state.relativeAnchorPosition;
+  };
+
+  __proto.getIndex = function () {
+    return this.state.index;
+  };
+
+  __proto.getPosition = function () {
+    return this.state.position;
+  };
+
+  __proto.getSize = function () {
+    return this.state.size;
+  };
+
+  __proto.getBbox = function () {
+    var state = this.state;
+    var viewport = this.viewport;
+    var element = this.element;
+    var options = viewport.options;
+
+    if (!element) {
+      state.cachedBbox = {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+      };
+    } else if (!state.cachedBbox) {
+      var wasVisible = Boolean(element.parentNode);
+      var cameraElement = viewport.getCameraElement();
+
+      if (!wasVisible) {
+        cameraElement.appendChild(element);
+        viewport.addVisiblePanel(this);
+      }
+
+      state.cachedBbox = getBbox(element, options.useOffset);
+
+      if (!wasVisible && viewport.options.renderExternal) {
+        cameraElement.removeChild(element);
+      }
+    }
+
+    return state.cachedBbox;
+  };
+
+  __proto.isClone = function () {
+    return this.state.isClone;
+  };
+
+  __proto.getOverlappedClass = function (classes) {
+    var element = this.element;
+
+    for (var _i = 0, classes_1 = classes; _i < classes_1.length; _i++) {
+      var className = classes_1[_i];
+
+      if (hasClass(element, className)) {
+        return className;
+      }
+    }
+  };
+
+  __proto.getCloneIndex = function () {
+    return this.state.cloneIndex;
+  };
+
+  __proto.getClonedPanels = function () {
+    var state = this.state;
+    return state.isClone ? this.original.getClonedPanels() : this.clonedPanels;
+  };
+
+  __proto.getIdenticalPanels = function () {
+    var state = this.state;
+    return state.isClone ? this.original.getIdenticalPanels() : __spreadArrays([this], this.clonedPanels);
+  };
+
+  __proto.getOriginalPanel = function () {
+    return this.state.isClone ? this.original : this;
+  };
+
+  __proto.setIndex = function (index) {
+    var state = this.state;
+    state.index = index;
+    this.clonedPanels.forEach(function (panel) {
+      return panel.state.index = index;
+    });
+  };
+
+  __proto.setPosition = function (pos) {
+    this.state.position = pos;
+    return this;
+  };
+
+  __proto.setPositionCSS = function (offset) {
+    if (offset === void 0) {
+      offset = 0;
+    }
+
+    if (!this.element) {
+      return;
+    }
+
+    var state = this.state;
+    var pos = state.position;
+    var options = this.viewport.options;
+    var elementStyle = this.element.style;
+    var currentElementStyle = options.horizontal ? elementStyle.left : elementStyle.top;
+    var styleToApply = pos - offset + "px";
+
+    if (!state.isVirtual && currentElementStyle !== styleToApply) {
+      options.horizontal ? elementStyle.left = styleToApply : elementStyle.top = styleToApply;
+    }
+  };
+
+  __proto.clone = function (cloneIndex, isVirtual, element) {
+    if (isVirtual === void 0) {
+      isVirtual = false;
+    }
+
+    var state = this.state;
+    var viewport = this.viewport;
+    var cloneElement = element;
+
+    if (!cloneElement && this.element) {
+      cloneElement = isVirtual ? this.element : this.element.cloneNode(true);
+    }
+
+    var clonedPanel = new Panel(cloneElement, state.index, viewport);
+    var clonedState = clonedPanel.state;
+    clonedPanel.original = state.isClone ? this.original : this;
+    clonedState.isClone = true;
+    clonedState.isVirtual = isVirtual;
+    clonedState.cloneIndex = cloneIndex; // Inherit some state values
+
+    clonedState.size = state.size;
+    clonedState.relativeAnchorPosition = state.relativeAnchorPosition;
+    clonedState.originalStyle = state.originalStyle;
+    clonedState.cachedBbox = state.cachedBbox;
+
+    if (!isVirtual) {
+      this.clonedPanels.push(clonedPanel);
+    } else {
+      clonedPanel.prevSibling = this.prevSibling;
+      clonedPanel.nextSibling = this.nextSibling;
+    }
+
+    return clonedPanel;
+  };
+
+  __proto.removeElement = function () {
+    if (!this.viewport.options.renderExternal) {
+      var element = this.element;
+      element.parentNode && element.parentNode.removeChild(element);
+    } // Do the same thing for clones
+
+
+    if (!this.state.isClone) {
+      this.removeClonedPanelsAfter(0);
+    }
+  };
+
+  __proto.removeClonedPanelsAfter = function (start) {
+    var options = this.viewport.options;
+    var removingPanels = this.clonedPanels.splice(start);
+
+    if (!options.renderExternal) {
+      removingPanels.forEach(function (panel) {
+        panel.removeElement();
+      });
+    }
+  };
+
+  __proto.setElement = function (element) {
+    if (!element) {
+      return;
+    }
+
+    var currentElement = this.element;
+
+    if (element !== currentElement) {
+      var options = this.viewport.options;
+
+      if (currentElement) {
+        if (options.horizontal) {
+          element.style.left = currentElement.style.left;
+        } else {
+          element.style.top = currentElement.style.top;
+        }
+      } else {
+        var originalStyle = this.state.originalStyle;
+        originalStyle.className = element.getAttribute("class");
+        originalStyle.style = element.getAttribute("style");
+      }
+
+      this.element = element;
+
+      if (options.classPrefix) {
+        addClass(element, options.classPrefix + "-panel");
+      } // Update size info after applying panel css
+
+
+      applyCSS(this.element, DEFAULT_PANEL_CSS);
+    }
+  };
+
+  return Panel;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var PanelManager = /*#__PURE__*/function () {
+  function PanelManager(cameraElement, options) {
+    this.cameraElement = cameraElement;
+    this.panels = [];
+    this.clones = [];
+    this.range = {
+      min: -1,
+      max: -1
+    };
+    this.length = 0;
+    this.cloneCount = 0;
+    this.options = options;
+    this.lastIndex = options.lastIndex;
+  }
+
+  var __proto = PanelManager.prototype;
+
+  __proto.firstPanel = function () {
+    return this.panels[this.range.min];
+  };
+
+  __proto.lastPanel = function () {
+    return this.panels[this.range.max];
+  };
+
+  __proto.allPanels = function () {
+    return __spreadArrays(this.panels, this.clones.reduce(function (allClones, clones) {
+      return __spreadArrays(allClones, clones);
+    }, []));
+  };
+
+  __proto.originalPanels = function () {
+    return this.panels;
+  };
+
+  __proto.clonedPanels = function () {
+    return this.clones;
+  };
+
+  __proto.replacePanels = function (newPanels, newClones) {
+    this.panels = newPanels;
+    this.clones = newClones;
+    this.range = {
+      min: findIndex(newPanels, function (panel) {
+        return Boolean(panel);
+      }),
+      max: newPanels.length - 1
+    };
+    this.length = newPanels.filter(function (panel) {
+      return Boolean(panel);
+    }).length;
+  };
+
+  __proto.has = function (index) {
+    return !!this.panels[index];
+  };
+
+  __proto.get = function (index) {
+    return this.panels[index];
+  };
+
+  __proto.getPanelCount = function () {
+    return this.length;
+  };
+
+  __proto.getLastIndex = function () {
+    return this.lastIndex;
+  };
+
+  __proto.getRange = function () {
+    return this.range;
+  };
+
+  __proto.getCloneCount = function () {
+    return this.cloneCount;
+  };
+
+  __proto.setLastIndex = function (lastIndex) {
+    this.lastIndex = lastIndex;
+    var firstPanel = this.firstPanel();
+    var lastPanel = this.lastPanel();
+
+    if (!firstPanel || !lastPanel) {
+      return; // no meaning of updating range & length
+    } // Remove panels above new last index
+
+
+    var range = this.range;
+
+    if (lastPanel.getIndex() > lastIndex) {
+      var removingPanels = this.panels.splice(lastIndex + 1);
+      this.length -= removingPanels.length;
+      var firstRemovedPanel = removingPanels.filter(function (panel) {
+        return !!panel;
+      })[0];
+      var possibleLastPanel = firstRemovedPanel.prevSibling;
+
+      if (possibleLastPanel) {
+        range.max = possibleLastPanel.getIndex();
+      } else {
+        range.min = -1;
+        range.max = -1;
+      }
+
+      if (this.shouldRender()) {
+        removingPanels.forEach(function (panel) {
+          return panel.removeElement();
+        });
+      }
+    }
+  };
+
+  __proto.setCloneCount = function (cloneCount) {
+    this.cloneCount = cloneCount;
+  }; // Insert at index
+  // Returns pushed elements from index, inserting at 'empty' position doesn't push elements behind it
+
+
+  __proto.insert = function (index, newPanels) {
+    var panels = this.panels;
+    var range = this.range;
+    var isCircular = this.options.circular;
+    var lastIndex = this.lastIndex; // Find first panel that index is greater than inserting index
+
+    var nextSibling = this.findFirstPanelFrom(index); // if it's null, element will be inserted at last position
+    // https://developer.mozilla.org/ko/docs/Web/API/Node/insertBefore#Syntax
+
+    var firstPanel = this.firstPanel();
+    var siblingElement = nextSibling ? nextSibling.getElement() : isCircular && firstPanel ? firstPanel.getClonedPanels()[0].getElement() : null; // Insert panels before sibling element
+
+    this.insertNewPanels(newPanels, siblingElement);
+    var pushedIndex = newPanels.length; // Like when setting index 50 while visible panels are 0, 1, 2
+
+    if (index > range.max) {
+      newPanels.forEach(function (panel, offset) {
+        panels[index + offset] = panel;
+      });
+    } else {
+      var panelsAfterIndex = panels.slice(index, index + newPanels.length); // Find empty from beginning
+
+      var emptyPanelCount = findIndex(panelsAfterIndex, function (panel) {
+        return !!panel;
+      });
+
+      if (emptyPanelCount < 0) {
+        // All empty
+        emptyPanelCount = panelsAfterIndex.length;
+      }
+
+      pushedIndex = newPanels.length - emptyPanelCount; // Insert removing empty panels
+
+      panels.splice.apply(panels, __spreadArrays([index, emptyPanelCount], newPanels)); // Remove panels after last index
+
+      if (panels.length > lastIndex + 1) {
+        var removedPanels = panels.splice(lastIndex + 1).filter(function (panel) {
+          return Boolean(panel);
+        });
+        this.length -= removedPanels.length; // Find first
+
+        var newLastIndex = lastIndex - findIndex(this.panels.concat().reverse(), function (panel) {
+          return !!panel;
+        }); // Can be filled with empty after newLastIndex
+
+        this.panels.splice(newLastIndex + 1);
+        this.range.max = newLastIndex;
+
+        if (this.shouldRender()) {
+          removedPanels.forEach(function (panel) {
+            return panel.removeElement();
+          });
+        }
+      }
+    } // Update index of previous panels
+
+
+    if (pushedIndex > 0) {
+      panels.slice(index + newPanels.length).forEach(function (panel) {
+        panel.setIndex(panel.getIndex() + pushedIndex);
+      });
+    } // Update state
+
+
+    this.length += newPanels.length;
+    this.updateIndex(index);
+
+    if (isCircular) {
+      this.addNewClones(index, newPanels, newPanels.length - pushedIndex, nextSibling);
+      var clones = this.clones;
+      var panelCount_1 = this.panels.length;
+
+      if (clones[0] && clones[0].length > lastIndex + 1) {
+        clones.forEach(function (cloneSet) {
+          cloneSet.splice(panelCount_1);
+        });
+      }
+    }
+
+    return pushedIndex;
+  };
+
+  __proto.replace = function (index, newPanels) {
+    var panels = this.panels;
+    var range = this.range;
+    var options = this.options;
+    var isCircular = options.circular; // Find first panel that index is greater than inserting index
+
+    var nextSibling = this.findFirstPanelFrom(index + newPanels.length); // if it's null, element will be inserted at last position
+    // https://developer.mozilla.org/ko/docs/Web/API/Node/insertBefore#Syntax
+
+    var firstPanel = this.firstPanel();
+    var siblingElement = nextSibling ? nextSibling.getElement() : isCircular && firstPanel ? firstPanel.getClonedPanels()[0].getElement() : null; // Insert panels before sibling element
+
+    this.insertNewPanels(newPanels, siblingElement);
+
+    if (index > range.max) {
+      // Temporarily insert null at index to use splice()
+      panels[index] = null;
+    }
+
+    var replacedPanels = panels.splice.apply(panels, __spreadArrays([index, newPanels.length], newPanels));
+    var wasNonEmptyCount = replacedPanels.filter(function (panel) {
+      return Boolean(panel);
+    }).length; // Suppose inserting [1, 2, 3] at 0 position when there were [empty, 1]
+    // So length should be increased by 3(inserting panels) - 1(non-empty panels)
+
+    this.length += newPanels.length - wasNonEmptyCount;
+    this.updateIndex(index);
+
+    if (isCircular) {
+      this.addNewClones(index, newPanels, newPanels.length, nextSibling);
+    }
+
+    if (this.shouldRender()) {
+      replacedPanels.forEach(function (panel) {
+        return panel && panel.removeElement();
+      });
+    }
+
+    return replacedPanels;
+  };
+
+  __proto.remove = function (index, deleteCount) {
+    if (deleteCount === void 0) {
+      deleteCount = 1;
+    }
+
+    var isCircular = this.options.circular;
+    var panels = this.panels;
+    var clones = this.clones; // Delete count should be equal or larger than 0
+
+    deleteCount = Math.max(deleteCount, 0);
+    var deletedPanels = panels.splice(index, deleteCount).filter(function (panel) {
+      return !!panel;
+    });
+
+    if (this.shouldRender()) {
+      deletedPanels.forEach(function (panel) {
+        return panel.removeElement();
+      });
+    }
+
+    if (isCircular) {
+      clones.forEach(function (cloneSet) {
+        cloneSet.splice(index, deleteCount);
+      });
+    } // Update indexes
+
+
+    panels.slice(index).forEach(function (panel) {
+      panel.setIndex(panel.getIndex() - deleteCount);
+    }); // Check last panel is empty
+
+    var lastIndex = panels.length - 1;
+
+    if (!panels[lastIndex]) {
+      var reversedPanels = panels.concat().reverse();
+      var nonEmptyIndexFromLast = findIndex(reversedPanels, function (panel) {
+        return !!panel;
+      });
+      lastIndex = nonEmptyIndexFromLast < 0 ? -1 // All empty
+      : lastIndex - nonEmptyIndexFromLast; // Remove all empty panels from last
+
+      panels.splice(lastIndex + 1);
+
+      if (isCircular) {
+        clones.forEach(function (cloneSet) {
+          cloneSet.splice(lastIndex + 1);
+        });
+      }
+    } // Update range & length
+
+
+    this.range = {
+      min: findIndex(panels, function (panel) {
+        return !!panel;
+      }),
+      max: lastIndex
+    };
+    this.length -= deletedPanels.length;
+
+    if (this.length <= 0) {
+      // Reset clones
+      this.clones = [];
+      this.cloneCount = 0;
+    }
+
+    return deletedPanels;
+  };
+
+  __proto.chainAllPanels = function () {
+    var allPanels = this.allPanels().filter(function (panel) {
+      return !!panel;
+    });
+    var allPanelsCount = allPanels.length;
+
+    if (allPanelsCount <= 1) {
+      return;
+    }
+
+    allPanels.slice(1, allPanels.length - 1).forEach(function (panel, idx) {
+      var prevPanel = allPanels[idx];
+      var nextPanel = allPanels[idx + 2];
+      panel.prevSibling = prevPanel;
+      panel.nextSibling = nextPanel;
+    });
+    var firstPanel = allPanels[0];
+    var lastPanel = allPanels[allPanelsCount - 1];
+    firstPanel.prevSibling = null;
+    firstPanel.nextSibling = allPanels[1];
+    lastPanel.prevSibling = allPanels[allPanelsCount - 2];
+    lastPanel.nextSibling = null;
+
+    if (this.options.circular) {
+      firstPanel.prevSibling = lastPanel;
+      lastPanel.nextSibling = firstPanel;
+    }
+  };
+
+  __proto.insertClones = function (cloneIndex, index, clonedPanels, deleteCount) {
+    if (deleteCount === void 0) {
+      deleteCount = 0;
+    }
+
+    var clones = this.clones;
+    var lastIndex = this.lastIndex;
+
+    if (!clones[cloneIndex]) {
+      var newClones_1 = [];
+      clonedPanels.forEach(function (panel, offset) {
+        newClones_1[index + offset] = panel;
+      });
+      clones[cloneIndex] = newClones_1;
+    } else {
+      var insertTarget_1 = clones[cloneIndex];
+
+      if (index >= insertTarget_1.length) {
+        clonedPanels.forEach(function (panel, offset) {
+          insertTarget_1[index + offset] = panel;
+        });
+      } else {
+        insertTarget_1.splice.apply(insertTarget_1, __spreadArrays([index, deleteCount], clonedPanels)); // Remove panels after last index
+
+        if (clonedPanels.length > lastIndex + 1) {
+          clonedPanels.splice(lastIndex + 1);
+        }
+      }
+    }
+  }; // clones are operating in set
+
+
+  __proto.removeClonesAfter = function (cloneIndex) {
+    var panels = this.panels;
+    panels.forEach(function (panel) {
+      panel.removeClonedPanelsAfter(cloneIndex);
+    });
+    this.clones.splice(cloneIndex);
+  };
+
+  __proto.findPanelOf = function (element) {
+    var allPanels = this.allPanels();
+
+    for (var _i = 0, allPanels_1 = allPanels; _i < allPanels_1.length; _i++) {
+      var panel = allPanels_1[_i];
+
+      if (!panel) {
+        continue;
+      }
+
+      var panelElement = panel.getElement();
+
+      if (panelElement.contains(element)) {
+        return panel;
+      }
+    }
+  };
+
+  __proto.findFirstPanelFrom = function (index) {
+    for (var _i = 0, _a = this.panels.slice(index); _i < _a.length; _i++) {
+      var panel = _a[_i];
+
+      if (panel && panel.getIndex() >= index && panel.getElement().parentNode) {
+        return panel;
+      }
+    }
+  };
+
+  __proto.addNewClones = function (index, originalPanels, deleteCount, nextSibling) {
+    var _this = this;
+
+    var cameraElement = this.cameraElement;
+    var cloneCount = this.getCloneCount();
+    var lastPanel = this.lastPanel();
+    var lastPanelClones = lastPanel ? lastPanel.getClonedPanels() : [];
+    var nextSiblingClones = nextSibling ? nextSibling.getClonedPanels() : [];
+
+    var _loop_1 = function (cloneIndex) {
+      var cloneNextSibling = nextSiblingClones[cloneIndex];
+      var lastPanelSibling = lastPanelClones[cloneIndex];
+      var cloneSiblingElement = cloneNextSibling ? cloneNextSibling.getElement() : lastPanelSibling ? lastPanelSibling.getElement().nextElementSibling : null;
+      var newClones = originalPanels.map(function (panel) {
+        var clone = panel.clone(cloneIndex);
+
+        if (_this.shouldRender()) {
+          cameraElement.insertBefore(clone.getElement(), cloneSiblingElement);
+        }
+
+        return clone;
+      });
+      this_1.insertClones(cloneIndex, index, newClones, deleteCount);
+    };
+
+    var this_1 = this;
+
+    for (var _i = 0, _a = counter(cloneCount); _i < _a.length; _i++) {
+      var cloneIndex = _a[_i];
+
+      _loop_1(cloneIndex);
+    }
+  };
+
+  __proto.updateIndex = function (insertingIndex) {
+    var panels = this.panels;
+    var range = this.range;
+    var newLastIndex = panels.length - 1;
+
+    if (newLastIndex > range.max) {
+      range.max = newLastIndex;
+    }
+
+    if (insertingIndex < range.min || range.min < 0) {
+      range.min = insertingIndex;
+    }
+  };
+
+  __proto.insertNewPanels = function (newPanels, siblingElement) {
+    if (this.shouldRender()) {
+      var fragment_1 = document.createDocumentFragment();
+      newPanels.forEach(function (panel) {
+        return fragment_1.appendChild(panel.getElement());
+      });
+      this.cameraElement.insertBefore(fragment_1, siblingElement);
+    }
+  };
+
+  __proto.shouldRender = function () {
+    var options = this.options;
+    return !options.renderExternal && !options.renderOnlyVisible;
+  };
+
+  return PanelManager;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var State = /*#__PURE__*/function () {
+  function State() {
+    this.delta = 0;
+    this.direction = null;
+    this.targetPanel = null;
+    this.lastPosition = 0;
+  }
+
+  var __proto = State.prototype;
+
+  __proto.onEnter = function (prevState) {
+    this.delta = prevState.delta;
+    this.direction = prevState.direction;
+    this.targetPanel = prevState.targetPanel;
+    this.lastPosition = prevState.lastPosition;
+  };
+
+  __proto.onExit = function (nextState) {// DO NOTHING
+  };
+
+  __proto.onHold = function (e, context) {// DO NOTHING
+  };
+
+  __proto.onChange = function (e, context) {// DO NOTHING
+  };
+
+  __proto.onRelease = function (e, context) {// DO NOTHING
+  };
+
+  __proto.onAnimationEnd = function (e, context) {// DO NOTHING
+  };
+
+  __proto.onFinish = function (e, context) {// DO NOTHING
+  };
+
+  return State;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var IdleState = /*#__PURE__*/function (_super) {
+  __extends(IdleState, _super);
+
+  function IdleState() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = STATE_TYPE.IDLE;
+    _this.holding = false;
+    _this.playing = false;
+    return _this;
+  }
+
+  var __proto = IdleState.prototype;
+
+  __proto.onEnter = function () {
+    this.direction = null;
+    this.targetPanel = null;
+    this.delta = 0;
+    this.lastPosition = 0;
+  };
+
+  __proto.onHold = function (e, _a) {
+    var flicking = _a.flicking,
+        viewport = _a.viewport,
+        triggerEvent = _a.triggerEvent,
+        transitTo = _a.transitTo; // Shouldn't do any action until any panels on flicking area
+
+    if (flicking.getPanelCount() <= 0) {
+      if (viewport.options.infinite) {
+        viewport.moveCamera(viewport.getCameraPosition(), e);
+      }
+
+      transitTo(STATE_TYPE.DISABLED);
+      return;
+    }
+
+    this.lastPosition = viewport.getCameraPosition();
+    triggerEvent(EVENTS.HOLD_START, e, true).onSuccess(function () {
+      transitTo(STATE_TYPE.HOLDING);
+    }).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  }; // By methods call
+
+
+  __proto.onChange = function (e, context) {
+    var triggerEvent = context.triggerEvent,
+        transitTo = context.transitTo;
+    triggerEvent(EVENTS.MOVE_START, e, false).onSuccess(function () {
+      // Trigger AnimatingState's onChange, to trigger "move" event immediately
+      transitTo(STATE_TYPE.ANIMATING).onChange(e, context);
+    }).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  };
+
+  return IdleState;
+}(State);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var HoldingState = /*#__PURE__*/function (_super) {
+  __extends(HoldingState, _super);
+
+  function HoldingState() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = STATE_TYPE.HOLDING;
+    _this.holding = true;
+    _this.playing = true;
+    _this.releaseEvent = null;
+    return _this;
+  }
+
+  var __proto = HoldingState.prototype;
+
+  __proto.onChange = function (e, context) {
+    var flicking = context.flicking,
+        triggerEvent = context.triggerEvent,
+        transitTo = context.transitTo;
+    var offset = flicking.options.horizontal ? e.inputEvent.offsetX : e.inputEvent.offsetY;
+    this.direction = offset < 0 ? DIRECTION.NEXT : DIRECTION.PREV;
+    triggerEvent(EVENTS.MOVE_START, e, true).onSuccess(function () {
+      // Trigger DraggingState's onChange, to trigger "move" event immediately
+      transitTo(STATE_TYPE.DRAGGING).onChange(e, context);
+    }).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  };
+
+  __proto.onRelease = function (e, context) {
+    var viewport = context.viewport,
+        triggerEvent = context.triggerEvent,
+        transitTo = context.transitTo;
+    triggerEvent(EVENTS.HOLD_END, e, true);
+
+    if (e.delta.flick !== 0) {
+      // Sometimes "release" event on axes triggered before "change" event
+      // Especially if user flicked panel fast in really short amount of time
+      // if delta is not zero, that means above case happened.
+      // Event flow should be HOLD_START -> MOVE_START -> MOVE -> HOLD_END
+      // At least one move event should be included between holdStart and holdEnd
+      e.setTo({
+        flick: viewport.getCameraPosition()
+      }, 0);
+      transitTo(STATE_TYPE.IDLE);
+      return;
+    } // Can't handle select event here,
+    // As "finish" axes event happens
+
+
+    this.releaseEvent = e;
+  };
+
+  __proto.onFinish = function (e, _a) {
+    var viewport = _a.viewport,
+        triggerEvent = _a.triggerEvent,
+        transitTo = _a.transitTo; // Should transite to IDLE state before select event
+    // As user expects hold is already finished
+
+    transitTo(STATE_TYPE.IDLE);
+
+    if (!this.releaseEvent) {
+      return;
+    } // Handle release event here
+    // To prevent finish event called twice
+
+
+    var releaseEvent = this.releaseEvent; // Static click
+
+    var srcEvent = releaseEvent.inputEvent.srcEvent;
+    var clickedElement;
+
+    if (srcEvent.type === "touchend") {
+      var touchEvent = srcEvent;
+      var touch = touchEvent.changedTouches[0];
+      clickedElement = document.elementFromPoint(touch.clientX, touch.clientY);
+    } else {
+      clickedElement = srcEvent.target;
+    }
+
+    var clickedPanel = viewport.panelManager.findPanelOf(clickedElement);
+    var cameraPosition = viewport.getCameraPosition();
+
+    if (clickedPanel) {
+      var clickedPanelPosition = clickedPanel.getPosition();
+      var direction = clickedPanelPosition > cameraPosition ? DIRECTION.NEXT : clickedPanelPosition < cameraPosition ? DIRECTION.PREV : null; // Don't provide axes event, to use axes instance instead
+
+      triggerEvent(EVENTS.SELECT, null, true, {
+        direction: direction,
+        index: clickedPanel.getIndex(),
+        panel: clickedPanel
+      });
+    }
+  };
+
+  return HoldingState;
+}(State);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var DraggingState = /*#__PURE__*/function (_super) {
+  __extends(DraggingState, _super);
+
+  function DraggingState() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = STATE_TYPE.DRAGGING;
+    _this.holding = true;
+    _this.playing = true;
+    return _this;
+  }
+
+  var __proto = DraggingState.prototype;
+
+  __proto.onChange = function (e, _a) {
+    var moveCamera = _a.moveCamera,
+        transitTo = _a.transitTo;
+
+    if (!e.delta.flick) {
+      return;
+    }
+
+    moveCamera(e).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  };
+
+  __proto.onRelease = function (e, context) {
+    var flicking = context.flicking,
+        viewport = context.viewport,
+        triggerEvent = context.triggerEvent,
+        transitTo = context.transitTo,
+        stopCamera = context.stopCamera;
+    var delta = this.delta;
+    var absDelta = Math.abs(delta);
+    var options = flicking.options;
+    var horizontal = options.horizontal;
+    var moveType = viewport.moveType;
+    var inputEvent = e.inputEvent;
+    var velocity = horizontal ? inputEvent.velocityX : inputEvent.velocityY;
+    var inputDelta = horizontal ? inputEvent.deltaX : inputEvent.deltaY;
+    var isNextDirection = Math.abs(velocity) > 1 ? velocity < 0 : absDelta > 0 ? delta > 0 : inputDelta < 0;
+    var swipeDistance = viewport.options.bound ? Math.max(absDelta, Math.abs(inputDelta)) : absDelta;
+    var swipeAngle = inputEvent.deltaX ? Math.abs(180 * Math.atan(inputEvent.deltaY / inputEvent.deltaX) / Math.PI) : 90;
+    var belowAngleThreshold = horizontal ? swipeAngle <= options.thresholdAngle : swipeAngle > options.thresholdAngle;
+    var overThreshold = swipeDistance >= options.threshold && belowAngleThreshold;
+    var moveTypeContext = {
+      viewport: viewport,
+      axesEvent: e,
+      state: this,
+      swipeDistance: swipeDistance,
+      isNextDirection: isNextDirection
+    }; // Update last position to cope with Axes's animating behavior
+    // Axes uses start position when animation start
+
+    triggerEvent(EVENTS.HOLD_END, e, true);
+    var targetPanel = this.targetPanel;
+
+    if (!overThreshold && targetPanel) {
+      // Interrupted while animating
+      var interruptDestInfo = moveType.findPanelWhenInterrupted(moveTypeContext);
+      viewport.moveTo(interruptDestInfo.panel, interruptDestInfo.destPos, interruptDestInfo.eventType, e, interruptDestInfo.duration);
+      transitTo(STATE_TYPE.ANIMATING);
+      return;
+    }
+
+    var currentPanel = viewport.getCurrentPanel();
+    var nearestPanel = viewport.getNearestPanel();
+
+    if (!currentPanel || !nearestPanel) {
+      // There're no panels
+      e.stop();
+      transitTo(STATE_TYPE.IDLE);
+      return;
+    }
+
+    var destInfo = overThreshold ? moveType.findTargetPanel(moveTypeContext) : moveType.findRestorePanel(moveTypeContext);
+    viewport.moveTo(destInfo.panel, destInfo.destPos, destInfo.eventType, e, destInfo.duration).onSuccess(function () {
+      transitTo(STATE_TYPE.ANIMATING);
+    }).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+      stopCamera(e);
+    });
+  };
+
+  return DraggingState;
+}(State);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var AnimatingState = /*#__PURE__*/function (_super) {
+  __extends(AnimatingState, _super);
+
+  function AnimatingState() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = STATE_TYPE.ANIMATING;
+    _this.holding = false;
+    _this.playing = true;
+    return _this;
+  }
+
+  var __proto = AnimatingState.prototype;
+
+  __proto.onHold = function (e, _a) {
+    var viewport = _a.viewport,
+        triggerEvent = _a.triggerEvent,
+        transitTo = _a.transitTo;
+    var options = viewport.options;
+    var scrollArea = viewport.getScrollArea();
+    var scrollAreaSize = viewport.getScrollAreaSize();
+    var loopCount = Math.floor((this.lastPosition + this.delta - scrollArea.prev) / scrollAreaSize);
+    var targetPanel = this.targetPanel;
+
+    if (options.circular && loopCount !== 0 && targetPanel) {
+      var cloneCount = viewport.panelManager.getCloneCount();
+      var originalTargetPosition = targetPanel.getPosition(); // cloneIndex is from -1 to cloneCount - 1
+
+      var newCloneIndex = circulate(targetPanel.getCloneIndex() - loopCount, -1, cloneCount - 1, true);
+      var newTargetPosition = originalTargetPosition - loopCount * scrollAreaSize;
+      var newTargetPanel = targetPanel.getIdenticalPanels()[newCloneIndex + 1].clone(newCloneIndex, true); // Set new target panel considering looped count
+
+      newTargetPanel.setPosition(newTargetPosition);
+      this.targetPanel = newTargetPanel;
+    } // Reset last position and delta
+
+
+    this.delta = 0;
+    this.lastPosition = viewport.getCameraPosition(); // Update current panel as current nearest panel
+
+    viewport.setCurrentPanel(viewport.getNearestPanel());
+    triggerEvent(EVENTS.HOLD_START, e, true).onSuccess(function () {
+      transitTo(STATE_TYPE.DRAGGING);
+    }).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  };
+
+  __proto.onChange = function (e, _a) {
+    var moveCamera = _a.moveCamera,
+        transitTo = _a.transitTo;
+
+    if (!e.delta.flick) {
+      return;
+    }
+
+    moveCamera(e).onStopped(function () {
+      transitTo(STATE_TYPE.DISABLED);
+    });
+  };
+
+  __proto.onFinish = function (e, _a) {
+    var flicking = _a.flicking,
+        viewport = _a.viewport,
+        triggerEvent = _a.triggerEvent,
+        transitTo = _a.transitTo;
+    var isTrusted = e && e.isTrusted;
+    viewport.options.bound ? viewport.setCurrentPanel(this.targetPanel) : viewport.setCurrentPanel(viewport.getNearestPanel());
+
+    if (flicking.options.adaptive) {
+      viewport.updateAdaptiveSize();
+    }
+
+    transitTo(STATE_TYPE.IDLE);
+    viewport.updateCameraPosition();
+    triggerEvent(EVENTS.MOVE_END, e, isTrusted, {
+      direction: this.direction
+    });
+  };
+
+  return AnimatingState;
+}(State);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var DisabledState = /*#__PURE__*/function (_super) {
+  __extends(DisabledState, _super);
+
+  function DisabledState() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.type = STATE_TYPE.DISABLED;
+    _this.holding = false;
+    _this.playing = true;
+    return _this;
+  }
+
+  var __proto = DisabledState.prototype;
+
+  __proto.onAnimationEnd = function (e, _a) {
+    var transitTo = _a.transitTo;
+    transitTo(STATE_TYPE.IDLE);
+  };
+
+  __proto.onChange = function (e, _a) {
+    var viewport = _a.viewport,
+        transitTo = _a.transitTo; // Can stop Axes's change event
+
+    e.stop(); // Should update axes position as it's already changed at this moment
+
+    viewport.updateAxesPosition(viewport.getCameraPosition());
+    transitTo(STATE_TYPE.IDLE);
+  };
+
+  __proto.onRelease = function (e, _a) {
+    var transitTo = _a.transitTo; // This is needed when stopped hold start event
+
+    if (e.delta.flick === 0) {
+      transitTo(STATE_TYPE.IDLE);
+    }
+  };
+
+  return DisabledState;
+}(State);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var StateMachine = /*#__PURE__*/function () {
+  function StateMachine() {
+    var _this = this;
+
+    this.state = new IdleState();
+
+    this.transitTo = function (nextStateType) {
+      var currentState = _this.state;
+
+      if (currentState.type !== nextStateType) {
+        var nextState = void 0;
+
+        switch (nextStateType) {
+          case STATE_TYPE.IDLE:
+            nextState = new IdleState();
+            break;
+
+          case STATE_TYPE.HOLDING:
+            nextState = new HoldingState();
+            break;
+
+          case STATE_TYPE.DRAGGING:
+            nextState = new DraggingState();
+            break;
+
+          case STATE_TYPE.ANIMATING:
+            nextState = new AnimatingState();
+            break;
+
+          case STATE_TYPE.DISABLED:
+            nextState = new DisabledState();
+            break;
+        }
+
+        currentState.onExit(nextState);
+        nextState.onEnter(currentState);
+        _this.state = nextState;
+      }
+
+      return _this.state;
+    };
+  }
+
+  var __proto = StateMachine.prototype;
+
+  __proto.fire = function (eventType, e, context) {
+    var currentState = this.state;
+
+    switch (eventType) {
+      case AXES_EVENTS.HOLD:
+        currentState.onHold(e, context);
+        break;
+
+      case AXES_EVENTS.CHANGE:
+        currentState.onChange(e, context);
+        break;
+
+      case AXES_EVENTS.RELEASE:
+        currentState.onRelease(e, context);
+        break;
+
+      case AXES_EVENTS.ANIMATION_END:
+        currentState.onAnimationEnd(e, context);
+        break;
+
+      case AXES_EVENTS.FINISH:
+        currentState.onFinish(e, context);
+        break;
+    }
+  };
+
+  __proto.getState = function () {
+    return this.state;
+  };
+
+  return StateMachine;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var MoveType = /*#__PURE__*/function () {
+  function MoveType() {}
+
+  var __proto = MoveType.prototype;
+
+  __proto.is = function (type) {
+    return type === this.type;
+  };
+
+  __proto.findRestorePanel = function (ctx) {
+    var viewport = ctx.viewport;
+    var options = viewport.options;
+    var panel = options.circular ? this.findRestorePanelInCircularMode(ctx) : viewport.getCurrentPanel();
+    return {
+      panel: panel,
+      destPos: viewport.findEstimatedPosition(panel),
+      duration: options.duration,
+      eventType: EVENTS.RESTORE
+    };
+  };
+
+  __proto.findPanelWhenInterrupted = function (ctx) {
+    var state = ctx.state,
+        viewport = ctx.viewport;
+    var targetPanel = state.targetPanel;
+    return {
+      panel: targetPanel,
+      destPos: viewport.findEstimatedPosition(targetPanel),
+      duration: viewport.options.duration,
+      eventType: ""
+    };
+  }; // Calculate minimum distance to "change" panel
+
+
+  __proto.calcBrinkOfChange = function (ctx) {
+    var viewport = ctx.viewport,
+        isNextDirection = ctx.isNextDirection;
+    var options = viewport.options;
+    var currentPanel = viewport.getCurrentPanel();
+    var halfGap = options.gap / 2;
+    var relativeAnchorPosition = currentPanel.getRelativeAnchorPosition(); // Minimum distance needed to decide prev/next panel as nearest
+
+    /*
+     * |  Prev  |     Next     |
+     * |--------|--------------|
+     * [][      |<-Anchor    ][] <- Panel + Half-Gap
+     */
+
+    var minimumDistanceToChange = isNextDirection ? currentPanel.getSize() - relativeAnchorPosition + halfGap : relativeAnchorPosition + halfGap;
+    minimumDistanceToChange = Math.max(minimumDistanceToChange, options.threshold);
+    return minimumDistanceToChange;
+  };
+
+  __proto.findRestorePanelInCircularMode = function (ctx) {
+    var viewport = ctx.viewport;
+    var originalPanel = viewport.getCurrentPanel().getOriginalPanel();
+    var hangerPosition = viewport.getHangerPosition();
+    var firstClonedPanel = originalPanel.getIdenticalPanels()[1];
+    var lapped = Math.abs(originalPanel.getAnchorPosition() - hangerPosition) > Math.abs(firstClonedPanel.getAnchorPosition() - hangerPosition);
+    return !ctx.isNextDirection && lapped ? firstClonedPanel : originalPanel;
+  };
+
+  return MoveType;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var Snap = /*#__PURE__*/function (_super) {
+  __extends(Snap, _super);
+
+  function Snap(count) {
+    var _this = _super.call(this) || this;
+
+    _this.type = MOVE_TYPE.SNAP;
+    _this.count = count;
+    return _this;
+  }
+
+  var __proto = Snap.prototype;
+
+  __proto.findTargetPanel = function (ctx) {
+    var viewport = ctx.viewport,
+        axesEvent = ctx.axesEvent,
+        swipeDistance = ctx.swipeDistance;
+    var snapCount = this.count;
+    var eventDelta = Math.abs(axesEvent.delta.flick);
+    var currentPanel = viewport.getCurrentPanel();
+    var nearestPanel = viewport.getNearestPanel();
+    var minimumDistanceToChange = this.calcBrinkOfChange(ctx);
+    var nearestIsCurrent = nearestPanel.getIndex() === currentPanel.getIndex(); // This can happen when bounce is 0
+
+    var shouldMoveWhenBounceIs0 = viewport.canSetBoundMode() && nearestIsCurrent;
+    var shouldMoveToAdjacent = !viewport.isOutOfBound() && (swipeDistance <= minimumDistanceToChange || shouldMoveWhenBounceIs0);
+
+    if (snapCount > 1 && eventDelta > minimumDistanceToChange) {
+      return this.findSnappedPanel(ctx);
+    } else if (shouldMoveToAdjacent) {
+      return this.findAdjacentPanel(ctx);
+    } else {
+      return {
+        panel: nearestPanel,
+        duration: viewport.options.duration,
+        destPos: viewport.findEstimatedPosition(nearestPanel),
+        // As swipeDistance holds mouse/touch position change regardless of bounce option value
+        // swipDistance > minimumDistanceToChange can happen in bounce area
+        // Second condition is for handling that.
+        eventType: swipeDistance <= minimumDistanceToChange || viewport.isOutOfBound() && nearestIsCurrent ? EVENTS.RESTORE : EVENTS.CHANGE
+      };
+    }
+  };
+
+  __proto.findSnappedPanel = function (ctx) {
+    var axesEvent = ctx.axesEvent,
+        viewport = ctx.viewport,
+        state = ctx.state,
+        isNextDirection = ctx.isNextDirection;
+    var eventDelta = Math.abs(axesEvent.delta.flick);
+    var minimumDistanceToChange = this.calcBrinkOfChange(ctx);
+    var snapCount = this.count;
+    var options = viewport.options;
+    var scrollAreaSize = viewport.getScrollAreaSize();
+    var halfGap = options.gap / 2;
+    var estimatedHangerPos = axesEvent.destPos.flick + viewport.getRelativeHangerPosition();
+    var panelToMove = viewport.getNearestPanel();
+    var cycleIndex = panelToMove.getCloneIndex() + 1; // 0(original) or 1(clone)
+
+    var passedPanelCount = 0;
+
+    while (passedPanelCount < snapCount) {
+      // Since panelToMove holds also cloned panels, we should use original panel's position
+      var originalPanel = panelToMove.getOriginalPanel();
+      var panelPosition = originalPanel.getPosition() + cycleIndex * scrollAreaSize;
+      var panelSize = originalPanel.getSize();
+      var panelNextPosition = panelPosition + panelSize + halfGap;
+      var panelPrevPosition = panelPosition - halfGap; // Current panelToMove contains destPos
+
+      if (isNextDirection && panelNextPosition > estimatedHangerPos || !isNextDirection && panelPrevPosition < estimatedHangerPos) {
+        break;
+      }
+
+      var siblingPanel = isNextDirection ? panelToMove.nextSibling : panelToMove.prevSibling;
+
+      if (!siblingPanel) {
+        break;
+      }
+
+      var panelIndex = panelToMove.getIndex();
+      var siblingIndex = siblingPanel.getIndex();
+
+      if (isNextDirection && siblingIndex <= panelIndex || !isNextDirection && siblingIndex >= panelIndex) {
+        cycleIndex = isNextDirection ? cycleIndex + 1 : cycleIndex - 1;
+      }
+
+      panelToMove = siblingPanel;
+      passedPanelCount += 1;
+    }
+
+    var originalPosition = panelToMove.getOriginalPanel().getPosition();
+
+    if (cycleIndex !== 0) {
+      panelToMove = panelToMove.clone(panelToMove.getCloneIndex(), true);
+      panelToMove.setPosition(originalPosition + cycleIndex * scrollAreaSize);
+    }
+
+    var defaultDuration = viewport.options.duration;
+    var duration = clamp(axesEvent.duration, defaultDuration, defaultDuration * passedPanelCount);
+    return {
+      panel: panelToMove,
+      destPos: viewport.findEstimatedPosition(panelToMove),
+      duration: duration,
+      eventType: Math.max(eventDelta, state.delta) > minimumDistanceToChange ? EVENTS.CHANGE : EVENTS.RESTORE
+    };
+  };
+
+  __proto.findAdjacentPanel = function (ctx) {
+    var viewport = ctx.viewport,
+        isNextDirection = ctx.isNextDirection;
+    var options = viewport.options;
+    var currentIndex = viewport.getCurrentIndex();
+    var currentPanel = viewport.panelManager.get(currentIndex);
+    var hangerPosition = viewport.getHangerPosition();
+    var scrollArea = viewport.getScrollArea();
+    var firstClonedPanel = currentPanel.getIdenticalPanels()[1];
+    var lapped = options.circular && Math.abs(currentPanel.getAnchorPosition() - hangerPosition) > Math.abs(firstClonedPanel.getAnchorPosition() - hangerPosition); // If lapped in circular mode, use first cloned panel as base panel
+
+    var basePanel = lapped ? firstClonedPanel : currentPanel;
+    var basePosition = basePanel.getPosition();
+    var adjacentPanel = isNextDirection ? basePanel.nextSibling : basePanel.prevSibling;
+    var eventType = adjacentPanel ? EVENTS.CHANGE : EVENTS.RESTORE;
+    var panelToMove = adjacentPanel ? adjacentPanel : basePanel;
+    var targetRelativeAnchorPosition = panelToMove.getRelativeAnchorPosition();
+    var estimatedPanelPosition = options.circular ? isNextDirection ? basePosition + basePanel.getSize() + targetRelativeAnchorPosition + options.gap : basePosition - (panelToMove.getSize() - targetRelativeAnchorPosition) - options.gap : panelToMove.getAnchorPosition();
+    var estimatedPosition = estimatedPanelPosition - viewport.getRelativeHangerPosition();
+    var destPos = viewport.canSetBoundMode() ? clamp(estimatedPosition, scrollArea.prev, scrollArea.next) : estimatedPosition;
+    return {
+      panel: panelToMove,
+      destPos: destPos,
+      duration: options.duration,
+      eventType: eventType
+    };
+  };
+
+  return Snap;
+}(MoveType);
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+
+var FreeScroll = /*#__PURE__*/function (_super) {
+  __extends(FreeScroll, _super);
+
+  function FreeScroll() {
+    var _this = // Set snap count to Infinity
+    _super.call(this, Infinity) || this;
+
+    _this.type = MOVE_TYPE.FREE_SCROLL;
+    return _this;
+  }
+
+  var __proto = FreeScroll.prototype;
+
+  __proto.findTargetPanel = function (ctx) {
+    var axesEvent = ctx.axesEvent,
+        state = ctx.state,
+        viewport = ctx.viewport;
+    var destPos = axesEvent.destPos.flick;
+    var minimumDistanceToChange = this.calcBrinkOfChange(ctx);
+    var scrollArea = viewport.getScrollArea();
+    var currentPanel = viewport.getCurrentPanel();
+    var options = viewport.options;
+    var delta = Math.abs(axesEvent.delta.flick + state.delta);
+
+    if (delta > minimumDistanceToChange) {
+      var destInfo = _super.prototype.findSnappedPanel.call(this, ctx);
+
+      destInfo.duration = axesEvent.duration;
+      destInfo.destPos = destPos;
+      destInfo.eventType = !options.circular && destInfo.panel === currentPanel ? "" : EVENTS.CHANGE;
+      return destInfo;
+    } else {
+      var estimatedPosition = options.circular ? circulate(destPos, scrollArea.prev, scrollArea.next, false) : destPos;
+      estimatedPosition = clamp(estimatedPosition, scrollArea.prev, scrollArea.next);
+      estimatedPosition += viewport.getRelativeHangerPosition();
+      var estimatedPanel = viewport.findNearestPanelAt(estimatedPosition);
+      return {
+        panel: estimatedPanel,
+        destPos: destPos,
+        duration: axesEvent.duration,
+        eventType: ""
+      };
+    }
+  };
+
+  __proto.findRestorePanel = function (ctx) {
+    return this.findTargetPanel(ctx);
+  };
+
+  __proto.findPanelWhenInterrupted = function (ctx) {
+    var viewport = ctx.viewport;
+    return {
+      panel: viewport.getNearestPanel(),
+      destPos: viewport.getCameraPosition(),
+      duration: 0,
+      eventType: ""
+    };
+  };
+
+  __proto.calcBrinkOfChange = function (ctx) {
+    var viewport = ctx.viewport,
+        isNextDirection = ctx.isNextDirection;
+    var options = viewport.options;
+    var currentPanel = viewport.getCurrentPanel();
+    var halfGap = options.gap / 2;
+    var lastPosition = viewport.stateMachine.getState().lastPosition;
+    var currentPanelPosition = currentPanel.getPosition(); // As camera can stop anywhere in free scroll mode,
+    // minimumDistanceToChange should be calculated differently.
+    // Ref #191(https://github.com/naver/egjs-flicking/issues/191)
+
+    var lastHangerPosition = lastPosition + viewport.getRelativeHangerPosition();
+    var scrollAreaSize = viewport.getScrollAreaSize();
+    var minimumDistanceToChange = isNextDirection ? currentPanelPosition + currentPanel.getSize() - lastHangerPosition + halfGap : lastHangerPosition - currentPanelPosition + halfGap;
+    minimumDistanceToChange = Math.abs(minimumDistanceToChange % scrollAreaSize);
+    return Math.min(minimumDistanceToChange, scrollAreaSize - minimumDistanceToChange);
+  };
+
+  return FreeScroll;
+}(Snap);
+
+var Viewport = /*#__PURE__*/function () {
+  function Viewport(flicking, options, triggerEvent) {
+    var _this = this;
+
+    this.plugins = [];
+
+    this.stopCamera = function (axesEvent) {
+      if (axesEvent && axesEvent.setTo) {
+        axesEvent.setTo({
+          flick: _this.state.position
+        }, 0);
+      }
+
+      _this.stateMachine.transitTo(STATE_TYPE.IDLE);
+    };
+
+    this.flicking = flicking;
+    this.triggerEvent = triggerEvent;
+    this.state = {
+      size: 0,
+      position: 0,
+      panelMaintainRatio: 0,
+      relativeHangerPosition: 0,
+      positionOffset: 0,
+      scrollArea: {
+        prev: 0,
+        next: 0
+      },
+      translate: TRANSFORM,
+      infiniteThreshold: 0,
+      checkedIndexes: [],
+      isAdaptiveCached: false,
+      isViewportGiven: false,
+      isCameraGiven: false,
+      originalViewportStyle: {
+        className: null,
+        style: null
+      },
+      originalCameraStyle: {
+        className: null,
+        style: null
+      },
+      cachedBbox: null
+    };
+    this.options = options;
+    this.stateMachine = new StateMachine();
+    this.visiblePanels = [];
+    this.panelBboxes = {};
+    this.build();
+  }
+
+  var __proto = Viewport.prototype;
+
+  __proto.moveTo = function (panel, destPos, eventType, axesEvent, duration) {
+    var _this = this;
+
+    if (duration === void 0) {
+      duration = this.options.duration;
+    }
+
+    var state = this.state;
+    var currentState = this.stateMachine.getState();
+    var currentPosition = state.position;
+    var isTrusted = axesEvent ? axesEvent.isTrusted : false;
+    var direction = destPos === currentPosition ? null : destPos > currentPosition ? DIRECTION.NEXT : DIRECTION.PREV;
+    var eventResult;
+
+    if (eventType === EVENTS.CHANGE) {
+      eventResult = this.triggerEvent(EVENTS.CHANGE, axesEvent, isTrusted, {
+        index: panel.getIndex(),
+        panel: panel,
+        direction: direction
+      });
+    } else if (eventType === EVENTS.RESTORE) {
+      eventResult = this.triggerEvent(EVENTS.RESTORE, axesEvent, isTrusted);
+    } else {
+      eventResult = {
+        onSuccess: function (callback) {
+          callback();
+          return this;
+        },
+        onStopped: function () {
+          return this;
+        }
+      };
+    }
+
+    eventResult.onSuccess(function () {
+      currentState.delta = 0;
+      currentState.lastPosition = _this.getCameraPosition();
+      currentState.targetPanel = panel;
+      currentState.direction = destPos === currentPosition ? null : destPos > currentPosition ? DIRECTION.NEXT : DIRECTION.PREV;
+
+      if (destPos === currentPosition) {
+        // no move
+        _this.nearestPanel = panel;
+        _this.currentPanel = panel;
+      }
+
+      if (axesEvent && axesEvent.setTo) {
+        // freeScroll only occurs in release events
+        axesEvent.setTo({
+          flick: destPos
+        }, duration);
+      } else {
+        _this.axes.setTo({
+          flick: destPos
+        }, duration);
+      }
+    });
+    return eventResult;
+  };
+
+  __proto.moveCamera = function (pos, axesEvent) {
+    var state = this.state;
+    var options = this.options;
+    var transform = state.translate.name;
+    var scrollArea = state.scrollArea; // Update position & nearestPanel
+
+    if (options.circular && !isBetween(pos, scrollArea.prev, scrollArea.next)) {
+      pos = circulate(pos, scrollArea.prev, scrollArea.next, false);
+    }
+
+    state.position = pos;
+    this.nearestPanel = this.findNearestPanel();
+    var nearestPanel = this.nearestPanel;
+    var originalNearestPosition = nearestPanel ? nearestPanel.getPosition() : 0; // From 0(panel position) to 1(panel position + panel size)
+    // When it's on gap area value will be (val > 1 || val < 0)
+
+    if (nearestPanel) {
+      var hangerPosition = this.getHangerPosition();
+      var panelPosition = nearestPanel.getPosition();
+      var panelSize = nearestPanel.getSize();
+      var halfGap = options.gap / 2; // As panel's range is from panel position - half gap ~ panel pos + panel size + half gap
+
+      state.panelMaintainRatio = (hangerPosition - panelPosition + halfGap) / (panelSize + 2 * halfGap);
+    } else {
+      state.panelMaintainRatio = 0;
+    }
+
+    this.checkNeedPanel(axesEvent); // Possibly modified after need panel, if it's looped
+
+    var modifiedNearestPosition = nearestPanel ? nearestPanel.getPosition() : 0;
+    pos += modifiedNearestPosition - originalNearestPosition;
+    state.position = pos;
+    this.updateVisiblePanels(); // Offset is needed to fix camera layer size in visible-only rendering mode
+
+    var posOffset = options.renderOnlyVisible ? state.positionOffset : 0;
+    var moveVector = options.horizontal ? [-(pos - posOffset), 0] : [0, -(pos - posOffset)];
+    var moveCoord = moveVector.map(function (coord) {
+      return Math.round(coord) + "px";
+    }).join(", ");
+    this.cameraElement.style[transform] = state.translate.has3d ? "translate3d(" + moveCoord + ", 0px)" : "translate(" + moveCoord + ")";
+  };
+
+  __proto.unCacheBbox = function () {
+    var state = this.state;
+    var options = this.options;
+    state.cachedBbox = null;
+    this.visiblePanels = [];
+    var viewportElement = this.viewportElement;
+
+    if (!options.horizontal) {
+      // Don't preserve previous width for adaptive resizing
+      viewportElement.style.width = "";
+    } else {
+      viewportElement.style.height = "";
+    }
+
+    state.isAdaptiveCached = false;
+    this.panelBboxes = {};
+  };
+
+  __proto.resize = function () {
+    this.updateSize();
+    this.updateOriginalPanelPositions();
+    this.updateAdaptiveSize();
+    this.updateScrollArea();
+    this.updateClonePanels();
+    this.updateVisiblePanelPositions();
+    this.updateCameraPosition();
+    this.updatePlugins();
+  }; // Find nearest anchor from current hanger position
+
+
+  __proto.findNearestPanel = function () {
+    var state = this.state;
+    var panelManager = this.panelManager;
+    var hangerPosition = this.getHangerPosition();
+
+    if (this.isOutOfBound()) {
+      var position = state.position;
+      return position <= state.scrollArea.prev ? panelManager.firstPanel() : panelManager.lastPanel();
+    }
+
+    return this.findNearestPanelAt(hangerPosition);
+  };
+
+  __proto.findNearestPanelAt = function (position) {
+    var panelManager = this.panelManager;
+    var allPanels = panelManager.allPanels();
+    var minimumDistance = Infinity;
+    var nearestPanel;
+
+    for (var _i = 0, allPanels_1 = allPanels; _i < allPanels_1.length; _i++) {
+      var panel = allPanels_1[_i];
+
+      if (!panel) {
+        continue;
+      }
+
+      var prevPosition = panel.getPosition();
+      var nextPosition = prevPosition + panel.getSize(); // Use shortest distance from panel's range
+
+      var distance = isBetween(position, prevPosition, nextPosition) ? 0 : Math.min(Math.abs(prevPosition - position), Math.abs(nextPosition - position));
+
+      if (distance > minimumDistance) {
+        break;
+      } else if (distance === minimumDistance) {
+        var minimumAnchorDistance = Math.abs(position - nearestPanel.getAnchorPosition());
+        var anchorDistance = Math.abs(position - panel.getAnchorPosition());
+
+        if (anchorDistance > minimumAnchorDistance) {
+          break;
+        }
+      }
+
+      minimumDistance = distance;
+      nearestPanel = panel;
+    }
+
+    return nearestPanel;
+  };
+
+  __proto.findNearestIdenticalPanel = function (panel) {
+    var nearest = panel;
+    var shortestDistance = Infinity;
+    var hangerPosition = this.getHangerPosition();
+    var identicals = panel.getIdenticalPanels();
+    identicals.forEach(function (identical) {
+      var anchorPosition = identical.getAnchorPosition();
+      var distance = Math.abs(anchorPosition - hangerPosition);
+
+      if (distance < shortestDistance) {
+        nearest = identical;
+        shortestDistance = distance;
+      }
+    });
+    return nearest;
+  }; // Find shortest camera position that distance is minimum
+
+
+  __proto.findShortestPositionToPanel = function (panel) {
+    var state = this.state;
+    var options = this.options;
+    var anchorPosition = panel.getAnchorPosition();
+    var hangerPosition = this.getHangerPosition();
+    var distance = Math.abs(hangerPosition - anchorPosition);
+    var scrollAreaSize = state.scrollArea.next - state.scrollArea.prev;
+
+    if (!options.circular) {
+      var position = anchorPosition - state.relativeHangerPosition;
+      return this.canSetBoundMode() ? clamp(position, state.scrollArea.prev, state.scrollArea.next) : position;
+    } else {
+      // If going out of viewport border is more efficient way of moving, choose that position
+      return distance <= scrollAreaSize - distance ? anchorPosition - state.relativeHangerPosition : anchorPosition > hangerPosition // PREV TO NEXT
+      ? anchorPosition - state.relativeHangerPosition - scrollAreaSize // NEXT TO PREV
+      : anchorPosition - state.relativeHangerPosition + scrollAreaSize;
+    }
+  };
+
+  __proto.findEstimatedPosition = function (panel) {
+    var scrollArea = this.getScrollArea();
+    var estimatedPosition = panel.getAnchorPosition() - this.getRelativeHangerPosition();
+    estimatedPosition = this.canSetBoundMode() ? clamp(estimatedPosition, scrollArea.prev, scrollArea.next) : estimatedPosition;
+    return estimatedPosition;
+  };
+
+  __proto.addVisiblePanel = function (panel) {
+    if (this.getVisibleIndexOf(panel) < 0) {
+      this.visiblePanels.push(panel);
+    }
+  };
+
+  __proto.enable = function () {
+    if (!this.panInput) {
+      this.createPanInput();
+    }
+  };
+
+  __proto.disable = function () {
+    if (this.panInput) {
+      this.panInput.destroy();
+      this.panInput = null;
+      this.stateMachine.transitTo(STATE_TYPE.IDLE);
+    }
+  };
+
+  __proto.insert = function (index, element) {
+    var _this = this;
+
+    var lastIndex = this.panelManager.getLastIndex(); // Index should not below 0
+
+    if (index < 0 || index > lastIndex) {
+      return [];
+    }
+
+    var state = this.state;
+    var options = this.options;
+    var parsedElements = parseElement(element);
+    var panels = parsedElements.map(function (el, idx) {
+      return new Panel(el, index + idx, _this);
+    }).slice(0, lastIndex - index + 1);
+
+    if (panels.length <= 0) {
+      return [];
+    }
+
+    var pushedIndex = this.panelManager.insert(index, panels); // ...then calc bbox for all panels
+
+    this.resizePanels(panels);
+
+    if (!this.currentPanel) {
+      this.currentPanel = panels[0];
+      this.nearestPanel = panels[0];
+      var newCenterPanel = panels[0];
+      var newPanelPosition = this.findEstimatedPosition(newCenterPanel);
+      state.position = newPanelPosition;
+      this.updateAxesPosition(newPanelPosition);
+      state.panelMaintainRatio = (newCenterPanel.getRelativeAnchorPosition() + options.gap / 2) / (newCenterPanel.getSize() + options.gap);
+    } // Update checked indexes in infinite mode
+
+
+    this.updateCheckedIndexes({
+      min: index,
+      max: index
+    });
+    state.checkedIndexes.forEach(function (indexes, idx) {
+      var min = indexes[0],
+          max = indexes[1];
+
+      if (index < min) {
+        // Push checked index
+        state.checkedIndexes.splice(idx, 1, [min + pushedIndex, max + pushedIndex]);
+      }
+    });
+    this.resize();
+    return panels;
+  };
+
+  __proto.replace = function (index, element) {
+    var _this = this;
+
+    var state = this.state;
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var lastIndex = panelManager.getLastIndex(); // Index should not below 0
+
+    if (index < 0 || index > lastIndex) {
+      return [];
+    }
+
+    var parsedElements = parseElement(element);
+    var panels = parsedElements.map(function (el, idx) {
+      return new Panel(el, index + idx, _this);
+    }).slice(0, lastIndex - index + 1);
+
+    if (panels.length <= 0) {
+      return [];
+    }
+
+    var replacedPanels = panelManager.replace(index, panels);
+    replacedPanels.forEach(function (panel) {
+      var visibleIndex = _this.getVisibleIndexOf(panel);
+
+      if (visibleIndex > -1) {
+        _this.visiblePanels.splice(visibleIndex, 1);
+      }
+    }); // ...then calc bbox for all panels
+
+    this.resizePanels(panels);
+    var currentPanel = this.currentPanel;
+    var wasEmpty = !currentPanel;
+
+    if (wasEmpty) {
+      this.currentPanel = panels[0];
+      this.nearestPanel = panels[0];
+      var newCenterPanel = panels[0];
+      var newPanelPosition = this.findEstimatedPosition(newCenterPanel);
+      state.position = newPanelPosition;
+      this.updateAxesPosition(newPanelPosition);
+      state.panelMaintainRatio = (newCenterPanel.getRelativeAnchorPosition() + options.gap / 2) / (newCenterPanel.getSize() + options.gap);
+    } else if (isBetween(currentPanel.getIndex(), index, index + panels.length - 1)) {
+      // Current panel is replaced
+      this.currentPanel = panelManager.get(currentPanel.getIndex());
+    } // Update checked indexes in infinite mode
+
+
+    this.updateCheckedIndexes({
+      min: index,
+      max: index + panels.length - 1
+    });
+    this.resize();
+    return panels;
+  };
+
+  __proto.remove = function (index, deleteCount) {
+    if (deleteCount === void 0) {
+      deleteCount = 1;
+    }
+
+    var state = this.state; // Index should not below 0
+
+    index = Math.max(index, 0);
+    var panelManager = this.panelManager;
+    var currentIndex = this.getCurrentIndex();
+    var removedPanels = panelManager.remove(index, deleteCount);
+
+    if (isBetween(currentIndex, index, index + deleteCount - 1)) {
+      // Current panel is removed
+      // Use panel at removing index - 1 as new current panel if it exists
+      var newCurrentIndex = Math.max(index - 1, panelManager.getRange().min);
+      this.currentPanel = panelManager.get(newCurrentIndex);
+    } // Update checked indexes in infinite mode
+
+
+    if (deleteCount > 0) {
+      // Check whether removing index will affect checked indexes
+      // Suppose index 0 is empty and removed index 1, then checked index 0 should be deleted and vice versa.
+      this.updateCheckedIndexes({
+        min: index - 1,
+        max: index + deleteCount
+      }); // Uncache visible panels to refresh panels
+
+      this.visiblePanels = [];
+    }
+
+    if (panelManager.getPanelCount() <= 0) {
+      this.currentPanel = undefined;
+      this.nearestPanel = undefined;
+    }
+
+    this.resize();
+    var scrollArea = state.scrollArea;
+
+    if (state.position < scrollArea.prev || state.position > scrollArea.next) {
+      var newPosition = circulate(state.position, scrollArea.prev, scrollArea.next, false);
+      this.moveCamera(newPosition);
+      this.updateAxesPosition(newPosition);
+    }
+
+    return removedPanels;
+  };
+
+  __proto.updateAdaptiveSize = function () {
+    var state = this.state;
+    var options = this.options;
+    var horizontal = options.horizontal;
+    var currentPanel = this.getCurrentPanel();
+
+    if (!currentPanel) {
+      return;
+    }
+
+    var shouldApplyAdaptive = options.adaptive || !state.isAdaptiveCached;
+    var viewportStyle = this.viewportElement.style;
+
+    if (shouldApplyAdaptive) {
+      var sizeToApply = void 0;
+
+      if (options.adaptive) {
+        var panelBbox = currentPanel.getBbox();
+        sizeToApply = horizontal ? panelBbox.height : panelBbox.width;
+      } else {
+        // Find minimum height of panels to maximum panel size
+        var maximumPanelSize = this.panelManager.originalPanels().reduce(function (maximum, panel) {
+          var panelBbox = panel.getBbox();
+          return Math.max(maximum, horizontal ? panelBbox.height : panelBbox.width);
+        }, 0);
+        sizeToApply = maximumPanelSize;
+      }
+
+      if (!state.isAdaptiveCached) {
+        var viewportBbox = this.updateBbox();
+        sizeToApply = Math.max(sizeToApply, horizontal ? viewportBbox.height : viewportBbox.width);
+        state.isAdaptiveCached = true;
+      }
+
+      var viewportSize = sizeToApply + "px";
+
+      if (horizontal) {
+        viewportStyle.height = viewportSize;
+        state.cachedBbox.height = sizeToApply;
+      } else {
+        viewportStyle.width = viewportSize;
+        state.cachedBbox.width = sizeToApply;
+      }
+    }
+  }; // Update camera position after resizing
+
+
+  __proto.updateCameraPosition = function () {
+    var state = this.state;
+    var currentPanel = this.getCurrentPanel();
+    var cameraPosition = this.getCameraPosition();
+    var currentState = this.stateMachine.getState();
+    var isFreeScroll = this.moveType.is(MOVE_TYPE.FREE_SCROLL);
+    var relativeHangerPosition = this.getRelativeHangerPosition();
+    var halfGap = this.options.gap / 2;
+
+    if (currentState.holding || currentState.playing) {
+      this.updateVisiblePanels();
+      return;
+    }
+
+    var newPosition;
+
+    if (isFreeScroll) {
+      var positionBounded = this.canSetBoundMode() && (cameraPosition === state.scrollArea.prev || cameraPosition === state.scrollArea.next);
+      var nearestPanel = this.getNearestPanel(); // Preserve camera position if it is bound to scroll area limit
+
+      newPosition = positionBounded || !nearestPanel ? cameraPosition : nearestPanel.getPosition() - halfGap + (nearestPanel.getSize() + 2 * halfGap) * state.panelMaintainRatio - relativeHangerPosition;
+    } else {
+      newPosition = currentPanel ? currentPanel.getAnchorPosition() - relativeHangerPosition : cameraPosition;
+    }
+
+    if (this.canSetBoundMode()) {
+      newPosition = clamp(newPosition, state.scrollArea.prev, state.scrollArea.next);
+    } // Pause & resume axes to prevent axes's "change" event triggered
+    // This should be done before moveCamera, as moveCamera can trigger needPanel
+
+
+    this.updateAxesPosition(newPosition);
+    this.moveCamera(newPosition);
+  };
+
+  __proto.updateBbox = function () {
+    var state = this.state;
+    var options = this.options;
+    var viewportElement = this.viewportElement;
+
+    if (!state.cachedBbox) {
+      state.cachedBbox = getBbox(viewportElement, options.useOffset);
+    }
+
+    return state.cachedBbox;
+  };
+
+  __proto.updatePlugins = function () {
+    var _this = this; // update for resize
+
+
+    this.plugins.forEach(function (plugin) {
+      plugin.update && plugin.update(_this.flicking);
+    });
+  };
+
+  __proto.destroy = function (option) {
+    var _a;
+
+    var state = this.state;
+    var wrapper = this.flicking.getElement();
+    var viewportElement = this.viewportElement;
+    var cameraElement = this.cameraElement;
+    var originalPanels = this.panelManager.originalPanels();
+    this.removePlugins(this.plugins);
+
+    if (!option.preserveUI) {
+      restoreStyle(viewportElement, state.originalViewportStyle);
+      restoreStyle(cameraElement, state.originalCameraStyle);
+
+      if (!state.isCameraGiven && !this.options.renderExternal) {
+        var topmostElement_1 = state.isViewportGiven ? viewportElement : wrapper;
+        var deletingElement = state.isViewportGiven ? cameraElement : viewportElement;
+        originalPanels.forEach(function (panel) {
+          topmostElement_1.appendChild(panel.getElement());
+        });
+        topmostElement_1.removeChild(deletingElement);
+      }
+    }
+
+    this.axes.destroy();
+    (_a = this.panInput) === null || _a === void 0 ? void 0 : _a.destroy();
+    originalPanels.forEach(function (panel) {
+      panel.destroy(option);
+    }); // release resources
+
+    for (var x in this) {
+      this[x] = null;
+    }
+  };
+
+  __proto.restore = function (status) {
+    var panels = status.panels;
+    var defaultIndex = this.options.defaultIndex;
+    var cameraElement = this.cameraElement;
+    var panelManager = this.panelManager; // Restore index
+
+    cameraElement.innerHTML = panels.map(function (panel) {
+      return panel.html;
+    }).join(""); // Create panels first
+
+    this.refreshPanels();
+    var createdPanels = panelManager.originalPanels(); // ...then order it by its index
+
+    var orderedPanels = [];
+    panels.forEach(function (panel, idx) {
+      var createdPanel = createdPanels[idx];
+      createdPanel.setIndex(panel.index);
+      orderedPanels[panel.index] = createdPanel;
+    });
+    panelManager.replacePanels(orderedPanels, []);
+    panelManager.setCloneCount(0); // No clones at this point
+
+    var panelCount = panelManager.getPanelCount();
+
+    if (panelCount > 0) {
+      this.currentPanel = panelManager.get(status.index) || panelManager.get(defaultIndex) || panelManager.firstPanel();
+      this.nearestPanel = this.currentPanel;
+    } else {
+      this.currentPanel = undefined;
+      this.nearestPanel = undefined;
+    }
+
+    this.visiblePanels = orderedPanels.filter(function (panel) {
+      return Boolean(panel);
+    });
+    this.resize();
+    this.axes.setTo({
+      flick: status.position
+    }, 0);
+    this.moveCamera(status.position);
+  };
+
+  __proto.calcVisiblePanels = function () {
+    var allPanels = this.panelManager.allPanels();
+
+    if (this.options.renderOnlyVisible) {
+      var cameraPos_1 = this.getCameraPosition();
+      var viewportSize_1 = this.getSize();
+      var basePanel = this.nearestPanel;
+
+      var getNextPanel = function (panel) {
+        var nextPanel = panel.nextSibling;
+
+        if (nextPanel && nextPanel.getPosition() >= panel.getPosition()) {
+          return nextPanel;
+        } else {
+          return null;
+        }
+      };
+
+      var getPrevPanel = function (panel) {
+        var prevPanel = panel.prevSibling;
+
+        if (prevPanel && prevPanel.getPosition() <= panel.getPosition()) {
+          return prevPanel;
+        } else {
+          return null;
+        }
+      };
+
+      var isOutOfBoundNext = function (panel) {
+        return panel.getPosition() >= cameraPos_1 + viewportSize_1;
+      };
+
+      var isOutOfBoundPrev = function (panel) {
+        return panel.getPosition() + panel.getSize() <= cameraPos_1;
+      };
+
+      var getVisiblePanels = function (panel, getNext, isOutOfViewport) {
+        var visiblePanels = [];
+        var lastPanel = panel;
+
+        while (true) {
+          var nextPanel = getNext(lastPanel);
+
+          if (!nextPanel || isOutOfViewport(nextPanel)) {
+            break;
+          }
+
+          visiblePanels.push(nextPanel);
+          lastPanel = nextPanel;
+        }
+
+        return visiblePanels;
+      };
+
+      var panelCount_1 = this.panelManager.getPanelCount();
+
+      var getAbsIndex_1 = function (panel) {
+        return panel.getIndex() + (panel.getCloneIndex() + 1) * panelCount_1;
+      };
+
+      var nextPanels = getVisiblePanels(basePanel, getNextPanel, isOutOfBoundNext);
+      var prevPanels = getVisiblePanels(basePanel, getPrevPanel, isOutOfBoundPrev);
+      return __spreadArrays([basePanel], nextPanels, prevPanels).sort(function (panel1, panel2) {
+        return getAbsIndex_1(panel1) - getAbsIndex_1(panel2);
+      });
+    } else {
+      return allPanels.filter(function (panel) {
+        var outsetProgress = panel.getOutsetProgress();
+        return outsetProgress > -1 && outsetProgress < 1;
+      });
+    }
+  };
+
+  __proto.getCurrentPanel = function () {
+    return this.currentPanel;
+  };
+
+  __proto.getCurrentIndex = function () {
+    var currentPanel = this.currentPanel;
+    return currentPanel ? currentPanel.getIndex() : -1;
+  };
+
+  __proto.getNearestPanel = function () {
+    return this.nearestPanel;
+  }; // Get progress from nearest panel
+
+
+  __proto.getCurrentProgress = function () {
+    var currentState = this.stateMachine.getState();
+    var nearestPanel = currentState.playing || currentState.holding ? this.nearestPanel : this.currentPanel;
+    var panelManager = this.panelManager;
+
+    if (!nearestPanel) {
+      // There're no panels
+      return NaN;
+    }
+
+    var _a = this.getScrollArea(),
+        prevRange = _a.prev,
+        nextRange = _a.next;
+
+    var cameraPosition = this.getCameraPosition();
+    var isOutOfBound = this.isOutOfBound();
+    var prevPanel = nearestPanel.prevSibling;
+    var nextPanel = nearestPanel.nextSibling;
+    var hangerPosition = this.getHangerPosition();
+    var nearestAnchorPos = nearestPanel.getAnchorPosition();
+
+    if (isOutOfBound && prevPanel && nextPanel && cameraPosition < nextRange // On the basis of anchor, prevPanel is nearestPanel.
+    && hangerPosition - prevPanel.getAnchorPosition() < nearestAnchorPos - hangerPosition) {
+      nearestPanel = prevPanel;
+      nextPanel = nearestPanel.nextSibling;
+      prevPanel = nearestPanel.prevSibling;
+      nearestAnchorPos = nearestPanel.getAnchorPosition();
+    }
+
+    var nearestIndex = nearestPanel.getIndex() + (nearestPanel.getCloneIndex() + 1) * panelManager.getPanelCount();
+    var nearestSize = nearestPanel.getSize();
+
+    if (isOutOfBound) {
+      var relativeHangerPosition = this.getRelativeHangerPosition();
+
+      if (nearestAnchorPos > nextRange + relativeHangerPosition) {
+        // next bounce area: hangerPosition - relativeHangerPosition - nextRange
+        hangerPosition = nearestAnchorPos + hangerPosition - relativeHangerPosition - nextRange;
+      } else if (nearestAnchorPos < prevRange + relativeHangerPosition) {
+        // prev bounce area: hangerPosition - relativeHangerPosition - prevRange
+        hangerPosition = nearestAnchorPos + hangerPosition - relativeHangerPosition - prevRange;
+      }
+    }
+
+    var hangerIsNextToNearestPanel = hangerPosition >= nearestAnchorPos;
+    var gap = this.options.gap;
+    var basePosition = nearestAnchorPos;
+    var targetPosition = nearestAnchorPos;
+
+    if (hangerIsNextToNearestPanel) {
+      targetPosition = nextPanel ? nextPanel.getAnchorPosition() : nearestAnchorPos + nearestSize + gap;
+    } else {
+      basePosition = prevPanel ? prevPanel.getAnchorPosition() : nearestAnchorPos - nearestSize - gap;
+    }
+
+    var progressBetween = (hangerPosition - basePosition) / (targetPosition - basePosition);
+    var startIndex = hangerIsNextToNearestPanel ? nearestIndex : prevPanel ? prevPanel.getIndex() : nearestIndex - 1;
+    return startIndex + progressBetween;
+  }; // Update axes flick position without triggering event
+
+
+  __proto.updateAxesPosition = function (position) {
+    var axes = this.axes;
+    axes.off();
+    axes.setTo({
+      flick: position
+    }, 0);
+    axes.on(this.axesHandlers);
+  };
+
+  __proto.getSize = function () {
+    return this.state.size;
+  };
+
+  __proto.getScrollArea = function () {
+    return this.state.scrollArea;
+  };
+
+  __proto.isOutOfBound = function () {
+    var state = this.state;
+    var options = this.options;
+    var scrollArea = state.scrollArea;
+    return !options.circular && options.bound && (state.position <= scrollArea.prev || state.position >= scrollArea.next);
+  };
+
+  __proto.canSetBoundMode = function () {
+    var options = this.options;
+    return options.bound && !options.circular;
+  };
+
+  __proto.getViewportElement = function () {
+    return this.viewportElement;
+  };
+
+  __proto.getCameraElement = function () {
+    return this.cameraElement;
+  };
+
+  __proto.getScrollAreaSize = function () {
+    var scrollArea = this.state.scrollArea;
+    return scrollArea.next - scrollArea.prev;
+  };
+
+  __proto.getRelativeHangerPosition = function () {
+    return this.state.relativeHangerPosition;
+  };
+
+  __proto.getHangerPosition = function () {
+    return this.state.position + this.state.relativeHangerPosition;
+  };
+
+  __proto.getCameraPosition = function () {
+    return this.state.position;
+  };
+
+  __proto.getPositionOffset = function () {
+    return this.state.positionOffset;
+  };
+
+  __proto.getCheckedIndexes = function () {
+    return this.state.checkedIndexes;
+  };
+
+  __proto.getVisiblePanels = function () {
+    return this.visiblePanels;
+  };
+
+  __proto.setCurrentPanel = function (panel) {
+    this.currentPanel = panel;
+  };
+
+  __proto.setLastIndex = function (index) {
+    var currentPanel = this.currentPanel;
+    var panelManager = this.panelManager;
+    panelManager.setLastIndex(index);
+
+    if (currentPanel && currentPanel.getIndex() > index) {
+      this.currentPanel = panelManager.lastPanel();
+    }
+
+    this.resize();
+  };
+
+  __proto.setVisiblePanels = function (panels) {
+    this.visiblePanels = panels;
+  };
+
+  __proto.connectAxesHandler = function (handlers) {
+    var axes = this.axes;
+    this.axesHandlers = handlers;
+    axes.on(handlers);
+  };
+
+  __proto.addPlugins = function (plugins) {
+    var _this = this;
+
+    var newPlugins = [].concat(plugins);
+    newPlugins.forEach(function (plugin) {
+      plugin.init(_this.flicking);
+    });
+    this.plugins = this.plugins.concat(newPlugins);
+    return this;
+  };
+
+  __proto.removePlugins = function (plugins) {
+    var _this = this;
+
+    var currentPlugins = this.plugins;
+    var removedPlugins = [].concat(plugins);
+    removedPlugins.forEach(function (plugin) {
+      var index = currentPlugins.indexOf(plugin);
+
+      if (index > -1) {
+        currentPlugins.splice(index, 1);
+      }
+
+      plugin.destroy(_this.flicking);
+    });
+    return this;
+  };
+
+  __proto.updateCheckedIndexes = function (changedRange) {
+    var state = this.state;
+    var removed = 0;
+    state.checkedIndexes.concat().forEach(function (indexes, idx) {
+      var min = indexes[0],
+          max = indexes[1]; // Can fill part of indexes in range
+
+      if (changedRange.min <= max && changedRange.max >= min) {
+        // Remove checked index from list
+        state.checkedIndexes.splice(idx - removed, 1);
+        removed++;
+      }
+    });
+  };
+
+  __proto.appendUncachedPanelElements = function (panels) {
+    var _this = this;
+
+    var options = this.options;
+    var fragment = document.createDocumentFragment();
+
+    if (options.isEqualSize) {
+      var prevVisiblePanels = this.visiblePanels;
+      var equalSizeClasses_1 = options.isEqualSize; // for readability
+
+      var cached_1 = {};
+      this.visiblePanels = [];
+      Object.keys(this.panelBboxes).forEach(function (className) {
+        cached_1[className] = true;
+      });
+      panels.forEach(function (panel) {
+        var overlappedClass = panel.getOverlappedClass(equalSizeClasses_1);
+
+        if (overlappedClass && !cached_1[overlappedClass]) {
+          if (!options.renderExternal) {
+            fragment.appendChild(panel.getElement());
+          }
+
+          _this.visiblePanels.push(panel);
+
+          cached_1[overlappedClass] = true;
+        } else if (!overlappedClass) {
+          if (!options.renderExternal) {
+            fragment.appendChild(panel.getElement());
+          }
+
+          _this.visiblePanels.push(panel);
+        }
+      });
+      prevVisiblePanels.forEach(function (panel) {
+        _this.addVisiblePanel(panel);
+      });
+    } else {
+      if (!options.renderExternal) {
+        panels.forEach(function (panel) {
+          return fragment.appendChild(panel.getElement());
+        });
+      }
+
+      this.visiblePanels = panels.filter(function (panel) {
+        return Boolean(panel);
+      });
+    }
+
+    if (!options.renderExternal) {
+      this.cameraElement.appendChild(fragment);
+    }
+  };
+
+  __proto.updateClonePanels = function () {
+    var panelManager = this.panelManager; // Clone panels in circular mode
+
+    if (this.options.circular && panelManager.getPanelCount() > 0) {
+      this.clonePanels();
+      this.updateClonedPanelPositions();
+    }
+
+    panelManager.chainAllPanels();
+  };
+
+  __proto.getVisibleIndexOf = function (panel) {
+    return findIndex(this.visiblePanels, function (visiblePanel) {
+      return visiblePanel === panel;
+    });
+  };
+
+  __proto.build = function () {
+    this.setElements();
+    this.applyCSSValue();
+    this.setMoveType();
+    this.setAxesInstance();
+    this.refreshPanels();
+    this.setDefaultPanel();
+    this.resize();
+    this.moveToDefaultPanel();
+  };
+
+  __proto.setElements = function () {
+    var state = this.state;
+    var options = this.options;
+    var wrapper = this.flicking.getElement();
+    var classPrefix = options.classPrefix;
+    var viewportCandidate = wrapper.children[0];
+    var hasViewportElement = viewportCandidate && hasClass(viewportCandidate, classPrefix + "-viewport");
+    var viewportElement = hasViewportElement ? viewportCandidate : document.createElement("div");
+    var cameraCandidate = hasViewportElement ? viewportElement.children[0] : wrapper.children[0];
+    var hasCameraElement = cameraCandidate && hasClass(cameraCandidate, classPrefix + "-camera");
+    var cameraElement = hasCameraElement ? cameraCandidate : document.createElement("div");
+
+    if (!hasCameraElement) {
+      cameraElement.className = classPrefix + "-camera";
+      var panelElements = hasViewportElement ? viewportElement.children : wrapper.children; // Make all panels to be a child of camera element
+      // wrapper <- viewport <- camera <- panels[1...n]
+
+      toArray(panelElements).forEach(function (child) {
+        cameraElement.appendChild(child);
+      });
+    } else {
+      state.originalCameraStyle = {
+        className: cameraElement.getAttribute("class"),
+        style: cameraElement.getAttribute("style")
+      };
+    }
+
+    if (!hasViewportElement) {
+      viewportElement.className = classPrefix + "-viewport"; // Add viewport element to wrapper
+
+      wrapper.appendChild(viewportElement);
+    } else {
+      state.originalViewportStyle = {
+        className: viewportElement.getAttribute("class"),
+        style: viewportElement.getAttribute("style")
+      };
+    }
+
+    if (!hasCameraElement || !hasViewportElement) {
+      viewportElement.appendChild(cameraElement);
+    }
+
+    this.viewportElement = viewportElement;
+    this.cameraElement = cameraElement;
+    state.isViewportGiven = hasViewportElement;
+    state.isCameraGiven = hasCameraElement;
+  };
+
+  __proto.applyCSSValue = function () {
+    var options = this.options;
+    var viewportElement = this.viewportElement;
+    var cameraElement = this.cameraElement;
+    var viewportStyle = this.viewportElement.style; // Set default css values for each element
+
+    applyCSS(viewportElement, DEFAULT_VIEWPORT_CSS);
+    applyCSS(cameraElement, DEFAULT_CAMERA_CSS);
+    viewportElement.style.zIndex = "" + options.zIndex;
+
+    if (options.horizontal) {
+      viewportStyle.minHeight = "100%";
+      viewportStyle.width = "100%";
+    } else {
+      viewportStyle.minWidth = "100%";
+      viewportStyle.height = "100%";
+    }
+
+    if (options.overflow) {
+      viewportStyle.overflow = "visible";
+    }
+
+    this.panelManager = new PanelManager(this.cameraElement, options);
+  };
+
+  __proto.setMoveType = function () {
+    var moveType = this.options.moveType;
+
+    switch (moveType.type) {
+      case MOVE_TYPE.SNAP:
+        this.moveType = new Snap(moveType.count);
+        break;
+
+      case MOVE_TYPE.FREE_SCROLL:
+        this.moveType = new FreeScroll();
+        break;
+
+      default:
+        throw new Error("moveType is not correct!");
+    }
+  };
+
+  __proto.setAxesInstance = function () {
+    var state = this.state;
+    var options = this.options;
+    var scrollArea = state.scrollArea;
+    this.axes = new _axes.default({
+      flick: {
+        range: [scrollArea.prev, scrollArea.next],
+        circular: options.circular,
+        bounce: [0, 0]
+      }
+    }, {
+      easing: options.panelEffect,
+      deceleration: options.deceleration,
+      interruptable: true
+    });
+    this.createPanInput();
+  };
+
+  __proto.refreshPanels = function () {
+    var _this = this;
+
+    var panelManager = this.panelManager; // Panel elements were attached to camera element by Flicking class
+
+    var panelElements = this.cameraElement.children; // Initialize panels
+
+    var panels = toArray(panelElements).map(function (el, idx) {
+      return new Panel(el, idx, _this);
+    });
+    panelManager.replacePanels(panels, []);
+    this.visiblePanels = panels.filter(function (panel) {
+      return Boolean(panel);
+    });
+  };
+
+  __proto.setDefaultPanel = function () {
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var indexRange = this.panelManager.getRange();
+    var index = clamp(options.defaultIndex, indexRange.min, indexRange.max);
+    this.currentPanel = panelManager.get(index);
+  };
+
+  __proto.clonePanels = function () {
+    var state = this.state;
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var gap = options.gap;
+    var viewportSize = state.size;
+    var firstPanel = panelManager.firstPanel();
+    var lastPanel = panelManager.lastPanel(); // There're no panels exist
+
+    if (!firstPanel) {
+      return;
+    } // For each panels, clone itself while last panel's position + size is below viewport size
+
+
+    var panels = panelManager.originalPanels();
+    var reversedPanels = panels.concat().reverse();
+    var sumOriginalPanelSize = lastPanel.getPosition() + lastPanel.getSize() - firstPanel.getPosition() + gap;
+    var relativeAnchorPosition = firstPanel.getRelativeAnchorPosition();
+    var relativeHangerPosition = this.getRelativeHangerPosition();
+    var areaPrev = (relativeHangerPosition - relativeAnchorPosition) % sumOriginalPanelSize;
+    var sizeSum = 0;
+    var panelAtLeftBoundary;
+
+    for (var _i = 0, reversedPanels_1 = reversedPanels; _i < reversedPanels_1.length; _i++) {
+      var panel = reversedPanels_1[_i];
+
+      if (!panel) {
+        continue;
+      }
+
+      sizeSum += panel.getSize() + gap;
+
+      if (sizeSum >= areaPrev) {
+        panelAtLeftBoundary = panel;
+        break;
+      }
+    }
+
+    var areaNext = (viewportSize - relativeHangerPosition + relativeAnchorPosition) % sumOriginalPanelSize;
+    sizeSum = 0;
+    var panelAtRightBoundary;
+
+    for (var _a = 0, panels_1 = panels; _a < panels_1.length; _a++) {
+      var panel = panels_1[_a];
+
+      if (!panel) {
+        continue;
+      }
+
+      sizeSum += panel.getSize() + gap;
+
+      if (sizeSum >= areaNext) {
+        panelAtRightBoundary = panel;
+        break;
+      }
+    } // Need one more set of clones on prev area of original panel 0
+
+
+    var needCloneOnPrev = panelAtLeftBoundary.getIndex() !== 0 && panelAtLeftBoundary.getIndex() <= panelAtRightBoundary.getIndex(); // Visible count of panel 0 on first screen
+
+    var panel0OnFirstscreen = Math.ceil((relativeHangerPosition + firstPanel.getSize() - relativeAnchorPosition) / sumOriginalPanelSize) + Math.ceil((viewportSize - relativeHangerPosition + relativeAnchorPosition) / sumOriginalPanelSize) - 1; // duplication
+
+    var cloneCount = panel0OnFirstscreen + (needCloneOnPrev ? 1 : 0);
+    var prevCloneCount = panelManager.getCloneCount();
+    panelManager.setCloneCount(cloneCount);
+
+    if (options.renderExternal) {
+      return;
+    }
+
+    if (cloneCount > prevCloneCount) {
+      var _loop_1 = function (cloneIndex) {
+        var _a;
+
+        var clones = panels.map(function (origPanel) {
+          return origPanel.clone(cloneIndex);
+        });
+        var fragment = document.createDocumentFragment();
+        clones.forEach(function (panel) {
+          return fragment.appendChild(panel.getElement());
+        });
+        this_1.cameraElement.appendChild(fragment);
+
+        (_a = this_1.visiblePanels).push.apply(_a, clones.filter(function (clone) {
+          return Boolean(clone);
+        }));
+
+        panelManager.insertClones(cloneIndex, 0, clones);
+      };
+
+      var this_1 = this; // should clone more
+
+      for (var cloneIndex = prevCloneCount; cloneIndex < cloneCount; cloneIndex++) {
+        _loop_1(cloneIndex);
+      }
+    } else if (cloneCount < prevCloneCount) {
+      // should remove some
+      panelManager.removeClonesAfter(cloneCount);
+    }
+  };
+
+  __proto.moveToDefaultPanel = function () {
+    var state = this.state;
+    var panelManager = this.panelManager;
+    var options = this.options;
+    var indexRange = this.panelManager.getRange();
+    var defaultIndex = clamp(options.defaultIndex, indexRange.min, indexRange.max);
+    var defaultPanel = panelManager.get(defaultIndex);
+    var defaultPosition = 0;
+
+    if (defaultPanel) {
+      defaultPosition = defaultPanel.getAnchorPosition() - state.relativeHangerPosition;
+      defaultPosition = this.canSetBoundMode() ? clamp(defaultPosition, state.scrollArea.prev, state.scrollArea.next) : defaultPosition;
+    }
+
+    this.moveCamera(defaultPosition);
+    this.axes.setTo({
+      flick: defaultPosition
+    }, 0);
+  };
+
+  __proto.updateSize = function () {
+    var state = this.state;
+    var options = this.options;
+    var panels = this.panelManager.originalPanels().filter(function (panel) {
+      return Boolean(panel);
+    });
+    var bbox = this.updateBbox();
+    var prevSize = state.size; // Update size & hanger position
+
+    state.size = options.horizontal ? bbox.width : bbox.height;
+
+    if (prevSize !== state.size) {
+      state.relativeHangerPosition = parseArithmeticExpression(options.hanger, state.size);
+      state.infiniteThreshold = parseArithmeticExpression(options.infiniteThreshold, state.size);
+    }
+
+    if (panels.length <= 0) {
+      return;
+    }
+
+    this.resizePanels(panels);
+  };
+
+  __proto.updateOriginalPanelPositions = function () {
+    var gap = this.options.gap;
+    var panelManager = this.panelManager;
+    var firstPanel = panelManager.firstPanel();
+    var panels = panelManager.originalPanels();
+
+    if (!firstPanel) {
+      return;
+    }
+
+    var currentPanel = this.currentPanel;
+    var nearestPanel = this.nearestPanel;
+    var currentState = this.stateMachine.getState();
+    var scrollArea = this.state.scrollArea; // Update panel position && fit to wrapper
+
+    var nextPanelPos = firstPanel.getPosition();
+    var maintainingPanel = firstPanel;
+
+    if (nearestPanel) {
+      // We should maintain nearestPanel's position
+      var looped = !isBetween(currentState.lastPosition + currentState.delta, scrollArea.prev, scrollArea.next);
+      maintainingPanel = looped ? currentPanel : nearestPanel;
+    } else if (firstPanel.getIndex() > 0) {
+      maintainingPanel = currentPanel;
+    }
+
+    var panelsBeforeMaintainPanel = panels.slice(0, maintainingPanel.getIndex() + (maintainingPanel.getCloneIndex() + 1) * panels.length);
+    var accumulatedSize = panelsBeforeMaintainPanel.reduce(function (total, panel) {
+      return total + panel.getSize() + gap;
+    }, 0);
+    nextPanelPos = maintainingPanel.getPosition() - accumulatedSize;
+    panels.forEach(function (panel) {
+      var newPosition = nextPanelPos;
+      var panelSize = panel.getSize();
+      panel.setPosition(newPosition);
+      nextPanelPos += panelSize + gap;
+    });
+
+    if (!this.options.renderOnlyVisible) {
+      panels.forEach(function (panel) {
+        return panel.setPositionCSS();
+      });
+    }
+  };
+
+  __proto.updateClonedPanelPositions = function () {
+    var state = this.state;
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var clonedPanels = panelManager.clonedPanels().reduce(function (allClones, clones) {
+      return __spreadArrays(allClones, clones);
+    }, []).filter(function (panel) {
+      return Boolean(panel);
+    });
+    var scrollArea = state.scrollArea;
+    var firstPanel = panelManager.firstPanel();
+    var lastPanel = panelManager.lastPanel();
+
+    if (!firstPanel) {
+      return;
+    }
+
+    var sumOriginalPanelSize = lastPanel.getPosition() + lastPanel.getSize() - firstPanel.getPosition() + options.gap; // Locate all cloned panels linearly first
+
+    for (var _i = 0, clonedPanels_1 = clonedPanels; _i < clonedPanels_1.length; _i++) {
+      var panel = clonedPanels_1[_i];
+      var origPanel = panel.getOriginalPanel();
+      var cloneIndex = panel.getCloneIndex();
+      var cloneBasePos = sumOriginalPanelSize * (cloneIndex + 1);
+      var clonedPanelPos = cloneBasePos + origPanel.getPosition();
+      panel.setPosition(clonedPanelPos);
+    }
+
+    var lastReplacePosition = firstPanel.getPosition(); // reverse() pollutes original array, so copy it with concat()
+
+    for (var _a = 0, _b = clonedPanels.concat().reverse(); _a < _b.length; _a++) {
+      var panel = _b[_a];
+      var panelSize = panel.getSize();
+      var replacePosition = lastReplacePosition - panelSize - options.gap;
+
+      if (replacePosition + panelSize <= scrollArea.prev) {
+        // Replace is not meaningful, as it won't be seen in current scroll area
+        break;
+      }
+
+      panel.setPosition(replacePosition);
+      lastReplacePosition = replacePosition;
+    }
+
+    if (!this.options.renderOnlyVisible) {
+      clonedPanels.forEach(function (panel) {
+        panel.setPositionCSS();
+      });
+    }
+  };
+
+  __proto.updateVisiblePanelPositions = function () {
+    var _this = this;
+
+    if (this.options.renderOnlyVisible) {
+      this.visiblePanels.forEach(function (panel) {
+        panel.setPositionCSS(_this.state.positionOffset);
+      });
+    }
+  };
+
+  __proto.updateScrollArea = function () {
+    var state = this.state;
+    var panelManager = this.panelManager;
+    var options = this.options;
+    var axes = this.axes; // Set viewport scrollable area
+
+    var firstPanel = panelManager.firstPanel();
+    var lastPanel = panelManager.lastPanel();
+    var relativeHangerPosition = state.relativeHangerPosition;
+
+    if (!firstPanel) {
+      state.scrollArea = {
+        prev: 0,
+        next: 0
+      };
+    } else if (this.canSetBoundMode()) {
+      var sumOriginalPanelSize = lastPanel.getPosition() + lastPanel.getSize() - firstPanel.getPosition();
+
+      if (sumOriginalPanelSize >= state.size) {
+        state.scrollArea = {
+          prev: firstPanel.getPosition(),
+          next: lastPanel.getPosition() + lastPanel.getSize() - state.size
+        };
+      } else {
+        // Find anchor position of set of the combined panels
+        var relAnchorPosOfCombined = parseArithmeticExpression(options.anchor, sumOriginalPanelSize);
+        var anchorPos = firstPanel.getPosition() + clamp(relAnchorPosOfCombined, sumOriginalPanelSize - (state.size - relativeHangerPosition), relativeHangerPosition);
+        state.scrollArea = {
+          prev: anchorPos - relativeHangerPosition,
+          next: anchorPos - relativeHangerPosition
+        };
+      }
+    } else if (options.circular) {
+      var sumOriginalPanelSize = lastPanel.getPosition() + lastPanel.getSize() - firstPanel.getPosition() + options.gap; // Maximum scroll extends to first clone sequence's first panel
+
+      state.scrollArea = {
+        prev: firstPanel.getAnchorPosition() - relativeHangerPosition,
+        next: sumOriginalPanelSize + firstPanel.getAnchorPosition() - relativeHangerPosition
+      };
+    } else {
+      state.scrollArea = {
+        prev: firstPanel.getAnchorPosition() - relativeHangerPosition,
+        next: lastPanel.getAnchorPosition() - relativeHangerPosition
+      };
+    }
+
+    var viewportSize = state.size;
+    var bounce = options.bounce;
+    var parsedBounce;
+
+    if (isArray(bounce)) {
+      parsedBounce = bounce.map(function (val) {
+        return parseArithmeticExpression(val, viewportSize, DEFAULT_OPTIONS.bounce);
+      });
+    } else {
+      var parsedVal = parseArithmeticExpression(bounce, viewportSize, DEFAULT_OPTIONS.bounce);
+      parsedBounce = [parsedVal, parsedVal];
+    } // Update axes range and bounce
+
+
+    var flick = axes.axis.flick;
+    flick.range = [state.scrollArea.prev, state.scrollArea.next];
+    flick.bounce = parsedBounce;
+  };
+
+  __proto.checkNeedPanel = function (axesEvent) {
+    var state = this.state;
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var currentPanel = this.currentPanel;
+    var nearestPanel = this.nearestPanel;
+    var currentState = this.stateMachine.getState();
+
+    if (!options.infinite) {
+      return;
+    }
+
+    var gap = options.gap;
+    var infiniteThreshold = state.infiniteThreshold;
+    var maxLastIndex = panelManager.getLastIndex();
+
+    if (maxLastIndex < 0) {
+      return;
+    }
+
+    if (!currentPanel || !nearestPanel) {
+      // There're no panels
+      this.triggerNeedPanel({
+        axesEvent: axesEvent,
+        siblingPanel: null,
+        direction: null,
+        indexRange: {
+          min: 0,
+          max: maxLastIndex,
+          length: maxLastIndex + 1
+        }
+      });
+      return;
+    }
+
+    var originalNearestPosition = nearestPanel.getPosition(); // Check next direction
+
+    var checkingPanel = !currentState.holding && !currentState.playing ? currentPanel : nearestPanel;
+
+    while (checkingPanel) {
+      var currentIndex = checkingPanel.getIndex();
+      var nextSibling = checkingPanel.nextSibling;
+      var lastPanel = panelManager.lastPanel();
+      var atLastPanel = currentIndex === lastPanel.getIndex();
+      var nextIndex = !atLastPanel && nextSibling ? nextSibling.getIndex() : maxLastIndex + 1;
+      var currentNearestPosition = nearestPanel.getPosition();
+      var panelRight = checkingPanel.getPosition() + checkingPanel.getSize() - (currentNearestPosition - originalNearestPosition);
+      var cameraNext = state.position + state.size; // There're empty panels between
+
+      var emptyPanelExistsBetween = nextIndex - currentIndex > 1; // Expected prev panel's left position is smaller than camera position
+
+      var overThreshold = panelRight + gap - infiniteThreshold <= cameraNext;
+
+      if (emptyPanelExistsBetween && overThreshold) {
+        this.triggerNeedPanel({
+          axesEvent: axesEvent,
+          siblingPanel: checkingPanel,
+          direction: DIRECTION.NEXT,
+          indexRange: {
+            min: currentIndex + 1,
+            max: nextIndex - 1,
+            length: nextIndex - currentIndex - 1
+          }
+        });
+      } // Trigger needPanel in circular & at max panel index
+
+
+      if (options.circular && currentIndex === maxLastIndex && overThreshold) {
+        var firstPanel = panelManager.firstPanel();
+        var firstIndex = firstPanel ? firstPanel.getIndex() : -1;
+
+        if (firstIndex > 0) {
+          this.triggerNeedPanel({
+            axesEvent: axesEvent,
+            siblingPanel: checkingPanel,
+            direction: DIRECTION.NEXT,
+            indexRange: {
+              min: 0,
+              max: firstIndex - 1,
+              length: firstIndex
+            }
+          });
+        }
+      } // Check whether panels are changed
+
+
+      var lastPanelAfterNeed = panelManager.lastPanel();
+      var atLastPanelAfterNeed = lastPanelAfterNeed && currentIndex === lastPanelAfterNeed.getIndex();
+
+      if (atLastPanelAfterNeed || !overThreshold) {
+        break;
+      }
+
+      checkingPanel = checkingPanel.nextSibling;
+    } // Check prev direction
+
+
+    checkingPanel = nearestPanel;
+
+    while (checkingPanel) {
+      var cameraPrev = state.position;
+      var checkingIndex = checkingPanel.getIndex();
+      var prevSibling = checkingPanel.prevSibling;
+      var firstPanel = panelManager.firstPanel();
+      var atFirstPanel = checkingIndex === firstPanel.getIndex();
+      var prevIndex = !atFirstPanel && prevSibling ? prevSibling.getIndex() : -1;
+      var currentNearestPosition = nearestPanel.getPosition();
+      var panelLeft = checkingPanel.getPosition() - (currentNearestPosition - originalNearestPosition); // There're empty panels between
+
+      var emptyPanelExistsBetween = checkingIndex - prevIndex > 1; // Expected prev panel's right position is smaller than camera position
+
+      var overThreshold = panelLeft - gap + infiniteThreshold >= cameraPrev;
+
+      if (emptyPanelExistsBetween && overThreshold) {
+        this.triggerNeedPanel({
+          axesEvent: axesEvent,
+          siblingPanel: checkingPanel,
+          direction: DIRECTION.PREV,
+          indexRange: {
+            min: prevIndex + 1,
+            max: checkingIndex - 1,
+            length: checkingIndex - prevIndex - 1
+          }
+        });
+      } // Trigger needPanel in circular & at panel 0
+
+
+      if (options.circular && checkingIndex === 0 && overThreshold) {
+        var lastPanel = panelManager.lastPanel();
+
+        if (lastPanel && lastPanel.getIndex() < maxLastIndex) {
+          var lastIndex = lastPanel.getIndex();
+          this.triggerNeedPanel({
+            axesEvent: axesEvent,
+            siblingPanel: checkingPanel,
+            direction: DIRECTION.PREV,
+            indexRange: {
+              min: lastIndex + 1,
+              max: maxLastIndex,
+              length: maxLastIndex - lastIndex
+            }
+          });
+        }
+      } // Check whether panels were changed
+
+
+      var firstPanelAfterNeed = panelManager.firstPanel();
+      var atFirstPanelAfterNeed = firstPanelAfterNeed && checkingIndex === firstPanelAfterNeed.getIndex(); // Looped in circular mode
+
+      if (atFirstPanelAfterNeed || !overThreshold) {
+        break;
+      }
+
+      checkingPanel = checkingPanel.prevSibling;
+    }
+  };
+
+  __proto.triggerNeedPanel = function (params) {
+    var _this = this;
+
+    var axesEvent = params.axesEvent,
+        siblingPanel = params.siblingPanel,
+        direction = params.direction,
+        indexRange = params.indexRange;
+    var options = this.options;
+    var checkedIndexes = this.state.checkedIndexes;
+    var alreadyTriggered = checkedIndexes.some(function (_a) {
+      var min = _a[0],
+          max = _a[1];
+      return min === indexRange.min || max === indexRange.max;
+    });
+    var hasHandler = this.flicking.hasOn(EVENTS.NEED_PANEL);
+
+    if (alreadyTriggered || !hasHandler) {
+      return;
+    } // Should done before triggering event, as we can directly add panels by event callback
+
+
+    checkedIndexes.push([indexRange.min, indexRange.max]);
+    var index = siblingPanel ? siblingPanel.getIndex() : 0;
+    var isTrusted = axesEvent ? axesEvent.isTrusted : false;
+    this.triggerEvent(EVENTS.NEED_PANEL, axesEvent, isTrusted, {
+      index: index,
+      panel: siblingPanel,
+      direction: direction,
+      range: indexRange,
+      fill: function (element) {
+        var panelManager = _this.panelManager;
+
+        if (!siblingPanel) {
+          return _this.insert(panelManager.getRange().max + 1, element);
+        }
+
+        var parsedElements = parseElement(element); // Slice elements to fit size equal to empty spaces
+
+        var elements = direction === DIRECTION.NEXT ? parsedElements.slice(0, indexRange.length) : parsedElements.slice(-indexRange.length);
+
+        if (direction === DIRECTION.NEXT) {
+          if (options.circular && index === panelManager.getLastIndex()) {
+            // needPanel event is triggered on last index, insert at index 0
+            return _this.insert(0, elements);
+          } else {
+            return siblingPanel.insertAfter(elements);
+          }
+        } else if (direction === DIRECTION.PREV) {
+          if (options.circular && index === 0) {
+            // needPanel event is triggered on first index(0), insert at the last index
+            return _this.insert(indexRange.max - elements.length + 1, elements);
+          } else {
+            return siblingPanel.insertBefore(elements);
+          }
+        } else {
+          // direction is null when there're no panels exist
+          return _this.insert(0, elements);
+        }
+      }
+    });
+  };
+
+  __proto.updateVisiblePanels = function () {
+    var state = this.state;
+    var options = this.options;
+    var panelManager = this.panelManager;
+    var currentState = this.stateMachine.getState();
+    var cameraElement = this.cameraElement;
+    var renderExternal = options.renderExternal,
+        renderOnlyVisible = options.renderOnlyVisible;
+
+    if (!renderOnlyVisible) {
+      return;
+    }
+
+    if (!this.nearestPanel) {
+      this.visiblePanels = [];
+
+      while (cameraElement.firstChild) {
+        cameraElement.removeChild(cameraElement.firstChild);
+      }
+
+      return;
+    }
+
+    var prevVisiblePanels = this.visiblePanels;
+    var newVisiblePanels = this.calcVisiblePanels();
+
+    var _a = this.checkVisiblePanelChange(prevVisiblePanels, newVisiblePanels),
+        addedPanels = _a.addedPanels,
+        removedPanels = _a.removedPanels;
+
+    if (addedPanels.length <= 0 && removedPanels.length <= 0) {
+      // Visible panels not changed
+      return;
+    }
+
+    if (currentState.holding) {
+      newVisiblePanels.push.apply(newVisiblePanels, removedPanels);
+    } else {
+      var firstVisiblePanelPos = newVisiblePanels[0].getPosition();
+      state.positionOffset = firstVisiblePanelPos;
+    }
+
+    newVisiblePanels.forEach(function (panel) {
+      panel.setPositionCSS(state.positionOffset);
+    });
+
+    if (!renderExternal) {
+      if (!currentState.holding) {
+        removedPanels.forEach(function (panel) {
+          var panelElement = panel.getElement();
+          panelElement.parentNode && cameraElement.removeChild(panelElement);
+        });
+      }
+
+      var fragment_1 = document.createDocumentFragment();
+      addedPanels.forEach(function (panel) {
+        fragment_1.appendChild(panel.getElement());
+      });
+      cameraElement.appendChild(fragment_1);
+    }
+
+    var firstVisiblePanel = newVisiblePanels[0];
+    var lastVisiblePanel = newVisiblePanels[newVisiblePanels.length - 1];
+
+    var getAbsIndex = function (panel) {
+      return panel.getIndex() + (panel.getCloneIndex() + 1) * panelManager.getPanelCount();
+    };
+
+    var newVisibleRange = {
+      min: getAbsIndex(firstVisiblePanel),
+      max: getAbsIndex(lastVisiblePanel)
+    };
+    this.visiblePanels = newVisiblePanels;
+    this.flicking.trigger(EVENTS.VISIBLE_CHANGE, {
+      type: EVENTS.VISIBLE_CHANGE,
+      range: newVisibleRange
+    });
+  };
+
+  __proto.checkVisiblePanelChange = function (prevVisiblePanels, newVisiblePanels) {
+    var prevRefCount = prevVisiblePanels.map(function () {
+      return 0;
+    });
+    var newRefCount = newVisiblePanels.map(function () {
+      return 0;
+    });
+    prevVisiblePanels.forEach(function (prevPanel, prevIndex) {
+      newVisiblePanels.forEach(function (newPanel, newIndex) {
+        if (prevPanel === newPanel) {
+          prevRefCount[prevIndex]++;
+          newRefCount[newIndex]++;
+        }
+      });
+    });
+    var removedPanels = prevRefCount.reduce(function (removed, count, index) {
+      return count === 0 ? __spreadArrays(removed, [prevVisiblePanels[index]]) : removed;
+    }, []);
+    var addedPanels = newRefCount.reduce(function (added, count, index) {
+      return count === 0 ? __spreadArrays(added, [newVisiblePanels[index]]) : added;
+    }, []);
+    return {
+      removedPanels: removedPanels,
+      addedPanels: addedPanels
+    };
+  };
+
+  __proto.resizePanels = function (panels) {
+    var options = this.options;
+    var panelBboxes = this.panelBboxes;
+
+    if (options.isEqualSize === true) {
+      if (!panelBboxes.default) {
+        var defaultPanel = panels[0];
+        panelBboxes.default = defaultPanel.getBbox();
+      }
+
+      var defaultBbox_1 = panelBboxes.default;
+      panels.forEach(function (panel) {
+        panel.resize(defaultBbox_1);
+      });
+      return;
+    } else if (options.isEqualSize) {
+      var equalSizeClasses_2 = options.isEqualSize;
+      panels.forEach(function (panel) {
+        var overlappedClass = panel.getOverlappedClass(equalSizeClasses_2);
+
+        if (overlappedClass) {
+          panel.resize(panelBboxes[overlappedClass]);
+          panelBboxes[overlappedClass] = panel.getBbox();
+        } else {
+          panel.resize();
+        }
+      });
+      return;
+    }
+
+    panels.forEach(function (panel) {
+      panel.resize();
+    });
+  };
+
+  __proto.createPanInput = function () {
+    var options = this.options;
+    this.panInput = new _axes.PanInput(this.viewportElement, {
+      inputType: options.inputType,
+      thresholdAngle: options.thresholdAngle,
+      iOSEdgeSwipeThreshold: options.iOSEdgeSwipeThreshold,
+      scale: options.horizontal ? [-1, 0] : [0, -1]
+    });
+    this.axes.connect(options.horizontal ? ["flick", ""] : ["", "flick"], this.panInput);
+  };
+
+  return Viewport;
+}();
+/**
+ * Copyright (c) 2015 NAVER Corp.
+ * egjs projects are licensed under the MIT license
+ */
+
+/**
+ * @memberof eg
+ * @extends eg.Component
+ * @support {"ie": "10+", "ch" : "latest", "ff" : "latest",  "sf" : "latest" , "edge" : "latest", "ios" : "7+", "an" : "4.X+"}
+ * @requires {@link https://github.com/naver/egjs-component|eg.Component}
+ * @requires {@link https://github.com/naver/egjs-axes|eg.Axes}
+ * @see Easing Functions Cheat Sheet {@link http://easings.net/} <ko>이징 함수 Cheat Sheet {@link http://easings.net/}</ko>
+ */
+
+
+var Flicking = /*#__PURE__*/function (_super) {
+  __extends(Flicking, _super);
+  /**
+   * @param element A base element for the eg.Flicking module. When specifying a value as a `string` type, you must specify a css selector string to select the element.<ko>eg.Flicking 모듈을 사용할 기준 요소. `string`타입으로 값 지정시 요소를 선택하기 위한 css 선택자 문자열을 지정해야 한다.</ko>
+   * @param options An option object of the eg.Flicking module<ko>eg.Flicking 모듈의 옵션 객체</ko>
+   * @param {string} [options.classPrefix="eg-flick"] A prefix of class names will be added for the panels, viewport, and camera.<ko>패널들과 뷰포트, 카메라에 추가될 클래스 이름의 접두사.</ko>
+   * @param {number} [options.deceleration=0.0075] Deceleration value for panel movement animation for animation triggered by manual user input. A higher value means a shorter running time.<ko>사용자의 동작으로 가속도가 적용된 패널 이동 애니메이션의 감속도. 값이 높을수록 애니메이션 실행 시간이 짧아진다.</ko>
+   * @param {boolean} [options.horizontal=true] The direction of panel movement. (true: horizontal, false: vertical)<ko>패널 이동 방향. (true: 가로방향, false: 세로방향)</ko>
+   * @param {boolean} [options.circular=false] Enables circular mode, which connects first/last panel for continuous scrolling.<ko>순환 모드를 활성화한다. 순환 모드에서는 양 끝의 패널이 서로 연결되어 끊김없는 스크롤이 가능하다.</ko>
+   * @param {boolean} [options.infinite=false] Enables infinite mode, which can automatically trigger needPanel until reaching the last panel's index reaches the lastIndex.<ko>무한 모드를 활성화한다. 무한 모드에서는 needPanel 이벤트를 자동으로 트리거한다. 해당 동작은 마지막 패널의 인덱스가 lastIndex와 일치할때까지 일어난다.</ko>
+   * @param {number} [options.infiniteThreshold=0] A Threshold from viewport edge before triggering `needPanel` event in infinite mode.<ko>무한 모드에서 `needPanel`이벤트가 발생하기 위한 뷰포트 끝으로부터의 최대 거리.</ko>
+   * @param {number} [options.lastIndex=Infinity] Maximum panel index that Flicking can set. Flicking won't trigger `needPanel` when the event's panel index is greater than it.<br/>Also, if the last panel's index reached a given index, you can't add more panels.<ko>Flicking이 설정 가능한 패널의 최대 인덱스. `needPanel` 이벤트에 지정된 인덱스가 최대 패널의 개수보다 같거나 커야 하는 경우에 이벤트를 트리거하지 않게 한다.<br>또한, 마지막 패널의 인덱스가 주어진 인덱스와 동일할 경우, 새로운 패널을 더 이상 추가할 수 없다.</ko>
+   * @param {number} [options.threshold=40] Movement threshold to change panel(unit: pixel). It should be dragged above the threshold to change the current panel.<ko>패널 변경을 위한 이동 임계값 (단위: 픽셀). 주어진 값 이상으로 스크롤해야만 패널 변경이 가능하다.</ko>
+   * @param {number} [options.duration=100] Duration of the panel movement animation. (unit: ms)<ko>패널 이동 애니메이션 진행 시간.(단위: ms)</ko>
+   * @param {function} [options.panelEffect=x => 1 - Math.pow(1 - x, 3)] An easing function applied to the panel movement animation. Default value is `easeOutCubic`.<ko>패널 이동 애니메이션에 적용할 easing함수. 기본값은 `easeOutCubic`이다.</ko>
+   * @param {number} [options.defaultIndex=0] Index of the panel to set as default when initializing. A zero-based integer.<ko>초기화시 지정할 디폴트 패널의 인덱스로, 0부터 시작하는 정수.</ko>
+   * @param {string[]} [options.inputType=["touch,"mouse"]] Types of input devices to enable.({@link https://naver.github.io/egjs-axes/release/latest/doc/global.html#PanInputOption Reference})<ko>활성화할 입력 장치 종류. ({@link https://naver.github.io/egjs-axes/release/latest/doc/global.html#PanInputOption 참고})</ko>
+   * @param {number} [options.thresholdAngle=45] The threshold angle value(0 ~ 90).<br>If the input angle from click/touched position is above or below this value in horizontal and vertical mode each, scrolling won't happen.<ko>스크롤 동작을 막기 위한 임계각(0 ~ 90).<br>클릭/터치한 지점으로부터 계산된 사용자 입력의 각도가 horizontal/vertical 모드에서 각각 크거나 작으면, 스크롤 동작이 이루어지지 않는다.</ko>
+   * @param {number|string|number[]|string[]} [options.bounce=[10,10]] The size value of the bounce area. Only can be enabled when `circular=false`.<br>You can set different bounce value for prev/next direction by using array.<br>`number` for px value, and `string` for px, and % value relative to viewport size.(ex - 0, "10px", "20%")<ko>바운스 영역의 크기값. `circular=false`인 경우에만 사용할 수 있다.<br>배열을 통해 prev/next 방향에 대해 서로 다른 바운스 값을 지정 가능하다.<br>`number`를 통해 px값을, `stirng`을 통해 px 혹은 뷰포트 크기 대비 %값을 사용할 수 있다.(ex - 0, "10px", "20%")</ko>
+   * @param {boolean} [options.autoResize=false] Whether the `resize` method should be called automatically after a window resize event.<ko>window의 `resize` 이벤트 이후 자동으로 resize()메소드를 호출할지의 여부.</ko>
+   * @param {boolean} [options.adaptive=false] Whether the height(horizontal)/width(vertical) of the viewport element reflects the height/width value of the panel after completing the movement.<ko>목적 패널로 이동한 후 그 패널의 높이(horizontal)/너비(vertical)값을 뷰포트 요소의 높이/너비값에 반영할지 여부.</ko>
+   * @param {number|""} [options.zIndex=2000] z-index value for viewport element.<ko>뷰포트 엘리먼트의 z-index 값.</ko>
+   * @param {boolean} [options.bound=false] Prevent the view from going out of the first/last panel. Only can be enabled when `circular=false`.<ko>뷰가 첫번째와 마지막 패널 밖으로 나가는 것을 막아준다. `circular=false`인 경우에만 사용할 수 있다.</ko>
+   * @param {boolean} [options.overflow=false] Disables CSS property `overflow: hidden` in viewport if `true`.<ko>`true`로 설정시 뷰포트에 `overflow: hidden` 속성을 해제한다.</ko>
+   * @param {string} [options.hanger="50%"] The reference position of the hanger in the viewport, which hangs panel anchors should be stopped at.<br>It should be provided in px or % value of viewport size.<br>You can combinate those values with plus/minus sign.<br>ex) "50", "100px", "0%", "25% + 100px"<ko>뷰포트 내부의 행어의 위치. 패널의 앵커들이 뷰포트 내에서 멈추는 지점에 해당한다.<br>px값이나, 뷰포트의 크기 대비 %값을 사용할 수 있고, 이를 + 혹은 - 기호로 연계하여 사용할 수도 있다.<br>예) "50", "100px", "0%", "25% + 100px"</ko>
+   * @param {string} [options.anchor="50%"] The reference position of the anchor in panels, which can be hanged by viewport hanger.<br>It should be provided in px or % value of panel size.<br>You can combinate those values with plus/minus sign.<br>ex) "50", "100px", "0%", "25% + 100px"<ko>패널 내부의 앵커의 위치. 뷰포트의 행어와 연계하여 패널이 화면 내에서 멈추는 지점을 설정할 수 있다.<br>px값이나, 패널의 크기 대비 %값을 사용할 수 있고, 이를 + 혹은 - 기호로 연계하여 사용할 수도 있다.<br>예) "50", "100px", "0%", "25% + 100px"</ko>
+   * @param {number} [options.gap=0] Space value between panels. Should be given in number.(px)<ko>패널간에 부여할 간격의 크기를 나타내는 숫자.(px)</ko>
+   * @param {eg.Flicking.MoveTypeOption} [options.moveType="snap"] Movement style by user input. (ex: snap, freeScroll)<ko>사용자 입력에 의한 이동 방식.(ex: snap, freeScroll)</ko>
+   * @param {boolean} [options.useOffset=false] Whether to use `offsetWidth`/`offsetHeight` instead of `getBoundingClientRect` for panel/viewport size calculation.<br/>You can use this option to calculate the original panel size when CSS transform is applied to viewport or panel.<br/>⚠️ If panel size is not fixed integer value, there can be a 1px gap between panels.<ko>패널과 뷰포트의 크기를 계산할 때 `offsetWidth`/`offsetHeight`를 `getBoundingClientRect` 대신 사용할지 여부.<br/>패널이나 뷰포트에 CSS transform이 설정되어 있을 때 원래 패널 크기를 계산하려면 옵션을 활성화한다.<br/>⚠️ 패널의 크기가 정수로 고정되어있지 않다면 패널 사이에 1px의 공간이 생길 수 있다.</ko>
+   * @param {boolean} [options.renderOnlyVisible=false] Whether to render visible panels only. This can dramatically increase performance when there're many panels.<ko>보이는 패널만 렌더링할지 여부를 설정한다. 패널이 많을 경우에 퍼포먼스를 크게 향상시킬 수 있다.</ko>
+   * @param {boolean|string[]} [options.isEqualSize=false] This option indicates whether all panels have the same size(true) of first panel, or it can hold a list of class names that determines panel size.<br/>Enabling this option can increase performance while recalculating panel size.<ko>모든 패널의 크기가 동일한지(true), 혹은 패널 크기를 결정하는 패널 클래스들의 리스트.<br/>이 옵션을 설정하면 패널 크기 재설정시에 성능을 높일 수 있다.</ko>
+   * @param {boolean} [options.isConstantSize=false] Whether all panels have a constant size that won't be changed after resize. Enabling this option can increase performance while recalculating panel size.<ko>모든 패널의 크기가 불변인지의 여부. 이 옵션을 'true'로 설정하면 패널 크기 재설정시에 성능을 높일 수 있다.</ko>
+   * @param {boolean} [options.renderExternal=false] Whether to use external rendering. It will delegate DOM manipulation and can synchronize the rendered state by calling `sync()` method. You can use this option to use in frameworks like React, Vue, Angular, which has its states and rendering methods.<ko>외부 렌더링을 사용할 지의 여부. 이 옵션을 사용시 렌더링을 외부에 위임할 수 있고, `sync()`를 호출하여 그 상태를 동기화할 수 있다. 이 옵션을 사용하여, React, Vue, Angular 등 자체적인 상태와 렌더링 방법을 갖는 프레임워크에 대응할 수 있다.</ko>
+   * @param {boolean} [options.resizeOnContentsReady=false] Whether to resize the Flicking after the image/video elements inside viewport are ready.<br/>Use this property to prevent wrong Flicking layout caused by dynamic image / video sizes.<ko>Flicking 내부의 이미지 / 비디오 엘리먼트들이 전부 로드되었을 때 Flicking의 크기를 재계산하기 위한 옵션.<br/>이미지 / 비디오 크기가 고정 크기가 아닐 경우 사용하여 레이아웃이 잘못되는 것을 방지할 수 있다.</ko>
+   * @param {boolean} [options.collectStatistics=true] Whether to collect statistics on how you are using `Flicking`. These statistical data do not contain any personal information and are used only as a basis for the development of a user-friendly product.<ko>어떻게 `Flicking`을 사용하고 있는지에 대한 통계 수집 여부를 나타낸다. 이 통계자료는 개인정보를 포함하고 있지 않으며 오직 사용자 친화적인 제품으로 발전시키기 위한 근거자료로서 활용한다.</ko>
+   */
+
+
+  function Flicking(element, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _this = _super.call(this) || this;
+
+    _this.contentsReadyChecker = null;
+    _this.isPanelChangedAtBeforeSync = false;
+    /**
+     * Update panels to current state.
+     * @ko 패널들을 현재 상태에 맞춰 갱신한다.
+     * @method
+     * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+     */
+
+    _this.resize = function () {
+      var viewport = _this.viewport;
+      var options = _this.options;
+
+      var wrapper = _this.getElement();
+
+      var allPanels = viewport.panelManager.allPanels();
+
+      if (!options.isConstantSize) {
+        allPanels.forEach(function (panel) {
+          return panel.unCacheBbox();
+        });
+      }
+
+      var shouldResetElements = options.renderOnlyVisible && !options.isConstantSize && options.isEqualSize !== true; // Temporarily set parent's height to prevent scroll (#333)
+
+      var parent = wrapper.parentElement;
+      var origStyle = parent.style.height;
+      parent.style.height = parent.offsetHeight + "px";
+      viewport.unCacheBbox(); // This should be done before adding panels, to lower performance issue
+
+      viewport.updateBbox();
+
+      if (shouldResetElements) {
+        viewport.appendUncachedPanelElements(allPanels);
+      }
+
+      viewport.resize();
+      parent.style.height = origStyle;
+      return _this;
+    };
+
+    _this.triggerEvent = function (eventName, // visibleChange event has no common event definition from other events
+    axesEvent, isTrusted, params) {
+      if (params === void 0) {
+        params = {};
+      }
+
+      var viewport = _this.viewport;
+      var canceled = true; // Ignore events before viewport is initialized
+
+      if (viewport) {
+        var state = viewport.stateMachine.getState();
+
+        var _a = viewport.getScrollArea(),
+            prev = _a.prev,
+            next = _a.next;
+
+        var pos = viewport.getCameraPosition();
+        var progress = getProgress(pos, [prev, prev, next]);
+
+        if (_this.options.circular) {
+          progress %= 1;
+        }
+
+        canceled = !_super.prototype.trigger.call(_this, eventName, merge({
+          type: eventName,
+          index: _this.getIndex(),
+          panel: _this.getCurrentPanel(),
+          direction: state.direction,
+          holding: state.holding,
+          progress: progress,
+          axesEvent: axesEvent,
+          isTrusted: isTrusted
+        }, params));
+      }
+
+      return {
+        onSuccess: function (callback) {
+          if (!canceled) {
+            callback();
+          }
+
+          return this;
+        },
+        onStopped: function (callback) {
+          if (canceled) {
+            callback();
+          }
+
+          return this;
+        }
+      };
+    }; // Return result of "move" event triggered
+
+
+    _this.moveCamera = function (axesEvent) {
+      var viewport = _this.viewport;
+      var state = viewport.stateMachine.getState();
+      var options = _this.options;
+      var pos = axesEvent.pos.flick;
+      var previousPosition = viewport.getCameraPosition();
+
+      if (axesEvent.isTrusted && state.holding) {
+        var inputOffset = options.horizontal ? axesEvent.inputEvent.offsetX : axesEvent.inputEvent.offsetY;
+        var isNextDirection = inputOffset < 0;
+        var cameraChange = pos - previousPosition;
+        var looped = isNextDirection === pos < previousPosition;
+
+        if (options.circular && looped) {
+          // Reached at max/min range of axes
+          var scrollAreaSize = viewport.getScrollAreaSize();
+          cameraChange = (cameraChange > 0 ? -1 : 1) * (scrollAreaSize - Math.abs(cameraChange));
+        }
+
+        var currentDirection = cameraChange === 0 ? state.direction : cameraChange > 0 ? DIRECTION.NEXT : DIRECTION.PREV;
+        state.direction = currentDirection;
+      }
+
+      state.delta += axesEvent.delta.flick;
+      viewport.moveCamera(pos, axesEvent);
+      return _this.triggerEvent(EVENTS.MOVE, axesEvent, axesEvent.isTrusted).onStopped(function () {
+        // Undo camera movement
+        viewport.moveCamera(previousPosition, axesEvent);
+      });
+    }; // Set flicking wrapper user provided
+
+
+    var wrapper;
+
+    if (isString(element)) {
+      wrapper = document.querySelector(element);
+
+      if (!wrapper) {
+        throw new Error("Base element doesn't exist.");
+      }
+    } else if (element.nodeName && element.nodeType === 1) {
+      wrapper = element;
+    } else {
+      throw new Error("Element should be provided in string or HTMLElement.");
+    }
+
+    _this.wrapper = wrapper; // Override default options
+
+    _this.options = merge({}, DEFAULT_OPTIONS, options); // Override moveType option
+
+    var currentOptions = _this.options;
+    var moveType = currentOptions.moveType;
+
+    if (moveType in DEFAULT_MOVE_TYPE_OPTIONS) {
+      currentOptions.moveType = DEFAULT_MOVE_TYPE_OPTIONS[moveType];
+    } // Make viewport instance with panel container element
+
+
+    _this.viewport = new Viewport(_this, _this.options, _this.triggerEvent);
+
+    _this.listenInput();
+
+    _this.listenResize();
+
+    return _this; // if (this.options.collectStatistics) {
+    //   sendEvent(
+    //     "usage",
+    //     "options",
+    //     options,
+    //   );
+    // }
+  }
+  /**
+   * Move to the previous panel if it exists.
+   * @ko 이전 패널이 존재시 해당 패널로 이동한다.
+   * @param [duration=options.duration] Duration of the panel movement animation.(unit: ms)<ko>패널 이동 애니메이션 진행 시간.(단위: ms)</ko>
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  var __proto = Flicking.prototype;
+
+  __proto.prev = function (duration) {
+    var currentPanel = this.getCurrentPanel();
+    var currentState = this.viewport.stateMachine.getState();
+
+    if (currentPanel && currentState.type === STATE_TYPE.IDLE) {
+      var prevPanel = currentPanel.prev();
+
+      if (prevPanel) {
+        prevPanel.focus(duration);
+      }
+    }
+
+    return this;
+  };
+  /**
+   * Move to the next panel if it exists.
+   * @ko 다음 패널이 존재시 해당 패널로 이동한다.
+   * @param [duration=options.duration] Duration of the panel movement animation(unit: ms).<ko>패널 이동 애니메이션 진행 시간.(단위: ms)</ko>
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.next = function (duration) {
+    var currentPanel = this.getCurrentPanel();
+    var currentState = this.viewport.stateMachine.getState();
+
+    if (currentPanel && currentState.type === STATE_TYPE.IDLE) {
+      var nextPanel = currentPanel.next();
+
+      if (nextPanel) {
+        nextPanel.focus(duration);
+      }
+    }
+
+    return this;
+  };
+  /**
+   * Move to the panel of given index.
+   * @ko 주어진 인덱스에 해당하는 패널로 이동한다.
+   * @param index The index number of the panel to move.<ko>이동할 패널의 인덱스 번호.</ko>
+   * @param duration [duration=options.duration] Duration of the panel movement.(unit: ms)<ko>패널 이동 애니메이션 진행 시간.(단위: ms)</ko>
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.moveTo = function (index, duration) {
+    var viewport = this.viewport;
+    var panel = viewport.panelManager.get(index);
+    var state = viewport.stateMachine.getState();
+
+    if (!panel || state.type !== STATE_TYPE.IDLE) {
+      return this;
+    }
+
+    var anchorPosition = panel.getAnchorPosition();
+    var hangerPosition = viewport.getHangerPosition();
+    var targetPanel = panel;
+
+    if (this.options.circular) {
+      var scrollAreaSize = viewport.getScrollAreaSize(); // Check all three possible locations, find the nearest position among them.
+
+      var possiblePositions = [anchorPosition - scrollAreaSize, anchorPosition, anchorPosition + scrollAreaSize];
+      var nearestPosition = possiblePositions.reduce(function (nearest, current) {
+        return Math.abs(current - hangerPosition) < Math.abs(nearest - hangerPosition) ? current : nearest;
+      }, Infinity) - panel.getRelativeAnchorPosition();
+      var identicals = panel.getIdenticalPanels();
+      var offset = nearestPosition - anchorPosition;
+
+      if (offset > 0) {
+        // First cloned panel is nearest
+        targetPanel = identicals[1];
+      } else if (offset < 0) {
+        // Last cloned panel is nearest
+        targetPanel = identicals[identicals.length - 1];
+      }
+
+      targetPanel = targetPanel.clone(targetPanel.getCloneIndex(), true);
+      targetPanel.setPosition(nearestPosition);
+    }
+
+    var currentIndex = this.getIndex();
+
+    if (hangerPosition === targetPanel.getAnchorPosition() && currentIndex === index) {
+      return this;
+    }
+
+    var eventType = panel.getIndex() === viewport.getCurrentIndex() ? "" : EVENTS.CHANGE;
+    viewport.moveTo(targetPanel, viewport.findEstimatedPosition(targetPanel), eventType, null, duration);
+    return this;
+  };
+  /**
+   * Return index of the current panel. `-1` if no panel exists.
+   * @ko 현재 패널의 인덱스 번호를 반환한다. 패널이 하나도 없을 경우 `-1`을 반환한다.
+   * @return Current panel's index, zero-based integer.<ko>현재 패널의 인덱스 번호. 0부터 시작하는 정수.</ko>
+   */
+
+
+  __proto.getIndex = function () {
+    return this.viewport.getCurrentIndex();
+  };
+  /**
+   * Return the wrapper element user provided in constructor.
+   * @ko 사용자가 생성자에서 제공한 래퍼 엘리먼트를 반환한다.
+   * @return Wrapper element user provided.<ko>사용자가 제공한 래퍼 엘리먼트.</ko>
+   */
+
+
+  __proto.getElement = function () {
+    return this.wrapper;
+  };
+  /**
+   * Return the viewport element's size.
+   * @ko 뷰포트 엘리먼트의 크기를 반환한다.
+   * @return Width if horizontal: true, height if horizontal: false
+   */
+
+
+  __proto.getSize = function () {
+    return this.viewport.getSize();
+  };
+  /**
+   * Return current panel. `null` if no panel exists.
+   * @ko 현재 패널을 반환한다. 패널이 하나도 없을 경우 `null`을 반환한다.
+   * @return Current panel.<ko>현재 패널.</ko>
+   */
+
+
+  __proto.getCurrentPanel = function () {
+    var viewport = this.viewport;
+    var panel = viewport.getCurrentPanel();
+    return panel ? panel : null;
+  };
+  /**
+   * Return the panel of given index. `null` if it doesn't exists.
+   * @ko 주어진 인덱스에 해당하는 패널을 반환한다. 해당 패널이 존재하지 않을 시 `null`이다.
+   * @return Panel of given index.<ko>주어진 인덱스에 해당하는 패널.</ko>
+   */
+
+
+  __proto.getPanel = function (index) {
+    var viewport = this.viewport;
+    var panel = viewport.panelManager.get(index);
+    return panel ? panel : null;
+  };
+  /**
+   * Return all panels.
+   * @ko 모든 패널들을 반환한다.
+   * @param - Should include cloned panels or not.<ko>복사된 패널들을 포함할지의 여부.</ko>
+   * @return All panels.<ko>모든 패널들.</ko>
+   */
+
+
+  __proto.getAllPanels = function (includeClone) {
+    var viewport = this.viewport;
+    var panelManager = viewport.panelManager;
+    var panels = includeClone ? panelManager.allPanels() : panelManager.originalPanels();
+    return panels.filter(function (panel) {
+      return !!panel;
+    });
+  };
+  /**
+   * Return the panels currently shown in viewport area.
+   * @ko 현재 뷰포트 영역에서 보여지고 있는 패널들을 반환한다.
+   * @return Panels currently shown in viewport area.<ko>현재 뷰포트 영역에 보여지는 패널들</ko>
+   */
+
+
+  __proto.getVisiblePanels = function () {
+    return this.viewport.calcVisiblePanels();
+  };
+  /**
+   * Return length of original panels.
+   * @ko 원본 패널의 개수를 반환한다.
+   * @return Length of original panels.<ko>원본 패널의 개수</ko>
+   */
+
+
+  __proto.getPanelCount = function () {
+    return this.viewport.panelManager.getPanelCount();
+  };
+  /**
+   * Return how many groups of clones are created.
+   * @ko 몇 개의 클론 그룹이 생성되었는지를 반환한다.
+   * @return Length of cloned panel groups.<ko>클론된 패널 그룹의 개수</ko>
+   */
+
+
+  __proto.getCloneCount = function () {
+    return this.viewport.panelManager.getCloneCount();
+  };
+  /**
+   * Get maximum panel index for `infinite` mode.
+   * @ko `infinite` 모드에서 적용되는 추가 가능한 패널의 최대 인덱스 값을 반환한다.
+   * @see {@link eg.Flicking.FlickingOptions}
+   * @return Maximum index of panel that can be added.<ko>최대 추가 가능한 패널의 인덱스.</ko>
+   */
+
+
+  __proto.getLastIndex = function () {
+    return this.viewport.panelManager.getLastIndex();
+  };
+  /**
+   * Set maximum panel index for `infinite' mode.<br>[needPanel]{@link eg.Flicking#events:needPanel} won't be triggered anymore when last panel's index reaches it.<br>Also, you can't add more panels after it.
+   * @ko `infinite` 모드에서 적용되는 패널의 최대 인덱스를 설정한다.<br>마지막 패널의 인덱스가 설정한 값에 도달할 경우 더 이상 [needPanel]{@link eg.Flicking#events:needPanel} 이벤트가 발생되지 않는다.<br>또한, 설정한 인덱스 이후로 새로운 패널을 추가할 수 없다.
+   * @param - Maximum panel index.
+   * @see {@link eg.Flicking.FlickingOptions}
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.setLastIndex = function (index) {
+    this.viewport.setLastIndex(index);
+    return this;
+  };
+  /**
+   * Return panel movement animation.
+   * @ko 현재 패널 이동 애니메이션이 진행 중인지를 반환한다.
+   * @return Is animating or not.<ko>애니메이션 진행 여부.</ko>
+   */
+
+
+  __proto.isPlaying = function () {
+    return this.viewport.stateMachine.getState().playing;
+  };
+  /**
+   * Unblock input devices.
+   * @ko 막았던 입력 장치로부터의 입력을 푼다.
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.enableInput = function () {
+    this.viewport.enable();
+    return this;
+  };
+  /**
+   * Block input devices.
+   * @ko 입력 장치로부터의 입력을 막는다.
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.disableInput = function () {
+    this.viewport.disable();
+    return this;
+  };
+  /**
+   * Get current flicking status. You can restore current state by giving returned value to [setStatus()]{@link eg.Flicking#setStatus}.
+   * @ko 현재 상태 값을 반환한다. 반환받은 값을 [setStatus()]{@link eg.Flicking#setStatus} 메소드의 인자로 지정하면 현재 상태를 복원할 수 있다.
+   * @return An object with current status value information.<ko>현재 상태값 정보를 가진 객체.</ko>
+   */
+
+
+  __proto.getStatus = function () {
+    var viewport = this.viewport;
+    var panels = viewport.panelManager.originalPanels().filter(function (panel) {
+      return !!panel;
+    }).map(function (panel) {
+      return {
+        html: panel.getElement().outerHTML,
+        index: panel.getIndex()
+      };
+    });
+    return {
+      index: viewport.getCurrentIndex(),
+      panels: panels,
+      position: viewport.getCameraPosition()
+    };
+  };
+  /**
+   * Restore to the state of the `status`.
+   * @ko `status`의 상태로 복원한다.
+   * @param status Status value to be restored. You can specify the return value of the [getStatus()]{@link eg.Flicking#getStatus} method.<ko>복원할 상태 값. [getStatus()]{@link eg.Flicking#getStatus}메서드의 반환값을 지정하면 된다.</ko>
+   */
+
+
+  __proto.setStatus = function (status) {
+    this.viewport.restore(status);
+  };
+  /**
+   * Add plugins that can have different effects on Flicking.
+   * @ko 플리킹에 다양한 효과를 부여할 수 있는 플러그인을 추가한다.
+   * @param - The plugin(s) to add.<ko>추가할 플러그인(들).</ko>
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.addPlugins = function (plugins) {
+    this.viewport.addPlugins(plugins);
+    return this;
+  };
+  /**
+   * Remove plugins from Flicking.
+   * @ko 플리킹으로부터 플러그인들을 제거한다.
+   * @param - The plugin(s) to remove.<ko>제거 플러그인(들).</ko>
+   * @return {eg.Flicking} The instance itself.<ko>인스턴스 자기 자신.</ko>
+   */
+
+
+  __proto.removePlugins = function (plugins) {
+    this.viewport.removePlugins(plugins);
+    return this;
+  };
+  /**
+   * Return the reference element and all its children to the state they were in before the instance was created. Remove all attached event handlers. Specify `null` for all attributes of the instance (including inherited attributes).
+   * @ko 기준 요소와 그 하위 패널들을 인스턴스 생성전의 상태로 되돌린다. 부착된 모든 이벤트 핸들러를 탈거한다. 인스턴스의 모든 속성(상속받은 속성포함)에 `null`을 지정한다.
+   * @example
+   * const flick = new eg.Flicking("#flick");
+   * flick.destroy();
+   * console.log(flick.moveTo); // null
+   */
+
+
+  __proto.destroy = function (option) {
+    var _a;
+
+    if (option === void 0) {
+      option = {};
+    }
+
+    this.off();
+
+    if (this.options.autoResize) {
+      window.removeEventListener("resize", this.resize);
+    }
+
+    this.viewport.destroy(option);
+    (_a = this.contentsReadyChecker) === null || _a === void 0 ? void 0 : _a.destroy(); // release resources
+
+    for (var x in this) {
+      this[x] = null;
+    }
+  };
+  /**
+   * Add new panels at the beginning of panels.
+   * @ko 제일 앞에 새로운 패널을 추가한다.
+   * @param element - Either HTMLElement, HTML string, or array of them.<br>It can be also HTML string of multiple elements with same depth.<ko>HTMLElement 혹은 HTML 문자열, 혹은 그것들의 배열도 가능하다.<br>또한, 같은 depth의 여러 개의 엘리먼트에 해당하는 HTML 문자열도 가능하다.</ko>
+   * @return Array of appended panels.<ko>추가된 패널들의 배열</ko>
+   * @example
+   * // Suppose there were no panels at initialization
+   * const flicking = new eg.Flicking("#flick");
+   * flicking.replace(3, document.createElement("div")); // Add new panel at index 3
+   * flicking.prepend("\<div\>Panel\</div\>"); // Prepended at index 2
+   * flicking.prepend(["\<div\>Panel\</div\>", document.createElement("div")]); // Prepended at index 0, 1
+   * flicking.prepend("\<div\>Panel\</div\>"); // Prepended at index 0, pushing every panels behind it.
+   */
+
+
+  __proto.prepend = function (element) {
+    var viewport = this.viewport;
+    var parsedElements = parseElement(element);
+    var insertingIndex = Math.max(viewport.panelManager.getRange().min - parsedElements.length, 0);
+    var prependedPanels = viewport.insert(insertingIndex, parsedElements);
+    this.checkContentsReady(prependedPanels);
+    return prependedPanels;
+  };
+  /**
+   * Add new panels at the end of panels.
+   * @ko 제일 끝에 새로운 패널을 추가한다.
+   * @param element - Either HTMLElement, HTML string, or array of them.<br>It can be also HTML string of multiple elements with same depth.<ko>HTMLElement 혹은 HTML 문자열, 혹은 그것들의 배열도 가능하다.<br>또한, 같은 depth의 여러 개의 엘리먼트에 해당하는 HTML 문자열도 가능하다.</ko>
+   * @return Array of appended panels.<ko>추가된 패널들의 배열</ko>
+   * @example
+   * // Suppose there were no panels at initialization
+   * const flicking = new eg.Flicking("#flick");
+   * flicking.append(document.createElement("div")); // Appended at index 0
+   * flicking.append("\<div\>Panel\</div\>"); // Appended at index 1
+   * flicking.append(["\<div\>Panel\</div\>", document.createElement("div")]); // Appended at index 2, 3
+   * // Even this is possible
+   * flicking.append("\<div\>Panel 1\</div\>\<div\>Panel 2\</div\>"); // Appended at index 4, 5
+   */
+
+
+  __proto.append = function (element) {
+    var viewport = this.viewport;
+    var appendedPanels = viewport.insert(viewport.panelManager.getRange().max + 1, element);
+    this.checkContentsReady(appendedPanels);
+    return appendedPanels;
+  };
+  /**
+   * Replace existing panels with new panels from given index. If target index is empty, add new panel at target index.
+   * @ko 주어진 인덱스로부터의 패널들을 새로운 패널들로 교체한다. 인덱스에 해당하는 자리가 비어있다면, 새로운 패널을 해당 자리에 집어넣는다.
+   * @param index - Start index to replace new panels.<ko>새로운 패널들로 교체할 시작 인덱스</ko>
+   * @param element - Either HTMLElement, HTML string, or array of them.<br>It can be also HTML string of multiple elements with same depth.<ko>HTMLElement 혹은 HTML 문자열, 혹은 그것들의 배열도 가능하다.<br>또한, 같은 depth의 여러 개의 엘리먼트에 해당하는 HTML 문자열도 가능하다.</ko>
+   * @return Array of created panels by replace.<ko>교체되어 새롭게 추가된 패널들의 배열</ko>
+   * @example
+   * // Suppose there were no panels at initialization
+   * const flicking = new eg.Flicking("#flick");
+   *
+   * // This will add new panel at index 3,
+   * // Index 0, 1, 2 is empty at this moment.
+   * // [empty, empty, empty, PANEL]
+   * flicking.replace(3, document.createElement("div"));
+   *
+   * // As index 2 was empty, this will also add new panel at index 2.
+   * // [empty, empty, PANEL, PANEL]
+   * flicking.replace(2, "\<div\>Panel\</div\>");
+   *
+   * // Index 3 was not empty, so it will replace previous one.
+   * // It will also add new panels at index 4 and 5.
+   * // before - [empty, empty, PANEL, PANEL]
+   * // after - [empty, empty, PANEL, NEW_PANEL, NEW_PANEL, NEW_PANEL]
+   * flicking.replace(3, ["\<div\>Panel\</div\>", "\<div\>Panel\</div\>", "\<div\>Panel\</div\>"])
+   */
+
+
+  __proto.replace = function (index, element) {
+    var replacedPanels = this.viewport.replace(index, element);
+    this.checkContentsReady(replacedPanels);
+    return replacedPanels;
+  };
+  /**
+   * Remove panel at target index. This will decrease index of panels behind it.
+   * @ko `index`에 해당하는 자리의 패널을 제거한다. 수행시 `index` 이후의 패널들의 인덱스가 감소된다.
+   * @param index - Index of panel to remove.<ko>제거할 패널의 인덱스</ko>
+   * @param {number} [deleteCount=1] - Number of panels to remove from index.<ko>`index` 이후로 제거할 패널의 개수.</ko>
+   * @return Array of removed panels<ko>제거된 패널들의 배열</ko>
+   */
+
+
+  __proto.remove = function (index, deleteCount) {
+    if (deleteCount === void 0) {
+      deleteCount = 1;
+    }
+
+    return this.viewport.remove(index, deleteCount);
+  };
+  /**
+   * Get indexes to render. Should be used with `renderOnlyVisible` option.
+   * `beforeSync` should be called before this method for a correct result.
+   * @private
+   * @ko 렌더링이 필요한 인덱스들을 반환한다. `renderOnlyVisible` 옵션과 함께 사용해야 한다. 정확한 결과를 위해선 `beforeSync`를 이전에 호출해야만 합니다.
+   * @param - Info object of how panel infos are changed.<ko>패널 정보들의 변경 정보를 담는 오브젝트.</ko>
+   * @return Array of indexes to render.<ko>렌더링할 인덱스의 배열</ko>
+   */
+
+
+  __proto.getRenderingIndexes = function (diffResult) {
+    var viewport = this.viewport;
+    var visiblePanels = viewport.getVisiblePanels();
+    var maintained = diffResult.maintained.reduce(function (values, _a) {
+      var before = _a[0],
+          after = _a[1];
+      values[after] = before;
+      return values;
+    }, {});
+    var panelCount = diffResult.list.length;
+    var added = diffResult.added;
+
+    var getPanelAbsIndex = function (panel) {
+      return panel.getIndex() + (panel.getCloneIndex() + 1) * panelCount;
+    };
+
+    var visibleIndexes = visiblePanels.map(function (panel) {
+      return getPanelAbsIndex(panel);
+    }).filter(function (val) {
+      return maintained[val % panelCount] != null;
+    });
+
+    var renderingPanels = __spreadArrays(visibleIndexes, added);
+
+    var allPanels = viewport.panelManager.allPanels();
+    viewport.setVisiblePanels(renderingPanels.map(function (index) {
+      return allPanels[index];
+    }));
+    return renderingPanels;
+  };
+  /**
+   * Synchronize info of panels instance with info given by external rendering.
+   * @ko 외부 렌더링 방식에 의해 입력받은 패널의 정보와 현재 플리킹이 갖는 패널 정보를 동기화한다.
+   * @private
+   * @param - Info object of how panel infos are changed.<ko>패널 정보들의 변경 정보를 담는 오브젝트.</ko>
+   * @param - Whether called from sync method <ko> sync 메소드로부터 호출됐는지 여부 </ko>
+   */
+
+
+  __proto.beforeSync = function (diffInfo) {
+    var _this = this;
+
+    var maintained = diffInfo.maintained,
+        added = diffInfo.added,
+        changed = diffInfo.changed,
+        removed = diffInfo.removed;
+    var viewport = this.viewport;
+    var panelManager = viewport.panelManager;
+    var isCircular = this.options.circular;
+    var cloneCount = panelManager.getCloneCount();
+    var prevClonedPanels = panelManager.clonedPanels(); // Update visible panels
+
+    var newVisiblePanels = viewport.getVisiblePanels().filter(function (panel) {
+      return findIndex(removed, function (index) {
+        return index === panel.getIndex();
+      }) < 0;
+    });
+    viewport.setVisiblePanels(newVisiblePanels); // Did not changed at all
+
+    if (added.length <= 0 && removed.length <= 0 && changed.length <= 0 && cloneCount === prevClonedPanels.length) {
+      return this;
+    }
+
+    var prevOriginalPanels = panelManager.originalPanels();
+    var newPanels = [];
+    var newClones = counter(cloneCount).map(function () {
+      return [];
+    });
+    maintained.forEach(function (_a) {
+      var beforeIdx = _a[0],
+          afterIdx = _a[1];
+      newPanels[afterIdx] = prevOriginalPanels[beforeIdx];
+      newPanels[afterIdx].setIndex(afterIdx);
+    });
+    added.forEach(function (addIndex) {
+      newPanels[addIndex] = new Panel(null, addIndex, _this.viewport);
+    });
+
+    if (isCircular) {
+      counter(cloneCount).forEach(function (groupIndex) {
+        var prevCloneGroup = prevClonedPanels[groupIndex];
+        var newCloneGroup = newClones[groupIndex];
+        maintained.forEach(function (_a) {
+          var beforeIdx = _a[0],
+              afterIdx = _a[1];
+          newCloneGroup[afterIdx] = prevCloneGroup ? prevCloneGroup[beforeIdx] : newPanels[afterIdx].clone(groupIndex, false);
+          newCloneGroup[afterIdx].setIndex(afterIdx);
+        });
+        added.forEach(function (addIndex) {
+          var newPanel = newPanels[addIndex];
+          newCloneGroup[addIndex] = newPanel.clone(groupIndex, false);
+        });
+      });
+    }
+
+    added.forEach(function (index) {
+      viewport.updateCheckedIndexes({
+        min: index,
+        max: index
+      });
+    });
+    removed.forEach(function (index) {
+      viewport.updateCheckedIndexes({
+        min: index - 1,
+        max: index + 1
+      });
+    });
+    var checkedIndexes = viewport.getCheckedIndexes();
+    checkedIndexes.forEach(function (_a, idx) {
+      var min = _a[0],
+          max = _a[1]; // Push checked indexes backward
+
+      var pushedIndex = added.filter(function (index) {
+        return index < min && panelManager.has(index);
+      }).length - removed.filter(function (index) {
+        return index < min;
+      }).length;
+      checkedIndexes.splice(idx, 1, [min + pushedIndex, max + pushedIndex]);
+    }); // Only effective only when there are least one panel which have changed its index
+
+    if (changed.length > 0) {
+      // Removed checked index by changed ones after pushing
+      maintained.forEach(function (_a) {
+        var next = _a[1];
+        viewport.updateCheckedIndexes({
+          min: next,
+          max: next
+        });
+      });
+    }
+
+    panelManager.replacePanels(newPanels, newClones);
+    this.isPanelChangedAtBeforeSync = true;
+  };
+  /**
+   * Synchronize info of panels with DOM info given by external rendering.
+   * @ko 외부 렌더링 방식에 의해 입력받은 DOM의 정보와 현재 플리킹이 갖는 패널 정보를 동기화 한다.
+   * @private
+   * @param - Info object of how panel elements are changed.<ko>패널의 DOM 요소들의 변경 정보를 담는 오브젝트.</ko>
+   */
+
+
+  __proto.sync = function (diffInfo) {
+    var list = diffInfo.list,
+        maintained = diffInfo.maintained,
+        added = diffInfo.added,
+        changed = diffInfo.changed,
+        removed = diffInfo.removed; // Did not changed at all
+
+    if (added.length <= 0 && removed.length <= 0 && changed.length <= 0) {
+      return this;
+    }
+
+    var viewport = this.viewport;
+    var _a = this.options,
+        renderOnlyVisible = _a.renderOnlyVisible,
+        circular = _a.circular;
+    var panelManager = viewport.panelManager;
+
+    if (!renderOnlyVisible) {
+      var indexRange = panelManager.getRange();
+      var beforeDiffInfo = diffInfo;
+
+      if (circular) {
+        var prevOriginalPanelCount_1 = indexRange.max;
+        var originalPanelCount_1 = list.length / (panelManager.getCloneCount() + 1) >> 0;
+        var originalAdded = added.filter(function (index) {
+          return index < originalPanelCount_1;
+        });
+        var originalRemoved = removed.filter(function (index) {
+          return index <= prevOriginalPanelCount_1;
+        });
+        var originalMaintained = maintained.filter(function (_a) {
+          var beforeIdx = _a[0];
+          return beforeIdx <= prevOriginalPanelCount_1;
+        });
+        var originalChanged = changed.filter(function (_a) {
+          var beforeIdx = _a[0];
+          return beforeIdx <= prevOriginalPanelCount_1;
+        });
+        beforeDiffInfo = {
+          added: originalAdded,
+          maintained: originalMaintained,
+          removed: originalRemoved,
+          changed: originalChanged
+        };
+      }
+
+      this.beforeSync(beforeDiffInfo);
+    }
+
+    var visiblePanels = renderOnlyVisible ? viewport.getVisiblePanels() : this.getAllPanels(true);
+    added.forEach(function (addedIndex) {
+      var addedElement = list[addedIndex];
+      var beforePanel = visiblePanels[addedIndex];
+      beforePanel.setElement(addedElement); // As it can be 0
+
+      beforePanel.unCacheBbox();
+    });
+
+    if (this.isPanelChangedAtBeforeSync) {
+      // Reset visible panels
+      viewport.setVisiblePanels([]);
+      this.isPanelChangedAtBeforeSync = false;
+    }
+
+    viewport.resize();
+    return this;
+  };
+
+  __proto.listenInput = function () {
+    var flicking = this;
+    var viewport = flicking.viewport;
+    var stateMachine = viewport.stateMachine; // Set event context
+
+    flicking.eventContext = {
+      flicking: flicking,
+      viewport: flicking.viewport,
+      transitTo: stateMachine.transitTo,
+      triggerEvent: flicking.triggerEvent,
+      moveCamera: flicking.moveCamera,
+      stopCamera: viewport.stopCamera
+    };
+    var handlers = {};
+
+    var _loop_1 = function (key) {
+      var eventType = AXES_EVENTS[key];
+
+      handlers[eventType] = function (e) {
+        return stateMachine.fire(eventType, e, flicking.eventContext);
+      };
+    };
+
+    for (var key in AXES_EVENTS) {
+      _loop_1(key);
+    } // Connect Axes instance with PanInput
+
+
+    flicking.viewport.connectAxesHandler(handlers);
+  };
+
+  __proto.listenResize = function () {
+    var _this = this;
+
+    var options = this.options;
+
+    if (options.autoResize) {
+      window.addEventListener("resize", this.resize);
+    }
+
+    if (options.resizeOnContentsReady) {
+      var contentsReadyChecker = new _imready.default();
+      contentsReadyChecker.on("preReady", function () {
+        _this.resize();
+      });
+      contentsReadyChecker.on("readyElement", function (e) {
+        if (e.hasLoading && e.isPreReadyOver) {
+          _this.resize();
+        }
+      });
+      contentsReadyChecker.on("error", function (e) {
+        _this.trigger(EVENTS.CONTENT_ERROR, {
+          type: EVENTS.CONTENT_ERROR,
+          element: e.element
+        });
+      });
+      contentsReadyChecker.check([this.wrapper]);
+      this.contentsReadyChecker = contentsReadyChecker;
+    }
+  };
+
+  __proto.checkContentsReady = function (panels) {
+    var _a;
+
+    (_a = this.contentsReadyChecker) === null || _a === void 0 ? void 0 : _a.check(panels.map(function (panel) {
+      return panel.getElement();
+    }));
+  };
+  /**
+   * Version info string
+   * @ko 버전정보 문자열
+   * @example
+   * eg.Flicking.VERSION;  // ex) 3.0.0
+   * @memberof eg.Flicking
+   */
+
+
+  Flicking.VERSION = "3.7.1";
+  /**
+   * Direction constant - "PREV" or "NEXT"
+   * @ko 방향 상수 - "PREV" 또는 "NEXT"
+   * @type {object}
+   * @property {"PREV"} PREV - Prev direction from current hanger position.<br/>It's `left(←️)` direction when `horizontal: true`.<br/>Or, `up(↑️)` direction when `horizontal: false`.<ko>현재 행어를 기준으로 이전 방향.<br/>`horizontal: true`일 경우 `왼쪽(←️)` 방향.<br/>`horizontal: false`일 경우 `위쪽(↑️)`방향이다.</ko>
+   * @property {"NEXT"} NEXT - Next direction from current hanger position.<br/>It's `right(→)` direction when `horizontal: true`.<br/>Or, `down(↓️)` direction when `horizontal: false`.<ko>현재 행어를 기준으로 다음 방향.<br/>`horizontal: true`일 경우 `오른쪽(→)` 방향.<br/>`horizontal: false`일 경우 `아래쪽(↓️)`방향이다.</ko>
+   * @example
+   * eg.Flicking.DIRECTION.PREV; // "PREV"
+   * eg.Flicking.DIRECTION.NEXT; // "NEXT"
+   */
+
+  Flicking.DIRECTION = DIRECTION;
+  /**
+   * Event type object with event name strings.
+   * @ko 이벤트 이름 문자열들을 담은 객체
+   * @type {object}
+   * @property {"holdStart"} HOLD_START - holdStart event<ko>holdStart 이벤트</ko>
+   * @property {"holdEnd"} HOLD_END - holdEnd event<ko>holdEnd 이벤트</ko>
+   * @property {"moveStart"} MOVE_START - moveStart event<ko>moveStart 이벤트</ko>
+   * @property {"move"} MOVE - move event<ko>move 이벤트</ko>
+   * @property {"moveEnd"} MOVE_END - moveEnd event<ko>moveEnd 이벤트</ko>
+   * @property {"change"} CHANGE - change event<ko>change 이벤트</ko>
+   * @property {"restore"} RESTORE - restore event<ko>restore 이벤트</ko>
+   * @property {"select"} SELECT - select event<ko>select 이벤트</ko>
+   * @property {"needPanel"} NEED_PANEL - needPanel event<ko>needPanel 이벤트</ko>
+   * @example
+   * eg.Flicking.EVENTS.MOVE_START; // "MOVE_START"
+   */
+
+  Flicking.EVENTS = EVENTS;
+  return Flicking;
+}(_component.default);
+
+var _default = Flicking;
+exports.default = _default;
+},{"@egjs/component":"node_modules/@egjs/component/dist/component.esm.js","@egjs/imready":"node_modules/@egjs/imready/dist/imready.esm.js","@egjs/axes":"node_modules/@egjs/axes/dist/axes.esm.js"}],"node_modules/@egjs/list-differ/dist/list-differ.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.diff = diff;
+exports.default = void 0;
+
+/*
+Copyright (c) 2019-present NAVER Corp.
+name: @egjs/list-differ
+license: MIT
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-list-differ
+version: 1.0.0
+*/
+
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+var PolyMap = /*#__PURE__*/function () {
+  function PolyMap() {
+    this.keys = [];
+    this.values = [];
+  }
+
+  var __proto = PolyMap.prototype;
+
+  __proto.get = function (key) {
+    return this.values[this.keys.indexOf(key)];
+  };
+
+  __proto.set = function (key, value) {
+    var keys = this.keys;
+    var values = this.values;
+    var prevIndex = keys.indexOf(key);
+    var index = prevIndex === -1 ? keys.length : prevIndex;
+    keys[index] = key;
+    values[index] = value;
+  };
+
+  return PolyMap;
+}();
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+var HashMap = /*#__PURE__*/function () {
+  function HashMap() {
+    this.object = {};
+  }
+
+  var __proto = HashMap.prototype;
+
+  __proto.get = function (key) {
+    return this.object[key];
+  };
+
+  __proto.set = function (key, value) {
+    this.object[key] = value;
+  };
+
+  return HashMap;
+}();
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+var SUPPORT_MAP = typeof Map === "function";
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+var Link = /*#__PURE__*/function () {
+  function Link() {}
+
+  var __proto = Link.prototype;
+
+  __proto.connect = function (prevLink, nextLink) {
+    this.prev = prevLink;
+    this.next = nextLink;
+    prevLink && (prevLink.next = this);
+    nextLink && (nextLink.prev = this);
+  };
+
+  __proto.disconnect = function () {
+    // In double linked list, diconnect the interconnected relationship.
+    var prevLink = this.prev;
+    var nextLink = this.next;
+    prevLink && (prevLink.next = nextLink);
+    nextLink && (nextLink.prev = prevLink);
+  };
+
+  __proto.getIndex = function () {
+    var link = this;
+    var index = -1;
+
+    while (link) {
+      link = link.prev;
+      ++index;
+    }
+
+    return index;
+  };
+
+  return Link;
+}();
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+function orderChanged(changed, fixed) {
+  // It is roughly in the order of these examples.
+  // 4, 6, 0, 2, 1, 3, 5, 7
+  var fromLinks = []; // 0, 1, 2, 3, 4, 5, 6, 7
+
+  var toLinks = [];
+  changed.forEach(function (_a) {
+    var from = _a[0],
+        to = _a[1];
+    var link = new Link();
+    fromLinks[from] = link;
+    toLinks[to] = link;
+  }); // `fromLinks` are connected to each other by double linked list.
+
+  fromLinks.forEach(function (link, i) {
+    link.connect(fromLinks[i - 1]);
+  });
+  return changed.filter(function (_, i) {
+    return !fixed[i];
+  }).map(function (_a, i) {
+    var from = _a[0],
+        to = _a[1];
+
+    if (from === to) {
+      return [0, 0];
+    }
+
+    var fromLink = fromLinks[from];
+    var toLink = toLinks[to - 1];
+    var fromIndex = fromLink.getIndex(); // Disconnect the link connected to `fromLink`.
+
+    fromLink.disconnect(); // Connect `fromLink` to the right of `toLink`.
+
+    if (!toLink) {
+      fromLink.connect(undefined, fromLinks[0]);
+    } else {
+      fromLink.connect(toLink, toLink.next);
+    }
+
+    var toIndex = fromLink.getIndex();
+    return [fromIndex, toIndex];
+  });
+}
+
+var Result = /*#__PURE__*/function () {
+  function Result(prevList, list, added, removed, changed, maintained, changedBeforeAdded, fixed) {
+    this.prevList = prevList;
+    this.list = list;
+    this.added = added;
+    this.removed = removed;
+    this.changed = changed;
+    this.maintained = maintained;
+    this.changedBeforeAdded = changedBeforeAdded;
+    this.fixed = fixed;
+  }
+
+  var __proto = Result.prototype;
+  Object.defineProperty(__proto, "ordered", {
+    get: function () {
+      if (!this.cacheOrdered) {
+        this.caculateOrdered();
+      }
+
+      return this.cacheOrdered;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(__proto, "pureChanged", {
+    get: function () {
+      if (!this.cachePureChanged) {
+        this.caculateOrdered();
+      }
+
+      return this.cachePureChanged;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  __proto.caculateOrdered = function () {
+    var ordered = orderChanged(this.changedBeforeAdded, this.fixed);
+    var changed = this.changed;
+    var pureChanged = [];
+    this.cacheOrdered = ordered.filter(function (_a, i) {
+      var from = _a[0],
+          to = _a[1];
+      var _b = changed[i],
+          fromBefore = _b[0],
+          toBefore = _b[1];
+
+      if (from !== to) {
+        pureChanged.push([fromBefore, toBefore]);
+        return true;
+      }
+    });
+    this.cachePureChanged = pureChanged;
+  };
+
+  return Result;
+}();
+/**
+ *
+ * @memberof eg.ListDiffer
+ * @static
+ * @function
+ * @param - Previous List <ko> 이전 목록 </ko>
+ * @param - List to Update <ko> 업데이트 할 목록 </ko>
+ * @param - This callback function returns the key of the item. <ko> 아이템의 키를 반환하는 콜백 함수입니다.</ko>
+ * @return - Returns the diff between `prevList` and `list` <ko> `prevList`와 `list`의 다른 점을 반환한다.</ko>
+ * @example
+ * import { diff } from "@egjs/list-differ";
+ * // script => eg.ListDiffer.diff
+ * const result = diff([0, 1, 2, 3, 4, 5], [7, 8, 0, 4, 3, 6, 2, 1], e => e);
+ * // List before update
+ * // [1, 2, 3, 4, 5]
+ * console.log(result.prevList);
+ * // Updated list
+ * // [4, 3, 6, 2, 1]
+ * console.log(result.list);
+ * // Index array of values added to `list`
+ * // [0, 1, 5]
+ * console.log(result.added);
+ * // Index array of values removed in `prevList`
+ * // [5]
+ * console.log(result.removed);
+ * // An array of index pairs of `prevList` and `list` with different indexes from `prevList` and `list`
+ * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+ * console.log(result.changed);
+ * // The subset of `changed` and an array of index pairs that moved data directly. Indicate an array of absolute index pairs of `ordered`.(Formatted by: Array<[index of prevList, index of list]>)
+ * // [[4, 3], [3, 4], [2, 6]]
+ * console.log(result.pureChanged);
+ * // An array of index pairs to be `ordered` that can synchronize `list` before adding data. (Formatted by: Array<[prevIndex, nextIndex]>)
+ * // [[4, 1], [4, 2], [4, 3]]
+ * console.log(result.ordered);
+ * // An array of index pairs of `prevList` and `list` that have not been added/removed so data is preserved
+ * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+ * console.log(result.maintained);
+ */
+
+
+function diff(prevList, list, findKeyCallback) {
+  var mapClass = SUPPORT_MAP ? Map : findKeyCallback ? HashMap : PolyMap;
+
+  var callback = findKeyCallback || function (e) {
+    return e;
+  };
+
+  var added = [];
+  var removed = [];
+  var maintained = [];
+  var prevKeys = prevList.map(callback);
+  var keys = list.map(callback);
+  var prevKeyMap = new mapClass();
+  var keyMap = new mapClass();
+  var changedBeforeAdded = [];
+  var fixed = [];
+  var removedMap = {};
+  var changed = [];
+  var addedCount = 0;
+  var removedCount = 0; // Add prevKeys and keys to the hashmap.
+
+  prevKeys.forEach(function (key, prevListIndex) {
+    prevKeyMap.set(key, prevListIndex);
+  });
+  keys.forEach(function (key, listIndex) {
+    keyMap.set(key, listIndex);
+  }); // Compare `prevKeys` and `keys` and add them to `removed` if they are not in `keys`.
+
+  prevKeys.forEach(function (key, prevListIndex) {
+    var listIndex = keyMap.get(key); // In prevList, but not in list, it is removed.
+
+    if (typeof listIndex === "undefined") {
+      ++removedCount;
+      removed.push(prevListIndex);
+    } else {
+      removedMap[listIndex] = removedCount;
+    }
+  }); // Compare `prevKeys` and `keys` and add them to `added` if they are not in `prevKeys`.
+
+  keys.forEach(function (key, listIndex) {
+    var prevListIndex = prevKeyMap.get(key); // In list, but not in prevList, it is added.
+
+    if (typeof prevListIndex === "undefined") {
+      added.push(listIndex);
+      ++addedCount;
+    } else {
+      maintained.push([prevListIndex, listIndex]);
+      removedCount = removedMap[listIndex] || 0;
+      changedBeforeAdded.push([prevListIndex - removedCount, listIndex - addedCount]);
+      fixed.push(listIndex === prevListIndex);
+
+      if (prevListIndex !== listIndex) {
+        changed.push([prevListIndex, listIndex]);
+      }
+    }
+  }); // Sort by ascending order of 'to(list's index).
+
+  removed.reverse();
+  return new Result(prevList, list, added, removed, changed, maintained, changedBeforeAdded, fixed);
+}
+/**
+ * A module that checks diff when values are added, removed, or changed in an array.
+ * @ko 배열 또는 오브젝트에서 값이 추가되거나 삭제되거나 순서가 변경사항을 체크하는 모듈입니다.
+ * @memberof eg
+ */
+
+
+var ListDiffer = /*#__PURE__*/function () {
+  /**
+   * @param - Initializing Data Array. <ko> 초기 설정할 데이터 배열.</ko>
+   * @param - This callback function returns the key of the item. <ko> 아이템의 키를 반환하는 콜백 함수입니다.</ko>
+   * @example
+   * import ListDiffer from "@egjs/list-differ";
+   * // script => eg.ListDiffer
+   * const differ = new ListDiffer([0, 1, 2, 3, 4, 5], e => e);
+   * const result = differ.update([7, 8, 0, 4, 3, 6, 2, 1]);
+   * // List before update
+   * // [1, 2, 3, 4, 5]
+   * console.log(result.prevList);
+   * // Updated list
+   * // [4, 3, 6, 2, 1]
+   * console.log(result.list);
+   * // Index array of values added to `list`.
+   * // [0, 1, 5]
+   * console.log(result.added);
+   * // Index array of values removed in `prevList`.
+   * // [5]
+   * console.log(result.removed);
+   * // An array of index pairs of `prevList` and `list` with different indexes from `prevList` and `list`.
+   * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+   * console.log(result.changed);
+   * // The subset of `changed` and an array of index pairs that moved data directly. Indicate an array of absolute index pairs of `ordered`.(Formatted by: Array<[index of prevList, index of list]>)
+   * // [[4, 3], [3, 4], [2, 6]]
+   * console.log(result.pureChanged);
+   * // An array of index pairs to be `ordered` that can synchronize `list` before adding data. (Formatted by: Array<[prevIndex, nextIndex]>)
+   * // [[4, 1], [4, 2], [4, 3]]
+   * console.log(result.ordered);
+   * // An array of index pairs of `prevList` and `list` that have not been added/removed so data is preserved.
+   * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+   * console.log(result.maintained);
+   */
+  function ListDiffer(list, findKeyCallback) {
+    if (list === void 0) {
+      list = [];
+    }
+
+    this.findKeyCallback = findKeyCallback;
+    this.list = [].slice.call(list);
+  }
+  /**
+   * Update list.
+   * @ko 리스트를 업데이트를 합니다.
+   * @param - List to update <ko> 업데이트할 리스트 </ko>
+   * @return - Returns the results of an update from `prevList` to `list`.<ko> `prevList`에서 `list`로 업데이트한 결과를 반환한다. </ko>
+   */
+
+
+  var __proto = ListDiffer.prototype;
+
+  __proto.update = function (list) {
+    var newData = [].slice.call(list);
+    var result = diff(this.list, newData, this.findKeyCallback);
+    this.list = newData;
+    return result;
+  };
+
+  return ListDiffer;
+}();
+/*
+egjs-list-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+var _default = ListDiffer;
+exports.default = _default;
+},{}],"node_modules/@egjs/children-differ/dist/children-differ.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.diff = diff;
+exports.default = void 0;
+
+var _listDiffer = _interopRequireWildcard(require("@egjs/list-differ"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+/*
+Copyright (c) 2019-present NAVER Corp.
+name: @egjs/children-differ
+license: MIT
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-children-differ
+version: 1.0.1
+*/
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+var extendStatics = function (d, b) {
+  extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+  };
+
+  return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  extendStatics(d, b);
+
+  function __() {
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+/*
+egjs-children-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+var findKeyCallback = typeof Map === "function" ? undefined : function () {
+  var childrenCount = 0;
+  return function (el) {
+    return el.__DIFF_KEY__ || (el.__DIFF_KEY__ = ++childrenCount);
+  };
+}();
+/**
+ * A module that checks diff when child are added, removed, or changed .
+ * @ko 자식 노드들에서 자식 노드가 추가되거나 삭제되거나 순서가 변경된 사항을 체크하는 모듈입니다.
+ * @memberof eg
+ * @extends eg.ListDiffer
+ */
+
+var ChildrenDiffer = /*#__PURE__*/function (_super) {
+  __extends(ChildrenDiffer, _super);
+  /**
+   * @param - Initializing Children <ko> 초기 설정할 자식 노드들</ko>
+   */
+
+
+  function ChildrenDiffer(list) {
+    if (list === void 0) {
+      list = [];
+    }
+
+    return _super.call(this, list, findKeyCallback) || this;
+  }
+
+  return ChildrenDiffer;
+}(_listDiffer.default);
+/*
+egjs-children-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+/**
+ *
+ * @memberof eg.ChildrenDiffer
+ * @static
+ * @function
+ * @param - Previous List <ko> 이전 목록 </ko>
+ * @param - List to Update <ko> 업데이트 할 목록 </ko>
+ * @return - Returns the diff between `prevList` and `list` <ko> `prevList`와 `list`의 다른 점을 반환한다.</ko>
+ * @example
+ * import { diff } from "@egjs/children-differ";
+ * // script => eg.ChildrenDiffer.diff
+ * const result = diff([0, 1, 2, 3, 4, 5], [7, 8, 0, 4, 3, 6, 2, 1]);
+ * // List before update
+ * // [1, 2, 3, 4, 5]
+ * console.log(result.prevList);
+ * // Updated list
+ * // [4, 3, 6, 2, 1]
+ * console.log(result.list);
+ * // Index array of values added to `list`
+ * // [0, 1, 5]
+ * console.log(result.added);
+ * // Index array of values removed in `prevList`
+ * // [5]
+ * console.log(result.removed);
+ * // An array of index pairs of `prevList` and `list` with different indexes from `prevList` and `list`
+ * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+ * console.log(result.changed);
+ * // The subset of `changed` and an array of index pairs that moved data directly. Indicate an array of absolute index pairs of `ordered`.(Formatted by: Array<[index of prevList, index of list]>)
+ * // [[4, 3], [3, 4], [2, 6]]
+ * console.log(result.pureChanged);
+ * // An array of index pairs to be `ordered` that can synchronize `list` before adding data. (Formatted by: Array<[prevIndex, nextIndex]>)
+ * // [[4, 1], [4, 2], [4, 3]]
+ * console.log(result.ordered);
+ * // An array of index pairs of `prevList` and `list` that have not been added/removed so data is preserved
+ * // [[0, 2], [4, 3], [3, 4], [2, 6], [1, 7]]
+ * console.log(result.maintained);
+ */
+
+
+function diff(prevList, list) {
+  return (0, _listDiffer.diff)(prevList, list, findKeyCallback);
+}
+/*
+egjs-children-differ
+Copyright (c) 2019-present NAVER Corp.
+MIT license
+*/
+
+
+var _default = ChildrenDiffer;
+exports.default = _default;
+},{"@egjs/list-differ":"node_modules/@egjs/list-differ/dist/list-differ.esm.js"}],"node_modules/@egjs/react-flicking/dist/flicking.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _flicking = _interopRequireWildcard(require("@egjs/flicking"));
+
+var _react = require("react");
+
+var _listDiffer = _interopRequireDefault(require("@egjs/list-differ"));
+
+var _childrenDiffer = _interopRequireDefault(require("@egjs/children-differ"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+/* global Reflect, Promise */
+var _extendStatics = function extendStatics(d, b) {
+  _extendStatics = Object.setPrototypeOf || {
+    __proto__: []
+  } instanceof Array && function (d, b) {
+    d.__proto__ = b;
+  } || function (d, b) {
+    for (var p in b) {
+      if (b.hasOwnProperty(p)) d[p] = b[p];
+    }
+  };
+
+  return _extendStatics(d, b);
+};
+
+function __extends(d, b) {
+  _extendStatics(d, b);
+
+  function __() {
+    this.constructor = d;
+  }
+
+  d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var _assign = function __assign() {
+  _assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return _assign.apply(this, arguments);
+};
+
+function __decorate(decorators, target, key, desc) {
+  var c = arguments.length,
+      r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+      d;
+  if ((typeof Reflect === "undefined" ? "undefined" : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  }
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+var CloneComponent = /*#__PURE__*/function (_super) {
+  __extends(CloneComponent, _super);
+
+  function CloneComponent() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  var __proto = CloneComponent.prototype;
+
+  __proto.render = function () {
+    return this.props.children;
+  };
+
+  return CloneComponent;
+}(_react.Component);
+
+var FLICKING_PROPS = {
+  tag: "div",
+  viewportTag: "div",
+  cameraTag: "div",
+  classPrefix: "eg-flick",
+  plugins: [],
+  onNeedPanel: function onNeedPanel(e) {},
+  onMoveStart: function onMoveStart(e) {},
+  onMove: function onMove(e) {},
+  onMoveEnd: function onMoveEnd(e) {},
+  onHoldStart: function onHoldStart(e) {},
+  onHoldEnd: function onHoldEnd(e) {},
+  onRestore: function onRestore(e) {},
+  onSelect: function onSelect(e) {},
+  onChange: function onChange(e) {},
+  onVisibleChange: function onVisibleChange(e) {}
+};
+
+var Flicking = /*#__PURE__*/function (_super) {
+  __extends(Flicking, _super); // life cycle
+
+
+  function Flicking(props) {
+    var _this = _super.call(this, props) || this;
+
+    _this.state = {
+      cloneCount: 0
+    };
+    _this.options = _assign({}, _flicking.DEFAULT_OPTIONS, {
+      renderExternal: true
+    }); // differ
+
+    _this.pluginsDiffer = new _listDiffer.default();
+    var options = _this.options;
+
+    for (var name in props) {
+      if (name in _flicking.DEFAULT_OPTIONS) {
+        options[name] = props[name];
+      }
+    }
+
+    return _this;
+  }
+
+  var __proto = Flicking.prototype;
+
+  __proto.render = function () {
+    var _this = this;
+
+    var props = this.props;
+    /* tslint:disable:naming-convention */
+
+    var Tag = props.tag;
+    var Viewport = props.viewportTag;
+    var Camera = props.cameraTag;
+    /* tslint:enable:naming-convention */
+
+    var classPrefix = props.classPrefix;
+    var attributes = {};
+
+    for (var name in props) {
+      if (!(name in FLICKING_PROPS) && !(name in _flicking.DEFAULT_OPTIONS)) {
+        attributes[name] = props[name];
+      }
+    }
+
+    return (0, _react.createElement)(Tag, _assign({}, attributes, {
+      ref: function ref(e) {
+        e && (_this.containerElement = e);
+      }
+    }), (0, _react.createElement)(Viewport, {
+      className: classPrefix + "-viewport"
+    }, (0, _react.createElement)(Camera, {
+      className: classPrefix + "-camera",
+      ref: function ref(e) {
+        e && (_this.cameraElement = e);
+      }
+    }, this.renderPanels())));
+  };
+
+  __proto.componentDidUpdate = function () {
+    var result = this.childrenDiffer.update(this.getElements());
+    this.flicking.sync(result);
+    this.checkPlugins();
+    this.checkCloneCount();
+  };
+
+  __proto.componentDidMount = function () {
+    var _this = this;
+
+    this.childrenDiffer = new _childrenDiffer.default(this.getElements());
+    this.flicking = new _flicking.default(this.containerElement, _assign({}, this.options, {
+      framework: "react",
+      frameworkVersion: _react.version
+    })).on({
+      moveStart: function moveStart(e) {
+        return _this.props.onMoveStart(e);
+      },
+      move: function move(e) {
+        return _this.props.onMove(e);
+      },
+      moveEnd: function moveEnd(e) {
+        return _this.props.onMoveEnd(e);
+      },
+      holdStart: function holdStart(e) {
+        return _this.props.onHoldStart(e);
+      },
+      holdEnd: function holdEnd(e) {
+        return _this.props.onHoldEnd(e);
+      },
+      select: function select(e) {
+        return _this.props.onSelect(e);
+      },
+      needPanel: function needPanel(e) {
+        return _this.props.onNeedPanel(e);
+      },
+      change: function change(e) {
+        return _this.props.onChange(e);
+      },
+      restore: function restore(e) {
+        return _this.props.onRestore(e);
+      },
+      visibleChange: function visibleChange(e) {
+        _this.props.onVisibleChange(e);
+
+        _this.forceUpdate();
+      }
+    });
+    var children = this.getChildren();
+    this.jsxDiffer = new _listDiffer.default(children.map(function (child) {
+      return "" + child.key;
+    }));
+
+    if (this.props.status) {
+      this.setStatus(this.props.status);
+    }
+
+    this.checkPlugins();
+    this.checkCloneCount();
+
+    if (this.props.renderOnlyVisible) {
+      this.forceUpdate();
+    }
+  };
+
+  __proto.componentWillUnmount = function () {
+    this.destroy({
+      preserveUI: true
+    });
+  }; // private
+
+
+  __proto.checkPlugins = function () {
+    var _a = this.pluginsDiffer.update(this.props.plugins),
+        list = _a.list,
+        added = _a.added,
+        removed = _a.removed,
+        prevList = _a.prevList;
+
+    this.flicking.addPlugins(added.map(function (index) {
+      return list[index];
+    }));
+    this.flicking.removePlugins(removed.map(function (index) {
+      return prevList[index];
+    }));
+  };
+
+  __proto.checkCloneCount = function () {
+    var cloneCount = this.flicking.getCloneCount();
+
+    if (this.state.cloneCount !== cloneCount) {
+      this.setState({
+        cloneCount: cloneCount
+      });
+    }
+  };
+
+  __proto.renderPanels = function () {
+    var renderOnlyVisible = this.props.renderOnlyVisible;
+    var flicking = this.flicking;
+    var reactChildren = this.getChildren();
+    var panels;
+
+    if (flicking && renderOnlyVisible) {
+      var diffResult = this.jsxDiffer.update(reactChildren.map(function (child) {
+        return "" + child.key;
+      }));
+      var panelCnt_1 = reactChildren.length;
+      flicking.beforeSync(diffResult);
+      var indexesToRender = flicking.getRenderingIndexes(diffResult);
+      panels = indexesToRender.map(function (index) {
+        if (index >= panelCnt_1) {
+          var relativeIndex = index % panelCnt_1;
+          var cloneIndex = Math.floor(index / panelCnt_1) - 1;
+          var origEl = reactChildren[relativeIndex];
+          return (0, _react.createElement)(CloneComponent, {
+            key: "clone" + cloneIndex + origEl.key
+          }, origEl);
+        } else {
+          return reactChildren[index];
+        }
+      });
+    } else {
+      var cloneCount = this.state.cloneCount;
+      panels = reactChildren.slice();
+
+      var _loop_1 = function _loop_1(i) {
+        panels = panels.concat(reactChildren.map(function (el) {
+          return (0, _react.createElement)(CloneComponent, {
+            key: "clone" + i + el.key
+          }, el);
+        }));
+      };
+
+      for (var i = 0; i < cloneCount; ++i) {
+        _loop_1(i);
+      }
+    }
+
+    return panels;
+  };
+
+  __proto.getChildren = function () {
+    var children = _react.Children.toArray(this.props.children).slice();
+
+    return typeof this.props.lastIndex === "number" ? children.slice(0, this.props.lastIndex + 1) : children;
+  };
+
+  __proto.getElements = function () {
+    return this.cameraElement.children;
+  };
+
+  Flicking.defaultProps = FLICKING_PROPS;
+
+  __decorate([_flicking.withFlickingMethods], Flicking.prototype, "flicking");
+
+  return Flicking;
+}(_react.Component);
+
+var _default = Flicking;
+exports.default = _default;
+},{"@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","react":"node_modules/react/index.js","@egjs/list-differ":"node_modules/@egjs/list-differ/dist/list-differ.esm.js","@egjs/children-differ":"node_modules/@egjs/children-differ/dist/children-differ.esm.js"}],"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Parallax = exports.Fade = exports.AutoPlay = void 0;
+
+/*
+Copyright (c) 2019-present NAVER Corp.
+name: @egjs/flicking-plugins
+license: MIT <https://github.com/naver/egjs-flicking-plugins>
+author: NAVER Corp.
+repository: https://github.com/naver/egjs-flicking-plugins
+version: 3.3.0
+*/
+
+/**
+ * You can apply parallax effect while panel is moving.
+ * @ko 패널들을 움직이면서 parallax 효과를 부여할 수 있습니다.
+ * @memberof eg.Flicking.plugins
+ */
+var Parallax = /*#__PURE__*/function () {
+  /**
+   * @param - Selector of the element to apply parallax effect <ko> Parallax 효과를 적용할 엘리먼트의 선택자 </ko>
+   * @param - Effect amplication scale <ko>효과 증폭도</ko>
+   * @example
+   * flicking.addPlugins(new eg.Flicking.plugins.Parallax("img", 1));
+   */
+  function Parallax(selector, scale) {
+    if (selector === void 0) {
+      selector = "";
+    }
+
+    if (scale === void 0) {
+      scale = 1;
+    }
+
+    var _this = this;
+
+    this.selector = selector;
+    this.scale = scale;
+
+    this.onMove = function (e) {
+      _this.move(e.currentTarget);
+    };
+  }
+
+  var __proto = Parallax.prototype;
+
+  __proto.init = function (flicking) {
+    flicking.on("move", this.onMove);
+    this.move(flicking);
+  };
+
+  __proto.update = function (flicking) {
+    this.move(flicking);
+  };
+
+  __proto.destroy = function (flicking) {
+    flicking.off("move", this.onMove);
+  };
+
+  __proto.move = function (flicking) {
+    var _this = this;
+
+    var panels = flicking.getVisiblePanels();
+    panels.forEach(function (panel) {
+      var progress = panel.getOutsetProgress();
+      var el = panel.getElement();
+      var target = el.querySelector(_this.selector);
+      var parentTarget = target.parentNode;
+      var rect = target.getBoundingClientRect();
+      var parentRect = parentTarget.getBoundingClientRect();
+      var position = (parentRect.width - rect.width) / 2 * progress * _this.scale;
+      var transform = "translate(-50%) translate(" + position + "px)";
+      var style = target.style;
+      style.cssText += "transform: " + transform + ";-webkit-transform: " + transform + ";-ms-transform:" + transform;
+    });
+  };
+
+  return Parallax;
+}();
+/**
+ * You can apply fade in / out effect while panel is moving.
+ * @ko 패널들을 움직이면서 fade in / out 효과를 부여할 수 있습니다.
+ * @memberof eg.Flicking.plugins
+ */
+
+
+exports.Parallax = Parallax;
+
+var Fade = /*#__PURE__*/function () {
+  /**
+   * @param - The selector of the element to which the fade effect is to be applied. If the selector is blank, it applies to panel element. <ko>Fade 효과를 적용할 대상의 선택자. 선택자가 공백이면 패널 엘리먼트에 적용된다.</ko>
+   * @param - Effect amplication scale <ko>효과 증폭도</ko>
+   * @example
+   * flicking.addPlugins(new eg.Flicking.plugins.Fade("p", 1));
+   */
+  function Fade(selector, scale) {
+    if (selector === void 0) {
+      selector = "";
+    }
+
+    if (scale === void 0) {
+      scale = 1;
+    }
+
+    var _this = this;
+
+    this.selector = selector;
+    this.scale = scale;
+
+    this.onMove = function (e) {
+      _this.move(e.currentTarget);
+    };
+  }
+
+  var __proto = Fade.prototype;
+
+  __proto.init = function (flicking) {
+    flicking.on("move", this.onMove);
+    this.move(flicking);
+  };
+
+  __proto.update = function (flicking) {
+    this.move(flicking);
+  };
+
+  __proto.destroy = function (flicking) {
+    flicking.off("move", this.onMove);
+  };
+
+  __proto.move = function (flicking) {
+    var panels = flicking.getVisiblePanels();
+    var selector = this.selector;
+    var scale = this.scale;
+    panels.forEach(function (panel) {
+      var progress = panel.getOutsetProgress();
+      var el = panel.getElement();
+      var target = selector ? el.querySelector(selector) : el;
+      var opacity = Math.min(1, Math.max(0, 1 - Math.abs(progress * scale)));
+      target.style.opacity = "" + opacity;
+    });
+  };
+
+  return Fade;
+}();
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+
+
+exports.Fade = Fade;
+
+var __assign = function () {
+  __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var DEFAULT_OPTION = {
+  duration: 2000,
+  direction: "NEXT",
+  stopOnHover: false
+};
+/**
+ * Plugin that allow you to automatically move to the next/previous panel, on a specific time basis
+ * @ko 일정 시간마다, 자동으로 다음/이전 패널로 넘어가도록 할 수 있는 플러그인
+ * @memberof eg.Flicking.plugins
+ */
+
+var AutoPlay = /*#__PURE__*/function () {
+  /**
+   * @param options Options for the AutoPlay instance.<ko>AutoPlay 옵션</ko>
+   * @param options.duration Time to wait before moving on to the next panel.<ko>다음 패널로 움직이기까지 대기 시간</ko>
+   * @param options.direction The direction in which the panel moves.<ko>패널이 움직이는 방향</ko>
+   * @param options.stopOnHover Whether to stop when mouse hover upon the element.<ko>엘리먼트에 마우스를 올렸을 때 AutoPlay를 정지할지 여부</ko>
+   * @example
+   * flicking.addPlugins(new eg.Flicking.plugins.AutoPlay(2000, "NEXT"));
+   */
+  function AutoPlay(options, direction) {
+    if (options === void 0) {
+      options = DEFAULT_OPTION;
+    }
+
+    if (direction === void 0) {
+      direction = DEFAULT_OPTION.direction;
+    }
+
+    var _this = this;
+    /* Internal Values */
+
+
+    this.flicking = null;
+    this.timerId = 0;
+    this.mouseEntered = false;
+
+    this.play = function () {
+      var flicking = _this.flicking;
+      if (!flicking) return;
+
+      _this.stop();
+
+      if (_this.mouseEntered || flicking.isPlaying()) return;
+      _this.timerId = window.setTimeout(function () {
+        flicking[_this.direction === "NEXT" ? "next" : "prev"]();
+
+        _this.play();
+      }, _this.duration);
+    };
+
+    this.stop = function () {
+      clearTimeout(_this.timerId);
+    };
+
+    this.onMouseEnter = function () {
+      _this.mouseEntered = true;
+
+      _this.stop();
+    };
+
+    this.onMouseLeave = function () {
+      _this.mouseEntered = false;
+
+      _this.play();
+    };
+
+    if (typeof options === "number") {
+      // Fallback for previous interface
+      this.duration = options;
+      this.direction = direction;
+      this.stopOnHover = DEFAULT_OPTION.stopOnHover;
+      return;
+    }
+
+    var mergedOptions = __assign({}, DEFAULT_OPTION, options);
+
+    var duration = mergedOptions.duration,
+        dir = mergedOptions.direction,
+        stopOnHover = mergedOptions.stopOnHover;
+    this.duration = duration;
+    this.direction = dir;
+    this.stopOnHover = stopOnHover;
+  }
+
+  var __proto = AutoPlay.prototype;
+
+  __proto.init = function (flicking) {
+    flicking.on({
+      moveStart: this.stop,
+      holdStart: this.stop,
+      moveEnd: this.play,
+      select: this.play
+    });
+    this.flicking = flicking;
+
+    if (this.stopOnHover) {
+      var targetEl = this.flicking.getElement();
+      targetEl.addEventListener("mouseenter", this.onMouseEnter, false);
+      targetEl.addEventListener("mouseleave", this.onMouseLeave, false);
+    }
+
+    this.play();
+  };
+
+  __proto.destroy = function () {
+    var flicking = this.flicking;
+    this.mouseEntered = false;
+    this.stop();
+    if (!flicking) return;
+    flicking.off("moveStart", this.stop);
+    flicking.off("holdStart", this.stop);
+    flicking.off("moveEnd", this.play);
+    flicking.off("select", this.play);
+    var targetEl = flicking.getElement();
+    targetEl.removeEventListener("mouseenter", this.onMouseEnter, false);
+    targetEl.removeEventListener("mouseleave", this.onMouseLeave, false);
+    this.flicking = null;
+  };
+
+  return AutoPlay;
+}();
+/**
+ * @namepsace eg.Flicking
+ */
+
+
+exports.AutoPlay = AutoPlay;
+},{}],"src/components/realisations/realisations.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
 },{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
 module.exports = "/pepe-saber.ef97c8b8.gif";
 },{}],"src/components/realisations/realisations.jsx":[function(require,module,exports) {
@@ -90449,11 +103490,15 @@ var _react2 = require("@chakra-ui/react");
 
 var _icons = require("@chakra-ui/icons");
 
-var _reactAliceCarousel = _interopRequireDefault(require("react-alice-carousel"));
+var _flicking = require("@egjs/flicking");
 
-require("react-alice-carousel/lib/alice-carousel.css");
+var _reactFlicking = _interopRequireDefault(require("@egjs/react-flicking"));
+
+var _flickingPlugins = require("@egjs/flicking-plugins");
 
 var _fullViewportContainer = require("../full-viewport-container/full-viewport-container.jsx");
+
+require("./realisations.css");
 
 var _pepeSaber = _interopRequireDefault(require("../../assets/images/pepe-saber.gif"));
 
@@ -90463,63 +103508,100 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function Realisations() {
-  var itemsLength = Array.from({
-    length: 10
-  });
-  var items = itemsLength.map(function (item, index) {
-    return /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Center, {
-      minW: "200px",
-      minH: "200px",
+  var itemsLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  var items = itemsLength.map(function (item) {
+    return /*#__PURE__*/React.createElement(_react2.Center, {
+      key: item,
+      width: "200px",
+      height: "200px",
       bg: "tomato"
-    }, index));
+    }, item);
   });
-  var responsive = {
-    0: {
-      items: 1
-    },
-    475: {
-      items: 2
-    },
-    700: {
-      items: 3
-    },
-    975: {
-      items: 4
-    },
-    1200: {
-      items: 5
-    },
-    1425: {
-      items: 6
-    }
-  };
-  var style1 = {
-    position: "relative",
-    top: "50%",
-    transform: "translateY(-50%)",
-    borderTop: "solid",
-    borderBottom: "solid",
-    maxWidth: "95%"
-  };
+
+  var _React$useState = React.useState(itemsLength[0] || ''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      slideInfo = _React$useState2[0],
+      setSlideInfo = _React$useState2[1];
+
+  var carousel = React.useRef(null);
+  var handleSelect = React.useCallback(function (e) {
+    e.currentTarget.moveTo(e.index);
+  });
+  var handleChange = React.useCallback(function (e) {
+    setSlideInfo(itemsLength[e.index]);
+  });
   return /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
     id: "realisations"
   }, /*#__PURE__*/React.createElement(_react2.Container, {
-    pt: "2.5em",
-    pb: "2.5em",
-    style: style1
-  }, /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Heading, null, "R\xE9alisations")), /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Box, {
+    maxW: "95%",
+    className: "realisations-container"
+  }, /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Heading, null, "R\xE9alisations")), /*#__PURE__*/React.createElement(_react2.Box, {
+    mt: "1em",
     maxW: "100%"
-  }, /*#__PURE__*/React.createElement(_reactAliceCarousel.default, {
-    mouseTracking: true,
-    items: items,
-    responsive: responsive // renderDotsItem={() => null}
-    // renderPrevButton={() => null}
-    // renderNextButton={() => null}
+  }, /*#__PURE__*/React.createElement(_react2.Center, {
+    mb: "1em"
+  }, /*#__PURE__*/React.createElement(_react2.Heading, {
+    as: "h3",
+    fontSize: "lg"
+  }, slideInfo)), /*#__PURE__*/React.createElement(_reactFlicking.default, {
+    ref: carousel // tag = "div"
+    // viewportTag = "div"
+    // cameraTag = "div"
+    // onNeedPanel = {(e) => {}}
+    // onMoveStart = {(e) => {}}
+    // onMove = {(e) => {}}
+    // onMoveEnd = {(e) => {}}
+    // onHoldStart = {(e) => {}}
+    // onHoldEnd = {(e) => {}}
+    // onRestore = {(e) => {}}
+    ,
+    onSelect: handleSelect,
+    onChange: handleChange // classPrefix = "eg-flick"
+    // deceleration = {0.0075}
+    // horizontal = {true}
+    ,
+    circular: true,
+    plugins: [new _flickingPlugins.AutoPlay({
+      stopOnHover: true,
+      duration: 5000,
+      direction: "NEXT"
+    })] // infinite = {false}
+    // infiniteThreshold = {0}
+    // lastIndex = {Infinity}
+    // threshold = {40}
+    // duration = {100}
+    // panelEffect = {x => 1 - Math.pow(1 - x, 3)}
+    // defaultIndex = {0}
+    // inputType = {["touch", "mouse"]}
+    // thresholdAngle = {45}
+    // bounce = {10}
+    ,
+    autoResize: true,
+    adaptive: true // zIndex = {2000}
+    // bound = {false}
+    // overflow = {false}
+    // hanger = {"50%"}
+    // anchor = {"50%"}
+    ,
+    gap: 20 // moveType = {{type: "snap", count: 1}}
+    // collectStatistics = {true}
 
-  })))));
+  }, items))));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","react-alice-carousel":"node_modules/react-alice-carousel/lib/react-alice-carousel.js","react-alice-carousel/lib/alice-carousel.css":"node_modules/react-alice-carousel/lib/alice-carousel.css","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","../../assets/images/pepe-saber.gif":"src/assets/images/pepe-saber.gif"}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","@egjs/react-flicking":"node_modules/@egjs/react-flicking/dist/flicking.esm.js","@egjs/flicking-plugins":"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./realisations.css":"src/components/realisations/realisations.css","../../assets/images/pepe-saber.gif":"src/assets/images/pepe-saber.gif"}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -90593,7 +103675,7 @@ var _app = require("./app.jsx");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _reactDom.render)( /*#__PURE__*/_react.default.createElement(_react.default.StrictMode, null, /*#__PURE__*/_react.default.createElement(_react2.ChakraProvider, null, /*#__PURE__*/_react.default.createElement(_app.App, null))), document.querySelector('#root'));
+(0, _reactDom.render)( /*#__PURE__*/_react.default.createElement(_react2.ChakraProvider, null, /*#__PURE__*/_react.default.createElement(_app.App, null)), document.querySelector('#root'));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","./app.jsx":"src/app.jsx"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -90622,7 +103704,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56906" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55464" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

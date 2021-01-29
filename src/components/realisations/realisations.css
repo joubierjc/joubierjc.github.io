@@ -1,0 +1,9 @@
+.realisations-container {
+    position: relative;
+    top: 50%;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
+    transform: translateY(-50%);
+    border-top: solid;
+    border-bottom: solid;
+};

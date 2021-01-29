@@ -13,6 +13,8 @@
 
 .intro-presentation {
     border-radius: 8px;
+    padding-top: 2.5em;
+    padding-bottom: 2.5em;
 }
 
 .intro-presentation::before {    

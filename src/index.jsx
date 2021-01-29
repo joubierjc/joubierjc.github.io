@@ -4,11 +4,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { App } from './app.jsx';
 
-render(
-    <React.StrictMode>
-    <ChakraProvider>
+render(<ChakraProvider>
         <App/>
-    </ChakraProvider>
-    </React.StrictMode>,
+    </ChakraProvider>,
     document.querySelector('#root')
 );

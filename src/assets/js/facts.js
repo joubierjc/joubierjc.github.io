@@ -9,4 +9,4 @@ export default {
         "Je mets le lait après les céréales.",
         "J'adore les crêpes.",
     ]
-}
+};
