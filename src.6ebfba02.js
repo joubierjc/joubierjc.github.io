@@ -103474,8 +103474,21 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
-module.exports = "/pepe-saber.ef97c8b8.gif";
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/js/reals.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  data: [{
+    title: 'Portfolio - Jean-Christophe Joubier',
+    desc: "Mon propre portfolio, r\xE9alis\xE9 majoritairement avec React. Ce projet m'a permis d'appliquer les connaissances que j'ai pu acqu\xE9rir en React / Frontend dans un cadre r\xE9el.",
+    tech: ['Chakra UI', 'CSS', 'HTML', 'JS', 'Node', 'React']
+  }]
+};
+exports.default = _default;
 },{}],"src/components/realisations/realisations.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -103500,7 +103513,7 @@ var _fullViewportContainer = require("../full-viewport-container/full-viewport-c
 
 require("./realisations.css");
 
-var _pepeSaber = _interopRequireDefault(require("../../assets/images/pepe-saber.gif"));
+var _reals = _interopRequireDefault(require("../../assets/js/reals.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103512,43 +103525,61 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var realsData = _reals.default.data.length > 1 ? _reals.default.data : [].concat(_toConsumableArray(_reals.default.data), _toConsumableArray(_reals.default.data));
+
 function Realisations() {
-  var itemsLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  var items = itemsLength.map(function (item) {
-    return /*#__PURE__*/React.createElement(_react2.Center, {
-      key: item,
-      width: "200px",
-      height: "200px",
-      bg: "tomato"
-    }, item);
+  var handleSelect = React.useCallback(function (e) {
+    e.currentTarget.moveTo(e.index);
+  });
+  var handleChange = React.useCallback(function (e) {
+    setSlideInfo(realsData[e.index]);
   });
 
-  var _React$useState = React.useState(itemsLength[0] || ''),
+  var _useDisclosure = (0, _react2.useDisclosure)(),
+      isOpen = _useDisclosure.isOpen,
+      onOpen = _useDisclosure.onOpen,
+      onClose = _useDisclosure.onClose;
+
+  var _React$useState = React.useState(realsData[0]),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       slideInfo = _React$useState2[0],
       setSlideInfo = _React$useState2[1];
 
   var carousel = React.useRef(null);
-  var handleSelect = React.useCallback(function (e) {
-    e.currentTarget.moveTo(e.index);
-  });
-  var handleChange = React.useCallback(function (e) {
-    setSlideInfo(itemsLength[e.index]);
-  });
-  return /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
+  var items = React.useMemo(function () {
+    return realsData.map(function (item, index) {
+      return /*#__PURE__*/React.createElement(_react2.Center, {
+        key: index,
+        width: ['200px', '300px'],
+        height: ['200px', '300px'],
+        bg: "tomato"
+      }, /*#__PURE__*/React.createElement(_react2.Button, {
+        onClick: onOpen
+      }, index));
+    });
+  }, [realsData]);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
     id: "realisations"
   }, /*#__PURE__*/React.createElement(_react2.Container, {
     maxW: "95%",
     className: "realisations-container"
-  }, /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Heading, null, "R\xE9alisations")), /*#__PURE__*/React.createElement(_react2.Box, {
+  }, /*#__PURE__*/React.createElement(_react2.Center, null, /*#__PURE__*/React.createElement(_react2.Heading, null, "R\xE9alisations & Exp\xE9riences")), /*#__PURE__*/React.createElement(_react2.Box, {
     mt: "1em",
     maxW: "100%"
   }, /*#__PURE__*/React.createElement(_react2.Center, {
@@ -103556,52 +103587,34 @@ function Realisations() {
   }, /*#__PURE__*/React.createElement(_react2.Heading, {
     as: "h3",
     fontSize: "lg"
-  }, slideInfo)), /*#__PURE__*/React.createElement(_reactFlicking.default, {
-    ref: carousel // tag = "div"
-    // viewportTag = "div"
-    // cameraTag = "div"
-    // onNeedPanel = {(e) => {}}
-    // onMoveStart = {(e) => {}}
-    // onMove = {(e) => {}}
-    // onMoveEnd = {(e) => {}}
-    // onHoldStart = {(e) => {}}
-    // onHoldEnd = {(e) => {}}
-    // onRestore = {(e) => {}}
-    ,
+  }, slideInfo.title)), /*#__PURE__*/React.createElement(_reactFlicking.default, {
+    ref: carousel,
     onSelect: handleSelect,
-    onChange: handleChange // classPrefix = "eg-flick"
-    // deceleration = {0.0075}
-    // horizontal = {true}
-    ,
+    onChange: handleChange,
     circular: true,
     plugins: [new _flickingPlugins.AutoPlay({
       stopOnHover: true,
       duration: 5000,
       direction: "NEXT"
-    })] // infinite = {false}
-    // infiniteThreshold = {0}
-    // lastIndex = {Infinity}
-    // threshold = {40}
-    // duration = {100}
-    // panelEffect = {x => 1 - Math.pow(1 - x, 3)}
-    // defaultIndex = {0}
-    // inputType = {["touch", "mouse"]}
-    // thresholdAngle = {45}
-    // bounce = {10}
-    ,
+    })],
     autoResize: true,
-    adaptive: true // zIndex = {2000}
-    // bound = {false}
-    // overflow = {false}
-    // hanger = {"50%"}
-    // anchor = {"50%"}
-    ,
-    gap: 20 // moveType = {{type: "snap", count: 1}}
-    // collectStatistics = {true}
-
-  }, items))));
+    adaptive: true,
+    gap: 20
+  }, items)))), /*#__PURE__*/React.createElement(_react2.Modal, {
+    isOpen: isOpen,
+    onClose: onClose,
+    isCentered: true
+  }, /*#__PURE__*/React.createElement(_react2.ModalOverlay, null), /*#__PURE__*/React.createElement(_react2.ModalContent, null, /*#__PURE__*/React.createElement(_react2.ModalHeader, null, slideInfo.title), /*#__PURE__*/React.createElement(_react2.ModalCloseButton, null), /*#__PURE__*/React.createElement(_react2.ModalBody, null, /*#__PURE__*/React.createElement(_react2.Text, null, slideInfo.desc), /*#__PURE__*/React.createElement(_react2.Text, null, slideInfo.tech.join(', '))), /*#__PURE__*/React.createElement(_react2.ModalFooter, null, /*#__PURE__*/React.createElement(_react2.Button, {
+    colorScheme: "blue",
+    mr: 3,
+    onClick: onClose
+  }, "Close"), /*#__PURE__*/React.createElement(_react2.Button, {
+    variant: "ghost"
+  }, "Secondary Action")))));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","@egjs/react-flicking":"node_modules/@egjs/react-flicking/dist/flicking.esm.js","@egjs/flicking-plugins":"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./realisations.css":"src/components/realisations/realisations.css","../../assets/images/pepe-saber.gif":"src/assets/images/pepe-saber.gif"}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","@egjs/react-flicking":"node_modules/@egjs/react-flicking/dist/flicking.esm.js","@egjs/flicking-plugins":"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./realisations.css":"src/components/realisations/realisations.css","../../assets/js/reals.js":"src/assets/js/reals.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
+module.exports = "/pepe-saber.ef97c8b8.gif";
+},{}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -103704,7 +103717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55464" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51718" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
