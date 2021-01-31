@@ -6,7 +6,7 @@
     min-height: 50em;
 }
 
-.bg-image {
+.intro-bg-image {
     position: relative;
     background-image: url("/abstract-city.cbc591a2.jpg");
     filter: blur(8px);
@@ -16,7 +16,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    box-shadow: inset 10px -10px 25px rgba(0,0,0,0.6);
 }
 
 .intro-presentation {
@@ -88,7 +87,25 @@
     transform: translateY(-50%);
     border-top: solid;
     border-bottom: solid;
-};
+}
 
+.carousel-item {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.carousel-item-cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 250ms ease; 
+}
+
+.carousel-item-cover:hover {
+    transform: scale(1.2);
+}
 
 /*# sourceMappingURL=/src.6ebfba02.css.map */

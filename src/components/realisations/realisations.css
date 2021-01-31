@@ -6,4 +6,23 @@
     transform: translateY(-50%);
     border-top: solid;
     border-bottom: solid;
-};
+}
+
+.carousel-item {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.carousel-item-cover {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: 250ms ease; 
+}
+
+.carousel-item-cover:hover {
+    transform: scale(1.2);
+}

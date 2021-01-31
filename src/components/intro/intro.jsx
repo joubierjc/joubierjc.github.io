@@ -7,7 +7,7 @@ import { FullViewportContainer } from '../full-viewport-container/full-viewport-
 
 import './intro.css';
 import photo from '../../assets/images/photo.png';
-import facts from '../../assets/js/facts.js';
+import facts from '../../assets/data/facts.js';
 
 function shuffle(array) {
     let arr = array;
@@ -26,7 +26,6 @@ function shuffle(array) {
 
 function useCarousel(array, startingIndex = 0) {
     let index = startingIndex;
-    // const [value, setValue] = React.useState(array[index]);
     const [state, setState] = React.useState({ key: index, value: array[index] });
     const prev = () => {
         index = (index <= 0) && array.length - 1 || index - 1;
@@ -75,8 +74,16 @@ export function Intro() {
     const goToRealisations = React.useCallback(() => jump('#realisations'));
 
     return <FullViewportContainer id="intro">
-        <div className="bg-image"></div>
-        <Container className="intro-presentation" boxShadow="dark-lg" position="relative" top="-50%" transform="translateY(-50%)" maxW="6xl" centerContent>
+        <div className="intro-bg-image"></div>
+        <Container
+            className="intro-presentation"
+            boxShadow="dark-lg"
+            position="relative"
+            top="-50%"
+            transform="translateY(-50%)"
+            maxW="6xl"
+            centerContent
+            >
             
             <Box maxW="xs" position="relative">
                 <Image 
