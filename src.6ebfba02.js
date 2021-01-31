@@ -89139,7 +89139,7 @@ module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
 },{"./..\\..\\assets\\images\\abstract-city.jpg":[["abstract-city.cbc591a2.jpg","src/assets/images/abstract-city.jpg"],"src/assets/images/abstract-city.jpg"],"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/images/photo.png":[function(require,module,exports) {
 module.exports = "/photo.a5940a6a.png";
-},{}],"src/assets/js/facts.js":[function(require,module,exports) {
+},{}],"src/assets/data/facts.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89147,7 +89147,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _default = {
-  data: ["J'adore les challenges, apprendre et créer de nouvelles choses dès que je le peux.", "Je suis Game Dev sur mon temps libre.", "Je participe souvent à des game jams (Ludum Dare, Global Game Jam, ...).", "Je suis passionné par l'actorat.", "Je suis adepte des bonnes pratiques de codage.", "J'aimerais bien avoir un OneWheel, un jour.", "Je mets le lait après les céréales.", "J'adore les crêpes."]
+  data: ["J'adore les challenges, apprendre et créer de nouvelles choses dès que je le peux.", "Je suis Game Dev sur mon temps libre.", "Je participe souvent à des game jams (Ludum Dare, Global Game Jam, ...).", "Je suis passionné par l'actorat.", // "Je suis adepte des bonnes pratiques de codage.",
+  "J'aimerais bien avoir un OneWheel, un jour.", "Je mets le lait après les céréales.", "J'adore les crêpes."]
 };
 exports.default = _default;
 },{}],"src/components/intro/intro.jsx":[function(require,module,exports) {
@@ -89172,7 +89173,7 @@ require("./intro.css");
 
 var _photo = _interopRequireDefault(require("../../assets/images/photo.png"));
 
-var _facts = _interopRequireDefault(require("../../assets/js/facts.js"));
+var _facts = _interopRequireDefault(require("../../assets/data/facts.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -89221,7 +89222,7 @@ function shuffle(array) {
 
 function useCarousel(array) {
   var startingIndex = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var index = startingIndex; // const [value, setValue] = React.useState(array[index]);
+  var index = startingIndex;
 
   var _React$useState = React.useState({
     key: index,
@@ -89296,7 +89297,7 @@ function Intro() {
   return /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
     id: "intro"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "bg-image"
+    className: "intro-bg-image"
   }), /*#__PURE__*/React.createElement(_react2.Container, {
     className: "intro-presentation",
     boxShadow: "dark-lg",
@@ -89330,7 +89331,7 @@ function Intro() {
     onClick: goToRealisations
   })));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/js/facts.js":"src/assets/js/facts.js"}],"node_modules/@egjs/component/dist/component.esm.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","jump.js":"node_modules/jump.js/dist/jump.module.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./intro.css":"src/components/intro/intro.css","../../assets/images/photo.png":"src/assets/images/photo.png","../../assets/data/facts.js":"src/assets/data/facts.js"}],"node_modules/@egjs/component/dist/component.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -103474,22 +103475,49 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/js/reals.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/assets/data/reals/porfolio/portfolio-cover.png":[function(require,module,exports) {
+module.exports = "/portfolio-cover.13192a2c.png";
+},{}],"src/assets/data/reals/porfolio/portfolio-wip.png":[function(require,module,exports) {
+module.exports = "/portfolio-wip.b1538402.png";
+},{}],"src/assets/data/reals/portofolio.real.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _portfolioCover = _interopRequireDefault(require("./porfolio/portfolio-cover.png"));
+
+var _portfolioWip = _interopRequireDefault(require("./porfolio/portfolio-wip.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var _default = {
-  data: [{
-    title: 'Portfolio - Jean-Christophe Joubier',
-    desc: "Mon propre portfolio, r\xE9alis\xE9 majoritairement avec React. Ce projet m'a permis d'appliquer les connaissances que j'ai pu acqu\xE9rir en React / Frontend dans un cadre r\xE9el.",
-    tech: ['Chakra UI', 'CSS', 'HTML', 'JS', 'Node', 'React']
-  }]
+  title: 'Portfolio - Jean-Christophe Joubier',
+  desc: "Mon propre portfolio, r\xE9alis\xE9 majoritairement avec React. Ce projet m'a permis d'appliquer dans un cadre r\xE9el les connaissances que j'ai pu acqu\xE9rir en React / Frontend.",
+  tech: ['Chakra-UI', 'CSS', 'HTML', 'JS', 'Node', 'React'],
+  cover: _portfolioCover.default,
+  images: [_portfolioCover.default, _portfolioWip.default]
 };
 exports.default = _default;
-},{}],"src/components/realisations/realisations.jsx":[function(require,module,exports) {
+},{"./porfolio/portfolio-cover.png":"src/assets/data/reals/porfolio/portfolio-cover.png","./porfolio/portfolio-wip.png":"src/assets/data/reals/porfolio/portfolio-wip.png"}],"src/assets/data/reals/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _portofolioReal = _interopRequireDefault(require("./portofolio.real.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _default = {
+  data: [_portofolioReal.default]
+};
+exports.default = _default;
+},{"./portofolio.real.js":"src/assets/data/reals/portofolio.real.js"}],"src/components/realisations/realisations.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -103513,7 +103541,7 @@ var _fullViewportContainer = require("../full-viewport-container/full-viewport-c
 
 require("./realisations.css");
 
-var _reals = _interopRequireDefault(require("../../assets/js/reals.js"));
+var _reals = _interopRequireDefault(require("../../assets/data/reals"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103564,14 +103592,17 @@ function Realisations() {
   var carousel = React.useRef(null);
   var items = React.useMemo(function () {
     return realsData.map(function (item, index) {
-      return /*#__PURE__*/React.createElement(_react2.Center, {
+      return /*#__PURE__*/React.createElement(_react2.Square, {
+        className: "carousel-item",
         key: index,
-        width: ['200px', '300px'],
-        height: ['200px', '300px'],
-        bg: "tomato"
-      }, /*#__PURE__*/React.createElement(_react2.Button, {
+        size: ['200px', '300px']
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "carousel-item-cover",
+        style: {
+          backgroundImage: "url(".concat(item.cover, ")")
+        },
         onClick: onOpen
-      }, index));
+      }));
     });
   }, [realsData]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_fullViewportContainer.FullViewportContainer, {
@@ -103603,16 +103634,48 @@ function Realisations() {
   }, items)))), /*#__PURE__*/React.createElement(_react2.Modal, {
     isOpen: isOpen,
     onClose: onClose,
-    isCentered: true
-  }, /*#__PURE__*/React.createElement(_react2.ModalOverlay, null), /*#__PURE__*/React.createElement(_react2.ModalContent, null, /*#__PURE__*/React.createElement(_react2.ModalHeader, null, slideInfo.title), /*#__PURE__*/React.createElement(_react2.ModalCloseButton, null), /*#__PURE__*/React.createElement(_react2.ModalBody, null, /*#__PURE__*/React.createElement(_react2.Text, null, slideInfo.desc), /*#__PURE__*/React.createElement(_react2.Text, null, slideInfo.tech.join(', '))), /*#__PURE__*/React.createElement(_react2.ModalFooter, null, /*#__PURE__*/React.createElement(_react2.Button, {
-    colorScheme: "blue",
-    mr: 3,
+    isCentered: true,
+    scrollBehavior: "inside"
+  }, /*#__PURE__*/React.createElement(_react2.ModalOverlay, null), /*#__PURE__*/React.createElement(_react2.ModalContent, {
+    maxW: "6xl"
+  }, /*#__PURE__*/React.createElement(_react2.ModalHeader, null, slideInfo.title), /*#__PURE__*/React.createElement(_react2.ModalCloseButton, null), /*#__PURE__*/React.createElement(_react2.ModalBody, null, [isOpen && (slideInfo === null || slideInfo === void 0 ? void 0 : slideInfo.tech) && /*#__PURE__*/React.createElement(_react2.HStack, {
+    key: "tech"
+  }, slideInfo.tech.map(function (e, i) {
+    return /*#__PURE__*/React.createElement(_react2.Tag, {
+      key: "tech-".concat(i)
+    }, e);
+  })), isOpen && (slideInfo === null || slideInfo === void 0 ? void 0 : slideInfo.desc) && /*#__PURE__*/React.createElement(_react2.Text, {
+    key: "desc"
+  }, slideInfo.desc), isOpen && (slideInfo === null || slideInfo === void 0 ? void 0 : slideInfo.images) && /*#__PURE__*/React.createElement(_react2.VStack, {
+    key: "images"
+  }, slideInfo.images.map(function (e, i) {
+    return /*#__PURE__*/React.createElement(_react2.Image, {
+      key: "images-".concat(i),
+      src: e
+    });
+  }))].reduce(function (acc, x, i) {
+    if (acc) {
+      if (x) {
+        return [acc, /*#__PURE__*/React.createElement(_react2.Divider, {
+          key: "divider-".concat(i),
+          mt: "0.5em",
+          mb: "0.5em"
+        }), x];
+      }
+
+      return acc;
+    }
+
+    if (x) {
+      return [x];
+    }
+
+    return null;
+  })), /*#__PURE__*/React.createElement(_react2.ModalFooter, null, /*#__PURE__*/React.createElement(_react2.Button, {
     onClick: onClose
-  }, "Close"), /*#__PURE__*/React.createElement(_react2.Button, {
-    variant: "ghost"
-  }, "Secondary Action")))));
+  }, "Fermer")))));
 }
-},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","@egjs/react-flicking":"node_modules/@egjs/react-flicking/dist/flicking.esm.js","@egjs/flicking-plugins":"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./realisations.css":"src/components/realisations/realisations.css","../../assets/js/reals.js":"src/assets/js/reals.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","@chakra-ui/react":"node_modules/@chakra-ui/react/dist/esm/index.js","@chakra-ui/icons":"node_modules/@chakra-ui/icons/dist/esm/index.js","@egjs/flicking":"node_modules/@egjs/flicking/dist/flicking.esm.js","@egjs/react-flicking":"node_modules/@egjs/react-flicking/dist/flicking.esm.js","@egjs/flicking-plugins":"node_modules/@egjs/flicking-plugins/dist/plugins.esm.js","../full-viewport-container/full-viewport-container.jsx":"src/components/full-viewport-container/full-viewport-container.jsx","./realisations.css":"src/components/realisations/realisations.css","../../assets/data/reals":"src/assets/data/reals/index.js"}],"src/assets/images/pepe-saber.gif":[function(require,module,exports) {
 module.exports = "/pepe-saber.ef97c8b8.gif";
 },{}],"src/components/work-in-progress/work-in-progress.jsx":[function(require,module,exports) {
 "use strict";
@@ -103717,7 +103780,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51718" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64577" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
