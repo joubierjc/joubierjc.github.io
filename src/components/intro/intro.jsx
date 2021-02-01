@@ -79,7 +79,7 @@ export function Intro() {
             className="intro-presentation"
             boxShadow="dark-lg"
             position="relative"
-            top="-50%"
+            top="50%"
             transform="translateY(-50%)"
             maxW="6xl"
             centerContent

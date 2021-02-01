@@ -1,0 +1,7 @@
+.competences-container {
+    padding: 8px;
+    max-height: 25em;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto
+}

@@ -1,4 +1,4 @@
-.realisations-container {
+.container {
     position: relative;
     top: 50%;
     padding-top: 2.5em;
@@ -8,9 +8,16 @@
     border-bottom: solid;
 }
 
+/* hacking flicking carousel render */
+.container .eg-flick-viewport {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    height: 350px !important;
+}
+
 .carousel-item {
     overflow: hidden;
-    cursor: pointer;
+    border-radius: 8px;
 }
 
 .carousel-item-cover {
@@ -20,9 +27,31 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    transition: 250ms ease; 
+    transition: 250ms ease;
 }
 
-.carousel-item-cover:hover {
+.carousel-item-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+}
+
+.carousel-item-overlay-content {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.carousel-item:hover .carousel-item-cover
+, .carousel-item:active .carousel-item-cover {
     transform: scale(1.2);
+}
+
+.carousel-item:hover .carousel-item-overlay
+, .carousel-item:active .carousel-item-overlay {
+    opacity: 1;
 }

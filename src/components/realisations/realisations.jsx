@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Box, Button, Center, Container, Heading, Image, Text, IconButton, SimpleGrid, Square, useDisclosure, Tag, HStack, VStack, Divider } from '@chakra-ui/react';
-import { ArrowDownIcon } from '@chakra-ui/icons';
+import { Box, Button, Center, Container, Heading, Image, Link, Text, IconButton, SimpleGrid, Square, useDisclosure, Tag, HStack, VStack, Divider, useCallbackRef } from '@chakra-ui/react';
+import { ArrowDownIcon, ExternalLinkIcon, ViewIcon } from '@chakra-ui/icons';
 
 import {
     Modal,
@@ -42,15 +42,27 @@ export function Realisations() {
             return <Square
                 className="carousel-item"
                 key={index}
-                size={['200px', '300px']}>
-                    <div
-                        className="carousel-item-cover"
-                        style={{
-                            backgroundImage: `url(${item.cover})`
-                        }}
-                        onClick={onOpen}
-                        ></div>
-                </Square>
+                size={['200px', '300px']}
+                boxShadow="lg"
+                >
+                <div
+                    className="carousel-item-cover"
+                    style={{
+                        backgroundImage: `url(${item.cover || 'https://picsum.photos/300'})`
+                    }}
+                    >
+                </div>
+                <div className="carousel-item-overlay">
+                    <div className="carousel-item-overlay-content">
+                        <ViewIcon
+                            cursor="pointer"
+                            fontSize="6xl"
+                            color="white"
+                            onClick={onOpen}
+                            />
+                    </div>
+                </div>
+            </Square>
         });
     }, [realsData]);
 
@@ -58,7 +70,7 @@ export function Realisations() {
         <FullViewportContainer id="realisations">
             <Container 
                 maxW="95%"
-                className="realisations-container"
+                className="container"
                 >
                 <Center>
                     <Heading>Réalisations &amp; Expériences</Heading>
@@ -68,19 +80,17 @@ export function Realisations() {
                         <Heading as="h3" fontSize="lg">{slideInfo.title}</Heading>
                     </Center>
                     <Flicking ref={carousel}
-                        onSelect = {handleSelect}
-                        onChange = {handleChange}
-                        circular = {true}
-                        plugins={[
-                            new AutoPlay({
-                                stopOnHover: true,
-                                duration: 5000,
-                                direction: "NEXT"
-                            })
-                        ]}
-                        autoResize = {true}
-                        adaptive = {true}
-                        gap = {20}
+                        duration={500}
+                        onSelect={handleSelect}
+                        onChange={handleChange}
+                        circular={false}
+                        autoResize={true}
+                        adaptive={true}
+                        gap={20}
+                        // overflow={true}
+                        // style={{
+                        //     padding: "2em"
+                        // }}
                         >
                         {items}
                     </Flicking>
@@ -98,10 +108,16 @@ export function Realisations() {
             <ModalContent
                 maxW="6xl"
                 >
-                <ModalHeader>{slideInfo.title}</ModalHeader>
+                <ModalHeader>
+                    <Heading isTruncated>{slideInfo.title}</Heading>
+                </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     {[
+                        isOpen && slideInfo?.link && 
+                        <Link href={slideInfo.link} isExternal>
+                            Lien vers le projet <ExternalLinkIcon mx="2px"/>
+                        </Link>,
                         isOpen && slideInfo?.tech && 
                             <HStack key="tech">
                                 {slideInfo.tech.map((e, i) => <Tag key={`tech-${i}`}>{e}</Tag>)}
