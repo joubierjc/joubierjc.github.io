@@ -1,8 +1,7 @@
-.intro-bg-image {
+.bg-image {
     position: absolute;
-    background-image: url("../../assets/images/abstract-city.jpg");
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
     width: 100%;
     min-height: 50em;
     height: 100%;
@@ -19,30 +18,38 @@
 
 .intro-presentation::before {    
     content: "";
-    background: linear-gradient(45deg, black, white);
+    background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(255,255,255,0.6));
     position: absolute;
     top: 0px;
     right: 0px;
     bottom: 0px;
     left: 0px;
-    opacity: 0.5;
     border-radius: 8px;
     z-index: -1;
 }
 
+.bg-container {    
+    content: "";
+    background: linear-gradient(45deg, rgba(0,0,0,0.6), rgba(255,255,255,0.6));
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 8px;
+}
+
 .random-facts {
     border-radius: 8px;
-    background: white;
+    background: rgba(255,255,255,0.45);
 }
 
 .random-facts .box-header {
     position: absolute;
     width: 100%;
-    top: -1.25em;
-    text-align: center;
+    top: -0.5em;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background: rgb(255,255,255);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     z-index: 0;
@@ -57,6 +64,11 @@
 .random-facts .fact {
     font-style: italic;
     opacity: 1;
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+}
+
+.fade-in {
     animation: fadeIn ease 1s;
     -webkit-animation: fadeIn ease 1s;
 }

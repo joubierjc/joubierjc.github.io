@@ -4,15 +4,13 @@
     padding-top: 2.5em;
     padding-bottom: 2.5em;
     transform: translateY(-50%);
-    border-top: solid;
-    border-bottom: solid;
 }
 
 /* hacking flicking carousel render */
 .container .eg-flick-viewport {
     padding-top: 25px;
     padding-bottom: 25px;
-    height: 350px !important;
+    height: 300px !important;
 }
 
 .carousel-item {

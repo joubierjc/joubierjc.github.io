@@ -8,6 +8,7 @@ import { FullViewportContainer } from '../full-viewport-container/full-viewport-
 import './intro.css';
 import photo from '../../assets/images/photo.png';
 import facts from '../../assets/data/facts.js';
+import bgImage from '../../assets/images/abstract-city.jpg';
 
 function shuffle(array) {
     let arr = array;
@@ -59,7 +60,16 @@ function RandomFacts() {
         return () => clearInterval(timer);
     }, []);
 
-    return <Box mt="0.5em" mb="0.5em" className="random-facts" boxShadow="base" width="100%" maxW="5xl" position="relative">
+    return <Box
+        mt="0.5em"
+        mb="0.5em"
+        pt="0.5em"
+        className="random-facts"
+        boxShadow="lg"
+        width="100%" 
+        maxW="5xl"
+        position="relative"
+        >
         <div className="box-header">Random facts</div>
         <Center p="5" position="relative" minH="100px" overflow="hidden" fontSize="md">
             <div key={data.key} className="fact">
@@ -74,7 +84,12 @@ export function Intro() {
     const goToRealisations = React.useCallback(() => jump('#realisations'));
 
     return <FullViewportContainer id="intro">
-        <div className="intro-bg-image"></div>
+        <div
+            className="bg-image"
+            style={{
+                backgroundImage: `url(${bgImage})`
+            }}
+            ></div>
         <Container
             className="intro-presentation"
             boxShadow="dark-lg"
@@ -87,7 +102,7 @@ export function Intro() {
             
             <Box maxW="xs" position="relative">
                 <Image 
-                    boxShadow="base"
+                    boxShadow="lg"
                     src={photo} 
                     fallbackSrc="https://via.placeholder.com/1080"
                     borderRadius="full"
@@ -103,6 +118,7 @@ export function Intro() {
             <IconButton
                 mt=".5em"
                 borderRadius="full"
+                overflow="hidden"
                 size="6xl"
                 fontSize="6xl"
                 icon={<ArrowDownIcon/>}

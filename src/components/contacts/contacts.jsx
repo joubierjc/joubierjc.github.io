@@ -1,16 +1,15 @@
 import * as React from 'react';
-import { Box, Center, Container, CircularProgress, CircularProgressLabel, Heading, Wrap, WrapItem, SimpleGrid, Text, Progress } from '@chakra-ui/react';
+import { Box, Center, Container, CircularProgress, CircularProgressLabel, Flex, Heading, Image, Link, Wrap, WrapItem, SimpleGrid } from '@chakra-ui/react';
+import { ArrowDownIcon, ExternalLinkIcon, ViewIcon } from '@chakra-ui/icons';
 
 import { FullViewportContainer } from '../full-viewport-container/full-viewport-container.jsx'
 
-import skillsData from '../../assets/data/skills.js';
+import contactsData from '../../assets/data/contacts.js';
+import bgImage from '../../assets/images/contacts-cover.webp';
 
-import './competences.css';
-import bgImage from '../../assets/images/skills-cover.webp';
-
-const skillsElement = skillsData.data.sort((a, b) => {
-    const aName = a.name.toUpperCase();
-    const bName = b.name.toUpperCase();
+const contactInfos = contactsData.data.sort((a, b) => {
+    const aName = a.label.toUpperCase();
+    const bName = b.label.toUpperCase();
     if (aName < bName) {
         return -1; //nameA comes first
       }
@@ -19,6 +18,7 @@ const skillsElement = skillsData.data.sort((a, b) => {
       }
       return 0;  // names must be equal
 }).map((e, i) => 
+    
     <Center
         key={i}>
         <Box
@@ -29,32 +29,27 @@ const skillsElement = skillsData.data.sort((a, b) => {
             w="100%"
             maxW="410px"
             >
-            <CircularProgress
-                mr="8px"
-                value={e.value}>
-                <CircularProgressLabel>{e.value}%</CircularProgressLabel>
-            </CircularProgress>
-            <Text
-                as="span"
-                width="100%"
-                margin="auto"
-                >
-                {e.name}
-            </Text>
-            <Progress
-                mt="0.25em"
-                mb="0.25em"
-                h="0.5em"
-                hasStripe
-                value={e.value}
-                />
+            
+            <Link
+                display="flex"
+                alignItems="center"
+                href={e.link}
+                isExternal>
+                <Image
+                    mr="8px"
+                    h="50px"
+                    src={e.logo}
+                    />
+                <span>{e.label} <ExternalLinkIcon mx="2px"/></span>
+            </Link>
+            
         </Box>
     </Center>
 );
 
-export function Competences() {
+export function Contacts() {
 
-    return <FullViewportContainer id="competences">
+    return <FullViewportContainer id="contacts">
         <div
             className="bg-image"
             style={{
@@ -67,7 +62,7 @@ export function Competences() {
             boxShadow="dark-lg"
             >
             <Center>
-                <Heading>Compétences</Heading>
+                <Heading>Contacts &amp; Réseaux sociaux</Heading>
             </Center>
             <Box mt="1em" maxW="100%">
                 <Center w="100%">
@@ -76,7 +71,7 @@ export function Competences() {
                         minChildWidth="200px"
                         spacing="10px"
                         >
-                        {skillsElement}
+                        {contactInfos}
                     </SimpleGrid>
                 </Center>
             </Box>

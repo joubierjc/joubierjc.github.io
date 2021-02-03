@@ -10,7 +10,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-  } from "@chakra-ui/react"
+} from "@chakra-ui/react"
 
 import { FlickingEvent, SelectEvent, ChangeEvent, NeedPanelEvent } from "@egjs/flicking";
 import Flicking from "@egjs/react-flicking";
@@ -20,6 +20,7 @@ import { FullViewportContainer } from '../full-viewport-container/full-viewport-
 
 import './realisations.css';
 import reals from '../../assets/data/reals';
+import bgImage from '../../assets/images/projects-cover.webp';
 
 const realsData = reals.data.length > 1 ? reals.data : [...reals.data, ...reals.data];
 
@@ -42,7 +43,7 @@ export function Realisations() {
             return <Square
                 className="carousel-item"
                 key={index}
-                size={['200px', '300px']}
+                size="250px"
                 boxShadow="lg"
                 >
                 <div
@@ -68,9 +69,16 @@ export function Realisations() {
 
     return <>
         <FullViewportContainer id="realisations">
+            <div
+                className="bg-image"
+                style={{
+                    backgroundImage: `url(${bgImage})`
+                }}
+                ></div>
             <Container 
-                maxW="95%"
-                className="container"
+                maxW="6xl"
+                className="container bg-container"
+                boxShadow="dark-lg"
                 >
                 <Center>
                     <Heading>Réalisations &amp; Expériences</Heading>
@@ -123,7 +131,7 @@ export function Realisations() {
                                 {slideInfo.tech.map((e, i) => <Tag key={`tech-${i}`}>{e}</Tag>)}
                             </HStack>,
                         isOpen && slideInfo?.desc &&
-                            <Text key="desc">{slideInfo.desc}</Text>,
+                            <div>{slideInfo.desc}</div>,
                         isOpen && slideInfo?.images &&
                             <VStack key="images">
                                 {slideInfo.images.map((e, i) => <Image key={`images-${i}`} src={e}/>)}

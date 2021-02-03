@@ -12,5 +12,6 @@ export default {
         { value: 80, name: 'Créativité' },
         { value: 80, name: 'Social' },
         { value: 100, name: 'Humour' },
+        { value: 60, name: 'React' },
     ]
 }

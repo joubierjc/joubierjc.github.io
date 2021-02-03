@@ -1,7 +1,7 @@
-.competences-container {
+.grid-container {
     padding: 8px;
-    max-height: 25em;
-    max-width: 100%;
+    max-height: 20em;
+    width: 100%;
     overflow-x: hidden;
     overflow-y: auto
 }
