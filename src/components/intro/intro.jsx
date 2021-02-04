@@ -81,7 +81,7 @@ function RandomFacts() {
 
 export function Intro() {
 
-    const goToRealisations = React.useCallback(() => jump('#realisations'));
+    const goToRealisations = React.useCallback(() => jump('#realisations', { duration: 1000 }));
 
     return <FullViewportContainer id="intro">
         <div
