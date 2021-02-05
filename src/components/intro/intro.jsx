@@ -81,7 +81,7 @@ function RandomFacts() {
 
 export function Intro() {
 
-    const goToRealisations = React.useCallback(() => jump('#realisations', { duration: 1000 }));
+    // const goToRealisations = React.useCallback(() => jump('#realisations', { duration: 1000 }));
 
     return <FullViewportContainer id="intro">
         <div
@@ -115,7 +115,7 @@ export function Intro() {
 
             <RandomFacts/>
 
-            <IconButton
+            {/* <IconButton
                 mt=".5em"
                 borderRadius="full"
                 overflow="hidden"
@@ -123,7 +123,7 @@ export function Intro() {
                 fontSize="6xl"
                 icon={<ArrowDownIcon/>}
                 onClick={goToRealisations}
-            />
+            /> */}
 
         </Container>
     </FullViewportContainer>

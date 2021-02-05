@@ -26,19 +26,20 @@ const contactInfos = contactsData.data.sort((a, b) => {
             borderRadius="8px"
             boxShadow="base"
             bg="azure"
-            w="100%"
-            maxW="410px"
+            w="300px"
             >
             
             <Link
                 display="flex"
                 alignItems="center"
+                justifyContent="center"
                 href={e.link}
                 isExternal>
                 <Image
                     mr="8px"
                     h="50px"
                     src={e.logo}
+                    fallbackSrc="https://via.placeholder.com/50"
                     />
                 <span>{e.label} <ExternalLinkIcon mx="2px"/></span>
             </Link>
@@ -64,11 +65,14 @@ export function Contacts() {
             <Center>
                 <Heading>Contacts &amp; Réseaux sociaux</Heading>
             </Center>
+            <Center mt="1em">
+                <Heading as="h3" fontSize="lg">Pour plus de détails sur mon parcours, et tout le reste...</Heading>
+            </Center>
             <Box mt="1em" maxW="100%">
                 <Center w="100%">
                     <SimpleGrid
                         className="grid-container"
-                        minChildWidth="200px"
+                        minChildWidth="300px"
                         spacing="10px"
                         >
                         {contactInfos}

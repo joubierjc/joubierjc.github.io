@@ -9,12 +9,13 @@ import { CheckIcon } from '@chakra-ui/icons';
 
 import jump from 'jump.js';
 
-let pages = [];
+let pages = document.querySelectorAll('.full-viewport-container'); // guves the correct type, should be empty by default, since nothing is loaded yet.
 let isMobile = false;
 let itemHeight = 0;
 let currentPage = 0;
 let isEnableScroll = true;
 let timer = null;
+let isModalOpen = false;
 
 function getScrollTop() {
     return document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset;
@@ -24,45 +25,53 @@ function getPageIndex(isNear) {
     let height = itemHeight;
     let scrollTop = getScrollTop();
     let page = Math.floor(scrollTop / height);
-    let progress = scrollTop % height;
+    // let progress = scrollTop % height;
 
     return page;
 }
 
 function handleWheelEvent(e) {
-    if (!isMobile) {
+    handleResize(); // calling this here because it avoid some element resize issue happenning during page loading
+
+    if (!isMobile && !isModalOpen) {
         e.preventDefault();
         if (isEnableScroll) {
             let index = getPageIndex();
             let delta = e.deltaY;
 
-            if (delta > 0) {
+            if (delta > 0 && index + 1 < pages.length) {
                 jump(pages[index + 1], { duration: 1000 });
+                handleScrollTimer();
             }
-            else if (delta < 0) {
+            else if (delta < 0 && index - 1 >= 0) {
                 jump(pages[index - 1], { duration: 1000 });
+                handleScrollTimer();
             }
 
-            isEnableScroll = false;
-            if (timer) {
-              clearTimeout(timer);
-            }
-            timer = setTimeout(function () {
-              isEnableScroll = true;
-            }, 1000);
         }
     }
 }
 
-function check() {
+function handleScrollTimer() {
+    isEnableScroll = false;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+        isEnableScroll = true;
+    }, 1100);
+}
+
+function checkPage() {
     var page = getPageIndex();
 
     if (page !== currentPage) {
         // changePagination(currentPage, page);
+        currentPage = page;
     }
 }
 
-function resize() {
+function handleResize() {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
@@ -72,26 +81,28 @@ function resize() {
 
 export function App() {
     
+    const handleModalChange = React.useCallback(isOpen => isModalOpen = isOpen, []);
+
     React.useEffect(() => {
         pages = document.querySelectorAll('.full-viewport-container');
 
-        window.addEventListener('resize', resize);
-        window.addEventListener("scroll", check);
+        window.addEventListener('resize', handleResize);
+        window.addEventListener("scroll", checkPage);
         window.addEventListener('wheel', handleWheelEvent, { passive: false });
 
-        resize();
-        check();
+        handleResize();
+        checkPage();
 
         return () => {
-            window.removeEventListener('resize', resize);
-            window.removeEventListener("scroll", check);
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener("scroll", checkPage);
             window.removeEventListener('wheel', handleWheelEvent);
         }
     }, []);
 
     return <> 
         <Intro/>
-        <Realisations/>
+        <Realisations onModalStateChange={handleModalChange}/>
         <Competences/>
         <Contacts/>
         <WorkInProgress/>

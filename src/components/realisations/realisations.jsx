@@ -24,7 +24,7 @@ import bgImage from '../../assets/images/projects-cover.webp';
 
 const realsData = reals.data.length > 1 ? reals.data : [...reals.data, ...reals.data];
 
-export function Realisations() {
+export function Realisations({onModalStateChange}) {
 
     const handleSelect = React.useCallback((e) => {
         e.currentTarget.moveTo(e.index);
@@ -32,11 +32,23 @@ export function Realisations() {
     const handleChange = React.useCallback((e) => {
         setSlideInfo(realsData[e.index]);
     });
+
+    const handleOpen = React.useCallback(() => {
+        onOpen();
+        onModalStateChange(true);
+    });
+
+    const handleClose = React.useCallback(() => {
+        onClose();
+        onModalStateChange(false);
+    });
+
+
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [slideInfo, setSlideInfo] = React.useState(realsData[0]);
 
-    const carousel = React.useRef(null);
+    // const carousel = React.useRef(null);
 
     const items = React.useMemo(() => {
         return realsData.map((item, index) => {
@@ -59,7 +71,7 @@ export function Realisations() {
                             cursor="pointer"
                             fontSize="6xl"
                             color="white"
-                            onClick={onOpen}
+                            onClick={handleOpen}
                             />
                     </div>
                 </div>
@@ -87,7 +99,7 @@ export function Realisations() {
                     <Center mb="1em">
                         <Heading as="h3" fontSize="lg">{slideInfo.title}</Heading>
                     </Center>
-                    <Flicking ref={carousel}
+                    <Flicking
                         duration={500}
                         onSelect={handleSelect}
                         onChange={handleChange}
@@ -95,10 +107,6 @@ export function Realisations() {
                         autoResize={true}
                         adaptive={true}
                         gap={20}
-                        // overflow={true}
-                        // style={{
-                        //     padding: "2em"
-                        // }}
                         >
                         {items}
                     </Flicking>
@@ -108,7 +116,7 @@ export function Realisations() {
 
         <Modal 
             isOpen={isOpen}
-            onClose={onClose}
+            onClose={handleClose}
             isCentered
             scrollBehavior="inside"
             >
@@ -131,7 +139,7 @@ export function Realisations() {
                                 {slideInfo.tech.map((e, i) => <Tag key={`tech-${i}`}>{e}</Tag>)}
                             </HStack>,
                         isOpen && slideInfo?.desc &&
-                            <div>{slideInfo.desc}</div>,
+                                <div key="desc">{slideInfo.desc}</div>,
                         isOpen && slideInfo?.images &&
                             <VStack key="images">
                                 {slideInfo.images.map((e, i) => <Image key={`images-${i}`} src={e}/>)}
@@ -151,7 +159,10 @@ export function Realisations() {
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button onClick={onClose}>Fermer</Button>
+                    <Button
+                        onClick={handleClose}>
+                        Fermer
+                    </Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>
