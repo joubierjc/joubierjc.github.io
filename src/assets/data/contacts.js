@@ -1,5 +1,6 @@
-import linkedin from '../images/linkedin-logo.svg';
-import github from '../images/github-logo.png';
+import linkedin from '../images/linkedin-50.jpg';
+import itch from '../images/itch-50.jpg';
+import github from '../images/github-50.png';
 
 export default {
     data: [
@@ -9,7 +10,7 @@ export default {
             link: 'https://www.linkedin.com/in/jean-christophe-joubier/',
         },
         {
-            logo: 'https://avatars0.githubusercontent.com/u/14803619',
+            logo: itch,
             label: 'efrag',
             link: 'https://efrag.itch.io/',
         },

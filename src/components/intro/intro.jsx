@@ -6,7 +6,7 @@ import jump from 'jump.js';
 import { FullViewportContainer } from '../full-viewport-container/full-viewport-container.jsx'
 
 import './intro.css';
-import photo from '../../assets/images/photo.png';
+import photo from '../../assets/images/photo-320.png';
 import facts from '../../assets/data/facts.js';
 import bgImage from '../../assets/images/abstract-city.jpg';
 
@@ -104,7 +104,7 @@ export function Intro() {
                 <Image 
                     boxShadow="lg"
                     src={photo} 
-                    fallbackSrc="https://via.placeholder.com/1080"
+                    fallbackSrc="https://via.placeholder.com/320"
                     borderRadius="full"
                 />
             </Box>
